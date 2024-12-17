@@ -1,0 +1,6 @@
+---
+title: "Introduction"
+format: html
+---
+
+This is the City Nature Challenge workshop.

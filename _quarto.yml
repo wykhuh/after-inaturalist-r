@@ -1,0 +1,42 @@
+project:
+  type: website
+  render:
+    - index.qmd
+    - lessons/intro-data-analysis.qmd
+    - lessons/intro-r-rstudio.qmd
+    - lessons/working-with-data.qmd
+    - lessons/creating-maps.qmd
+    - lessons/creating-charts.qmd
+    - lessons/census.qmd
+
+  output-dir: docs
+  preview:
+    port: 4200
+
+website:
+  title: "quarto_website"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+  sidebar:
+    style: "docked"
+    contents:
+      - index.qmd
+      - lessons/intro-data-analysis.qmd
+      - lessons/intro-r-rstudio.qmd
+      - lessons/working-with-data.qmd
+      - lessons/creating-maps.qmd
+      - lessons/creating-charts.qmd
+      - lessons/census.qmd
+
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+
+

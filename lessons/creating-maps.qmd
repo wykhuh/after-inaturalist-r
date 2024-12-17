@@ -1,0 +1,284 @@
+---
+title: "Creating maps"
+format: html
+include-in-header: "components/add-answer-button.html"
+---
+
+::: summary
+## Questions
+
+-   How do we create maps using R?
+
+## Objectives
+
+-   Learn how to plot iNaturalist observations on a map
+-   Learn how to create static maps with ggplot2
+-   Learn how to create interactive maps with mapview
+:::
+
+## Geographic concepts
+
+Geographic data is data that has a location. There are various file formats for geographic data. Shape files for GIS applications, KML for Google maps, geojson for web applications.
+
+Earth is a 3D sphere. Maps are 2D representation of a 3D sphere. Map projections are ways to represent a sphere as a flat surface. A coordinate reference system (CRS) defines the two-dimensional, projected map in your GIS relates to real places on the earth.
+
+You can get boundaries for countries, states, cities, etc from various sources. I googled "Los Angeles county boundary shape" which had a link to "County Boundary \| City of Los Angeles Hub - LA GeoHub" https://geohub.lacity.org/datasets/10f1e37c065347e693cf4e8ee753c09b I downloaded the shapefile for LA county.
+
+You can also create your boundaries using GIS applications or GIS web applications.
+
+## Mapping iNaturalist data
+
+iNaturalist data includes latitude and longitude, which means we can put the observations in a map. There are several packages to create maps. We will use ggplot and mapview packages.
+
+loading R packages
+
+```{r}
+#| error: false
+#| warning: false
+#| message: false
+
+library(dplyr)
+library(readr)
+
+library(sf)
+library(ggplot2)
+library(mapview)
+
+```
+
+Read data from the cleaned iNaturalist observation file.
+
+```{r}
+#| cache: true
+#| warning: false
+#| message: false
+inat <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+
+```
+
+Use `names` to see all the column names. "latitude" and "longitude" are the column names we need.
+
+```{r}
+names(inat)
+```
+
+We use the sf package to add geographic data to our dataframe. `st_as_sf()` from `sf` package will take the longitude and latitude and add a `geometry` column that we can use for mapping.
+
+-   We pass in longitude and latitude columns to coors argument. Must wrap longitude and latitude in quotes.
+-   crs is coordinate reference system. 4326 is code for the WGS 84 CRS. It used by many GIS applications.
+-   `remove=FALSE` will keep the longitude and latitude columns in the dataframe
+
+```{r}
+temp <- inat %>% 
+  st_as_sf(coords = c("longitude", "latitude"),   crs = 4326, remove=FALSE)
+```
+
+use `names()` to get a list of all the columns. A `geometry` column was added.
+
+```{r}
+names(temp)
+```
+
+use select to pick which columns to use.
+
+```{r}
+inat_map <- inat %>% 
+  st_as_sf(coords = c("longitude", "latitude"),   crs = 4326, remove=FALSE) %>% 
+  select(id, user_login, common_name, scientific_name, observed_on,  url, longitude, latitude, geometry) 
+```
+
+Use `dim()` to show the number of rows and columns. There are over 169K rows.
+
+```{r}
+dim(inat_map)
+```
+
+## static map
+
+Use ggplot to create static map for the observations. `geom_sf` will use `geometry` column to produce a map.
+
+```{r}
+
+ggplot() +
+  geom_sf(data = inat_map)  
+
+```
+
+## interactive map
+
+use mapview package to create interactive maps where you can zoom in and out.
+
+Since there are over 169K rows, an interactive map will be very slow. I suggest not using mapview if there are lots of rows.
+
+To speed up the interactive map, let's filter the list of observations. Get all observations for Western Fence Lizard.
+
+```{r}
+inat_lizard <- inat_map %>% 
+  filter(common_name == 'Western Fence Lizard')
+```
+
+Use dim to get number of rows. About 3000 rows.
+
+```{r}
+dim(inat_lizard)
+```
+
+Create interactive map. You can zoom in and out. Click on observation to see the info.
+
+```{r}
+mapview(inat_lizard)
+```
+
+## working with other geographic files
+
+Let's add LA county boundaries to the map.
+
+I downloaded the LA county boundaries from https://geohub.lacity.org/datasets/lacounty::county-boundaries/explore
+
+use `read_sf()` from `sf` package to read the shape file.
+
+```{r}
+la_county <- read_sf('data/raw/County_Boundary/County_Boundary.shp')
+```
+
+add LA County to maps.
+
+```{r}
+ggplot() +
+  geom_sf(data = la_county)  +
+  geom_sf(data = inat_lizard) 
+```
+
+```{r}
+
+mapview(la_county) +
+  mapview(inat_lizard) 
+```
+
+:::: exercise
+## Exercise 1
+
+Create a map for one species. Include the boundaries for LA County.
+
+::: answer
+```{r}
+inat_finch <- inat_map %>% 
+  filter(common_name == 'House Finch')
+
+mapview(la_county) + 
+  mapview(inat_finch)
+```
+:::
+::::
+
+## Exploring iNaturlist data in specific area
+
+Lets look for all iNaturalist observations made in Exposition Park.
+
+I used this [Draw map boundaries](https://wykhuh.github.io/draw-map-boundaries/) to draw and download the boundaries of Exposition Park.
+
+```{r}
+expo_park <- st_read('data/raw/boundaries_expo_park_area.geojson')  %>% 
+  st_transform(4326)
+```
+
+plot map of Expo Park.
+
+```{r}
+ggplot() +
+  geom_sf(data = expo_park) 
+```
+
+```{r}
+mapview(expo_park) 
+```
+
+We want to get observation inside Expo Park.
+
+You should check if the crs for the inaturalist data and the Expo Park are the same
+
+```{r}
+st_crs(expo_park) == st_crs(inat_map)
+
+```
+
+Use `st_intersection()` to get all observations that inside of Exposition Park.
+
+```{r}
+inat_expo <- inat_map %>% st_intersection(expo_park)
+```
+
+Use dim to get row and column count. 169K in LA county. 2500 observation in Expo Park.
+
+```{r}
+dim(inat_map)
+
+dim(inat_expo)
+```
+
+Create map of all observations in Expo Park.
+
+```{r}
+ggplot() +
+  geom_sf(data = expo_park)  +
+  geom_sf(data = inat_expo) 
+```
+
+```{r}
+mapview(expo_park) +
+  mapview(inat_expo) 
+
+```
+
+Use alpha.regions to set opacity. use col.regions to set color.
+
+```{r}
+mapview(expo_park,   alpha.regions=0.3, col.regions="#333333") +
+  mapview(inat_expo) 
+```
+
+::: exercise
+## Exercise 2
+
+Create a map for one species that are inside of a specific area
+
+-   Used [Draw map boundaries](https://wykhuh.github.io/draw-map-boundaries/) to draw and download an area that you are interested in.
+-   Save the file to the `data/raw` directory.
+-   use `st_read` to read your boundary data.
+-   use `st_intersection` to get observations inside a boundary :::::: answer
+
+```{r}
+
+expo_park <- st_read('data/raw/boundaries_expo_park_area.geojson')  %>% 
+  st_transform(4326)
+
+
+inat_finch <- inat_map %>% 
+  filter(common_name == 'House Finch')  %>% 
+  st_intersection(expo_park)
+
+
+mapview(expo_park) + 
+  mapview(inat_finch)
+```
+:::
+
+:::
+
+## Exporting maps
+
+We can export the static maps created with ggplot. We can not export the interactive maps created with mapview.
+
+Assign the map to an object. Then run ggsave() to save our map The first argument we give is the path to the file we want to save, including the correct file extension. You can save as jpb, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.
+
+```{r}
+my_map <- ggplot() +
+  geom_sf(data = expo_park)  +
+  geom_sf(data = inat_expo) 
+
+my_map
+```
+
+```{r}
+ggsave(filename = 'results/expo_park_observations.jpg', plot = my_map,  height = 6, width = 8)
+```

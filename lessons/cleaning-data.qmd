@@ -1,0 +1,65 @@
+## Cleaning data
+
+A common step during data analysis is to clean up the raw data. We fix any obvious errors, edit column names, exclude rows we do not want, and save the cleaned up data set. We do the analysis on the cleaned data set.
+
+The CSV we downloaded from iNaturalist had several problems.
+
+-   some observation did not have a species
+-   some observations did not have location information
+-   some observations were not in Los Angeles
+
+In order to simplify things for the workshop attendees, we filtered out the problematic observations and created a cleaned up CSV.
+
+## Cleaning up iNaturalist file
+
+These are the steps we took to produced the cleaned up file. The raw file is at `data/raw/observations-397280.csv`, the cleaned file is at `data/cleaned/cnc-los-angeles-observations.csv`
+
+```{r}
+library(readr)
+```
+
+```{r}
+inat_raw <- read_csv('data/raw/observations-397280.csv')
+```
+
+Use `colSums(is.na())` to count the number of rows that have NA values for each column.
+
+```{r}
+colSums(is.na(inat_raw))
+```
+
+All rows have id, observed_on, and user_id.
+
+1685 rows don't have scientific_name. 438 rows don't have latitude or longitude.
+
+Use `filter` to select the observations we want.
+
+`!is.na` will select rows that have are not NA, meaning rows that have a value. We select observations that have latitude, langitude, and scientific_name.
+
+We save the cleaned up data in a new object `inat`.
+
+```{r}
+inat <- inat_raw %>% 
+  filter(!is.na(latitude) &
+           !is.na(longitude) &
+           !is.na(scientific_name)) %>%
+    filter(latitude < 40)  
+
+
+```
+
+The original dataframe 'inat_raw' had 171K rows, the cleaned dataframe 'inat' has 169K rows.
+
+We can double check our work.
+
+latitude, longitude, scientific_name have zero NA.
+
+```{r}
+colSums(is.na(inat))
+```
+
+We want to save the cleaned up data set so we can use it later. We can save data.frame to a CSV using the `write_csv()` function from the `readr` package. The first argument is the name of the data.frame, and the second is the path to the new file we want to create.
+
+```{r}
+write_csv(inat, file= 'data/cleaned/cnc-los-angeles-observations.csv')
+```
