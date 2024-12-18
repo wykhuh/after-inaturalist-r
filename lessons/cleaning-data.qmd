@@ -12,14 +12,18 @@ In order to simplify things for the workshop attendees, we filtered out the prob
 
 ## Cleaning up iNaturalist file
 
-These are the steps we took to produced the cleaned up file. The raw file is at `data/raw/observations-397280.csv`, the cleaned file is at `data/cleaned/cnc-los-angeles-observations.csv`
+These are the steps we took to produced the cleaned up file. The raw file is at `data/raw/observations-512870.csv`, the cleaned file is at `data/cleaned/cnc-los-angeles-observations.csv`
 
 ```{r}
 library(readr)
+library(sf)
+library(mapview)
+library(dplyr)
+library(ggplot2)
 ```
 
 ```{r}
-inat_raw <- read_csv('data/raw/observations-397280.csv')
+inat_raw <- read_csv('data/raw/observations-512870.csv')
 ```
 
 Use `colSums(is.na())` to count the number of rows that have NA values for each column.
@@ -30,7 +34,7 @@ colSums(is.na(inat_raw))
 
 All rows have id, observed_on, and user_id.
 
-1685 rows don't have scientific_name. 438 rows don't have latitude or longitude.
+some rows don't have scientific_name, latitude or longitude.
 
 Use `filter` to select the observations we want.
 
@@ -48,7 +52,7 @@ inat <- inat_raw %>%
 
 ```
 
-The original dataframe 'inat_raw' had 171K rows, the cleaned dataframe 'inat' has 169K rows.
+The original dataframe 'inat_raw' had 193K rows, the cleaned dataframe 'inat' has 191K rows.
 
 We can double check our work.
 

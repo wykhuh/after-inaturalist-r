@@ -1,0 +1,135 @@
+## Creating Los Angeles geospatial files
+
+Sometimes we have geospatial files that cover California or U.S., but we only want that data for LA County.
+
+## State parks in LA area
+
+California State Parks 
+https://www.parks.ca.gov/?page_id=29682
+
+California County Boundaries and Identifiers
+https://gis.data.ca.gov/datasets/California::california-county-boundaries-and-identifiers/explore
+
+Read files
+
+```{r}
+parks_state <- read_sf('data/raw/Park_Boundaries/ParkBoundaries.shp')
+
+ca_counties <- read_sf('data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp')
+```
+
+get counties
+
+```{r}
+counties <- c('Los Angeles County', 
+                       'Ventura County',
+                       'San Bernardino County', 
+                       'Orange County', 
+                       'Riverside County', 
+                       'Kern County', 
+                       'Santa Barbara County', 
+                       'San Luis Obispo County')
+
+ socal_counties <-  ca_counties %>%
+   filter( COUNTY %in% counties)
+ 
+ la_county <-  ca_counties %>%
+   filter( COUNTY == 'Los Angeles County')
+
+mapview(socal_counties)
+```
+Compare CRS
+
+```{r}
+st_crs(parks_state) 
+```
+
+```{r}
+st_crs(la_county)
+
+```
+Set and check CRS.
+
+
+```{r}
+la_county <- st_transform(la_county, crs = st_crs(parks_state) )
+st_crs(parks_state) == st_crs(la_county)
+```
+
+Find CA parks within LA county
+
+```{r}
+
+la_parks <- parks_state %>% 
+  st_intersection(la_county)
+
+ mapview(la_county) +
+ mapview(la_parks) 
+```
+
+```{r}
+
+
+
+la_parks_2 <- parks_state[st_intersects(parks_state, la_county ) %>% lengths > 0,]
+
+mapview(la_county) + mapview(la_parks_2)
+```
+
+create file
+
+```{r}
+st_write(la_parks_2, 'data/raw/ca_county_parks_la_county.geojson')
+```
+
+## National  parks in LA area
+
+National Park Boundaries
+https://catalog.data.gov/dataset/national-park-boundaries
+
+Read files
+
+```{r}
+parks_nps <- read_sf('data/raw/nps_boundary/nps_boundary.shp')
+
+ca_counties <- read_sf('data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp')
+
+
+```
+
+get counties
+
+```{r}
+la_county <-  ca_counties %>%
+   filter( COUNTY == 'Los Angeles County')
+```
+
+get CRS
+
+```{r}
+st_crs(parks_nps)
+```
+
+```{r}
+st_crs(la_county)
+```
+
+set and check crs
+
+```{r}
+parks_nps <- st_transform(parks_nps, crs = st_crs(la_county) )
+st_crs(parks_nps) == st_crs(la_county)
+```
+get national parks within LA county
+
+```{r}
+
+la_parks <- parks_nps[st_intersects(parks_nps, la_county ) %>% lengths > 0,]
+
+mapview(la_county) + mapview(la_parks)
+```
+
+write file 
+```{r}
+st_write(la_parks, 'data/raw/nps_la_county.geojson')
+```

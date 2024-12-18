@@ -19,7 +19,7 @@ include-in-header: "components/add-answer-button.html"
 
 ## What are R and RStudio?
 
-R refers to a programming language as well as the software that runs R code. It was started in 1993. All programming languages have commands and syntax that you must use in order to write instructions to tell the computer to do something. The code is written down and saved in files so you can reuse and share them.
+R refers to a programming language as well as the software that runs R code. R was started in 1993. All programming languages have commands and syntax that you must use in order to write instructions to tell the computer to do something. The code is written down and saved in files so you can reuse and share them.
 
 [RStudio](https://rstudio.com) is software to make it easier to write and run code in R. It was started in 2010.
 
@@ -35,14 +35,13 @@ Both R and RStudio are:
 
 We will use the RStudio integrated development environment (IDE) to write code into scripts, run code in R, navigate files on our computer, inspect objects we create in R, and look at the plots we make. RStudio also includes features like keyboard shortcuts, autocompletion of code, and syntax highlighting (different types of code are colored differently).
 
-![](fig/rstudio_screenshot.png){alt="Screenshot of RStudio showing the 4 \"panes\"."}
+![](images/rstudio_screenshot.png){alt="Screenshot of RStudio showing the 4 \"panes\"."}
 
 In the above screenshot, we can see 4 "panes" in the default layout. If you only have 3 panes, and the Console pane is in the top left, press <kbd>Shift+Cmd+N</kbd> (Mac) or <kbd>Shift+Ctrl+N</kbd> (Windows) to open a blank R script, which should make the Source pane appear.
 
 -   Top-Left: the **Source** pane that displays scripts and other files.
--   Top-Right: the **Environment/History** pane, which shows all the objects in your current R session (Environment) and your command history (History)
-    -   there are some other tabs here, including Connections, Build, Tutorial, and possibly Git
-    -   we won't cover any of the other tabs, but RStudio has lots of other useful features
+-   Top-Right: the **Environment/History** pane which shows all the objects in your current R session (Environment) and your command history (History)
+    -   There are some other tabs here, including Connections, Build, Tutorial, and possibly Git
 -   Bottom-Left: the **Console** pane, where you can type in commands. The R console will interpret R commands and prints the results
     -   There are also tabs for Terminal and Jobs
 -   Bottom-Right: the **Files** pane is used to display directories and files on your computer.
@@ -67,7 +66,7 @@ You can run commands directly in the R console, or you can write them into an R 
 #### Script
 
 -   A script is a record of commands to send to R, preserved in a plain text file with a `.R` extension
--   If you type out lines of R code in a script, you can send them to the R console to be evaluated
+-   You send lines of R code to the R console to be evaluated
     -   <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) will run the line of code that your cursor is on
     -   If you highlight multiple lines of code, you can run all of them by pressing <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows)
 -   By saving the commands in a script, you can edit and rerun them quickly, access the commands in the future, and share them with others
@@ -83,7 +82,7 @@ You can make a new R script by clicking `File → New File → R Script`, clicki
 
 Now click into your blank script, and type out `1+2`. With your cursor on that line, hit <kbd>Cmd+Enter</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) to run the code. You will see that your code was sent from the script to the console, where it returned a value of `3`.
 
-Sometimes we want to store a value in memory so we can use it later. `<-` tells R to assign the value on the right to the named object on the left.
+Sometimes we want to store a value in memory so we can use it later. `<-` tells R to assign the value on the right to the named object on the left. We refer to the value using the object name.
 
 ```         
 object_name <- value
@@ -91,7 +90,7 @@ object_name <- value
 
 Let's create a price_1 and price_2 objects, and assign them a value.
 
-```{r}
+```{r, assignment}
 price_1 <- 20
 price_2 <- 30
 ```
@@ -100,7 +99,7 @@ Objects `price_1` and `price_2` are created, and stored in memory. The objects a
 
 We can refer to the object names, and do something with those values. Let's add the two prices
 
-```{r}
+```{r, adding_objects}
 price_1 + price_2
 ```
 
@@ -112,7 +111,7 @@ Add a line to the script to substract price_1 and price_2.
 ### Solution
 
 ::: answer
-```{r}
+```{r, subtracting_objects}
 price_1 - price_2
 ```
 :::
@@ -152,7 +151,7 @@ If you want to create your own project folder in R Studio, follow these steps.
 2.  In the top right, you will see a blue 3D cube and the words "Project: (None)". Click on this icon.
 3.  Click **New Project** from the dropdown menu.
 4.  Click **New Directory**, then **New Project**.
-5.  Type out a name for the project, we recommend `R-Ecology-Workshop`.
+5.  Type out a name for the project.
 6.  Put it in a convenient location using the "Create project as a subdirectory of:" section. We recommend your `Desktop`. You can always move the project somewhere else later, because it will be self-contained.
 7.  Click **Create Project** and your new project will open.
 
@@ -160,7 +159,7 @@ When you need to work on the project, click on the Rproj icon to start RStudio.
 
 There are a few settings we will need to adjust to improve the reproducibility of our work. Go to your menu bar, then click Tools → Global Options to open up the Options window.
 
-![](fig/rstudio_settings.png){alt="Screenshot of the RStudio Global Options, with \"Restore .RData into workspace at startup\" unchecked, and \"Save workspace to .RData on exit\" set to \"Never\"."}
+![](images/rstudio_settings.png){alt="Screenshot of the RStudio Global Options, with \"Restore .RData into workspace at startup\" unchecked, and \"Save workspace to .RData on exit\" set to \"Never\"."}
 
 Make sure your settings match those highlighted in yellow. We don't want RStudio to store the current status of our R session and reload it the next time we start R. We want to start with a clean, empty R session every time we work.
 
@@ -180,10 +179,8 @@ project_name
 └── project_name.Rproj
 ```
 
-Within our project folder, we first have a `scripts` folder to hold any scripts we write. We also have a `data` folder containing `cleaned` and `raw` subfolders. In general, you want to keep your `raw` data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the `cleaned` folder. We also have an `results` folder for document we produce. 
-
 Let's start making our new folders. Go to the **Files** pane (bottom right), and check the current directory, highlighted in yellow below. You should be in the directory for the project you just made. You shouldn't see any folders in here yet.
 
-![](fig/files_pane.png){alt="RStudio Files pane with current directory path highlighted."}
+![](images/files_pane.png){alt="RStudio Files pane with current directory path highlighted."}
 
-Next, click the **New Folder** button, and type in `scripts` to generate your `scripts` folder. It should appear in the Files list now. Repeat the process to make your `data`, `images`, and `documents` folders. Then, click on the `data` folder in the Files pane. This will take you into the `data` folder, which will be empty. Use the **New Folder** button to create `raw` and `cleaned` folders. To return to the project folder, click on it in the file path, which is highlighted in yellow in the previous image. It's worth noting that the **Files** pane helps you create, find, and open files, but moving through your files won't change where the **working directory** of your project is.
+Next, click the **New Folder** button, and type in `scripts` to generate your `scripts` folder. It should appear in the Files list now. Repeat the process to make your `data`, and `results` folders. Then, click on the `data` folder in the Files pane. This will take you into the `data` folder, which will be empty. Use the **New Folder** button to create `raw` and `cleaned` folders. To return to the project folder, click on it in the file path, which is highlighted in yellow in the previous image. It's worth noting that the **Files** pane helps you create, find, and open files, but moving through your files won't change where the **working directory** of your project is.

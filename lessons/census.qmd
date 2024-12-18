@@ -158,7 +158,6 @@ mapview(la_pop, zcol="value") +
   mapview(inat_obs)
 ```
 
-
 ## Ethnicity by census tract
 
 Get the percentage for each ethnicity for each census tract.
@@ -202,7 +201,6 @@ ggplot() +
   geom_sf(data = inat_obs)
 ```
 
-
 Create interactive map
 
 ```{r}
@@ -210,4 +208,3 @@ mapview(la_hispanic, zcol='percent') +
   mapview(inat_obs)
 
 ```
-

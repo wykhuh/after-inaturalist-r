@@ -1,6 +1,8 @@
 ---
 title: "Creating maps"
-format: html
+format: 
+   html:
+     df-print: kable
 include-in-header: "components/add-answer-button.html"
 ---
 
@@ -18,37 +20,43 @@ include-in-header: "components/add-answer-button.html"
 
 ## Geographic concepts
 
-Geographic data is data that has a location. There are various file formats for geographic data. Shape files for GIS applications, KML for Google maps, geojson for web applications.
+Geographic data is data that has a location.
 
-Earth is a 3D sphere. Maps are 2D representation of a 3D sphere. Map projections are ways to represent a sphere as a flat surface. A coordinate reference system (CRS) defines the two-dimensional, projected map in your GIS relates to real places on the earth.
+There are various file formats for geographic data. Shape files for GIS applications, KML for Google maps, geojson for web applications.
 
-You can get boundaries for countries, states, cities, etc from various sources. I googled "Los Angeles county boundary shape" which had a link to "County Boundary \| City of Los Angeles Hub - LA GeoHub" https://geohub.lacity.org/datasets/10f1e37c065347e693cf4e8ee753c09b I downloaded the shapefile for LA county.
+Earth is a 3D sphere. Maps are 2D representation of a 3D sphere. Map projections are ways to represent a sphere as a flat surface. A coordinate reference system (CRS) defines how the two-dimensional, projected map relates to real places on the earth.
 
-You can also create your boundaries using GIS applications or GIS web applications.
+Many organizations offer geospatial data that people can use for free. Los Angeles City has a portal for geospatial data: <https://geohub.lacity.org>
 
 ## Mapping iNaturalist data
 
 iNaturalist data includes latitude and longitude, which means we can put the observations in a map. There are several packages to create maps. We will use ggplot and mapview packages.
 
+Main steps:
+
+1.  Load iNaturalist data
+2.  Add geometry column to iNaturalist dataframe
+3.  Use `filter`() to get the rows we want. Use `select()` to get the columns we want.
+4.  Create map.
+
 loading R packages
 
-```{r}
+```{r, load_packages}
 #| error: false
 #| warning: false
 #| message: false
 
-library(dplyr)
-library(readr)
+library(readr) # read and write tabular data
+library(dplyr) # manipulate data
 
-library(sf)
-library(ggplot2)
-library(mapview)
-
+library(ggplot2) # create data visualizations
+library(sf) # handle geospatial data
+library(mapview) # create interactive maps
 ```
 
 Read data from the cleaned iNaturalist observation file.
 
-```{r}
+```{r, read_data_from_csv}
 #| cache: true
 #| warning: false
 #| message: false
@@ -56,103 +64,146 @@ inat <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 
 ```
 
-Use `names` to see all the column names. "latitude" and "longitude" are the column names we need.
+Use `names()` to see all the column names. "latitude" and "longitude" are the column names we need.
 
-```{r}
+```{r, get_column_names}
 names(inat)
 ```
 
 We use the sf package to add geographic data to our dataframe. `st_as_sf()` from `sf` package will take the longitude and latitude and add a `geometry` column that we can use for mapping.
 
--   We pass in longitude and latitude columns to coors argument. Must wrap longitude and latitude in quotes.
--   crs is coordinate reference system. 4326 is code for the WGS 84 CRS. It used by many GIS applications.
+-   We pass in longitude and latitude columns to `coords` argument. Must wrap longitude and latitude in quotes.
+-   `crs` is coordinate reference system. 4326 is code for the WGS 84 CRS. WGS 84 is a commonly used CRS. WGS 84 is used in GPS applications.
 -   `remove=FALSE` will keep the longitude and latitude columns in the dataframe
 
-```{r}
+```{r, add_geographic_data}
 temp <- inat %>% 
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326, remove=FALSE)
 ```
 
 use `names()` to get a list of all the columns. A `geometry` column was added.
 
-```{r}
+```{r, see_column_names_part_2}
 names(temp)
 ```
 
-use select to pick which columns to use.
+use `select`() to pick which columns to use.
 
-```{r}
+```{r, select_columns}
 inat_map <- inat %>% 
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326, remove=FALSE) %>% 
-  select(id, user_login, common_name, scientific_name, observed_on,  url, longitude, latitude, geometry) 
+  select(id, user_login, common_name, scientific_name, observed_on,  url, longitude, latitude, geometry, quality_grade) 
 ```
 
-Use `dim()` to show the number of rows and columns. There are over 169K rows.
+Use `dim()` to show the number of rows and columns. There are over 191K rows.
 
-```{r}
+```{r, size_of_dataframe}
 dim(inat_map)
+```
+
+Let's use filter to get the observations for 'Quercus agrifolia' aka Coast Live Oak.
+
+```{r, get_lizard_data}
+inat_oak <- inat_map %>% 
+  filter(scientific_name == 'Quercus agrifolia')
+```
+
+Use dim to get number of rows. About 700 rows.
+
+```{r, get_size_of_lizard_dataframe}
+dim(inat_oak)
 ```
 
 ## static map
 
-Use ggplot to create static map for the observations. `geom_sf` will use `geometry` column to produce a map.
+Use ggplot to create static map for all 191K observations. `geom_sf()` will use `geometry` column to create a black circle for each observation.
 
-```{r}
+```{r, create_static_map}
 
 ggplot() +
   geom_sf(data = inat_map)  
 
 ```
 
+Let's create a map for Coast Live Oak observations.
+
+```{r, create_static_map_for_lizard}
+
+ggplot() +
+  geom_sf(data = inat_oak)  
+
+```
+
+We can set the color of the map marker using `color` argument.
+
+```{r, create_static_map_for_lizard}
+
+ggplot() +
+  geom_sf(data = inat_oak, color='green')  
+
+```
+
+We can also set the color of the marker by using the values of a given column using `mapping=aes(color=<column_name>)`. 
+
+Let's use 'quality_grade' to set the color of the map markers.
+
+```{r, create_static_map_for_lizard}
+
+ggplot() +
+  geom_sf(data = inat_oak, mapping=aes(color=quality_grade))  
+
+```
+
 ## interactive map
 
-use mapview package to create interactive maps where you can zoom in and out.
+We can use mapview package to create interactive maps where you can zoom in and out.
 
-Since there are over 169K rows, an interactive map will be very slow. I suggest not using mapview if there are lots of rows.
+Since there are over 191K rows in inat_map, an interactive map will be very slow. Do not use mapview if there are lots of rows.
 
-To speed up the interactive map, let's filter the list of observations. Get all observations for Western Fence Lizard.
+Let's create interactive map for Coast Live Oak. When you click on observation, all the fields that were set from `select()` will be displayed in a popup.
 
-```{r}
-inat_lizard <- inat_map %>% 
-  filter(common_name == 'Western Fence Lizard')
+```{r, create_interactive_map}
+mapview(inat_oak)
 ```
 
-Use dim to get number of rows. About 3000 rows.
+Use `color` to set the color of the border. User `col.regions` to set the color of the fill.
 
-```{r}
-dim(inat_lizard)
+```{r, create_interactive_map}
+mapview(inat_oak, color='red', col.regions='yellow')
 ```
 
-Create interactive map. You can zoom in and out. Click on observation to see the info.
+We can also set the color of the marker by using the values of a given column using `zcol=<column_name>`.
+
+Let's use 'quality_grade' to set the color of the map markers.
 
 ```{r}
-mapview(inat_lizard)
+mapview(inat_oak, zcol='quality_grade')
 ```
 
 ## working with other geographic files
 
 Let's add LA county boundaries to the map.
 
-I downloaded the LA county boundaries from https://geohub.lacity.org/datasets/lacounty::county-boundaries/explore
+Shape files is a file format for geographic information system software. I downloaded the LA county boundaries as a Shape file from https://geohub.lacity.org/datasets/lacounty::county-boundaries/explore
 
-use `read_sf()` from `sf` package to read the shape file.
+use `read_sf()` from `sf` package to read the Shape file.
 
-```{r}
+```{r, get_LA_County_boundaries}
 la_county <- read_sf('data/raw/County_Boundary/County_Boundary.shp')
 ```
 
 add LA County to maps.
 
-```{r}
+```{r, add_LA_Count_to_static_map}
 ggplot() +
   geom_sf(data = la_county)  +
-  geom_sf(data = inat_lizard) 
+  geom_sf(data = inat_oak) 
 ```
 
-```{r}
+```{r, add_LA_Count_to_interactive_map}
 
 mapview(la_county) +
-  mapview(inat_lizard) 
+  mapview(inat_oak) 
 ```
 
 :::: exercise
@@ -161,7 +212,7 @@ mapview(la_county) +
 Create a map for one species. Include the boundaries for LA County.
 
 ::: answer
-```{r}
+```{r, exercise_create_map_one_species}
 inat_finch <- inat_map %>% 
   filter(common_name == 'House Finch')
 
@@ -175,21 +226,23 @@ mapview(la_county) +
 
 Lets look for all iNaturalist observations made in Exposition Park.
 
-I used this [Draw map boundaries](https://wykhuh.github.io/draw-map-boundaries/) to draw and download the boundaries of Exposition Park.
+I used this [Draw map boundaries](https://wykhuh.github.io/draw-map-boundaries/) to draw and download the boundaries of Exposition Park. The file is in geojson format.
 
-```{r}
+use `st_read`() to read a geojson file. Use `st_transform` to set the crs
+
+```{r, get_Expo_park_boundaries}
 expo_park <- st_read('data/raw/boundaries_expo_park_area.geojson')  %>% 
   st_transform(4326)
 ```
 
-plot map of Expo Park.
+create map of Expo Park.
 
-```{r}
+```{r, create_static_map_expo_park}
 ggplot() +
   geom_sf(data = expo_park) 
 ```
 
-```{r}
+```{r,create_interactive_map_expo_park}
 mapview(expo_park) 
 ```
 
@@ -197,20 +250,20 @@ We want to get observation inside Expo Park.
 
 You should check if the crs for the inaturalist data and the Expo Park are the same
 
-```{r}
+```{r, check_crs}
 st_crs(expo_park) == st_crs(inat_map)
 
 ```
 
-Use `st_intersection()` to get all observations that inside of Exposition Park.
+Use `st_intersection()` to get all observations that inside of Exposition Park. This might take a while.
 
-```{r}
+```{r, get_all_observations_within_expo_park}
 inat_expo <- inat_map %>% st_intersection(expo_park)
 ```
 
-Use dim to get row and column count. 169K in LA county. 2500 observation in Expo Park.
+Use dim to get row and column count. 191K in LA county. 2900 observation in Expo Park.
 
-```{r}
+```{r, compare_size_of_dataframes}
 dim(inat_map)
 
 dim(inat_expo)
@@ -218,23 +271,23 @@ dim(inat_expo)
 
 Create map of all observations in Expo Park.
 
-```{r}
+```{r, create_static_map_of_observations_in_expo_park}
 ggplot() +
   geom_sf(data = expo_park)  +
   geom_sf(data = inat_expo) 
 ```
 
-```{r}
+```{r,create_interactive_map_of_observations_in_expo_park}
 mapview(expo_park) +
   mapview(inat_expo) 
 
 ```
 
-Use alpha.regions to set opacity. use col.regions to set color.
+Use `alpha.regions` to set opacity. Use `col.regions` to set color.
 
-```{r}
+```{r, set_color_of_map}
 mapview(expo_park,   alpha.regions=0.3, col.regions="#333333") +
-  mapview(inat_expo) 
+  mapview(inat_expo, col.regions="green") 
 ```
 
 ::: exercise
@@ -247,7 +300,7 @@ Create a map for one species that are inside of a specific area
 -   use `st_read` to read your boundary data.
 -   use `st_intersection` to get observations inside a boundary :::::: answer
 
-```{r}
+```{r,exercise_create_map_of_observations_inside_boundary}
 
 expo_park <- st_read('data/raw/boundaries_expo_park_area.geojson')  %>% 
   st_transform(4326)
@@ -263,15 +316,13 @@ mapview(expo_park) +
 ```
 :::
 
-:::
-
 ## Exporting maps
 
 We can export the static maps created with ggplot. We can not export the interactive maps created with mapview.
 
 Assign the map to an object. Then run ggsave() to save our map The first argument we give is the path to the file we want to save, including the correct file extension. You can save as jpb, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.
 
-```{r}
+```{r, assign_map}
 my_map <- ggplot() +
   geom_sf(data = expo_park)  +
   geom_sf(data = inat_expo) 
@@ -279,6 +330,6 @@ my_map <- ggplot() +
 my_map
 ```
 
-```{r}
+```{r, save_map}
 ggsave(filename = 'results/expo_park_observations.jpg', plot = my_map,  height = 6, width = 8)
 ```

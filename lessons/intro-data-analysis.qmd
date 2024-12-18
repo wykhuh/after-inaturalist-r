@@ -20,24 +20,26 @@ format:
 
 When iNaturalist users add an observation through the iNaturalist app, that data is saved to the iNaturalist database. People can download the iNaturalist data as CSVs.
 
+::: callout-note
+**CSV comma-separated values**
+
+CSV is a text file format for tabular data. Each line represents one record. Each column represents a field. The fields are separated by commas. CSVs can be opened in text editors or spreadsheet programs.
+
+CSV as plain text file.
+
+![](images/csv_text.png){alt="screenshot of a CSV plain text file."}
+
+CSV in CSV or spreadsheet application.
+
+![](images/csv_software.png){alt="screenshot of a CSV in a CSV program."}
+:::
+
 The iNaturalist CSV has information about:
 
 -   the user who made observation
 -   the location of the observation
 -   the observed species
 -   links for photos, videos, sounds
-
-### CSV comma-separated values
-
-CSV is a text file format for tabular data. Each line represents one record. Each column represents a field. The fields are separated by commas. CSVs can be opened in text editors or spreadsheet programs.
-
-CSV as plain text file.
-
-![](fig/csv_text.png){alt="screenshot of a CSV plain text file."}
-
-CSV in CSV or spreadsheet application.
-
-![](fig/csv_software.png){alt="screenshot of a CSV in a CSV program."}
 
 ## Downloading iNaturalist data
 
@@ -47,11 +49,11 @@ Here's a video showing how to download iNaturalist data.
 
 </iframe>
 
-To save time and ensure everyone at the workshop has the same data, a CSV with data from iNaturalist City Nature Challenge Los Angeles from 2013 to 2024 is included in files download.
+To save time and ensure everyone at the workshop has the same data, a CSV with data from iNaturalist City Nature Challenge Los Angeles from 2013 to 2024 is provided `data/cleaned/cnc-los-angeles-observations.csv`.
 
 If you would like to download iNaturalist data for your own project, here's more info.
 
-<https://help.inaturalist.org/en/support/solutions/articles/151000169670>
+[How to Search iNaturalist Observations](https://help.inaturalist.org/en/support/solutions/articles/151000169670)
 
 [How can I download data from iNaturalist?](https://help.inaturalist.org/en/support/solutions/articles/151000170342-how-can-i-download-data-from-inaturalist)
 
@@ -61,7 +63,7 @@ It is difficult for people to see any patterns when reading rows after row of te
 
 1)  Spreadsheet programs are computer application that people can use to view, edit, and analyze tabular data. The programs can do calculations and create charts. Examples include Excel and Google Sheets
 
-2)  Geographic information system (GIS) are computer application that people can use to view, edit and analyze geographic data. The programs can do calculations and create maps. Some GIS programs can import CSVs if they have latitude and longitude fields. Examples include ArcGIS and QGIS.
+2)  Geographic information system (GIS) are computer application that people can use to view, edit and analyze geographic data. The programs can do calculations and create maps. Examples include ArcGIS and QGIS.
 
 3)  Programming languages allow people to write instructions to tell a computer to do stuff. We can write code to do calculations, create charts, and create maps. Example programming languages include R, Python, C.
 
@@ -73,7 +75,7 @@ Here's an overview of what we learn in this workshop.
 
 Load software that will will need.
 
-```{r}
+```{r, load_packages}
 #| error: false
 #| warning: false
 #| message: false
@@ -87,9 +89,9 @@ library(mapview) # create interactive maps
 
 ```
 
-Load iNaturalist data from City Nature Challenge Los Angeles 2013-2023. There are over 169,000 observations.
+Load iNaturalist data from City Nature Challenge Los Angeles 2013-2024. There are over 191,000 observations.
 
-```{r}
+```{r, load_inat_csv}
 #| error: false
 #| warning: false
 #| message: false
@@ -100,7 +102,7 @@ inat <- read_csv("data/cleaned/cnc-los-angeles-observations.csv")
 
 Create summaries of the data. For instance, get the 10 most commonly observed 'species'.
 
-```{r}
+```{r, top_ten_species}
 
 top_10 <- inat %>% 
   select(common_name, scientific_name) %>% 
@@ -113,7 +115,7 @@ top_10
 
 Create charts. For example, create a bar chart showing the number of observations per year.
 
-```{r}
+```{r, chart_observations_per_year}
 
 inat %>% 
   mutate(year = year(observed_on))  %>%
@@ -125,7 +127,7 @@ inat %>%
 
 Create maps. For example, create a map showing all the observations for Western Fence Lizard
 
-```{r}
+```{r, map_of_western_fence_lizard}
 #| cache: true
 
 lizard <- inat %>% 

@@ -7,7 +7,7 @@ project:
     - lessons/working-with-data.qmd
     - lessons/creating-maps.qmd
     - lessons/creating-charts.qmd
-    - lessons/census.qmd
+    - lessons/other_datasets.qmd
 
   output-dir: docs
   preview:
@@ -28,7 +28,7 @@ website:
       - lessons/working-with-data.qmd
       - lessons/creating-maps.qmd
       - lessons/creating-charts.qmd
-      - lessons/census.qmd
+      - lessons/other_datasets.qmd
 
 
 format:

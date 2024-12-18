@@ -1,13 +1,15 @@
 ---
 title: "Working with data"
-format: html
+format: 
+   html:
+     df-print: kable
 include-in-header: "components/add-answer-button.html"
 ---
 
 ::: summary
 ## Questions
 
--   How do you manipulate iNaturalist CSV data in R?
+-   How do you work with iNaturalist CSV data in R?
 
 ## Objectives
 
@@ -24,7 +26,7 @@ include-in-header: "components/add-answer-button.html"
 
 When we reference other files from an R script, we need to give R precise instructions on where those files are. We do that using something called a **file path**.
 
-There are two kinds of paths: **absolute** and **relative**. Absolute paths are specific to a particular computer, whereas relative paths are relative to a certain folder. For instance an absolute path is "/Users/username/Documents/coding/CNC-coding-workshop/data/cleaned/cnc_la_observations.csv", and relative path is "data/cleaned/cnc_la_observations.csv".
+There are two kinds of paths: **absolute** and **relative**. Absolute paths are specific to a particular computer, whereas relative paths are relative to a certain folder. For instance an absolute path is "/Users/username/Documents/coding/CNC-coding-workshop/data/cleaned/cnc-los-angeles-observations.csv", and relative path is "data/cleaned/cnc-los-angeles-observations.csv".
 
 ### Functions
 
@@ -45,7 +47,7 @@ To install these packages, use `install.packages()` command in the R console. Th
 install.packages("readr")
 
 # install multiple packages
-install.packages(c("readr", "dplyr", "ggplot2", "lubridate", "mapview", "sf"))
+install.packages(c("readr", "dplyr", "ggplot2"))
 ```
 
 R will connect to the internet and download packages from servers that have R packages. R will then install the packages on your computer. The console window will show you the progress of the installation process.
@@ -63,15 +65,15 @@ library(mapview) # create interactive maps
 
 Generally it is a good idea to list all the libraries at the beginning of the script. You want to install the package to your computer once, and then load it with `library()` in each script where you need to use it.
 
-## Importing data
+## Importing iNaturalist data
 
-A CSV of iNaturalist observations for City Nature Challenge Los Angeles from 2015 to 2024 is located at "data/cleaned/cnc_la_observations.csv". We are going to read that CSV into R.
+A CSV of iNaturalist observations for City Nature Challenge Los Angeles from 2015 to 2024 is located at "data/cleaned/cnc-los-angeles-observations.csv". We are going to read that CSV using R.
 
 ### Reading a file
 
 In order to analyze the iNaturalist csv, we need to load **readr**, **lubridate** and **dplyr** packages.
 
-```{r}
+```{r, loading_packages}
 #| message: false
 
 library(readr) # read and write tabular data
@@ -81,7 +83,7 @@ library(lubridate) # manipulate dates
 
 We will use the `read_csv()` function from **readr** package to read the iNaturalist CSV. We will pass in a relative path to the CSV file as an argument for `read_csv()`.
 
-```{r}
+```{r, read_csv}
 #| warning: false
 #| message: false
 
@@ -95,7 +97,7 @@ Typing out paths can be error prone, so we can utilize a keyboard shortcut. Insi
 
 To learn more about a function, you can type a ? in front of the name of the function, which will bring up the official documentation for that function:
 
-```{r}
+```{r, help_for_functions}
 ?read_csv
 ```
 
@@ -103,7 +105,7 @@ Function documentation is written by the authors of the functions, so they can v
 
 `read_csv()` will return the content of the file. In order for us access the data later on, we need to assign the content to an object. Double click on `inat_data` in **Environment** to see all the data.
 
-```{r}
+```{r, assign_read_csv_to_object}
 #| warning: false
 #| message: false
 
@@ -114,19 +116,19 @@ inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 
 inat_data is stored in R as a data.frame, which is the most common way that R represents tabular data (data with rows and columns).
 
-We can view the first few rows with the head() function, and the last few rows with the tail() function:
+We can view the first few rows with the `head()` function, and the last few rows with the `tail()` function:
 
-```{r}
+```{r, call_head}
 head(inat_data)
 ```
 
-```{r}
+```{r, call_tail}
 tail(inat_data)
 ```
 
 Use `glimpse()` to see a information about a data.frame. Number of rows and columns. For each column, we see the name, data type (**dbl** for number, **chr** for character, **lgl** for logical. **date** is a data type from data.frame), and the first few values.
 
-```{r}
+```{r, call_glimpse}
 glimpse(inat_data)
 ```
 
@@ -134,15 +136,13 @@ glimpse(inat_data)
 
 One of the most important skills for working with data in R is the ability to manipulate, modify, and reshape data. The `dplyr` package provide a series of powerful functions for many common data manipulation tasks.
 
-select() filter() mutate() arrange() count()
-
 ### select()
 
 `select()` picks certain columns of a data.frame. To use the `select()` function, the first argument is the name of the data.frame, and the rest of the arguments are *unquoted* names of the columns you want.
 
 iNaturalist CSV has 39 columns. We want four columns: user_login, common_name, scientific_name, observed_on. The columns are arranged in the order we specified inside `select()`.
 
-```{r}
+```{r, select_columns}
 select(inat_data, user_login, common_name, scientific_name, observed_on)
 ```
 
@@ -150,22 +150,28 @@ select(inat_data, user_login, common_name, scientific_name, observed_on)
 
 The `filter()` function is used to select rows that meet certain criteria. To get all the rows where the value of `common_name` is equal to `Western Fence Lizard`, we would run the following:
 
-```{r}
+```{r, filter_rows}
 filter(inat_data, common_name == 'Western Fence Lizard')
 
 ```
 
-The `==` sign means "is equal to". There are several other operators we can use: \>, \>=, \<, \<=, and != (not equal to).
+The `==` sign means "is equal to". Take note, there are two equal signs.
+
+There are several other operators we can use: \> "greater than", \>= "greater than or equal", \< "less than", \<= "less than or equal", and != "not equal to".
 
 ### The pipe: %\>%
 
-What happens if we want to both `select()` and `filter()` our data?
+What happens if we want to select certain columns and rows?
 
-We use the pipe operator (`%>%`) to call multiple functions. You can insert it by using the keyboard shortcut <kbd>Shift+Cmd+M</kbd> (Mac) or <kbd>Shift+Ctrl+M</kbd> (Windows).
+We use the pipe operator (`%>%`) to call multiple functions.
+
+::: callout-tip
+You can insert it by using the keyboard shortcut <kbd>Shift+Cmd+M</kbd> (Mac) or <kbd>Shift+Ctrl+M</kbd> (Windows).
+:::
 
 Get user_login, common_name, scientific_name, observed_on for all observations where common_name is 'Western Fence Lizard'. Use filter to select rows, then use select to select columns.
 
-```{r}
+```{r, pipe_filter_select}
 inat_data %>% 
   filter(common_name == 'Western Fence Lizard') %>% 
   select(user_login, common_name, scientific_name, observed_on) 
@@ -173,9 +179,9 @@ inat_data %>%
 
 Pipe operator take the thing on the lefthand side and insert it as the first argument of the function on the righthand side. By putting each of our functions onto a new line, we can build a nice, readable pipeline. `inat_data` gets piped into a `filter()` function, and it comes out modified somewhat. The output from `filter()` then gets sent into the `select()` function, where it is further modified, and then the final product gets printed out to our console. It can also be helpful to think of `%>%` as meaning "and then".
 
-If we want to store this final product as an object, we use an assignment arrow at the start:
+If we want to store this final product as an object, we use an assignment arrow:
 
-```{r}
+```{r, assign_pipeline}
 lizard_data <- inat_data %>% 
   filter(common_name == 'Western Fence Lizard') %>% 
   select(user_login, common_name, scientific_name, observed_on) 
@@ -186,15 +192,15 @@ Sometimes the coordinates for iNaturalist observations are obscured. For instanc
 
 To access one column in a dataframe, use `dataframe$column_name`. To get a count of number of values for one column, use `table()` function and pass in one column.
 
-```{r}
+```{r, call_table}
 table(inat_data$coordinates_obscured)
 ```
 
-155K coordinates are ok, 13K are obscured
+176K coordinates are ok, 14K are obscured
 
 Let's get the observations where the coordinates are not obscured.
 
-```{r}
+```{r, observations_with_unobscured_coordinates}
 inat_data %>% 
   filter(coordinates_obscured == FALSE) %>% 
   select(user_login, common_name, scientific_name, observed_on) 
@@ -204,13 +210,13 @@ iNaturalist gives a quality grade to each observation. When researchers use iNat
 
 To see all the unique values for a column, use `unique()` function from R and pass in the column name.
 
-```{r}
+```{r, quality_grade_values}
 unique(inat_data$quality_grade)
 ```
 
 Let's get the observations that are research grade.
 
-```{r}
+```{r, research_grade_observations}
 inat_data %>% 
   filter(quality_grade == 'research')  %>% 
   select(user_login, common_name, scientific_name, observed_on)
@@ -254,12 +260,13 @@ inat_data %>%
 Get all your observations.
 
 -   Use `select()`, `filter()`
+-   The results should have `user_login` equal to your iNaturalist username
 -   The results should have `user_login`, `observed_on`, `common_name`, `scientific_name` columns
 -   save the results to `my_obs`
 -   click on `my_obs` in the Environment tab to see the results
 
 ::: answer
-```{r}
+```{r, exercise_your_observations}
 my_obs <- inat_data %>% 
   filter(user_login == 'natureinla') %>% 
   select(user_login, observed_on, common_name, scientific_name) 
@@ -273,7 +280,7 @@ When we want go get rows that match multiple criteria, we can use the and operat
 
 Here we will get all observations that are research grade and common_name is Western Fence Lizard.
 
-```{r}
+```{r, filter_with_and}
 inat_data %>% 
   filter( common_name == 'Western Fence Lizard' 
          & quality_grade == 'research')  %>% 
@@ -282,7 +289,7 @@ inat_data %>%
 
 Here we will get observations where `user_login` is 'natureinla' and `common_name` is 'Western Fence Lizard'.
 
-```{r}
+```{r, filter_with_and_2}
 inat_data %>% 
   filter(user_login == 'natureinla' & common_name == 'Western Fence Lizard') %>% 
   select(user_login, common_name, scientific_name, observed_on) 
@@ -294,7 +301,7 @@ When we want to get rows that match one or more criteria, we can use the or oper
 
 Here we will get observations where `user_login` is 'natureinla' or `common_name` is 'Western Fence Lizard'.
 
-```{r}
+```{r, filter_with_or}
 inat_data %>% 
   filter(user_login == 'natureinla' | common_name == 'Western Fence Lizard') %>% 
   select(user_login, common_name, scientific_name, observed_on) 
@@ -302,7 +309,7 @@ inat_data %>%
 
 Here we will get observations where `common_name` is 'Western Fence Lizard' or `common_name` is 'Western Honey Bee'.
 
-```{r}
+```{r, filter_with_and_2}
 inat_data %>% 
   filter(common_name == 'Western Honey Bee' | common_name == 'Western Fence Lizard')  %>% 
   select(user_login, observed_on, common_name)
@@ -317,38 +324,30 @@ and queries: `filter( common_name == 'Western Fence Lizard' & quality_grade == '
 
 or queries: `filter( common_name == 'Western Fence Lizard' | quality_grade == 'research')`
 
--   all observations for 'natureinla'
--   all observations for 'Western Fence Lizard'
+-   all observations for 'natureinla' plus all observations for 'Western Fence Lizard'
 -   5,832 rows
 
 ## More complex queries
 
 Sometimes we want to use both `and` `or` to select the rows. We want observations where user is 'cdegroof' or 'deedeeflower5' and species is 'Western Fence Lizard'. You can use multiple filter statememts.
 
-```{r}
-inat_data %>% 
-  filter(user_login == 'cdegroof' 
-         | user_login == 'deedeeflower5') %>%
-  filter(common_name == 'Western Fence Lizard')  %>% 
-  select(user_login, common_name, scientific_name, observed_on)
-
-```
-
-When making complex queries, you should check the results to make sure you wrote the query correctly. We can use `unique()` to check the column values.
-
-```{r}
+```{r, complex_queries}
 temp <- inat_data %>% 
   filter(user_login == 'cdegroof' 
          | user_login == 'deedeeflower5') %>%
   filter(common_name == 'Western Fence Lizard')  %>% 
   select(user_login, common_name, scientific_name, observed_on)
+
+temp
 ```
 
-```{r}
+When making complex queries, you should check the results to make sure you wrote the query correctly. We can use `unique()` to check the column values.
+
+```{r, unique_common_name}
 unique(temp$common_name)
 ```
 
-```{r}
+```{r, unique_user_login}
 unique(temp$user_login)
 ```
 
@@ -358,11 +357,13 @@ unique(temp$user_login)
 Get all your observations that are research grade
 
 -   Use `select()`, `filter()`, `&`
+-   The results should have `user_login` equal to your iNaturalist username
+-   The results should have `quality_grade` equal to research.
 -   The results should have `user_login`, `observed_on`, `common_name`, `scientific_name` columns
 -   save the results to `my_obs_2` object
 
 ::: answer
-```{r}
+```{r, exercise_your_research_grade}
 my_obs_2 <- inat_data %>% 
   filter(user_login == 'natureinla' & quality_grade == 'research') %>% 
   select(user_login, observed_on, common_name, scientific_name) 
@@ -376,12 +377,18 @@ my_obs_2 <- inat_data %>%
 Get all your observations for two species
 
 -   Use `select()`, `filter()`, `&` , `|`
+-   use `unique()` to see all common names from `my_obs`
+-   The results should have `user_login` equal to your iNaturalist username
+-   The results should have `common_name` set to two two species
 -   The results should have `user_login`, `observed_on`, `common_name`, `scientific_name` columns
 -   save the results to `my_obs_3` object
--   use the results from `my_obs` to select two species
 
 ::: answer
-```{r}
+```{r, exercise_unique_common_names}
+unique(my_obs$common_name)[0:10]
+```
+
+```{r, exercise_two_species}
 my_obs_3 <- inat_data %>% 
   filter(user_login == 'natureinla') %>% 
   filter(common_name == 'Red-eared Slider' | common_name=='Monarch') %>% 
@@ -394,54 +401,56 @@ my_obs_3 <- inat_data %>%
 
 Another common task is creating a new column based on values in existing columns. For example, we could add a new column for year.
 
-Use `mutate()` from `dplry` to a column. We pass in the name of the new column, and the value of the column.
+Use `mutate()` from `dplry` to add a column. We pass in the name of the new column, and the value of the column.
 
 Use `year()` from `lubridate` on a date column to get the year.
 
 This code will get the year from 'observed_on', and create a 'year' column.
 
-```{r}
+```{r, mutate_year}
 temp <- inat_data %>% 
   mutate(year = year(observed_on))
 ```
 
-We can use `names()` to get the columns. As you can see, a year column has been added.
+We can use `names()` to get the columns. As you can see, a year column has been added at the end.
 
 You can also click on `temp` in **Environment** tab to see the dataframe with `year` column.
 
-```{r}
+```{r, column_names}
 names(temp)
 
 ```
 
 This will get all observations for 2020.
 
-```{r}
+```{r, 2020_observations}
 inat_data %>% 
   mutate(year = year(observed_on)) %>%
   filter(year == 2020)
 ```
 
-::: exercise
+:::: exercise
 ## Exercise 4
 
 Get all of your observations from the last year.
 
 -   Use `select()` , `filter()`
 -   Use `mutate()` and `year()` to add year column
--   The data.frame should have `user_login`, `observed_on`, `common-name`, `scientific_name`.
+-   The results should have `user_login` equal to your iNaturalist username
+-   The results should have `year` equal last year
+-   The results should have `user_login`, `observed_on`, `common-name`, `scientific_name`.
 
-:::::: answer
-```{r}
+::: answer
+```{r, exercise_last_year}
 inat_data %>% 
    mutate(year = year(observed_on)) %>%
-  filter(user_login == 'natureinla' & year == 2023) %>%
+  filter(user_login == 'natureinla' & year == 2024) %>%
   select(user_login, observed_on, common_name, scientific_name) 
 
 
 ```
-::::::
 :::
+::::
 
 ## Count the number of rows with count()
 
@@ -449,7 +458,7 @@ Use `count()` from dplyr to count the number of values for one or more columns. 
 
 Let's try counting of all observations by year. Use `mutate()` to add a year column. Use `count()` to count the number of observations for each year. By default, count will add a new column caled `n`.
 
-```{r}
+```{r, count_year}
 inat_data %>% 
   mutate(year = year(observed_on)) %>%
   count(year)  
@@ -457,7 +466,7 @@ inat_data %>%
 
 We can specify the name of the count column by passing in `name` argument to `count()`.
 
-```{r}
+```{r, rename_count_column}
 inat_data %>% 
   mutate(year = year(observed_on)) %>%
   count(year, name='obs_count')  
@@ -465,63 +474,71 @@ inat_data %>%
 
 Let's count the number of observations for each species. We will pass in both 'common_name' and 'scientific_name' because some species don't have a common_name.
 
-```{r}
-inat_data %>% 
+```{r, count_species}
+counts <- inat_data %>% 
   count(common_name, scientific_name, name='obs_count')   
 
+counts
 ```
 
 It's often useful to take a look at the results in some order, like the lowest count to highest. We can use the `arrange()` function for that. We pass in the columns we want to order by to `arrange()`, By default, arrange will return values from lowest to highest.
 
-```{r}
-inat_data %>% 
+```{r, order_counts}
+counts <- inat_data %>% 
   count(common_name, scientific_name, name='obs_count')   %>%
   arrange(obs_count)
 
+counts
 ```
 
 If we want to reverse the order, we can wrap the column names in `desc()`. This will return values from highest to lowest.
 
-```{r}
-inat_data %>% 
+```{r, desc_count}
+counts <- inat_data %>% 
   count(common_name, scientific_name, name='obs_count') %>%
   arrange(desc(obs_count)) 
+
+counts
 ```
 
 use `slice()` to return only certain number of records. `slice(start:end)` will return rows from the starting number to the ending number.
 
 Top ten species with the most observations.
 
-```{r}
-inat_data %>% 
+```{r, top_ten}
+counts <- inat_data %>% 
   count(common_name, scientific_name, name='obs_count') %>%
   arrange(desc(obs_count))  %>% 
   slice(1:10)
+
+counts
 ```
 
-::: exercise
+:::: exercise
 ## Exercise 5
 
 Create a data.frame with that counts your observation by year
 
 -   Use `mutate()` and `year()` to add year column
 -   Use `filter()` and `count()`
+-   The results should have `user_login` equal to your iNaturalist username
+-   The results should have a year and count columns
 
-:::::: answer
-```{r}
+::: answer
+```{r, exercise_observations_per_year}
 inat_data %>% 
   mutate(year = year(observed_on)) %>%
   filter(user_login == 'natureinla') %>%
   count(year, name='obs_count')   
 ```
-::::::
 :::
+::::
 
 ## Save data
 
 You can save the filtered data as CSVs. Assign the dataframe to an object.
 
-```{r}
+```{r, top_ten}
 
 top_ten <- inat_data %>% 
   count(common_name, scientific_name, name='obs_count') %>%
@@ -531,9 +548,9 @@ top_ten <- inat_data %>%
 top_ten
 
 ```
+
 Use `write_csv` to create a CSV. The first argument is the dataframe to save. The second argument is the relative path of where to save the file.
 
-```{r}
+```{r, save_file}
 write_csv(top_ten, 'results/top_ten_observations.csv')
 ```
-

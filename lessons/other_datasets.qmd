@@ -1,0 +1,305 @@
+---
+title: "Using to other datasets"
+format: 
+   html:
+     df-print: kable
+include-in-header: "components/add-answer-button.html"
+---
+
+::: summary
+## Questions
+
+-   How do we get other datasets?
+
+## objectives
+
+-   Combine other datasets with iNaturalist data
+:::
+
+Load packages
+
+```{r,load_packages}
+#| warning: false
+#| message: false
+
+library(dplyr)
+library(mapview)
+library(readr)
+library(dplyr)
+library(sf)
+library(ggplot2)
+```
+
+## Other datasets
+
+There are various geospatial datasets that you can use while analyzing iNaturalist data. Some datasets are free to use, some require crediting the original datasource.
+
+For this workshop, I downloaded a few datasets from Los Angeles Geohub <https://geohub.lacity.org> We are using demographics data gathered by Los Angeles county. A lot of their demographics data comes from the U.S. Census. We are also using parks date from L.A. county and L.A. city.
+
+## iNaturalist data
+
+Let's get observations for Coast Live Oak.
+
+```{r, get_inaturalist_observations}
+#| cache: true
+#| warning: false
+#| message: false
+
+inat <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+```
+
+Add a geometry column using `st_as_sf().` Select observations for 'Quercus agrifolia' aka Coast Live Oak using `filter()`.
+
+```{r, get_oak_observations}
+inat_obs <- inat %>% 
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326, remove=FALSE) %>% 
+  filter(scientific_name == 'Quercus agrifolia') 
+
+```
+
+Get the size and CRS of the dataframe
+
+```{r, inat_dataframe_info}
+dim(inat_obs)
+st_crs(inat_obs)
+```
+
+```{r,create_map_of_inaturalist_observations}
+mapview(inat_obs)
+```
+
+## Demographic data
+
+L.A. County completed Comprehensive Countywide Park Needs Assessment in 2016. As part of that study, they looked at demographics data throughout the county. For more information: https://geohub.lacity.org/datasets/lacounty::l-a-county-park-needs-assessment-demographics/about
+
+::: callout-note
+A lot of demographics data from the Park Needs Assessment comes from the U.S. Census. The reason we're using the parks data instead directly using Census data is because the Census data is more difficult to use. If you want to learn how to use U.S. Census data in R, check out the book *\[Analyzing US Census Data: Methods, Maps, and Models in R\](<https://walker-data.com/census-r/index.html>)*
+:::
+
+Load data. Use `st_read()` to read geojson file.
+
+```{r, get_pna_data}
+la_county_pna <- st_read('data/raw/PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907.geojson')
+```
+
+Let's get the size and compare CRS for the data
+
+```{r, pna_datafame_info}
+dim(la_county_pna)
+st_crs(la_county_pna) == st_crs(inat_obs)
+```
+
+The last row has data for the entire LA County. Let's remove that last row.
+
+```{r, remove_row_for_entire_county}
+la_county_pna <- la_county_pna[-c(189), ]
+
+dim(la_county_pna)
+```
+
+There are 96 fields in the dataset.
+
+| field | description |
+|---------------------------|---------------------------------------------|
+| STUD_AR_ID | Study Area ID |
+| STUD_AR_NM | Study Area Name |
+| STUD_AR_LBL | Label |
+| TOOLKIT_ID | Toolkit ID |
+| Acres | Park Acres |
+| AC_PER_1K | Acres/1000 |
+| RepPrkAc | Accessible Park Acres |
+| NEED_DESCP | Need Description |
+| PCT_Walk | Walkable Percentage |
+| populationtotals_totpop_cy | Total Population |
+| householdtotals_avghhsz_cy | Average Household Size |
+| householdincome_medhinc_cy | Median Household Income |
+| educationalattainment_nohs_cy | Pop Age 25+: \< 9th Grade |
+| educationalattainment_somehs_cy | Pop Age 25+: High School/No Diploma |
+| educationalattainment_hsgrad_cy | Pop Age 25+: High School Diploma |
+| educationalattainment_ged_cy | Pop Age 25+: GED |
+| educationalattainment_smcoll_cy | Pop Age 25+: Some College/No Degree |
+| educationalattainment_asscdeg_c | Pop Age 25+: Associate's Degree |
+| educationalattainment_bachdeg_c | Pop Age 25+: Bachelor's Degree |
+| educationalattainment_graddeg_c | Pop Age 25+: Grad/Professional Degree |
+| educationalattainment_educbasec | Educational Attainment Base |
+| sports_mp33003a_b_i | Participated in baseball in last 12 months: Index |
+| sports_mp33004a_b_i | Participated in basketball in last 12 months: Index |
+| sports_mp33005a_b_i | Participated in bicycling (mountain) in last 12 mo: Index |
+| sports_mp33012a_b_i | Participated in football in last 12 months: Index |
+| sports_mp33014a_b_i | Participated in golf in last 12 months: Index |
+| sports_mp33015a_b_i | Participated in hiking in last 12 months: Index |
+| sports_mp33016a_b_i | Participated in horseback riding in last 12 months: Index |
+| sports_mp33020a_b_i | Participated in jogging/running in last 12 months: Index |
+| sports_mp33024a_b_i | Participated in soccer in last 12 months: Index |
+| sports_mp33025a_b_i | Participated in softball in last 12 months: Index |
+| sports_mp33026a_b_i | Participated in swimming in last 12 months: Index |
+| sports_mp33028a_b_i | Participated in tennis in last 12 months: Index |
+| sports_mp33029a_b_i | Participated in volleyball in last 12 months: Index |
+| sports_mp33030a_b_i | Participated in walking for exercise in last 12 mo: Index |
+| F5yearincrements_pop0_cy | Population Age 0-4 |
+| F5yearincrements_pop5_cy | Population Age 5-9 |
+| F5yearincrements_pop10_cy | Population Age 10-14 |
+| F5yearincrements_pop15_cy | Population Age 15-19 |
+| F5yearincrements_pop20_cy | Population Age 20-24 |
+| F5yearincrements_pop25_cy | Population Age 25-29 |
+| F5yearincrements_pop30_cy | Population Age 30-34 |
+| F5yearincrements_pop35_cy | Population Age 35-39 |
+| F5yearincrements_pop40_cy | Population Age 40-44 |
+| F5yearincrements_pop45_cy | Population Age 45-49 |
+| F5yearincrements_pop50_cy | Population Age 50-54 |
+| F5yearincrements_pop55_cy | Population Age 55-59 |
+| F5yearincrements_pop60_cy | Population Age 60-64 |
+| F5yearincrements_pop65_cy | Population Age 65-69 |
+| F5yearincrements_pop70_cy | Population Age 70-74 |
+| F5yearincrements_pop75_cy | Population Age 75-79 |
+| F5yearincrements_pop80_cy | Population Age 80-84 |
+| F5yearincrements_pop85_cy | Population Age 85+ |
+| F5yearincrements_pop18up_cy | Population Age 18+ |
+| F1yearincrements_age18_cy | Population Age 18 |
+| F1yearincrements_age19_cy | Population Age 19 |
+| MEAN_Asthma | MEAN Asthma |
+| MEAN_Low_Birth_Weight | MEAN Low_Birth_Weight |
+| MEAN_Cardiovascular | MEAN Cardiovascular |
+| raceandhispanicorigin_hisppop_c | Hispanic Population |
+| raceandhispanicorigin_nonhisp_c | Non-Hispanic Population |
+| raceandhispanicorigin_nhspwht_c | Non-Hispanic White Pop |
+| raceandhispanicorigin_nhspblk_c | Non-Hispanic Black Pop |
+| raceandhispanicorigin_nhspai_cy | Non-Hispanic American Indian Pop |
+| raceandhispanicorigin_nhspasn_c | Non-Hispanic Asian Pop |
+| raceandhispanicorigin_nhsppi_cy | Non-Hispanic Pacific Islander Pop |
+| raceandhispanicorigin_nhspoth_c | Non-Hispanic Other Race Pop |
+| raceandhispanicorigin_nhspmlt_c | Non-Hispanic Multiple Race Pop |
+| Age0_17Pct | Age 0-17 Pct |
+| Age18_34Pct | Age 18-34 Pct |
+| Age35_54Pct | Age 35-54 Pct |
+| Age55_69Pct | Age 55-69 Pct |
+| Age70upPct | Age 70+ Pct |
+| HispanicPct | Hispanic Pct |
+| WhitePct | White Pct |
+| Black_Pct | Black Pct |
+| Asian_Pct | Asian Pct |
+| Am_Indian | American Indian Pct |
+| Pac_Island | Pacific Islander Pct |
+| Other_Race | Other Race Pct |
+| Multi_Race | Multiple Race Pct |
+| No_HS | No High School Diploma Pct |
+| HS_Grad | High School Graduate Pct |
+| Some_College | Some College Pct |
+| College | College Degree Pct |
+| unemprt_cy | Unemployment Rate |
+
+### Household Median Income
+
+Let's look at the Household Median Income using `zcol='householdincome_medhinc_cy'`.
+
+```{r, map_of_median_income}
+mapview(la_county_pna, 
+        zcol='householdincome_medhinc_cy')
+```
+
+There are two issues with the previous map.
+
+1.  The name of the layer is too long. We can rename the layer using `layer.name ='New Name'`
+
+2.  When you click on region, the popup shows too many fields. To select the columns displayed in popups, we can set the columns using `dataframe[c('col_1', 'col_2')]`. In R, a vector is a list of items. `c()` is a function from R that creates a vector from a list of values. 
+
+`layer.name ='Avg income'` sets the layer name to 'Avg income'.
+
+`la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')]` sets the columns show in the popup to householdincome_medhinc_cy and STUD_AR_NM
+
+
+```{r, fix_map}
+mapview(la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')], 
+        zcol='householdincome_medhinc_cy',
+        layer.name ='Avg income') 
+```
+
+
+Add iNaturalist data
+
+```{r, map_of_median_income_and_inat}
+mapview(la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')],
+        zcol='householdincome_medhinc_cy',
+        layer.name ='Avg income')  +
+  mapview(inat_obs)
+
+```
+
+::: exercise
+## Exercise 1
+
+Create a map using one of the columns from Park Needs Assessment and one species from iNaturalist.
+
+-   use `filter()` on the iNaturalist data to select a species
+-   use `z_col` to pick a column from Park Needs Assessment
+
+:::::: solution
+```{r}
+inat_poppy <- inat %>% 
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326, remove=FALSE) %>% 
+  filter(common_name == 'California poppy') 
+ 
+mapview(la_county_pna[c('PCT_Walk')], 
+        zcol='PCT_Walk') +
+  mapview(inat_poppy)
+```
+::::::
+:::
+
+## Parks
+
+Let's look the location of parks
+
+
+DPR Park Facilities View (Accessible Parks) - County of Los Angeles parks. <https://geohub.lacity.org/datasets/lacounty::dpr-park-facilities-view-accessible-parks/explore>
+
+Los Angeles Recreation and Parks Boundaries - City of Los Angeles parks. <https://geohub.lacity.org/datasets/lahub::los-angeles-recreation-and-parks-boundaries/about>
+
+
+```{r, get_parks_data}
+parks_county <- read_sf('data/raw/DPR_Park_Facilities_View_(Accessible_Parks)/DPR_Park_Facilities_View_(Accessible_Parks).shp')
+
+parks_city <- read_sf('data/raw/Los_Angeles_Recreation_and_Parks_Boundaries/Los_Angeles_Recreation_and_Parks_Boundaries.shp')
+
+parks_state <- read_sf('data/raw/Park_Boundaries/ParkBoundaries.shp')
+```
+
+```{r, county_parks_dataframe_info}
+dim(parks_county)
+st_crs(parks_county) == st_crs(inat_obs)
+```
+
+```{r, city_parks_dataframe_info}
+dim(parks_city)
+st_crs(parks_city) == st_crs(inat_obs)
+```
+```{r, city_parks_dataframe_info}
+dim(parks_state)
+st_crs(parks_state) == st_crs(inat_obs)
+```
+
+We want to convert the CRS of the parks data to match the CRS of the iNaturalist data.
+
+```{r, update_county_crs}
+parks_county <- st_transform(parks_county, crs = 4326)
+
+st_crs(parks_county) == st_crs(inat_obs)
+```
+
+```{r, update_city_crs}
+parks_city <- st_transform(parks_city, crs = 4326)
+
+st_crs(parks_city) == st_crs(inat_obs)
+```
+```{r, update_city_crs}
+parks_state <- st_transform(parks_state, crs = 4326)
+
+st_crs(parks_state) == st_crs(inat_obs)
+```
+
+```{r, map_of_parks_with_inat}
+mapview(parks_county, col.region='red') + 
+  mapview(parks_city, col.region='yellow') +
+  mapview(parks_state, col.region='green') +
+  mapview(inat_obs)
+```
