@@ -130,5 +130,643 @@
       "Home",
       "Creating maps"
     ]
+  },
+  {
+    "objectID": "lessons/other_datasets.html",
+    "href": "lessons/other_datasets.html",
+    "title": "Using to other datasets",
+    "section": "",
+    "text": "How do we get other datasets?\n\n\n\n\n\nCombine other datasets with iNaturalist data\nLoad packages\nlibrary(dplyr)\nlibrary(mapview)\nlibrary(readr)\nlibrary(dplyr)\nlibrary(sf)\nlibrary(ggplot2)",
+    "crumbs": [
+      "Home",
+      "Using to other datasets"
+    ]
+  },
+  {
+    "objectID": "lessons/other_datasets.html#questions",
+    "href": "lessons/other_datasets.html#questions",
+    "title": "Using to other datasets",
+    "section": "",
+    "text": "How do we get other datasets?",
+    "crumbs": [
+      "Home",
+      "Using to other datasets"
+    ]
+  },
+  {
+    "objectID": "lessons/other_datasets.html#objectives",
+    "href": "lessons/other_datasets.html#objectives",
+    "title": "Using to other datasets",
+    "section": "",
+    "text": "Combine other datasets with iNaturalist data",
+    "crumbs": [
+      "Home",
+      "Using to other datasets"
+    ]
+  },
+  {
+    "objectID": "lessons/other_datasets.html#other-datasets",
+    "href": "lessons/other_datasets.html#other-datasets",
+    "title": "Using to other datasets",
+    "section": "Other datasets",
+    "text": "Other datasets\nThere are various geospatial datasets that you can use while analyzing iNaturalist data. Some datasets are free to use, some require crediting the original datasource.\nFor this workshop, I downloaded a few datasets from Los Angeles Geohub https://geohub.lacity.org We are using demographics data gathered by Los Angeles county. A lot of their demographics data comes from the U.S. Census. We are also using parks date from L.A. county and L.A. city.",
+    "crumbs": [
+      "Home",
+      "Using to other datasets"
+    ]
+  },
+  {
+    "objectID": "lessons/other_datasets.html#inaturalist-data",
+    "href": "lessons/other_datasets.html#inaturalist-data",
+    "title": "Using to other datasets",
+    "section": "iNaturalist data",
+    "text": "iNaturalist data\nLet’s get observations for Coast Live Oak.\n\ninat &lt;- read_csv('data/cleaned/cnc-los-angeles-observations.csv')\n\nAdd a geometry column using st_as_sf(). Select observations for ‘Quercus agrifolia’ aka Coast Live Oak using filter().\n\ninat_obs &lt;- inat %&gt;% \n  st_as_sf(coords = c(\"longitude\", \"latitude\"), crs = 4326, remove=FALSE) %&gt;% \n  filter(scientific_name == 'Quercus agrifolia') \n\nGet the size and CRS of the dataframe\n\ndim(inat_obs)\n\n[1] 710  41\n\nst_crs(inat_obs)\n\nCoordinate Reference System:\n  User input: EPSG:4326 \n  wkt:\nGEOGCRS[\"WGS 84\",\n    ENSEMBLE[\"World Geodetic System 1984 ensemble\",\n        MEMBER[\"World Geodetic System 1984 (Transit)\"],\n        MEMBER[\"World Geodetic System 1984 (G730)\"],\n        MEMBER[\"World Geodetic System 1984 (G873)\"],\n        MEMBER[\"World Geodetic System 1984 (G1150)\"],\n        MEMBER[\"World Geodetic System 1984 (G1674)\"],\n        MEMBER[\"World Geodetic System 1984 (G1762)\"],\n        MEMBER[\"World Geodetic System 1984 (G2139)\"],\n        ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n            LENGTHUNIT[\"metre\",1]],\n        ENSEMBLEACCURACY[2.0]],\n    PRIMEM[\"Greenwich\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[ellipsoidal,2],\n        AXIS[\"geodetic latitude (Lat)\",north,\n            ORDER[1],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"geodetic longitude (Lon)\",east,\n            ORDER[2],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n    USAGE[\n        SCOPE[\"Horizontal component of 3D system.\"],\n        AREA[\"World.\"],\n        BBOX[-90,-180,90,180]],\n    ID[\"EPSG\",4326]]\n\n\n\nmapview(inat_obs)",
+    "crumbs": [
+      "Home",
+      "Using to other datasets"
+    ]
+  },
+  {
+    "objectID": "lessons/other_datasets.html#demographic-data",
+    "href": "lessons/other_datasets.html#demographic-data",
+    "title": "Using to other datasets",
+    "section": "Demographic data",
+    "text": "Demographic data\nL.A. County completed Comprehensive Countywide Park Needs Assessment in 2016. As part of that study, they looked at demographics data throughout the county. For more information: https://geohub.lacity.org/datasets/lacounty::l-a-county-park-needs-assessment-demographics/about\n\n\n\n\n\n\nNote\n\n\n\nA lot of demographics data from the Park Needs Assessment comes from the U.S. Census. The reason we’re using the parks data instead directly using Census data is because the Census data is more difficult to use. If you want to learn how to use U.S. Census data in R, check out the book [Analyzing US Census Data: Methods, Maps, and Models in R](https://walker-data.com/census-r/index.html)\n\n\nLoad data. Use st_read() to read geojson file.\n\nla_county_pna &lt;- st_read('data/raw/PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907.geojson')\n\nReading layer `PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907' from data source `/Users/wyk/Development/science/city_nature_challenge/NHMLA_workshop/CNC-coding-workshop_quarto/lessons/data/raw/PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907.geojson' \n  using driver `GeoJSON'\nSimple feature collection with 189 features and 95 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: -118.9447 ymin: 32.7996 xmax: -117.6464 ymax: 34.8233\nGeodetic CRS:  WGS 84\n\n\nLet’s get the size and compare CRS for the data\n\ndim(la_county_pna)\n\n[1] 189  96\n\nst_crs(la_county_pna) == st_crs(inat_obs)\n\n[1] TRUE\n\n\nThe last row has data for the entire LA County. Let’s remove that last row.\n\nla_county_pna &lt;- la_county_pna[-c(189), ]\n\ndim(la_county_pna)\n\n[1] 188  96\n\n\nThere are 96 fields in the dataset.\n\n\n\n\n\n\n\nfield\ndescription\n\n\n\n\nSTUD_AR_ID\nStudy Area ID\n\n\nSTUD_AR_NM\nStudy Area Name\n\n\nSTUD_AR_LBL\nLabel\n\n\nTOOLKIT_ID\nToolkit ID\n\n\nAcres\nPark Acres\n\n\nAC_PER_1K\nAcres/1000\n\n\nRepPrkAc\nAccessible Park Acres\n\n\nNEED_DESCP\nNeed Description\n\n\nPCT_Walk\nWalkable Percentage\n\n\npopulationtotals_totpop_cy\nTotal Population\n\n\nhouseholdtotals_avghhsz_cy\nAverage Household Size\n\n\nhouseholdincome_medhinc_cy\nMedian Household Income\n\n\neducationalattainment_nohs_cy\nPop Age 25+: &lt; 9th Grade\n\n\neducationalattainment_somehs_cy\nPop Age 25+: High School/No Diploma\n\n\neducationalattainment_hsgrad_cy\nPop Age 25+: High School Diploma\n\n\neducationalattainment_ged_cy\nPop Age 25+: GED\n\n\neducationalattainment_smcoll_cy\nPop Age 25+: Some College/No Degree\n\n\neducationalattainment_asscdeg_c\nPop Age 25+: Associate’s Degree\n\n\neducationalattainment_bachdeg_c\nPop Age 25+: Bachelor’s Degree\n\n\neducationalattainment_graddeg_c\nPop Age 25+: Grad/Professional Degree\n\n\neducationalattainment_educbasec\nEducational Attainment Base\n\n\nsports_mp33003a_b_i\nParticipated in baseball in last 12 months: Index\n\n\nsports_mp33004a_b_i\nParticipated in basketball in last 12 months: Index\n\n\nsports_mp33005a_b_i\nParticipated in bicycling (mountain) in last 12 mo: Index\n\n\nsports_mp33012a_b_i\nParticipated in football in last 12 months: Index\n\n\nsports_mp33014a_b_i\nParticipated in golf in last 12 months: Index\n\n\nsports_mp33015a_b_i\nParticipated in hiking in last 12 months: Index\n\n\nsports_mp33016a_b_i\nParticipated in horseback riding in last 12 months: Index\n\n\nsports_mp33020a_b_i\nParticipated in jogging/running in last 12 months: Index\n\n\nsports_mp33024a_b_i\nParticipated in soccer in last 12 months: Index\n\n\nsports_mp33025a_b_i\nParticipated in softball in last 12 months: Index\n\n\nsports_mp33026a_b_i\nParticipated in swimming in last 12 months: Index\n\n\nsports_mp33028a_b_i\nParticipated in tennis in last 12 months: Index\n\n\nsports_mp33029a_b_i\nParticipated in volleyball in last 12 months: Index\n\n\nsports_mp33030a_b_i\nParticipated in walking for exercise in last 12 mo: Index\n\n\nF5yearincrements_pop0_cy\nPopulation Age 0-4\n\n\nF5yearincrements_pop5_cy\nPopulation Age 5-9\n\n\nF5yearincrements_pop10_cy\nPopulation Age 10-14\n\n\nF5yearincrements_pop15_cy\nPopulation Age 15-19\n\n\nF5yearincrements_pop20_cy\nPopulation Age 20-24\n\n\nF5yearincrements_pop25_cy\nPopulation Age 25-29\n\n\nF5yearincrements_pop30_cy\nPopulation Age 30-34\n\n\nF5yearincrements_pop35_cy\nPopulation Age 35-39\n\n\nF5yearincrements_pop40_cy\nPopulation Age 40-44\n\n\nF5yearincrements_pop45_cy\nPopulation Age 45-49\n\n\nF5yearincrements_pop50_cy\nPopulation Age 50-54\n\n\nF5yearincrements_pop55_cy\nPopulation Age 55-59\n\n\nF5yearincrements_pop60_cy\nPopulation Age 60-64\n\n\nF5yearincrements_pop65_cy\nPopulation Age 65-69\n\n\nF5yearincrements_pop70_cy\nPopulation Age 70-74\n\n\nF5yearincrements_pop75_cy\nPopulation Age 75-79\n\n\nF5yearincrements_pop80_cy\nPopulation Age 80-84\n\n\nF5yearincrements_pop85_cy\nPopulation Age 85+\n\n\nF5yearincrements_pop18up_cy\nPopulation Age 18+\n\n\nF1yearincrements_age18_cy\nPopulation Age 18\n\n\nF1yearincrements_age19_cy\nPopulation Age 19\n\n\nMEAN_Asthma\nMEAN Asthma\n\n\nMEAN_Low_Birth_Weight\nMEAN Low_Birth_Weight\n\n\nMEAN_Cardiovascular\nMEAN Cardiovascular\n\n\nraceandhispanicorigin_hisppop_c\nHispanic Population\n\n\nraceandhispanicorigin_nonhisp_c\nNon-Hispanic Population\n\n\nraceandhispanicorigin_nhspwht_c\nNon-Hispanic White Pop\n\n\nraceandhispanicorigin_nhspblk_c\nNon-Hispanic Black Pop\n\n\nraceandhispanicorigin_nhspai_cy\nNon-Hispanic American Indian Pop\n\n\nraceandhispanicorigin_nhspasn_c\nNon-Hispanic Asian Pop\n\n\nraceandhispanicorigin_nhsppi_cy\nNon-Hispanic Pacific Islander Pop\n\n\nraceandhispanicorigin_nhspoth_c\nNon-Hispanic Other Race Pop\n\n\nraceandhispanicorigin_nhspmlt_c\nNon-Hispanic Multiple Race Pop\n\n\nAge0_17Pct\nAge 0-17 Pct\n\n\nAge18_34Pct\nAge 18-34 Pct\n\n\nAge35_54Pct\nAge 35-54 Pct\n\n\nAge55_69Pct\nAge 55-69 Pct\n\n\nAge70upPct\nAge 70+ Pct\n\n\nHispanicPct\nHispanic Pct\n\n\nWhitePct\nWhite Pct\n\n\nBlack_Pct\nBlack Pct\n\n\nAsian_Pct\nAsian Pct\n\n\nAm_Indian\nAmerican Indian Pct\n\n\nPac_Island\nPacific Islander Pct\n\n\nOther_Race\nOther Race Pct\n\n\nMulti_Race\nMultiple Race Pct\n\n\nNo_HS\nNo High School Diploma Pct\n\n\nHS_Grad\nHigh School Graduate Pct\n\n\nSome_College\nSome College Pct\n\n\nCollege\nCollege Degree Pct\n\n\nunemprt_cy\nUnemployment Rate\n\n\n\n\nHousehold Median Income\nLet’s look at the Household Median Income using zcol='householdincome_medhinc_cy'.\n\nmapview(la_county_pna, \n        zcol='householdincome_medhinc_cy')\n\nThere are two issues with the previous map.\n\nThe name of the layer is too long. We can rename the layer using layer.name ='New Name'\nWhen you click on region, the popup shows too many fields. To select the columns displayed in popups, we can set the columns using dataframe[c('col_1', 'col_2')]. In R, a vector is a list of items. c() is a function from R that creates a vector from a list of values.\n\nlayer.name ='Avg income' sets the layer name to ‘Avg income’.\nla_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')] sets the columns show in the popup to householdincome_medhinc_cy and STUD_AR_NM\n\nmapview(la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')], \n        zcol='householdincome_medhinc_cy',\n        layer.name ='Avg income') \n\nAdd iNaturalist data\n\nmapview(la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')],\n        zcol='householdincome_medhinc_cy',\n        layer.name ='Avg income')  +\n  mapview(inat_obs)",
+    "crumbs": [
+      "Home",
+      "Using to other datasets"
+    ]
+  },
+  {
+    "objectID": "lessons/other_datasets.html#exercise-1",
+    "href": "lessons/other_datasets.html#exercise-1",
+    "title": "Using to other datasets",
+    "section": "Exercise 1",
+    "text": "Exercise 1\nCreate a map using one of the columns from Park Needs Assessment and one species from iNaturalist.\n\nuse filter() on the iNaturalist data to select a species\nuse z_col to pick a column from Park Needs Assessment\n\n\nSolution. \n\ninat_poppy &lt;- inat %&gt;% \n  st_as_sf(coords = c(\"longitude\", \"latitude\"), crs = 4326, remove=FALSE) %&gt;% \n  filter(common_name == 'California poppy') \n \nmapview(la_county_pna[c('PCT_Walk')], \n        zcol='PCT_Walk') +\n  mapview(inat_poppy)",
+    "crumbs": [
+      "Home",
+      "Using to other datasets"
+    ]
+  },
+  {
+    "objectID": "lessons/other_datasets.html#parks",
+    "href": "lessons/other_datasets.html#parks",
+    "title": "Using to other datasets",
+    "section": "Parks",
+    "text": "Parks\nLet’s look the location of parks\nDPR Park Facilities View (Accessible Parks) - County of Los Angeles parks. https://geohub.lacity.org/datasets/lacounty::dpr-park-facilities-view-accessible-parks/explore\nLos Angeles Recreation and Parks Boundaries - City of Los Angeles parks. https://geohub.lacity.org/datasets/lahub::los-angeles-recreation-and-parks-boundaries/about\n\nparks_county &lt;- read_sf('data/raw/DPR_Park_Facilities_View_(Accessible_Parks)/DPR_Park_Facilities_View_(Accessible_Parks).shp')\n\nparks_city &lt;- read_sf('data/raw/Los_Angeles_Recreation_and_Parks_Boundaries/Los_Angeles_Recreation_and_Parks_Boundaries.shp')\n\nparks_state &lt;- read_sf('data/raw/Park_Boundaries/ParkBoundaries.shp')\n\n\ndim(parks_county)\n\n[1] 292 145\n\nst_crs(parks_county) == st_crs(inat_obs)\n\n[1] FALSE\n\n\n\ndim(parks_city)\n\n[1] 561  17\n\nst_crs(parks_city) == st_crs(inat_obs)\n\n[1] FALSE\n\n\n\ndim(parks_state)\n\n[1] 468  12\n\nst_crs(parks_state) == st_crs(inat_obs)\n\n[1] FALSE\n\n\nWe want to convert the CRS of the parks data to match the CRS of the iNaturalist data.\n\nparks_county &lt;- st_transform(parks_county, crs = 4326)\n\nst_crs(parks_county) == st_crs(inat_obs)\n\n[1] TRUE\n\n\n\nparks_city &lt;- st_transform(parks_city, crs = 4326)\n\nst_crs(parks_city) == st_crs(inat_obs)\n\n[1] TRUE\n\n\n\nparks_state &lt;- st_transform(parks_state, crs = 4326)\n\nst_crs(parks_state) == st_crs(inat_obs)\n\n[1] TRUE\n\n\n\nmapview(parks_county, col.region='red') + \n  mapview(parks_city, col.region='yellow') +\n  mapview(parks_state, col.region='green') +\n  mapview(inat_obs)",
+    "crumbs": [
+      "Home",
+      "Using to other datasets"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-data-analysis.html",
+    "href": "lessons/intro-data-analysis.html",
+    "title": "Introduction to Data Analysis",
+    "section": "",
+    "text": "How do we begin to analyze iNaturalist data?\n\n\n\n\n\nLearn how to download data from iNaturalist\nLearn about the various ways to analyze data",
+    "crumbs": [
+      "Home",
+      "Introduction to Data Analysis"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-data-analysis.html#questions",
+    "href": "lessons/intro-data-analysis.html#questions",
+    "title": "Introduction to Data Analysis",
+    "section": "",
+    "text": "How do we begin to analyze iNaturalist data?",
+    "crumbs": [
+      "Home",
+      "Introduction to Data Analysis"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-data-analysis.html#objectives",
+    "href": "lessons/intro-data-analysis.html#objectives",
+    "title": "Introduction to Data Analysis",
+    "section": "",
+    "text": "Learn how to download data from iNaturalist\nLearn about the various ways to analyze data",
+    "crumbs": [
+      "Home",
+      "Introduction to Data Analysis"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-data-analysis.html#inaturalist-data",
+    "href": "lessons/intro-data-analysis.html#inaturalist-data",
+    "title": "Introduction to Data Analysis",
+    "section": "iNaturalist data",
+    "text": "iNaturalist data\nWhen iNaturalist users add an observation through the iNaturalist app, that data is saved to the iNaturalist database. People can download the iNaturalist data as CSVs.\n\n\n\n\n\n\nNote\n\n\n\nCSV comma-separated values\nCSV is a text file format for tabular data. Each line represents one record. Each column represents a field. The fields are separated by commas. CSVs can be opened in text editors or spreadsheet programs.\nCSV as plain text file.\n\nCSV in CSV or spreadsheet application.\n\n\n\nThe iNaturalist CSV has information about:\n\nthe user who made observation\nthe location of the observation\nthe observed species\nlinks for photos, videos, sounds",
+    "crumbs": [
+      "Home",
+      "Introduction to Data Analysis"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-data-analysis.html#downloading-inaturalist-data",
+    "href": "lessons/intro-data-analysis.html#downloading-inaturalist-data",
+    "title": "Introduction to Data Analysis",
+    "section": "Downloading iNaturalist data",
+    "text": "Downloading iNaturalist data\nHere’s a video showing how to download iNaturalist data.\n\n\nTo save time and ensure everyone at the workshop has the same data, a CSV with data from iNaturalist City Nature Challenge Los Angeles from 2013 to 2024 is provided data/cleaned/cnc-los-angeles-observations.csv.\nIf you would like to download iNaturalist data for your own project, here’s more info.\nHow to Search iNaturalist Observations\nHow can I download data from iNaturalist?",
+    "crumbs": [
+      "Home",
+      "Introduction to Data Analysis"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-data-analysis.html#analyzing-data",
+    "href": "lessons/intro-data-analysis.html#analyzing-data",
+    "title": "Introduction to Data Analysis",
+    "section": "Analyzing data",
+    "text": "Analyzing data\nIt is difficult for people to see any patterns when reading rows after row of text. To make it easier to see patterns, we can use software to analyze tabular data.\n\nSpreadsheet programs are computer application that people can use to view, edit, and analyze tabular data. The programs can do calculations and create charts. Examples include Excel and Google Sheets\nGeographic information system (GIS) are computer application that people can use to view, edit and analyze geographic data. The programs can do calculations and create maps. Examples include ArcGIS and QGIS.\nProgramming languages allow people to write instructions to tell a computer to do stuff. We can write code to do calculations, create charts, and create maps. Example programming languages include R, Python, C.\n\nThis class uses R because it is a popular language in ecology research and other types of scientific research.",
+    "crumbs": [
+      "Home",
+      "Introduction to Data Analysis"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-data-analysis.html#example-of-analyzing-inaturalist-data-using-r",
+    "href": "lessons/intro-data-analysis.html#example-of-analyzing-inaturalist-data-using-r",
+    "title": "Introduction to Data Analysis",
+    "section": "Example of analyzing iNaturalist data using R",
+    "text": "Example of analyzing iNaturalist data using R\nHere’s an overview of what we learn in this workshop.\nLoad software that will will need.\n\nlibrary(readr) # read and write tabular data\nlibrary(dplyr) # manipulate data\nlibrary(ggplot2) # create data visualizations\nlibrary(sf) # handle geospatial data\nlibrary(lubridate) # manipulate dates\nlibrary(mapview) # create interactive maps\n\nLoad iNaturalist data from City Nature Challenge Los Angeles 2013-2024. There are over 191,000 observations.\n\ninat &lt;- read_csv(\"data/cleaned/cnc-los-angeles-observations.csv\")\n\nCreate summaries of the data. For instance, get the 10 most commonly observed ‘species’.\n\ntop_10 &lt;- inat %&gt;% \n  select(common_name, scientific_name) %&gt;% \n  count(common_name, scientific_name, name='count')  %&gt;%\n  arrange(desc(count)) %&gt;% \n  slice(1:10) \n\ntop_10\n\n# A tibble: 10 × 3\n   common_name            scientific_name          count\n   &lt;chr&gt;                  &lt;chr&gt;                    &lt;int&gt;\n 1 Western Fence Lizard   Sceloporus occidentalis   3339\n 2 Western Honey Bee      Apis mellifera            2060\n 3 dicots                 Magnoliopsida             2012\n 4 plants                 Plantae                   1715\n 5 Eastern Fox Squirrel   Sciurus niger             1475\n 6 House Finch            Haemorhous mexicanus      1263\n 7 Mourning Dove          Zenaida macroura          1205\n 8 flowering plants       Angiospermae              1162\n 9 California poppy       Eschscholzia californica   934\n10 Convergent Lady Beetle Hippodamia convergens      929\n\n\nCreate charts. For example, create a bar chart showing the number of observations per year.\n\ninat %&gt;% \n  mutate(year = year(observed_on))  %&gt;%\n  group_by(year) %&gt;% \n  ggplot(aes(x = year)) +\n  geom_bar()\n\n\n\n\n\n\n\n\nCreate maps. For example, create a map showing all the observations for Western Fence Lizard\n\nlizard &lt;- inat %&gt;% \n  st_as_sf(coords = c(\"longitude\", \"latitude\"),   crs = 4326, remove=FALSE) %&gt;% \n  select(id, user_login, common_name, scientific_name, observed_on,  url, longitude, latitude, geometry) %&gt;% \n  filter(common_name == 'Western Fence Lizard')\n\n\nmapview(lizard)",
+    "crumbs": [
+      "Home",
+      "Introduction to Data Analysis"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Introduction",
+    "section": "",
+    "text": "This is the City Nature Challenge workshop.",
+    "crumbs": [
+      "Home",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-r-rstudio.html",
+    "href": "lessons/intro-r-rstudio.html",
+    "title": "Introduction to R and RStudio",
+    "section": "",
+    "text": "What is R and RStudio?\nHow do you get started working in R and RStudio?\n\n\n\n\n\nUnderstand the difference between R and RStudio\nDescribe the purpose of the different RStudio panes\nOrganize files and directories into R Projects",
+    "crumbs": [
+      "Home",
+      "Introduction to R and RStudio"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-r-rstudio.html#questions",
+    "href": "lessons/intro-r-rstudio.html#questions",
+    "title": "Introduction to R and RStudio",
+    "section": "",
+    "text": "What is R and RStudio?\nHow do you get started working in R and RStudio?",
+    "crumbs": [
+      "Home",
+      "Introduction to R and RStudio"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-r-rstudio.html#objectives",
+    "href": "lessons/intro-r-rstudio.html#objectives",
+    "title": "Introduction to R and RStudio",
+    "section": "",
+    "text": "Understand the difference between R and RStudio\nDescribe the purpose of the different RStudio panes\nOrganize files and directories into R Projects",
+    "crumbs": [
+      "Home",
+      "Introduction to R and RStudio"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-r-rstudio.html#what-are-r-and-rstudio",
+    "href": "lessons/intro-r-rstudio.html#what-are-r-and-rstudio",
+    "title": "Introduction to R and RStudio",
+    "section": "What are R and RStudio?",
+    "text": "What are R and RStudio?\nR refers to a programming language as well as the software that runs R code. R was started in 1993. All programming languages have commands and syntax that you must use in order to write instructions to tell the computer to do something. The code is written down and saved in files so you can reuse and share them.\nRStudio is software to make it easier to write and run code in R. It was started in 2010.\nThink of R as English, and RStudio as Microsoft Word or Google Docs.\nBoth R and RStudio are:\n\nfree\ncross platform: works on Mac, Windows, Linux\nopen source: allows anyone to use and modify the software",
+    "crumbs": [
+      "Home",
+      "Introduction to R and RStudio"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-r-rstudio.html#navigating-rstudio",
+    "href": "lessons/intro-r-rstudio.html#navigating-rstudio",
+    "title": "Introduction to R and RStudio",
+    "section": "Navigating RStudio",
+    "text": "Navigating RStudio\nWe will use the RStudio integrated development environment (IDE) to write code into scripts, run code in R, navigate files on our computer, inspect objects we create in R, and look at the plots we make. RStudio also includes features like keyboard shortcuts, autocompletion of code, and syntax highlighting (different types of code are colored differently).\n\nIn the above screenshot, we can see 4 “panes” in the default layout. If you only have 3 panes, and the Console pane is in the top left, press Shift+Cmd+N (Mac) or Shift+Ctrl+N (Windows) to open a blank R script, which should make the Source pane appear.\n\nTop-Left: the Source pane that displays scripts and other files.\nTop-Right: the Environment/History pane which shows all the objects in your current R session (Environment) and your command history (History)\n\nThere are some other tabs here, including Connections, Build, Tutorial, and possibly Git\n\nBottom-Left: the Console pane, where you can type in commands. The R console will interpret R commands and prints the results\n\nThere are also tabs for Terminal and Jobs\n\nBottom-Right: the Files pane is used to display directories and files on your computer.\n\nPlot and Viewer displays plots out other types of output\nHelp display help pages",
+    "crumbs": [
+      "Home",
+      "Introduction to R and RStudio"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-r-rstudio.html#working-in-r-and-rstudio",
+    "href": "lessons/intro-r-rstudio.html#working-in-r-and-rstudio",
+    "title": "Introduction to R and RStudio",
+    "section": "Working in R and RStudio",
+    "text": "Working in R and RStudio\nThe basis of programming is that we write down instructions for the computer to follow, and then we tell the computer to follow those instructions. We write these instructions in the form of code, which is a common language that is understood by the computer and humans (after some practice). We call these instructions commands, and we tell the computer to follow the instructions by running (also called executing) the commands.\n\nConsole vs. script\nYou can run commands directly in the R console, or you can write them into an R script.\n\nConsole\n\nThe R console is where code is run/executed\nThe prompt, which is the &gt; symbol, is where you can type commands\nBy pressing Return (Mac) or Enter (Windows), R will execute those commands and print the result.\nWhen you write commands in the R console, you will not be able to access your work in future.\n\n\n\nScript\n\nA script is a record of commands to send to R, preserved in a plain text file with a .R extension\nYou send lines of R code to the R console to be evaluated\n\nCmd+Return (Mac) or Ctrl+Enter (Windows) will run the line of code that your cursor is on\nIf you highlight multiple lines of code, you can run all of them by pressing Cmd+Return (Mac) or Ctrl+Enter (Windows)\n\nBy saving the commands in a script, you can edit and rerun them quickly, access the commands in the future, and share them with others\nAn additional benefit of scripts is that you can leave comments for yourself or others to read. Lines that start with # are considered comments and will not be interpreted as R code.",
+    "crumbs": [
+      "Home",
+      "Introduction to R and RStudio"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-r-rstudio.html#first-script",
+    "href": "lessons/intro-r-rstudio.html#first-script",
+    "title": "Introduction to R and RStudio",
+    "section": "First script",
+    "text": "First script\nLet’s try running some code in the console and in a script.\nFirst, click down in the Console pane, and type out 1+2. Hit Enter to run the code. You should see your code echoed, and then the value of 3 returned.\nYou can make a new R script by clicking File → New File → R Script, clicking the green + button in the top left corner of RStudio, or pressing Shift+Cmd+N (Mac) or Shift+Ctrl+N (Windows). It will be unsaved, and called “Untitled1”\nNow click into your blank script, and type out 1+2. With your cursor on that line, hit Cmd+Enter (Mac) or Ctrl+Enter (Windows) to run the code. You will see that your code was sent from the script to the console, where it returned a value of 3.\nSometimes we want to store a value in memory so we can use it later. &lt;- tells R to assign the value on the right to the named object on the left. We refer to the value using the object name.\nobject_name &lt;- value\nLet’s create a price_1 and price_2 objects, and assign them a value.\n\nprice_1 &lt;- 20\nprice_2 &lt;- 30\n\nObjects price_1 and price_2 are created, and stored in memory. The objects are show in the Enviroment panel.\nWe can refer to the object names, and do something with those values. Let’s add the two prices\n\nprice_1 + price_2\n\n[1] 50\n\n\n\n\nExercise\nAdd a line to the script to substract price_1 and price_2.\n\n\nSolution\n\n\nprice_1 - price_2\n\n[1] -10",
+    "crumbs": [
+      "Home",
+      "Introduction to R and RStudio"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-r-rstudio.html#overview-of-workshop-files",
+    "href": "lessons/intro-r-rstudio.html#overview-of-workshop-files",
+    "title": "Introduction to R and RStudio",
+    "section": "Overview of workshop files",
+    "text": "Overview of workshop files\nIt is a good practice to organize your projects into self-contained folders right from the start. Using a consistent folder structure across all your new projects will help keep a growing project organized, and make it easy to find files in the future.\nWe will use this basic structure for this workshop.\nproject_folder\n│\n└── data\n│    └── cleaned\n│    └── raw\n│\n└─── results\n│\n└── scripts\n│\n└── CNC-coding-workshop.Rproj\nWithin our project folder, we have a data folder containing cleaned and raw subfolders. In general, you want to keep your raw data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the cleaned folder. We also have a results folder for any other documents you might produce. We also have a scripts folder to hold any scripts we write.\nRStudio provides a “Projects” feature that can make it easier to work on individual projects in R. When you need to work on the project, click on the .Rproj file to start RStudio.\nOne of the benefits to using RStudio Projects is that they automatically set the working directory to the top-level folder for the project. The working directory is the folder where R is working, so it views the location of all files (including data and scripts) as being relative to the working directory.\n\nCreating your own project folder from scratch\nIf you want to create your own project folder in R Studio, follow these steps.\n\nStart RStudio (you should see a view similar to the screenshot above).\nIn the top right, you will see a blue 3D cube and the words “Project: (None)”. Click on this icon.\nClick New Project from the dropdown menu.\nClick New Directory, then New Project.\nType out a name for the project.\nPut it in a convenient location using the “Create project as a subdirectory of:” section. We recommend your Desktop. You can always move the project somewhere else later, because it will be self-contained.\nClick Create Project and your new project will open.\n\nWhen you need to work on the project, click on the Rproj icon to start RStudio.\nThere are a few settings we will need to adjust to improve the reproducibility of our work. Go to your menu bar, then click Tools → Global Options to open up the Options window.\n\nMake sure your settings match those highlighted in yellow. We don’t want RStudio to store the current status of our R session and reload it the next time we start R. We want to start with a clean, empty R session every time we work.\nWe will use a basic structure for this workshop.\nproject_name\n│\n└── data\n│    └── cleaned\n│    └── raw\n│\n└─── results\n│\n└── scripts\n│\n└── project_name.Rproj\nLet’s start making our new folders. Go to the Files pane (bottom right), and check the current directory, highlighted in yellow below. You should be in the directory for the project you just made. You shouldn’t see any folders in here yet.\n\nNext, click the New Folder button, and type in scripts to generate your scripts folder. It should appear in the Files list now. Repeat the process to make your data, and results folders. Then, click on the data folder in the Files pane. This will take you into the data folder, which will be empty. Use the New Folder button to create raw and cleaned folders. To return to the project folder, click on it in the file path, which is highlighted in yellow in the previous image. It’s worth noting that the Files pane helps you create, find, and open files, but moving through your files won’t change where the working directory of your project is.",
+    "crumbs": [
+      "Home",
+      "Introduction to R and RStudio"
+    ]
+  },
+  {
+    "objectID": "lessons/creating-charts.html",
+    "href": "lessons/creating-charts.html",
+    "title": "Creating charts",
+    "section": "",
+    "text": "How do we create charts using R?\n\n\n\n\n\nLearn how to create bar and line charts using ggplot2\nLearn how to customize the appearance of the charts\nlibrary(readr) # read and write tabular data\nlibrary(dplyr) # manipulate data\nlibrary(ggplot2) # create data visualizations\nlibrary(lubridate) # manipulate dates",
+    "crumbs": [
+      "Home",
+      "Creating charts"
+    ]
+  },
+  {
+    "objectID": "lessons/creating-charts.html#questions",
+    "href": "lessons/creating-charts.html#questions",
+    "title": "Creating charts",
+    "section": "",
+    "text": "How do we create charts using R?",
+    "crumbs": [
+      "Home",
+      "Creating charts"
+    ]
+  },
+  {
+    "objectID": "lessons/creating-charts.html#objectives",
+    "href": "lessons/creating-charts.html#objectives",
+    "title": "Creating charts",
+    "section": "",
+    "text": "Learn how to create bar and line charts using ggplot2\nLearn how to customize the appearance of the charts",
+    "crumbs": [
+      "Home",
+      "Creating charts"
+    ]
+  },
+  {
+    "objectID": "lessons/creating-charts.html#creating-charts",
+    "href": "lessons/creating-charts.html#creating-charts",
+    "title": "Creating charts",
+    "section": "Creating charts",
+    "text": "Creating charts\nWe are going to be using functions from the ggplot2 package to create visualizations. ggplot plots are built step by step by adding new layers, which allows for extensive customization of plots.\nMain steps:\n\nLoad data\nUse filter(), select(), mutate(), count() so the dataframe has the data we need\nSet which columns will be used for chart elements such as x and y axis\nSelect the chart type\nCreate chart",
+    "crumbs": [
+      "Home",
+      "Creating charts"
+    ]
+  },
+  {
+    "objectID": "lessons/creating-charts.html#inaturalist-data",
+    "href": "lessons/creating-charts.html#inaturalist-data",
+    "title": "Creating charts",
+    "section": "iNaturalist data",
+    "text": "iNaturalist data\nFirst, read data from the iNaturalist observation file.\n\ninat &lt;- read_csv('data/cleaned/cnc-los-angeles-observations.csv')",
+    "crumbs": [
+      "Home",
+      "Creating charts"
+    ]
+  },
+  {
+    "objectID": "lessons/creating-charts.html#bar-chart",
+    "href": "lessons/creating-charts.html#bar-chart",
+    "title": "Creating charts",
+    "section": "Bar chart",
+    "text": "Bar chart\nCreate a bar chart that shows the number of observations per year.\nFirst, add year column to iNaturalist data.\n\ninat_year &lt;- inat %&gt;% \n  mutate(year = year(observed_on))\n\nPass the inaturalist observation to ggplot() function using the data argument.\n\nggplot(data = inat_year)\n\n\n\n\n\n\n\n\nWe need tell ggplot how to process the data. We tell ggplot how to map the data to various plot elements, such as x/y axis, size, or color by using the aes() function. aes is short for aesthetic mappings.\nFor bar charts, we need to tell what column to use for the x axis.\nWe want to create a plot with years on the x axis so we use mapping = aes(x = year). ggplot will count the number of rows for each year, and use the count for y axis.\n\nggplot(data = inat_year, mapping = aes(x = year))\n\n\n\n\n\n\n\n\nNext we need to specify how we want the data to be displayed. We do this using geom_ functions, which specify the type of geometry we want, such as points, lines, or bars. We use geom_bar() to create a vertical bar plot.\nWe can add a geom_bar() layer to our plot by using the + sign. We indent onto a new line to make it easier to read, and we have to end the first line with the + sign.\n\nggplot(data = inat_year, mapping = aes(x = year)) +\n  geom_bar()\n\n\n\n\n\n\n\n\nIf we want horizontal bar chart, use coord_flip()\n\nggplot(data = inat_year, mapping = aes(x = year)) +\n  geom_bar() +\n  coord_flip()",
+    "crumbs": [
+      "Home",
+      "Creating charts"
+    ]
+  },
+  {
+    "objectID": "lessons/creating-charts.html#line-chart",
+    "href": "lessons/creating-charts.html#line-chart",
+    "title": "Creating charts",
+    "section": "Line chart",
+    "text": "Line chart\nCreate a line chart that shows the number of observations per year.\nFor line charts, we need both specify which columns to use for the x and y axis.\nWe need to create a dataframe that has a year column, and a column that counts the observations per year. Use mutate() to add year column. Use count() to add column that has the count per year.\n\ninat_year_count &lt;- inat %&gt;% \n  mutate(year = year(observed_on)) %&gt;%\n  count(year, name='obs_count')  \n\ninat_year_count\n\n# A tibble: 9 × 2\n   year obs_count\n  &lt;dbl&gt;     &lt;int&gt;\n1  2016     10392\n2  2017     17495\n3  2018     19164\n4  2019     34057\n5  2020     19524\n6  2021     22549\n7  2022     19597\n8  2023     26602\n9  2024     22258\n\n\nfor aes, use year on the x axis and obs_count on the y axis. And we use geom_line() for to create a line chart.\n\nggplot(data = inat_year_count, \n       mapping = aes(x = year, y=obs_count)) +\n  geom_line()",
+    "crumbs": [
+      "Home",
+      "Creating charts"
+    ]
+  },
+  {
+    "objectID": "lessons/creating-charts.html#more-bar-charts",
+    "href": "lessons/creating-charts.html#more-bar-charts",
+    "title": "Creating charts",
+    "section": "More bar charts",
+    "text": "More bar charts\nCreate a bar chart that shows the number of observations per year.\nTo create bar chart when we already have x and y, use geom_col()\nWe want year on the x axis, and count on the y axis.\n\nggplot(data = inat_year_count, \n       mapping = aes(x = year, y = obs_count)) +\n  geom_col()",
+    "crumbs": [
+      "Home",
+      "Creating charts"
+    ]
+  },
+  {
+    "objectID": "lessons/creating-charts.html#exercise-1",
+    "href": "lessons/creating-charts.html#exercise-1",
+    "title": "Creating charts",
+    "section": "Exercise 1",
+    "text": "Exercise 1\nCreate a chart with all your observations for each year\n\nUse mutate() to add year column\nUse filter() to select user\n\n\nSolution. \n\nmy_year  &lt;- inat %&gt;% \n  mutate(year = year(observed_on))  %&gt;% \n  filter(user_login == 'natureinla')\n\n  \nggplot(data = my_year, mapping = aes(x = year)) +\n  geom_bar()",
+    "crumbs": [
+      "Home",
+      "Creating charts"
+    ]
+  },
+  {
+    "objectID": "lessons/creating-charts.html#changing-aesthetics",
+    "href": "lessons/creating-charts.html#changing-aesthetics",
+    "title": "Creating charts",
+    "section": "Changing aesthetics",
+    "text": "Changing aesthetics\nBuilding ggplot plots is often an iterative process, so we’ll continue developing the column plot we just made. We can change the color of the bars using fill='color'.\nUse colors() to get a list of the 657 colors in R.\n\ncolors()\n\n  [1] \"white\"                \"aliceblue\"            \"antiquewhite\"        \n  [4] \"antiquewhite1\"        \"antiquewhite2\"        \"antiquewhite3\"       \n  [7] \"antiquewhite4\"        \"aquamarine\"           \"aquamarine1\"         \n [10] \"aquamarine2\"          \"aquamarine3\"          \"aquamarine4\"         \n [13] \"azure\"                \"azure1\"               \"azure2\"              \n [16] \"azure3\"               \"azure4\"               \"beige\"               \n [19] \"bisque\"               \"bisque1\"              \"bisque2\"             \n [22] \"bisque3\"              \"bisque4\"              \"black\"               \n [25] \"blanchedalmond\"       \"blue\"                 \"blue1\"               \n [28] \"blue2\"                \"blue3\"                \"blue4\"               \n [31] \"blueviolet\"           \"brown\"                \"brown1\"              \n [34] \"brown2\"               \"brown3\"               \"brown4\"              \n [37] \"burlywood\"            \"burlywood1\"           \"burlywood2\"          \n [40] \"burlywood3\"           \"burlywood4\"           \"cadetblue\"           \n [43] \"cadetblue1\"           \"cadetblue2\"           \"cadetblue3\"          \n [46] \"cadetblue4\"           \"chartreuse\"           \"chartreuse1\"         \n [49] \"chartreuse2\"          \"chartreuse3\"          \"chartreuse4\"         \n [52] \"chocolate\"            \"chocolate1\"           \"chocolate2\"          \n [55] \"chocolate3\"           \"chocolate4\"           \"coral\"               \n [58] \"coral1\"               \"coral2\"               \"coral3\"              \n [61] \"coral4\"               \"cornflowerblue\"       \"cornsilk\"            \n [64] \"cornsilk1\"            \"cornsilk2\"            \"cornsilk3\"           \n [67] \"cornsilk4\"            \"cyan\"                 \"cyan1\"               \n [70] \"cyan2\"                \"cyan3\"                \"cyan4\"               \n [73] \"darkblue\"             \"darkcyan\"             \"darkgoldenrod\"       \n [76] \"darkgoldenrod1\"       \"darkgoldenrod2\"       \"darkgoldenrod3\"      \n [79] \"darkgoldenrod4\"       \"darkgray\"             \"darkgreen\"           \n [82] \"darkgrey\"             \"darkkhaki\"            \"darkmagenta\"         \n [85] \"darkolivegreen\"       \"darkolivegreen1\"      \"darkolivegreen2\"     \n [88] \"darkolivegreen3\"      \"darkolivegreen4\"      \"darkorange\"          \n [91] \"darkorange1\"          \"darkorange2\"          \"darkorange3\"         \n [94] \"darkorange4\"          \"darkorchid\"           \"darkorchid1\"         \n [97] \"darkorchid2\"          \"darkorchid3\"          \"darkorchid4\"         \n[100] \"darkred\"              \"darksalmon\"           \"darkseagreen\"        \n[103] \"darkseagreen1\"        \"darkseagreen2\"        \"darkseagreen3\"       \n[106] \"darkseagreen4\"        \"darkslateblue\"        \"darkslategray\"       \n[109] \"darkslategray1\"       \"darkslategray2\"       \"darkslategray3\"      \n[112] \"darkslategray4\"       \"darkslategrey\"        \"darkturquoise\"       \n[115] \"darkviolet\"           \"deeppink\"             \"deeppink1\"           \n[118] \"deeppink2\"            \"deeppink3\"            \"deeppink4\"           \n[121] \"deepskyblue\"          \"deepskyblue1\"         \"deepskyblue2\"        \n[124] \"deepskyblue3\"         \"deepskyblue4\"         \"dimgray\"             \n[127] \"dimgrey\"              \"dodgerblue\"           \"dodgerblue1\"         \n[130] \"dodgerblue2\"          \"dodgerblue3\"          \"dodgerblue4\"         \n[133] \"firebrick\"            \"firebrick1\"           \"firebrick2\"          \n[136] \"firebrick3\"           \"firebrick4\"           \"floralwhite\"         \n[139] \"forestgreen\"          \"gainsboro\"            \"ghostwhite\"          \n[142] \"gold\"                 \"gold1\"                \"gold2\"               \n[145] \"gold3\"                \"gold4\"                \"goldenrod\"           \n[148] \"goldenrod1\"           \"goldenrod2\"           \"goldenrod3\"          \n[151] \"goldenrod4\"           \"gray\"                 \"gray0\"               \n[154] \"gray1\"                \"gray2\"                \"gray3\"               \n[157] \"gray4\"                \"gray5\"                \"gray6\"               \n[160] \"gray7\"                \"gray8\"                \"gray9\"               \n[163] \"gray10\"               \"gray11\"               \"gray12\"              \n[166] \"gray13\"               \"gray14\"               \"gray15\"              \n[169] \"gray16\"               \"gray17\"               \"gray18\"              \n[172] \"gray19\"               \"gray20\"               \"gray21\"              \n[175] \"gray22\"               \"gray23\"               \"gray24\"              \n[178] \"gray25\"               \"gray26\"               \"gray27\"              \n[181] \"gray28\"               \"gray29\"               \"gray30\"              \n[184] \"gray31\"               \"gray32\"               \"gray33\"              \n[187] \"gray34\"               \"gray35\"               \"gray36\"              \n[190] \"gray37\"               \"gray38\"               \"gray39\"              \n[193] \"gray40\"               \"gray41\"               \"gray42\"              \n[196] \"gray43\"               \"gray44\"               \"gray45\"              \n[199] \"gray46\"               \"gray47\"               \"gray48\"              \n[202] \"gray49\"               \"gray50\"               \"gray51\"              \n[205] \"gray52\"               \"gray53\"               \"gray54\"              \n[208] \"gray55\"               \"gray56\"               \"gray57\"              \n[211] \"gray58\"               \"gray59\"               \"gray60\"              \n[214] \"gray61\"               \"gray62\"               \"gray63\"              \n[217] \"gray64\"               \"gray65\"               \"gray66\"              \n[220] \"gray67\"               \"gray68\"               \"gray69\"              \n[223] \"gray70\"               \"gray71\"               \"gray72\"              \n[226] \"gray73\"               \"gray74\"               \"gray75\"              \n[229] \"gray76\"               \"gray77\"               \"gray78\"              \n[232] \"gray79\"               \"gray80\"               \"gray81\"              \n[235] \"gray82\"               \"gray83\"               \"gray84\"              \n[238] \"gray85\"               \"gray86\"               \"gray87\"              \n[241] \"gray88\"               \"gray89\"               \"gray90\"              \n[244] \"gray91\"               \"gray92\"               \"gray93\"              \n[247] \"gray94\"               \"gray95\"               \"gray96\"              \n[250] \"gray97\"               \"gray98\"               \"gray99\"              \n[253] \"gray100\"              \"green\"                \"green1\"              \n[256] \"green2\"               \"green3\"               \"green4\"              \n[259] \"greenyellow\"          \"grey\"                 \"grey0\"               \n[262] \"grey1\"                \"grey2\"                \"grey3\"               \n[265] \"grey4\"                \"grey5\"                \"grey6\"               \n[268] \"grey7\"                \"grey8\"                \"grey9\"               \n[271] \"grey10\"               \"grey11\"               \"grey12\"              \n[274] \"grey13\"               \"grey14\"               \"grey15\"              \n[277] \"grey16\"               \"grey17\"               \"grey18\"              \n[280] \"grey19\"               \"grey20\"               \"grey21\"              \n[283] \"grey22\"               \"grey23\"               \"grey24\"              \n[286] \"grey25\"               \"grey26\"               \"grey27\"              \n[289] \"grey28\"               \"grey29\"               \"grey30\"              \n[292] \"grey31\"               \"grey32\"               \"grey33\"              \n[295] \"grey34\"               \"grey35\"               \"grey36\"              \n[298] \"grey37\"               \"grey38\"               \"grey39\"              \n[301] \"grey40\"               \"grey41\"               \"grey42\"              \n[304] \"grey43\"               \"grey44\"               \"grey45\"              \n[307] \"grey46\"               \"grey47\"               \"grey48\"              \n[310] \"grey49\"               \"grey50\"               \"grey51\"              \n[313] \"grey52\"               \"grey53\"               \"grey54\"              \n[316] \"grey55\"               \"grey56\"               \"grey57\"              \n[319] \"grey58\"               \"grey59\"               \"grey60\"              \n[322] \"grey61\"               \"grey62\"               \"grey63\"              \n[325] \"grey64\"               \"grey65\"               \"grey66\"              \n[328] \"grey67\"               \"grey68\"               \"grey69\"              \n[331] \"grey70\"               \"grey71\"               \"grey72\"              \n[334] \"grey73\"               \"grey74\"               \"grey75\"              \n[337] \"grey76\"               \"grey77\"               \"grey78\"              \n[340] \"grey79\"               \"grey80\"               \"grey81\"              \n[343] \"grey82\"               \"grey83\"               \"grey84\"              \n[346] \"grey85\"               \"grey86\"               \"grey87\"              \n[349] \"grey88\"               \"grey89\"               \"grey90\"              \n[352] \"grey91\"               \"grey92\"               \"grey93\"              \n[355] \"grey94\"               \"grey95\"               \"grey96\"              \n[358] \"grey97\"               \"grey98\"               \"grey99\"              \n[361] \"grey100\"              \"honeydew\"             \"honeydew1\"           \n[364] \"honeydew2\"            \"honeydew3\"            \"honeydew4\"           \n[367] \"hotpink\"              \"hotpink1\"             \"hotpink2\"            \n[370] \"hotpink3\"             \"hotpink4\"             \"indianred\"           \n[373] \"indianred1\"           \"indianred2\"           \"indianred3\"          \n[376] \"indianred4\"           \"ivory\"                \"ivory1\"              \n[379] \"ivory2\"               \"ivory3\"               \"ivory4\"              \n[382] \"khaki\"                \"khaki1\"               \"khaki2\"              \n[385] \"khaki3\"               \"khaki4\"               \"lavender\"            \n[388] \"lavenderblush\"        \"lavenderblush1\"       \"lavenderblush2\"      \n[391] \"lavenderblush3\"       \"lavenderblush4\"       \"lawngreen\"           \n[394] \"lemonchiffon\"         \"lemonchiffon1\"        \"lemonchiffon2\"       \n[397] \"lemonchiffon3\"        \"lemonchiffon4\"        \"lightblue\"           \n[400] \"lightblue1\"           \"lightblue2\"           \"lightblue3\"          \n[403] \"lightblue4\"           \"lightcoral\"           \"lightcyan\"           \n[406] \"lightcyan1\"           \"lightcyan2\"           \"lightcyan3\"          \n[409] \"lightcyan4\"           \"lightgoldenrod\"       \"lightgoldenrod1\"     \n[412] \"lightgoldenrod2\"      \"lightgoldenrod3\"      \"lightgoldenrod4\"     \n[415] \"lightgoldenrodyellow\" \"lightgray\"            \"lightgreen\"          \n[418] \"lightgrey\"            \"lightpink\"            \"lightpink1\"          \n[421] \"lightpink2\"           \"lightpink3\"           \"lightpink4\"          \n[424] \"lightsalmon\"          \"lightsalmon1\"         \"lightsalmon2\"        \n[427] \"lightsalmon3\"         \"lightsalmon4\"         \"lightseagreen\"       \n[430] \"lightskyblue\"         \"lightskyblue1\"        \"lightskyblue2\"       \n[433] \"lightskyblue3\"        \"lightskyblue4\"        \"lightslateblue\"      \n[436] \"lightslategray\"       \"lightslategrey\"       \"lightsteelblue\"      \n[439] \"lightsteelblue1\"      \"lightsteelblue2\"      \"lightsteelblue3\"     \n[442] \"lightsteelblue4\"      \"lightyellow\"          \"lightyellow1\"        \n[445] \"lightyellow2\"         \"lightyellow3\"         \"lightyellow4\"        \n[448] \"limegreen\"            \"linen\"                \"magenta\"             \n[451] \"magenta1\"             \"magenta2\"             \"magenta3\"            \n[454] \"magenta4\"             \"maroon\"               \"maroon1\"             \n[457] \"maroon2\"              \"maroon3\"              \"maroon4\"             \n[460] \"mediumaquamarine\"     \"mediumblue\"           \"mediumorchid\"        \n[463] \"mediumorchid1\"        \"mediumorchid2\"        \"mediumorchid3\"       \n[466] \"mediumorchid4\"        \"mediumpurple\"         \"mediumpurple1\"       \n[469] \"mediumpurple2\"        \"mediumpurple3\"        \"mediumpurple4\"       \n[472] \"mediumseagreen\"       \"mediumslateblue\"      \"mediumspringgreen\"   \n[475] \"mediumturquoise\"      \"mediumvioletred\"      \"midnightblue\"        \n[478] \"mintcream\"            \"mistyrose\"            \"mistyrose1\"          \n[481] \"mistyrose2\"           \"mistyrose3\"           \"mistyrose4\"          \n[484] \"moccasin\"             \"navajowhite\"          \"navajowhite1\"        \n[487] \"navajowhite2\"         \"navajowhite3\"         \"navajowhite4\"        \n[490] \"navy\"                 \"navyblue\"             \"oldlace\"             \n[493] \"olivedrab\"            \"olivedrab1\"           \"olivedrab2\"          \n[496] \"olivedrab3\"           \"olivedrab4\"           \"orange\"              \n[499] \"orange1\"              \"orange2\"              \"orange3\"             \n[502] \"orange4\"              \"orangered\"            \"orangered1\"          \n[505] \"orangered2\"           \"orangered3\"           \"orangered4\"          \n[508] \"orchid\"               \"orchid1\"              \"orchid2\"             \n[511] \"orchid3\"              \"orchid4\"              \"palegoldenrod\"       \n[514] \"palegreen\"            \"palegreen1\"           \"palegreen2\"          \n[517] \"palegreen3\"           \"palegreen4\"           \"paleturquoise\"       \n[520] \"paleturquoise1\"       \"paleturquoise2\"       \"paleturquoise3\"      \n[523] \"paleturquoise4\"       \"palevioletred\"        \"palevioletred1\"      \n[526] \"palevioletred2\"       \"palevioletred3\"       \"palevioletred4\"      \n[529] \"papayawhip\"           \"peachpuff\"            \"peachpuff1\"          \n[532] \"peachpuff2\"           \"peachpuff3\"           \"peachpuff4\"          \n[535] \"peru\"                 \"pink\"                 \"pink1\"               \n[538] \"pink2\"                \"pink3\"                \"pink4\"               \n[541] \"plum\"                 \"plum1\"                \"plum2\"               \n[544] \"plum3\"                \"plum4\"                \"powderblue\"          \n[547] \"purple\"               \"purple1\"              \"purple2\"             \n[550] \"purple3\"              \"purple4\"              \"red\"                 \n[553] \"red1\"                 \"red2\"                 \"red3\"                \n[556] \"red4\"                 \"rosybrown\"            \"rosybrown1\"          \n[559] \"rosybrown2\"           \"rosybrown3\"           \"rosybrown4\"          \n[562] \"royalblue\"            \"royalblue1\"           \"royalblue2\"          \n[565] \"royalblue3\"           \"royalblue4\"           \"saddlebrown\"         \n[568] \"salmon\"               \"salmon1\"              \"salmon2\"             \n[571] \"salmon3\"              \"salmon4\"              \"sandybrown\"          \n[574] \"seagreen\"             \"seagreen1\"            \"seagreen2\"           \n[577] \"seagreen3\"            \"seagreen4\"            \"seashell\"            \n[580] \"seashell1\"            \"seashell2\"            \"seashell3\"           \n[583] \"seashell4\"            \"sienna\"               \"sienna1\"             \n[586] \"sienna2\"              \"sienna3\"              \"sienna4\"             \n[589] \"skyblue\"              \"skyblue1\"             \"skyblue2\"            \n[592] \"skyblue3\"             \"skyblue4\"             \"slateblue\"           \n[595] \"slateblue1\"           \"slateblue2\"           \"slateblue3\"          \n[598] \"slateblue4\"           \"slategray\"            \"slategray1\"          \n[601] \"slategray2\"           \"slategray3\"           \"slategray4\"          \n[604] \"slategrey\"            \"snow\"                 \"snow1\"               \n[607] \"snow2\"                \"snow3\"                \"snow4\"               \n[610] \"springgreen\"          \"springgreen1\"         \"springgreen2\"        \n[613] \"springgreen3\"         \"springgreen4\"         \"steelblue\"           \n[616] \"steelblue1\"           \"steelblue2\"           \"steelblue3\"          \n[619] \"steelblue4\"           \"tan\"                  \"tan1\"                \n[622] \"tan2\"                 \"tan3\"                 \"tan4\"                \n[625] \"thistle\"              \"thistle1\"             \"thistle2\"            \n[628] \"thistle3\"             \"thistle4\"             \"tomato\"              \n[631] \"tomato1\"              \"tomato2\"              \"tomato3\"             \n[634] \"tomato4\"              \"turquoise\"            \"turquoise1\"          \n[637] \"turquoise2\"           \"turquoise3\"           \"turquoise4\"          \n[640] \"violet\"               \"violetred\"            \"violetred1\"          \n[643] \"violetred2\"           \"violetred3\"           \"violetred4\"          \n[646] \"wheat\"                \"wheat1\"               \"wheat2\"              \n[649] \"wheat3\"               \"wheat4\"               \"whitesmoke\"          \n[652] \"yellow\"               \"yellow1\"              \"yellow2\"             \n[655] \"yellow3\"              \"yellow4\"              \"yellowgreen\"         \n\n\n\nggplot(data = inat_year, mapping = aes(x = year)) +\n  geom_bar(fill='aquamarine')\n\n\n\n\n\n\n\n\nWe can also use 6 digit hex color. You can use online tools to get hex colors. https://html-color.codes\n\nggplot(data = inat_year, mapping = aes(x = year)) +\n  geom_bar(fill='#75cd5e')",
+    "crumbs": [
+      "Home",
+      "Creating charts"
+    ]
+  },
+  {
+    "objectID": "lessons/creating-charts.html#changing-themes",
+    "href": "lessons/creating-charts.html#changing-themes",
+    "title": "Creating charts",
+    "section": "Changing themes",
+    "text": "Changing themes\nwe can assign a plot to an object\n\nmyplot &lt;- ggplot(data = inat_year, mapping = aes(x = year)) +\n  geom_bar(fill='#75cd5e')\n\nmyplot\n\n\n\n\n\n\n\n\nWe can change the overall appearance using theme_ functions. Let’s try a black-and-white theme by adding theme_bw() to our plot:\n\nmyplot + \n  theme_bw()\n\n\n\n\n\n\n\n\nTo see a list of available themes in ggplot, visit https://ggplot2.tidyverse.org/reference/index.html#themes\nTo individually change parts of a plot, we can use the theme() function, which can take many different arguments to change things about the text, grid lines, background color, and more.\nLet’s try changing the size of the text on our axis titles. We can do this by specifying that the axis.title should be an element_text() with size set to 14.\n\nmyplot +\n  theme_bw() +\n  theme(axis.title = element_text(size = 14))\n\n\n\n\n\n\n\n\nAnother change we might want to make is to remove the vertical grid lines. To do this, inside theme(), we will change the panel.grid.major.x to an element_blank().\n\nmyplot +\n  theme_bw() +\n  theme(axis.title = element_text(size = 14), \n        panel.grid.major.x = element_blank(),\n        panel.grid.minor.x = element_blank())\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nBecause there are so many possible arguments to the theme() function, it can sometimes be hard to find the right one. Here are some tips for figuring out how to modify a plot element:\n\ntype out theme(), put your cursor between the parentheses, and hit Tab to bring up a list of arguments\n\nyou can scroll through the arguments, or start typing, which will shorten the list of potential matches\n\nlike many things in the tidyverse, similar argument start with similar names\n\nthere are axis, legend, panel, plot, and strip arguments\n\narguments have hierarchy\n\ntext controls all text in the whole plot\naxis.title controls the text for the axis titles\naxis.title.x controls the text for the x axis title",
+    "crumbs": [
+      "Home",
+      "Creating charts"
+    ]
+  },
+  {
+    "objectID": "lessons/creating-charts.html#changing-labels",
+    "href": "lessons/creating-charts.html#changing-labels",
+    "title": "Creating charts",
+    "section": "Changing labels",
+    "text": "Changing labels\nWe can customize the axis labels and add a chart title using labs() function.\n\nmyplot +\n  theme_bw() +\n  theme(axis.title = element_text(size = 14), \n        plot.title = element_text(face = \"bold\", size = 20)) +\n  labs(title = \"CNC Los Angeles\",\n       subtitle=\"Observations per year\",\n       x = \"Year\",\n       y = \"Observations\")",
+    "crumbs": [
+      "Home",
+      "Creating charts"
+    ]
+  },
+  {
+    "objectID": "lessons/creating-charts.html#exercise-2-customizing-a-plot",
+    "href": "lessons/creating-charts.html#exercise-2-customizing-a-plot",
+    "title": "Creating charts",
+    "section": "Exercise 2: Customizing a plot",
+    "text": "Exercise 2: Customizing a plot\nTake the chart from exercise 1 (your observations for each year) and assign it to an object. Customize the appearance. Here are some ideas.\n\nadd a title\nchoose the one of the built in themes\nchange the axis titles\nchange the colors of the bar\n\n\nSolution. \n\nmy_yearly_plot  &lt;- inat %&gt;% \n  mutate(year = year(observed_on))  %&gt;% \n  filter(user_login == 'natureinla') %&gt;% \n  ggplot(data = my_year, mapping = aes(x = year)) +\n  geom_bar(fill='#E0A90A')\n\nmy_yearly_plot +\n  theme_classic() +\n  labs(title = \"CNC Los Angeles\",  x = \"Year\",  y = \"Observations\")",
+    "crumbs": [
+      "Home",
+      "Creating charts"
+    ]
+  },
+  {
+    "objectID": "lessons/creating-charts.html#exporting-plots",
+    "href": "lessons/creating-charts.html#exporting-plots",
+    "title": "Creating charts",
+    "section": "Exporting plots",
+    "text": "Exporting plots\nOnce we are happy with ourplot, we can export the plot.\nAssign the plot to an object. Then run ggsave() to save our plot. The first argument we give is the path to the file we want to save, including the correct file extension. You can save as jpb, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.\n\nfinalplot &lt;- myplot +\n  theme_bw() +\n  theme(axis.title = element_text(size = 14), \n        plot.title = element_text(face = \"bold\", size = 20)) +\n  labs(title = \"CNC Los Angeles\",\n       subtitle=\"Observations per year\",\n       x = \"Year\",\n       y = \"Observations\")\n\nfinalplot\n\n\n\n\n\n\n\n\n\nggsave(filename = 'results/observations_per_year.jpg', plot = finalplot,  height = 6, width = 8)",
+    "crumbs": [
+      "Home",
+      "Creating charts"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html",
+    "href": "lessons/working-with-data.html",
+    "title": "Working with data",
+    "section": "",
+    "text": "How do you work with iNaturalist CSV data in R?\n\n\n\n\n\nImport CSV data into R.\nSelect rows and columns of data.frames.\nUse pipes to link steps together into pipelines.\nCreate new data.frame columns using existing columns.\nExport data to a CSV file.",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#questions",
+    "href": "lessons/working-with-data.html#questions",
+    "title": "Working with data",
+    "section": "",
+    "text": "How do you work with iNaturalist CSV data in R?",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#objectives",
+    "href": "lessons/working-with-data.html#objectives",
+    "title": "Working with data",
+    "section": "",
+    "text": "Import CSV data into R.\nSelect rows and columns of data.frames.\nUse pipes to link steps together into pipelines.\nCreate new data.frame columns using existing columns.\nExport data to a CSV file.",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#coding-concepts",
+    "href": "lessons/working-with-data.html#coding-concepts",
+    "title": "Working with data",
+    "section": "Coding Concepts",
+    "text": "Coding Concepts\n\nFile paths\nWhen we reference other files from an R script, we need to give R precise instructions on where those files are. We do that using something called a file path.\nThere are two kinds of paths: absolute and relative. Absolute paths are specific to a particular computer, whereas relative paths are relative to a certain folder. For instance an absolute path is “/Users/username/Documents/coding/CNC-coding-workshop/data/cleaned/cnc-los-angeles-observations.csv”, and relative path is “data/cleaned/cnc-los-angeles-observations.csv”.\n\n\nFunctions\nFunctions are predefined bits of code that automate more complicated actions. Arguments are input that we pass into a function, and the function does something to the input. A function can have one or more arguments. A function’s arguments come in a particular order, and if you put them in the correct order, you don’t need to name them. Executing a function (‘running it’) is called calling the function.\nOften times, a function will process the input and return a different value. To store value so we can continue to work with it, we need to assign it to an object.\nR has built in functions. You can also write your own functions.\n\n\nR packages\nR itself has many built-in functions, but we can access many more by loading other packages. R packages contain code, data, and documentation that people can download and install to add more functionality to R.\nTo install these packages, use install.packages() command in the R console. The name of the packages must be in quotes.\n# install one package\ninstall.packages(\"readr\")\n\n# install multiple packages\ninstall.packages(c(\"readr\", \"dplyr\", \"ggplot2\"))\nR will connect to the internet and download packages from servers that have R packages. R will then install the packages on your computer. The console window will show you the progress of the installation process.\nIn order to use a package, use library() function from R. We pass in the name of the package as an argument. Do not use quotes around the package name when using library.\n\nlibrary(readr) # read and write tabular data\nlibrary(dplyr) # manipulate data\nlibrary(ggplot2) # create data visualizations\nlibrary(sf) # handle geospatial data\nlibrary(lubridate) # manipulate dates\nlibrary(mapview) # create interactive maps\n\nGenerally it is a good idea to list all the libraries at the beginning of the script. You want to install the package to your computer once, and then load it with library() in each script where you need to use it.",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#importing-inaturalist-data",
+    "href": "lessons/working-with-data.html#importing-inaturalist-data",
+    "title": "Working with data",
+    "section": "Importing iNaturalist data",
+    "text": "Importing iNaturalist data\nA CSV of iNaturalist observations for City Nature Challenge Los Angeles from 2015 to 2024 is located at “data/cleaned/cnc-los-angeles-observations.csv”. We are going to read that CSV using R.\n\nReading a file\nIn order to analyze the iNaturalist csv, we need to load readr, lubridate and dplyr packages.\n\nlibrary(readr) # read and write tabular data\nlibrary(dplyr) # manipulate data\nlibrary(lubridate) # manipulate dates\n\nWe will use the read_csv() function from readr package to read the iNaturalist CSV. We will pass in a relative path to the CSV file as an argument for read_csv().\nread_csv() will return the content of the file. In order for us access the data later on, we need to assign the content to an object. Double click on inat_data in Environment to see all the data.\n\ninat_data &lt;- read_csv('data/cleaned/cnc-los-angeles-observations.csv')\n\n\n\n\n\n\n\nTip\n\n\n\nTyping out paths can be error prone, so we can utilize a keyboard shortcut. Inside the parentheses of read_csv(), type out a pair of quotes and put your cursor between them. Then hit Tab. A small menu showing your folders and files should show up. You can use the ↑ and ↓ keys to move through the options, or start typing to narrow them down. You can hit Enter to select a file or folder, and hit Tab again to continue building the file path. This might take a bit of getting used to, but once you get the hang of it, it will speed up writing file paths and reduce the number of mistakes you make.\n\n\nTo learn more about a function, you can type a ? in front of the name of the function, which will bring up the official documentation for that function:\n\n?read_csv\n\nFunction documentation is written by the authors of the functions, so they can vary pretty widely in their style and readability. The first section, Description, gives you a concise description of what the function does, but it may not always be enough. The Arguments section defines all the arguments for the function and is usually worth reading thoroughly. Finally, the Examples section at the end will often have some helpful examples that you can run to get a sense of what the function is doing.",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#the-data.frame",
+    "href": "lessons/working-with-data.html#the-data.frame",
+    "title": "Working with data",
+    "section": "The data.frame",
+    "text": "The data.frame\ninat_data is stored in R as a data.frame, which is the most common way that R represents tabular data (data with rows and columns).\nWe can view the first few rows with the head() function, and the last few rows with the tail() function:\n\nhead(inat_data)\n\n# A tibble: 6 × 40\n      id uuid  observed_on_string observed_on time_observed_at time_zone user_id\n   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;              &lt;date&gt;      &lt;chr&gt;            &lt;chr&gt;       &lt;dbl&gt;\n1 2.93e6 3a3a… 2016-04-14 12:25:… 2016-04-14  2016-04-14 19:2… Pacific …  151043\n2 2.93e6 9796… Thu Apr 14 2016 1… 2016-04-14  2016-04-14 19:0… Pacific …   10814\n3 2.93e6 75e2… 2016-04-14 12:15:… 2016-04-14  2016-04-14 19:1… Pacific …   80445\n4 2.93e6 2d7e… 2016-04-14 12:18:… 2016-04-14  2016-04-14 19:1… Pacific …   80445\n5 2.93e6 dfb4… 2016-04-14 12:19:… 2016-04-14  2016-04-14 19:1… Pacific …   80445\n6 2.94e6 b640… Thu Apr 14 2016 1… 2016-04-14  2016-04-14 19:3… Pacific …  121033\n# ℹ 33 more variables: user_login &lt;chr&gt;, user_name &lt;chr&gt;, created_at &lt;chr&gt;,\n#   updated_at &lt;chr&gt;, quality_grade &lt;chr&gt;, license &lt;chr&gt;, url &lt;chr&gt;,\n#   image_url &lt;chr&gt;, sound_url &lt;chr&gt;, tag_list &lt;chr&gt;, description &lt;chr&gt;,\n#   num_identification_agreements &lt;dbl&gt;,\n#   num_identification_disagreements &lt;dbl&gt;, captive_cultivated &lt;lgl&gt;,\n#   oauth_application_id &lt;dbl&gt;, place_guess &lt;chr&gt;, latitude &lt;dbl&gt;,\n#   longitude &lt;dbl&gt;, positional_accuracy &lt;dbl&gt;, private_place_guess &lt;lgl&gt;, …\n\n\n\ntail(inat_data)\n\n# A tibble: 6 × 40\n      id uuid  observed_on_string observed_on time_observed_at time_zone user_id\n   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;              &lt;date&gt;      &lt;chr&gt;            &lt;chr&gt;       &lt;dbl&gt;\n1 2.54e8 cbef… 2024-04-28 10:15:… 2024-04-28  2024-04-28 17:1… Pacific … 2834615\n2 2.55e8 aa10… 2024/04/26 4:36 PM 2024-04-26  2024-04-26 23:3… Pacific … 5347031\n3 2.55e8 3266… 2024/04/26 3:17 PM 2024-04-26  2024-04-26 22:1… Pacific … 5347031\n4 2.55e8 56f9… 2024/04/26 3:16 PM 2024-04-26  2024-04-26 22:1… Pacific … 5347031\n5 2.55e8 43fe… 2024/04/26 1:43 PM 2024-04-26  2024-04-26 20:4… Pacific … 5347031\n6 2.55e8 f2a9… 2024/04/26 12:19 … 2024-04-26  2024-04-26 19:1… Pacific … 5347031\n# ℹ 33 more variables: user_login &lt;chr&gt;, user_name &lt;chr&gt;, created_at &lt;chr&gt;,\n#   updated_at &lt;chr&gt;, quality_grade &lt;chr&gt;, license &lt;chr&gt;, url &lt;chr&gt;,\n#   image_url &lt;chr&gt;, sound_url &lt;chr&gt;, tag_list &lt;chr&gt;, description &lt;chr&gt;,\n#   num_identification_agreements &lt;dbl&gt;,\n#   num_identification_disagreements &lt;dbl&gt;, captive_cultivated &lt;lgl&gt;,\n#   oauth_application_id &lt;dbl&gt;, place_guess &lt;chr&gt;, latitude &lt;dbl&gt;,\n#   longitude &lt;dbl&gt;, positional_accuracy &lt;dbl&gt;, private_place_guess &lt;lgl&gt;, …\n\n\nUse glimpse() to see a information about a data.frame. Number of rows and columns. For each column, we see the name, data type (dbl for number, chr for character, lgl for logical. date is a data type from data.frame), and the first few values.\n\nglimpse(inat_data)\n\nRows: 191,638\nColumns: 40\n$ id                               &lt;dbl&gt; 2931940, 2934641, 2934961, 2934980, 2…\n$ uuid                             &lt;chr&gt; \"3a3af9a9-62d3-4f65-8251-9ea4a20d6276…\n$ observed_on_string               &lt;chr&gt; \"2016-04-14 12:25:00 AM PDT\", \"Thu Ap…\n$ observed_on                      &lt;date&gt; 2016-04-14, 2016-04-14, 2016-04-14, …\n$ time_observed_at                 &lt;chr&gt; \"2016-04-14 19:25:00 UTC\", \"2016-04-1…\n$ time_zone                        &lt;chr&gt; \"Pacific Time (US & Canada)\", \"Pacifi…\n$ user_id                          &lt;dbl&gt; 151043, 10814, 80445, 80445, 80445, 1…\n$ user_login                       &lt;chr&gt; \"msmorales\", \"smartrf\", \"cdegroof\", \"…\n$ user_name                        &lt;chr&gt; \"Michael Morales\", \"Richard Smart (he…\n$ created_at                       &lt;chr&gt; \"2016-04-14 07:28:36 UTC\", \"2016-04-1…\n$ updated_at                       &lt;chr&gt; \"2021-12-26 06:58:04 UTC\", \"2018-05-2…\n$ quality_grade                    &lt;chr&gt; \"research\", \"needs_id\", \"research\", \"…\n$ license                          &lt;chr&gt; \"CC-BY\", \"CC-BY-NC\", NA, NA, NA, \"CC-…\n$ url                              &lt;chr&gt; \"http://www.inaturalist.org/observati…\n$ image_url                        &lt;chr&gt; \"https://inaturalist-open-data.s3.ama…\n$ sound_url                        &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ tag_list                         &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ description                      &lt;chr&gt; \"Spotted on a the wall of a planter, …\n$ num_identification_agreements    &lt;dbl&gt; 5, 2, 1, 2, 2, 1, 0, 1, 2, 1, 1, 2, 1…\n$ num_identification_disagreements &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\n$ captive_cultivated               &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FA…\n$ oauth_application_id             &lt;dbl&gt; 2, 3, NA, NA, NA, 3, 3, NA, NA, NA, 3…\n$ place_guess                      &lt;chr&gt; \"Olive Lane Walk Pomona, CA 91768\", \"…\n$ latitude                         &lt;dbl&gt; 34.05829, 34.01742, 34.13020, 34.1314…\n$ longitude                        &lt;dbl&gt; -117.8219, -118.2892, -118.8226, -118…\n$ positional_accuracy              &lt;dbl&gt; 4, 5, NA, NA, NA, NA, 17, 55, 55, 55,…\n$ private_place_guess              &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ private_latitude                 &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ private_longitude                &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ public_positional_accuracy       &lt;dbl&gt; 4, 5, NA, NA, NA, NA, 17, 55, 55, 55,…\n$ geoprivacy                       &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…\n$ taxon_geoprivacy                 &lt;chr&gt; NA, NA, NA, \"open\", \"open\", NA, \"open…\n$ coordinates_obscured             &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FA…\n$ positioning_method               &lt;chr&gt; \"gps\", NA, NA, NA, NA, NA, NA, NA, NA…\n$ positioning_device               &lt;chr&gt; \"gps\", NA, NA, NA, NA, NA, NA, NA, NA…\n$ species_guess                    &lt;chr&gt; \"Garden Snail\", \"Oestroidea\", \"Califo…\n$ scientific_name                  &lt;chr&gt; \"Cornu aspersum\", \"Oestroidea\", \"Arph…\n$ common_name                      &lt;chr&gt; \"Garden Snail\", \"Bot Flies, Blow Flie…\n$ iconic_taxon_name                &lt;chr&gt; \"Mollusca\", \"Insecta\", \"Insecta\", \"Re…\n$ taxon_id                         &lt;dbl&gt; 480298, 356157, 54247, 36100, 36204, …",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#manipulating-data",
+    "href": "lessons/working-with-data.html#manipulating-data",
+    "title": "Working with data",
+    "section": "Manipulating data",
+    "text": "Manipulating data\nOne of the most important skills for working with data in R is the ability to manipulate, modify, and reshape data. The dplyr package provide a series of powerful functions for many common data manipulation tasks.\n\nselect()\nselect() picks certain columns of a data.frame. To use the select() function, the first argument is the name of the data.frame, and the rest of the arguments are unquoted names of the columns you want.\niNaturalist CSV has 39 columns. We want four columns: user_login, common_name, scientific_name, observed_on. The columns are arranged in the order we specified inside select().\n\nselect(inat_data, user_login, common_name, scientific_name, observed_on)\n\n# A tibble: 191,638 × 4\n   user_login    common_name                         scientific_name observed_on\n   &lt;chr&gt;         &lt;chr&gt;                               &lt;chr&gt;           &lt;date&gt;     \n 1 msmorales     Garden Snail                        Cornu aspersum  2016-04-14 \n 2 smartrf       Bot Flies, Blow Flies, and Allies   Oestroidea      2016-04-14 \n 3 cdegroof      California Orange-winged Grasshopp… Arphia ramona   2016-04-14 \n 4 cdegroof      Western Side-blotched Lizard        Uta stansburia… 2016-04-14 \n 5 cdegroof      Western Fence Lizard                Sceloporus occ… 2016-04-14 \n 6 ttempel       &lt;NA&gt;                                Coelocnemis     2016-04-14 \n 7 bradrumble    House Sparrow                       Passer domesti… 2016-04-15 \n 8 deedeeflower5 Amur Carp                           Cyprinus rubro… 2016-04-14 \n 9 deedeeflower5 Red-eared Slider                    Trachemys scri… 2016-04-14 \n10 deedeeflower5 Mallard                             Anas platyrhyn… 2016-04-14 \n# ℹ 191,628 more rows\n\n\n\n\nfilter()\nThe filter() function is used to select rows that meet certain criteria. To get all the rows where the value of common_name is equal to Western Fence Lizard, we would run the following:\n\nfilter(inat_data, common_name == 'Western Fence Lizard')\n\n# A tibble: 3,339 × 40\n        id uuid        observed_on_string observed_on time_observed_at time_zone\n     &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;              &lt;date&gt;      &lt;chr&gt;            &lt;chr&gt;    \n 1 2934994 dfb4b75d-a… 2016-04-14 12:19:… 2016-04-14  2016-04-14 19:1… Pacific …\n 2 2935263 0267005d-1… 2016-04-14         2016-04-14  &lt;NA&gt;             Pacific …\n 3 2935420 32ea1d16-a… 2016-04-14         2016-04-14  &lt;NA&gt;             Pacific …\n 4 2935748 7474a2d6-e… 2016-04-14 14:01:… 2016-04-14  2016-04-14 21:0… Pacific …\n 5 2935965 3bfef122-d… Thu Apr 14 2016 1… 2016-04-14  2016-04-14 19:4… Pacific …\n 6 2938607 cb1e276b-f… Thu Apr 14 2016 1… 2016-04-14  2016-04-14 23:3… Pacific …\n 7 2940103 14905d89-e… 2016-04-15 9:31:3… 2016-04-15  2016-04-15 16:3… Pacific …\n 8 2940838 89eaa4ca-5… Fri Apr 15 2016 1… 2016-04-15  2016-04-15 17:1… Pacific …\n 9 2940848 67f9dd78-a… Fri Apr 15 2016 1… 2016-04-15  2016-04-15 17:1… Pacific …\n10 2940855 64d8ac40-2… Fri Apr 15 2016 1… 2016-04-15  2016-04-15 17:4… Pacific …\n# ℹ 3,329 more rows\n# ℹ 34 more variables: user_id &lt;dbl&gt;, user_login &lt;chr&gt;, user_name &lt;chr&gt;,\n#   created_at &lt;chr&gt;, updated_at &lt;chr&gt;, quality_grade &lt;chr&gt;, license &lt;chr&gt;,\n#   url &lt;chr&gt;, image_url &lt;chr&gt;, sound_url &lt;chr&gt;, tag_list &lt;chr&gt;,\n#   description &lt;chr&gt;, num_identification_agreements &lt;dbl&gt;,\n#   num_identification_disagreements &lt;dbl&gt;, captive_cultivated &lt;lgl&gt;,\n#   oauth_application_id &lt;dbl&gt;, place_guess &lt;chr&gt;, latitude &lt;dbl&gt;, …\n\n\nThe == sign means “is equal to”. Take note, there are two equal signs.\nThere are several other operators we can use: &gt; “greater than”, &gt;= “greater than or equal”, &lt; “less than”, &lt;= “less than or equal”, and != “not equal to”.\n\n\nThe pipe: %&gt;%\nWhat happens if we want to select certain columns and rows?\nWe use the pipe operator (%&gt;%) to call multiple functions.\n\n\n\n\n\n\nTip\n\n\n\nYou can insert it by using the keyboard shortcut Shift+Cmd+M (Mac) or Shift+Ctrl+M (Windows).\n\n\nGet user_login, common_name, scientific_name, observed_on for all observations where common_name is ‘Western Fence Lizard’. Use filter to select rows, then use select to select columns.\n\ninat_data %&gt;% \n  filter(common_name == 'Western Fence Lizard') %&gt;% \n  select(user_login, common_name, scientific_name, observed_on) \n\n# A tibble: 3,339 × 4\n   user_login    common_name          scientific_name         observed_on\n   &lt;chr&gt;         &lt;chr&gt;                &lt;chr&gt;                   &lt;date&gt;     \n 1 cdegroof      Western Fence Lizard Sceloporus occidentalis 2016-04-14 \n 2 deedeeflower5 Western Fence Lizard Sceloporus occidentalis 2016-04-14 \n 3 deedeeflower5 Western Fence Lizard Sceloporus occidentalis 2016-04-14 \n 4 cdegroof      Western Fence Lizard Sceloporus occidentalis 2016-04-14 \n 5 lchroman      Western Fence Lizard Sceloporus occidentalis 2016-04-14 \n 6 maiz          Western Fence Lizard Sceloporus occidentalis 2016-04-14 \n 7 kimssight     Western Fence Lizard Sceloporus occidentalis 2016-04-15 \n 8 sarahwenner   Western Fence Lizard Sceloporus occidentalis 2016-04-15 \n 9 sarahwenner   Western Fence Lizard Sceloporus occidentalis 2016-04-15 \n10 sarahwenner   Western Fence Lizard Sceloporus occidentalis 2016-04-15 \n# ℹ 3,329 more rows\n\n\nPipe operator take the thing on the lefthand side and insert it as the first argument of the function on the righthand side. By putting each of our functions onto a new line, we can build a nice, readable pipeline. inat_data gets piped into a filter() function, and it comes out modified somewhat. The output from filter() then gets sent into the select() function, where it is further modified, and then the final product gets printed out to our console. It can also be helpful to think of %&gt;% as meaning “and then”.\nIf we want to store this final product as an object, we use an assignment arrow:\n\nlizard_data &lt;- inat_data %&gt;% \n  filter(common_name == 'Western Fence Lizard') %&gt;% \n  select(user_login, common_name, scientific_name, observed_on) \n\nSometimes the coordinates for iNaturalist observations are obscured. For instance, when the observation involves an endangered species, iNaturalist will automatically obscure the coordinates in order to protect the animal, plant, fungi. Sometimes people will choose to obscure their location when they are making observations so that other people will not know their exact location.\nTo access one column in a dataframe, use dataframe$column_name. To get a count of number of values for one column, use table() function and pass in one column.\n\ntable(inat_data$coordinates_obscured)\n\n\n FALSE   TRUE \n176943  14695 \n\n\n176K coordinates are ok, 14K are obscured\nLet’s get the observations where the coordinates are not obscured.\n\ninat_data %&gt;% \n  filter(coordinates_obscured == FALSE) %&gt;% \n  select(user_login, common_name, scientific_name, observed_on) \n\n# A tibble: 176,943 × 4\n   user_login    common_name                         scientific_name observed_on\n   &lt;chr&gt;         &lt;chr&gt;                               &lt;chr&gt;           &lt;date&gt;     \n 1 msmorales     Garden Snail                        Cornu aspersum  2016-04-14 \n 2 smartrf       Bot Flies, Blow Flies, and Allies   Oestroidea      2016-04-14 \n 3 cdegroof      California Orange-winged Grasshopp… Arphia ramona   2016-04-14 \n 4 cdegroof      Western Side-blotched Lizard        Uta stansburia… 2016-04-14 \n 5 cdegroof      Western Fence Lizard                Sceloporus occ… 2016-04-14 \n 6 ttempel       &lt;NA&gt;                                Coelocnemis     2016-04-14 \n 7 bradrumble    House Sparrow                       Passer domesti… 2016-04-15 \n 8 deedeeflower5 Amur Carp                           Cyprinus rubro… 2016-04-14 \n 9 deedeeflower5 Red-eared Slider                    Trachemys scri… 2016-04-14 \n10 deedeeflower5 Mallard                             Anas platyrhyn… 2016-04-14 \n# ℹ 176,933 more rows\n\n\niNaturalist gives a quality grade to each observation. When researchers use iNaturalist data, they normally use research grade observations.\nTo see all the unique values for a column, use unique() function from R and pass in the column name.\n\nunique(inat_data$quality_grade)\n\n[1] \"research\" \"needs_id\" \"casual\"  \n\n\nLet’s get the observations that are research grade.\n\ninat_data %&gt;% \n  filter(quality_grade == 'research')  %&gt;% \n  select(user_login, common_name, scientific_name, observed_on)\n\n# A tibble: 107,456 × 4\n   user_login    common_name                         scientific_name observed_on\n   &lt;chr&gt;         &lt;chr&gt;                               &lt;chr&gt;           &lt;date&gt;     \n 1 msmorales     Garden Snail                        Cornu aspersum  2016-04-14 \n 2 cdegroof      California Orange-winged Grasshopp… Arphia ramona   2016-04-14 \n 3 cdegroof      Western Side-blotched Lizard        Uta stansburia… 2016-04-14 \n 4 cdegroof      Western Fence Lizard                Sceloporus occ… 2016-04-14 \n 5 deedeeflower5 Red-eared Slider                    Trachemys scri… 2016-04-14 \n 6 deedeeflower5 Mallard                             Anas platyrhyn… 2016-04-14 \n 7 lchroman      Cactus Wren                         Campylorhynchu… 2016-04-14 \n 8 deedeeflower5 Desert Cottontail                   Sylvilagus aud… 2016-04-14 \n 9 deedeeflower5 Western Fence Lizard                Sceloporus occ… 2016-04-14 \n10 deedeeflower5 Eastern Fox Squirrel                Sciurus niger   2016-04-14 \n# ℹ 107,446 more rows",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#errors-in-code",
+    "href": "lessons/working-with-data.html#errors-in-code",
+    "title": "Working with data",
+    "section": "Errors in code",
+    "text": "Errors in code\nWe are writing instructions for the computer. If there is typos, mispelling, pass in wrong arguments into functions, etc, the code will not work and we will see errors. R will display the errors in red. You need to fix the errors in order for the code to work.\ntypo: we used %&gt;, when it should be %&gt;%\n\ninat_data %&gt;\n  select(user_login, observed_on, common_name)\n\nMisspelled user_logi\n\ninat_data %&gt;%\n  select(user_logi, observed_on, common_name) \n\ntypo: we use =, when it should be ==\n\ninat_data %&gt;%\n  filter(user_login = 'natureinla')\n\ntypo: extra )\n\ninat_data %&gt;%\n  select(user_login, observed_on, common_name))",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#exercise-1",
+    "href": "lessons/working-with-data.html#exercise-1",
+    "title": "Working with data",
+    "section": "Exercise 1",
+    "text": "Exercise 1\nGet all your observations.\n\nUse select(), filter()\nThe results should have user_login equal to your iNaturalist username\nThe results should have user_login, observed_on, common_name, scientific_name columns\nsave the results to my_obs\nclick on my_obs in the Environment tab to see the results\n\n\n\nmy_obs &lt;- inat_data %&gt;% \n  filter(user_login == 'natureinla') %&gt;% \n  select(user_login, observed_on, common_name, scientific_name)",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#and-operator",
+    "href": "lessons/working-with-data.html#and-operator",
+    "title": "Working with data",
+    "section": "and operator: &",
+    "text": "and operator: &\nWhen we want go get rows that match multiple criteria, we can use the and operator &\nHere we will get all observations that are research grade and common_name is Western Fence Lizard.\n\ninat_data %&gt;% \n  filter( common_name == 'Western Fence Lizard' \n         & quality_grade == 'research')  %&gt;% \n  select(user_login, common_name, scientific_name, observed_on)\n\n# A tibble: 3,314 × 4\n   user_login    common_name          scientific_name         observed_on\n   &lt;chr&gt;         &lt;chr&gt;                &lt;chr&gt;                   &lt;date&gt;     \n 1 cdegroof      Western Fence Lizard Sceloporus occidentalis 2016-04-14 \n 2 deedeeflower5 Western Fence Lizard Sceloporus occidentalis 2016-04-14 \n 3 deedeeflower5 Western Fence Lizard Sceloporus occidentalis 2016-04-14 \n 4 cdegroof      Western Fence Lizard Sceloporus occidentalis 2016-04-14 \n 5 lchroman      Western Fence Lizard Sceloporus occidentalis 2016-04-14 \n 6 maiz          Western Fence Lizard Sceloporus occidentalis 2016-04-14 \n 7 kimssight     Western Fence Lizard Sceloporus occidentalis 2016-04-15 \n 8 sarahwenner   Western Fence Lizard Sceloporus occidentalis 2016-04-15 \n 9 sarahwenner   Western Fence Lizard Sceloporus occidentalis 2016-04-15 \n10 sarahwenner   Western Fence Lizard Sceloporus occidentalis 2016-04-15 \n# ℹ 3,304 more rows\n\n\nHere we will get observations where user_login is ‘natureinla’ and common_name is ‘Western Fence Lizard’.\n\ninat_data %&gt;% \n  filter(user_login == 'natureinla' & common_name == 'Western Fence Lizard') %&gt;% \n  select(user_login, common_name, scientific_name, observed_on) \n\n# A tibble: 79 × 4\n   user_login common_name          scientific_name         observed_on\n   &lt;chr&gt;      &lt;chr&gt;                &lt;chr&gt;                   &lt;date&gt;     \n 1 natureinla Western Fence Lizard Sceloporus occidentalis 2016-04-16 \n 2 natureinla Western Fence Lizard Sceloporus occidentalis 2016-04-16 \n 3 natureinla Western Fence Lizard Sceloporus occidentalis 2016-04-17 \n 4 natureinla Western Fence Lizard Sceloporus occidentalis 2016-04-16 \n 5 natureinla Western Fence Lizard Sceloporus occidentalis 2016-04-17 \n 6 natureinla Western Fence Lizard Sceloporus occidentalis 2016-04-17 \n 7 natureinla Western Fence Lizard Sceloporus occidentalis 2016-04-19 \n 8 natureinla Western Fence Lizard Sceloporus occidentalis 2016-04-16 \n 9 natureinla Western Fence Lizard Sceloporus occidentalis 2016-04-18 \n10 natureinla Western Fence Lizard Sceloporus occidentalis 2016-04-16 \n# ℹ 69 more rows",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#or-operator",
+    "href": "lessons/working-with-data.html#or-operator",
+    "title": "Working with data",
+    "section": "or operator: |",
+    "text": "or operator: |\nWhen we want to get rows that match one or more criteria, we can use the or operator |\nHere we will get observations where user_login is ‘natureinla’ or common_name is ‘Western Fence Lizard’.\n\ninat_data %&gt;% \n  filter(user_login == 'natureinla' | common_name == 'Western Fence Lizard') %&gt;% \n  select(user_login, common_name, scientific_name, observed_on) \n\n# A tibble: 6,216 × 4\n   user_login    common_name            scientific_name              observed_on\n   &lt;chr&gt;         &lt;chr&gt;                  &lt;chr&gt;                        &lt;date&gt;     \n 1 cdegroof      Western Fence Lizard   Sceloporus occidentalis      2016-04-14 \n 2 deedeeflower5 Western Fence Lizard   Sceloporus occidentalis      2016-04-14 \n 3 deedeeflower5 Western Fence Lizard   Sceloporus occidentalis      2016-04-14 \n 4 natureinla    Red-eared Slider       Trachemys scripta elegans    2016-04-14 \n 5 natureinla    Monarch                Danaus plexippus             2016-04-14 \n 6 cdegroof      Western Fence Lizard   Sceloporus occidentalis      2016-04-14 \n 7 natureinla    San Diego Gopher Snake Pituophis catenifer annecte… 2016-04-14 \n 8 lchroman      Western Fence Lizard   Sceloporus occidentalis      2016-04-14 \n 9 maiz          Western Fence Lizard   Sceloporus occidentalis      2016-04-14 \n10 natureinla    California Towhee      Melozone crissalis           2016-04-14 \n# ℹ 6,206 more rows\n\n\nHere we will get observations where common_name is ‘Western Fence Lizard’ or common_name is ‘Western Honey Bee’.\n\ninat_data %&gt;% \n  filter(common_name == 'Western Honey Bee' | common_name == 'Western Fence Lizard')  %&gt;% \n  select(user_login, observed_on, common_name)\n\n# A tibble: 5,399 × 3\n   user_login    observed_on common_name         \n   &lt;chr&gt;         &lt;date&gt;      &lt;chr&gt;               \n 1 cdegroof      2016-04-14  Western Fence Lizard\n 2 deedeeflower5 2016-04-14  Western Fence Lizard\n 3 deedeeflower5 2016-04-14  Western Fence Lizard\n 4 cdegroof      2016-04-14  Western Fence Lizard\n 5 lchroman      2016-04-14  Western Fence Lizard\n 6 smartrf       2016-04-14  Western Honey Bee   \n 7 maiz          2016-04-14  Western Fence Lizard\n 8 smartrf       2016-04-15  Western Honey Bee   \n 9 kimssight     2016-04-15  Western Fence Lizard\n10 catherineh    2016-04-15  Western Honey Bee   \n# ℹ 5,389 more rows",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#and-versus-or",
+    "href": "lessons/working-with-data.html#and-versus-or",
+    "title": "Working with data",
+    "section": "& (and) versus | (or)",
+    "text": "& (and) versus | (or)\nand queries: filter( common_name == 'Western Fence Lizard' & quality_grade == 'research')\n\nall observations for ‘natureinla’ for ‘Western Fence Lizard’\n79 rows\n\nor queries: filter( common_name == 'Western Fence Lizard' | quality_grade == 'research')\n\nall observations for ‘natureinla’ plus all observations for ‘Western Fence Lizard’\n5,832 rows",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#more-complex-queries",
+    "href": "lessons/working-with-data.html#more-complex-queries",
+    "title": "Working with data",
+    "section": "More complex queries",
+    "text": "More complex queries\nSometimes we want to use both and or to select the rows. We want observations where user is ‘cdegroof’ or ‘deedeeflower5’ and species is ‘Western Fence Lizard’. You can use multiple filter statememts.\n\ntemp &lt;- inat_data %&gt;% \n  filter(user_login == 'cdegroof' \n         | user_login == 'deedeeflower5') %&gt;%\n  filter(common_name == 'Western Fence Lizard')  %&gt;% \n  select(user_login, common_name, scientific_name, observed_on)\n\ntemp\n\n# A tibble: 33 × 4\n   user_login    common_name          scientific_name         observed_on\n   &lt;chr&gt;         &lt;chr&gt;                &lt;chr&gt;                   &lt;date&gt;     \n 1 cdegroof      Western Fence Lizard Sceloporus occidentalis 2016-04-14 \n 2 deedeeflower5 Western Fence Lizard Sceloporus occidentalis 2016-04-14 \n 3 deedeeflower5 Western Fence Lizard Sceloporus occidentalis 2016-04-14 \n 4 cdegroof      Western Fence Lizard Sceloporus occidentalis 2016-04-14 \n 5 cdegroof      Western Fence Lizard Sceloporus occidentalis 2016-04-16 \n 6 cdegroof      Western Fence Lizard Sceloporus occidentalis 2016-04-16 \n 7 cdegroof      Western Fence Lizard Sceloporus occidentalis 2016-04-16 \n 8 cdegroof      Western Fence Lizard Sceloporus occidentalis 2016-04-17 \n 9 cdegroof      Western Fence Lizard Sceloporus occidentalis 2016-04-17 \n10 cdegroof      Western Fence Lizard Sceloporus occidentalis 2016-04-17 \n# ℹ 23 more rows\n\n\nWhen making complex queries, you should check the results to make sure you wrote the query correctly. We can use unique() to check the column values.\n\nunique(temp$common_name)\n\n[1] \"Western Fence Lizard\"\n\n\n\nunique(temp$user_login)\n\n[1] \"cdegroof\"      \"deedeeflower5\"",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#exercise-2",
+    "href": "lessons/working-with-data.html#exercise-2",
+    "title": "Working with data",
+    "section": "Exercise 2",
+    "text": "Exercise 2\nGet all your observations that are research grade\n\nUse select(), filter(), &\nThe results should have user_login equal to your iNaturalist username\nThe results should have quality_grade equal to research.\nThe results should have user_login, observed_on, common_name, scientific_name columns\nsave the results to my_obs_2 object\n\n\n\nmy_obs_2 &lt;- inat_data %&gt;% \n  filter(user_login == 'natureinla' & quality_grade == 'research') %&gt;% \n  select(user_login, observed_on, common_name, scientific_name)",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#exercise-3",
+    "href": "lessons/working-with-data.html#exercise-3",
+    "title": "Working with data",
+    "section": "Exercise 3",
+    "text": "Exercise 3\nGet all your observations for two species\n\nUse select(), filter(), & , |\nuse unique() to see all common names from my_obs\nThe results should have user_login equal to your iNaturalist username\nThe results should have common_name set to two two species\nThe results should have user_login, observed_on, common_name, scientific_name columns\nsave the results to my_obs_3 object\n\n\n\nunique(my_obs$common_name)[0:10]\n\n [1] \"Red-eared Slider\"       \"Monarch\"                \"San Diego Gopher Snake\"\n [4] \"California Towhee\"      \"Cooper's Hawk\"          \"tropical milkweed\"     \n [7] \"Allen's Hummingbird\"    \"Northern Mockingbird\"   \"House Sparrow\"         \n[10] \"Indian Peafowl\"        \n\n\n\nmy_obs_3 &lt;- inat_data %&gt;% \n  filter(user_login == 'natureinla') %&gt;% \n  filter(common_name == 'Red-eared Slider' | common_name=='Monarch') %&gt;% \n  select(user_login, observed_on, common_name, scientific_name)",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#add-new-columns-with-mutate",
+    "href": "lessons/working-with-data.html#add-new-columns-with-mutate",
+    "title": "Working with data",
+    "section": "Add new columns with mutate()",
+    "text": "Add new columns with mutate()\nAnother common task is creating a new column based on values in existing columns. For example, we could add a new column for year.\nUse mutate() from dplry to add a column. We pass in the name of the new column, and the value of the column.\nUse year() from lubridate on a date column to get the year.\nThis code will get the year from ‘observed_on’, and create a ‘year’ column.\n\ntemp &lt;- inat_data %&gt;% \n  mutate(year = year(observed_on))\n\nWe can use names() to get the columns. As you can see, a year column has been added at the end.\nYou can also click on temp in Environment tab to see the dataframe with year column.\n\nnames(temp)\n\n [1] \"id\"                               \"uuid\"                            \n [3] \"observed_on_string\"               \"observed_on\"                     \n [5] \"time_observed_at\"                 \"time_zone\"                       \n [7] \"user_id\"                          \"user_login\"                      \n [9] \"user_name\"                        \"created_at\"                      \n[11] \"updated_at\"                       \"quality_grade\"                   \n[13] \"license\"                          \"url\"                             \n[15] \"image_url\"                        \"sound_url\"                       \n[17] \"tag_list\"                         \"description\"                     \n[19] \"num_identification_agreements\"    \"num_identification_disagreements\"\n[21] \"captive_cultivated\"               \"oauth_application_id\"            \n[23] \"place_guess\"                      \"latitude\"                        \n[25] \"longitude\"                        \"positional_accuracy\"             \n[27] \"private_place_guess\"              \"private_latitude\"                \n[29] \"private_longitude\"                \"public_positional_accuracy\"      \n[31] \"geoprivacy\"                       \"taxon_geoprivacy\"                \n[33] \"coordinates_obscured\"             \"positioning_method\"              \n[35] \"positioning_device\"               \"species_guess\"                   \n[37] \"scientific_name\"                  \"common_name\"                     \n[39] \"iconic_taxon_name\"                \"taxon_id\"                        \n[41] \"year\"                            \n\n\nThis will get all observations for 2020.\n\ninat_data %&gt;% \n  mutate(year = year(observed_on)) %&gt;%\n  filter(year == 2020)\n\n# A tibble: 19,524 × 41\n         id uuid       observed_on_string observed_on time_observed_at time_zone\n      &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;              &lt;date&gt;      &lt;chr&gt;            &lt;chr&gt;    \n 1 43036512 04f242ca-… Fri Apr 24 2020 0… 2020-04-24  2020-04-24 07:0… Pacific …\n 2 43036525 e555cd6e-… Fri Apr 24 2020 0… 2020-04-24  2020-04-24 07:0… Pacific …\n 3 43036534 07254549-… Fri Apr 24 2020 0… 2020-04-24  2020-04-24 07:0… Pacific …\n 4 43036755 e564c3b8-… Fri Apr 24 2020 0… 2020-04-24  2020-04-24 07:0… Pacific …\n 5 43036856 f6c57cc7-… Fri Apr 24 2020 0… 2020-04-24  2020-04-24 07:0… Pacific …\n 6 43036989 9ed78eb9-… Fri Apr 24 2020 0… 2020-04-24  2020-04-24 07:0… Pacific …\n 7 43037041 eb136934-… Fri Apr 24 2020 0… 2020-04-24  2020-04-24 07:0… Pacific …\n 8 43037308 7b6fa694-… Fri Apr 24 2020 0… 2020-04-24  2020-04-24 07:1… Pacific …\n 9 43037581 f4617484-… Fri Apr 24 2020 0… 2020-04-24  2020-04-24 07:1… Pacific …\n10 43037631 45d17fa9-… Fri Apr 24 2020 0… 2020-04-24  2020-04-24 07:1… Pacific …\n# ℹ 19,514 more rows\n# ℹ 35 more variables: user_id &lt;dbl&gt;, user_login &lt;chr&gt;, user_name &lt;chr&gt;,\n#   created_at &lt;chr&gt;, updated_at &lt;chr&gt;, quality_grade &lt;chr&gt;, license &lt;chr&gt;,\n#   url &lt;chr&gt;, image_url &lt;chr&gt;, sound_url &lt;chr&gt;, tag_list &lt;chr&gt;,\n#   description &lt;chr&gt;, num_identification_agreements &lt;dbl&gt;,\n#   num_identification_disagreements &lt;dbl&gt;, captive_cultivated &lt;lgl&gt;,\n#   oauth_application_id &lt;dbl&gt;, place_guess &lt;chr&gt;, latitude &lt;dbl&gt;, …",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#exercise-4",
+    "href": "lessons/working-with-data.html#exercise-4",
+    "title": "Working with data",
+    "section": "Exercise 4",
+    "text": "Exercise 4\nGet all of your observations from the last year.\n\nUse select() , filter()\nUse mutate() and year() to add year column\nThe results should have user_login equal to your iNaturalist username\nThe results should have year equal last year\nThe results should have user_login, observed_on, common-name, scientific_name.\n\n\n\ninat_data %&gt;% \n   mutate(year = year(observed_on)) %&gt;%\n  filter(user_login == 'natureinla' & year == 2024) %&gt;%\n  select(user_login, observed_on, common_name, scientific_name) \n\n# A tibble: 1 × 4\n  user_login observed_on common_name                scientific_name             \n  &lt;chr&gt;      &lt;date&gt;      &lt;chr&gt;                      &lt;chr&gt;                       \n1 natureinla 2024-04-29  San Diego Alligator Lizard Elgaria multicarinata webbii",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#count-the-number-of-rows-with-count",
+    "href": "lessons/working-with-data.html#count-the-number-of-rows-with-count",
+    "title": "Working with data",
+    "section": "Count the number of rows with count()",
+    "text": "Count the number of rows with count()\nUse count() from dplyr to count the number of values for one or more columns. We pass in the column names as arguments to count()\nLet’s try counting of all observations by year. Use mutate() to add a year column. Use count() to count the number of observations for each year. By default, count will add a new column caled n.\n\ninat_data %&gt;% \n  mutate(year = year(observed_on)) %&gt;%\n  count(year)  \n\n# A tibble: 9 × 2\n   year     n\n  &lt;dbl&gt; &lt;int&gt;\n1  2016 10392\n2  2017 17495\n3  2018 19164\n4  2019 34057\n5  2020 19524\n6  2021 22549\n7  2022 19597\n8  2023 26602\n9  2024 22258\n\n\nWe can specify the name of the count column by passing in name argument to count().\n\ninat_data %&gt;% \n  mutate(year = year(observed_on)) %&gt;%\n  count(year, name='obs_count')  \n\n# A tibble: 9 × 2\n   year obs_count\n  &lt;dbl&gt;     &lt;int&gt;\n1  2016     10392\n2  2017     17495\n3  2018     19164\n4  2019     34057\n5  2020     19524\n6  2021     22549\n7  2022     19597\n8  2023     26602\n9  2024     22258\n\n\nLet’s count the number of observations for each species. We will pass in both ‘common_name’ and ‘scientific_name’ because some species don’t have a common_name.\n\ncounts &lt;- inat_data %&gt;% \n  count(common_name, scientific_name, name='obs_count')   \n\ncounts\n\n# A tibble: 9,868 × 3\n   common_name                             scientific_name        obs_count\n   &lt;chr&gt;                                   &lt;chr&gt;                      &lt;int&gt;\n 1 Abalone                                 Haliotis                       7\n 2 Abbott's bushmallow                     Malacothamnus abbottii         1\n 3 Abelias                                 Abelia                         1\n 4 Abert's Thread-waisted Wasp             Ammophila aberti               3\n 5 Abyssinian banana                       Ensete ventricosum             1\n 6 Acacia Psyllid                          Acizzia uncatoides             2\n 7 Acacias, Mimosas, mesquites, and allies Mimosoideae                   10\n 8 Acalyptrate Flies                       Acalyptratae                  66\n 9 Acanthus                                Acanthus                      23\n10 Achilid Planthoppers                    Achilidae                      1\n# ℹ 9,858 more rows\n\n\nIt’s often useful to take a look at the results in some order, like the lowest count to highest. We can use the arrange() function for that. We pass in the columns we want to order by to arrange(), By default, arrange will return values from lowest to highest.\n\ncounts &lt;- inat_data %&gt;% \n  count(common_name, scientific_name, name='obs_count')   %&gt;%\n  arrange(obs_count)\n\ncounts\n\n# A tibble: 9,868 × 3\n   common_name                     scientific_name         obs_count\n   &lt;chr&gt;                           &lt;chr&gt;                       &lt;int&gt;\n 1 Abbott's bushmallow             Malacothamnus abbottii          1\n 2 Abelias                         Abelia                          1\n 3 Abyssinian banana               Ensete ventricosum              1\n 4 Achilid Planthoppers            Achilidae                       1\n 5 Acorn Moth                      Blastobasis glandulella         1\n 6 Acotylean Flatworms             Acotylea                        1\n 7 Active Free-living Bristleworms Errantia                        1\n 8 Afghan Tortoise                 Testudo horsfieldii             1\n 9 African Clawed Frog             Xenopus laevis                  1\n10 African Milk Weed               Euphorbia trigona               1\n# ℹ 9,858 more rows\n\n\nIf we want to reverse the order, we can wrap the column names in desc(). This will return values from highest to lowest.\n\ncounts &lt;- inat_data %&gt;% \n  count(common_name, scientific_name, name='obs_count') %&gt;%\n  arrange(desc(obs_count)) \n\ncounts\n\n# A tibble: 9,868 × 3\n   common_name            scientific_name          obs_count\n   &lt;chr&gt;                  &lt;chr&gt;                        &lt;int&gt;\n 1 Western Fence Lizard   Sceloporus occidentalis       3339\n 2 Western Honey Bee      Apis mellifera                2060\n 3 dicots                 Magnoliopsida                 2012\n 4 plants                 Plantae                       1715\n 5 Eastern Fox Squirrel   Sciurus niger                 1475\n 6 House Finch            Haemorhous mexicanus          1263\n 7 Mourning Dove          Zenaida macroura              1205\n 8 flowering plants       Angiospermae                  1162\n 9 California poppy       Eschscholzia californica       934\n10 Convergent Lady Beetle Hippodamia convergens          929\n# ℹ 9,858 more rows\n\n\nuse slice() to return only certain number of records. slice(start:end) will return rows from the starting number to the ending number.\nTop ten species with the most observations.\n\ncounts &lt;- inat_data %&gt;% \n  count(common_name, scientific_name, name='obs_count') %&gt;%\n  arrange(desc(obs_count))  %&gt;% \n  slice(1:10)\n\ncounts\n\n# A tibble: 10 × 3\n   common_name            scientific_name          obs_count\n   &lt;chr&gt;                  &lt;chr&gt;                        &lt;int&gt;\n 1 Western Fence Lizard   Sceloporus occidentalis       3339\n 2 Western Honey Bee      Apis mellifera                2060\n 3 dicots                 Magnoliopsida                 2012\n 4 plants                 Plantae                       1715\n 5 Eastern Fox Squirrel   Sciurus niger                 1475\n 6 House Finch            Haemorhous mexicanus          1263\n 7 Mourning Dove          Zenaida macroura              1205\n 8 flowering plants       Angiospermae                  1162\n 9 California poppy       Eschscholzia californica       934\n10 Convergent Lady Beetle Hippodamia convergens          929",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#exercise-5",
+    "href": "lessons/working-with-data.html#exercise-5",
+    "title": "Working with data",
+    "section": "Exercise 5",
+    "text": "Exercise 5\nCreate a data.frame with that counts your observation by year\n\nUse mutate() and year() to add year column\nUse filter() and count()\nThe results should have user_login equal to your iNaturalist username\nThe results should have a year and count columns\n\n\n\ninat_data %&gt;% \n  mutate(year = year(observed_on)) %&gt;%\n  filter(user_login == 'natureinla') %&gt;%\n  count(year, name='obs_count')   \n\n# A tibble: 8 × 2\n   year obs_count\n  &lt;dbl&gt;     &lt;int&gt;\n1  2016       930\n2  2017      1055\n3  2018       599\n4  2019       350\n5  2020        10\n6  2021         2\n7  2023         9\n8  2024         1",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
+  },
+  {
+    "objectID": "lessons/working-with-data.html#save-data",
+    "href": "lessons/working-with-data.html#save-data",
+    "title": "Working with data",
+    "section": "Save data",
+    "text": "Save data\nYou can save the filtered data as CSVs. Assign the dataframe to an object.\n\ntop_ten &lt;- inat_data %&gt;% \n  count(common_name, scientific_name, name='obs_count') %&gt;%\n  arrange(desc(obs_count))  %&gt;% \n  slice(1:10)\n\ntop_ten\n\n# A tibble: 10 × 3\n   common_name            scientific_name          obs_count\n   &lt;chr&gt;                  &lt;chr&gt;                        &lt;int&gt;\n 1 Western Fence Lizard   Sceloporus occidentalis       3339\n 2 Western Honey Bee      Apis mellifera                2060\n 3 dicots                 Magnoliopsida                 2012\n 4 plants                 Plantae                       1715\n 5 Eastern Fox Squirrel   Sciurus niger                 1475\n 6 House Finch            Haemorhous mexicanus          1263\n 7 Mourning Dove          Zenaida macroura              1205\n 8 flowering plants       Angiospermae                  1162\n 9 California poppy       Eschscholzia californica       934\n10 Convergent Lady Beetle Hippodamia convergens          929\n\n\nUse write_csv to create a CSV. The first argument is the dataframe to save. The second argument is the relative path of where to save the file.\n\nwrite_csv(top_ten, 'results/top_ten_observations.csv')",
+    "crumbs": [
+      "Home",
+      "Working with data"
+    ]
   }
 ]
