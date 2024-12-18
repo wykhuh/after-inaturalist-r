@@ -229,13 +229,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lessons/creating-charts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data visualization charts</span></a>
+ <span class="menu-text">Creating charts</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/census.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction to Census data</span></a>
+  <a href="../lessons/other_datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using to other datasets</span></a>
   </div>
 </li>
     </ul>
@@ -303,7 +303,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="what-are-r-and-rstudio" class="level2">
 <h2 class="anchored" data-anchor-id="what-are-r-and-rstudio">What are R and RStudio?</h2>
-<p>R refers to a programming language as well as the software that runs R code. It was started in 1993. All programming languages have commands and syntax that you must use in order to write instructions to tell the computer to do something. The code is written down and saved in files so you can reuse and share them.</p>
+<p>R refers to a programming language as well as the software that runs R code. R was started in 1993. All programming languages have commands and syntax that you must use in order to write instructions to tell the computer to do something. The code is written down and saved in files so you can reuse and share them.</p>
 <p><a href="https://rstudio.com">RStudio</a> is software to make it easier to write and run code in R. It was started in 2010.</p>
 <p>Think of R as English, and RStudio as Microsoft Word or Google Docs.</p>
 <p>Both R and RStudio are:</p>
@@ -316,14 +316,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="navigating-rstudio" class="level2">
 <h2 class="anchored" data-anchor-id="navigating-rstudio">Navigating RStudio</h2>
 <p>We will use the RStudio integrated development environment (IDE) to write code into scripts, run code in R, navigate files on our computer, inspect objects we create in R, and look at the plots we make. RStudio also includes features like keyboard shortcuts, autocompletion of code, and syntax highlighting (different types of code are colored differently).</p>
-<p><img src="fig/rstudio_screenshot.png" class="img-fluid" alt="Screenshot of RStudio showing the 4 &quot;panes&quot;."></p>
+<p><img src="images/rstudio_screenshot.png" class="img-fluid" alt="Screenshot of RStudio showing the 4 &quot;panes&quot;."></p>
 <p>In the above screenshot, we can see 4 “panes” in the default layout. If you only have 3 panes, and the Console pane is in the top left, press <kbd>Shift+Cmd+N</kbd> (Mac) or <kbd>Shift+Ctrl+N</kbd> (Windows) to open a blank R script, which should make the Source pane appear.</p>
 <ul>
 <li>Top-Left: the <strong>Source</strong> pane that displays scripts and other files.</li>
-<li>Top-Right: the <strong>Environment/History</strong> pane, which shows all the objects in your current R session (Environment) and your command history (History)
+<li>Top-Right: the <strong>Environment/History</strong> pane which shows all the objects in your current R session (Environment) and your command history (History)
 <ul>
-<li>there are some other tabs here, including Connections, Build, Tutorial, and possibly Git</li>
-<li>we won’t cover any of the other tabs, but RStudio has lots of other useful features</li>
+<li>There are some other tabs here, including Connections, Build, Tutorial, and possibly Git</li>
 </ul></li>
 <li>Bottom-Left: the <strong>Console</strong> pane, where you can type in commands. The R console will interpret R commands and prints the results
 <ul>
@@ -355,7 +354,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="script">Script</h4>
 <ul>
 <li>A script is a record of commands to send to R, preserved in a plain text file with a <code>.R</code> extension</li>
-<li>If you type out lines of R code in a script, you can send them to the R console to be evaluated
+<li>You send lines of R code to the R console to be evaluated
 <ul>
 <li><kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) will run the line of code that your cursor is on</li>
 <li>If you highlight multiple lines of code, you can run all of them by pressing <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows)</li>
@@ -372,7 +371,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>First, click down in the Console pane, and type out <code>1+2</code>. Hit <kbd>Enter</kbd> to run the code. You should see your code echoed, and then the value of <code>3</code> returned.</p>
 <p>You can make a new R script by clicking <code>File → New File → R Script</code>, clicking the green <code>+</code> button in the top left corner of RStudio, or pressing <kbd>Shift+Cmd+N</kbd> (Mac) or <kbd>Shift+Ctrl+N</kbd> (Windows). It will be unsaved, and called “Untitled1”</p>
 <p>Now click into your blank script, and type out <code>1+2</code>. With your cursor on that line, hit <kbd>Cmd+Enter</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) to run the code. You will see that your code was sent from the script to the console, where it returned a value of <code>3</code>.</p>
-<p>Sometimes we want to store a value in memory so we can use it later. <code>&lt;-</code> tells R to assign the value on the right to the named object on the left.</p>
+<p>Sometimes we want to store a value in memory so we can use it later. <code>&lt;-</code> tells R to assign the value on the right to the named object on the left. We refer to the value using the object name.</p>
 <pre><code>object_name &lt;- value</code></pre>
 <p>Let’s create a price_1 and price_2 objects, and assign them a value.</p>
 <div class="cell">
@@ -431,13 +430,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>In the top right, you will see a blue 3D cube and the words “Project: (None)”. Click on this icon.</li>
 <li>Click <strong>New Project</strong> from the dropdown menu.</li>
 <li>Click <strong>New Directory</strong>, then <strong>New Project</strong>.</li>
-<li>Type out a name for the project, we recommend <code>R-Ecology-Workshop</code>.</li>
+<li>Type out a name for the project.</li>
 <li>Put it in a convenient location using the “Create project as a subdirectory of:” section. We recommend your <code>Desktop</code>. You can always move the project somewhere else later, because it will be self-contained.</li>
 <li>Click <strong>Create Project</strong> and your new project will open.</li>
 </ol>
 <p>When you need to work on the project, click on the Rproj icon to start RStudio.</p>
 <p>There are a few settings we will need to adjust to improve the reproducibility of our work. Go to your menu bar, then click Tools → Global Options to open up the Options window.</p>
-<p><img src="fig/rstudio_settings.png" class="img-fluid" alt="Screenshot of the RStudio Global Options, with &quot;Restore .RData into workspace at startup&quot; unchecked, and &quot;Save workspace to .RData on exit&quot; set to &quot;Never&quot;."></p>
+<p><img src="images/rstudio_settings.png" class="img-fluid" alt="Screenshot of the RStudio Global Options, with &quot;Restore .RData into workspace at startup&quot; unchecked, and &quot;Save workspace to .RData on exit&quot; set to &quot;Never&quot;."></p>
 <p>Make sure your settings match those highlighted in yellow. We don’t want RStudio to store the current status of our R session and reload it the next time we start R. We want to start with a clean, empty R session every time we work.</p>
 <p>We will use a basic structure for this workshop.</p>
 <pre><code>project_name
@@ -451,10 +450,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 └── scripts
 │
 └── project_name.Rproj</code></pre>
-<p>Within our project folder, we first have a <code>scripts</code> folder to hold any scripts we write. We also have a <code>data</code> folder containing <code>cleaned</code> and <code>raw</code> subfolders. In general, you want to keep your <code>raw</code> data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the <code>cleaned</code> folder. We also have an <code>results</code> folder for document we produce.</p>
 <p>Let’s start making our new folders. Go to the <strong>Files</strong> pane (bottom right), and check the current directory, highlighted in yellow below. You should be in the directory for the project you just made. You shouldn’t see any folders in here yet.</p>
-<p><img src="fig/files_pane.png" class="img-fluid" alt="RStudio Files pane with current directory path highlighted."></p>
-<p>Next, click the <strong>New Folder</strong> button, and type in <code>scripts</code> to generate your <code>scripts</code> folder. It should appear in the Files list now. Repeat the process to make your <code>data</code>, <code>images</code>, and <code>documents</code> folders. Then, click on the <code>data</code> folder in the Files pane. This will take you into the <code>data</code> folder, which will be empty. Use the <strong>New Folder</strong> button to create <code>raw</code> and <code>cleaned</code> folders. To return to the project folder, click on it in the file path, which is highlighted in yellow in the previous image. It’s worth noting that the <strong>Files</strong> pane helps you create, find, and open files, but moving through your files won’t change where the <strong>working directory</strong> of your project is.</p>
+<p><img src="images/files_pane.png" class="img-fluid" alt="RStudio Files pane with current directory path highlighted."></p>
+<p>Next, click the <strong>New Folder</strong> button, and type in <code>scripts</code> to generate your <code>scripts</code> folder. It should appear in the Files list now. Repeat the process to make your <code>data</code>, and <code>results</code> folders. Then, click on the <code>data</code> folder in the Files pane. This will take you into the <code>data</code> folder, which will be empty. Use the <strong>New Folder</strong> button to create <code>raw</code> and <code>cleaned</code> folders. To return to the project folder, click on it in the file path, which is highlighted in yellow in the previous image. It’s worth noting that the <strong>Files</strong> pane helps you create, find, and open files, but moving through your files won’t change where the <strong>working directory</strong> of your project is.</p>
 
 
 </section>
