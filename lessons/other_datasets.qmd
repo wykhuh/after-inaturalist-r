@@ -1,8 +1,6 @@
 ---
 title: "Using to other datasets"
-format: 
-   html:
-     df-print: kable
+format: html
 include-in-header: "components/add-answer-button.html"
 ---
 
@@ -203,12 +201,11 @@ There are two issues with the previous map.
 
 1.  The name of the layer is too long. We can rename the layer using `layer.name ='New Name'`
 
-2.  When you click on region, the popup shows too many fields. To select the columns displayed in popups, we can set the columns using `dataframe[c('col_1', 'col_2')]`. In R, a vector is a list of items. `c()` is a function from R that creates a vector from a list of values. 
+2.  When you click on region, the popup shows too many fields. To select the columns displayed in popups, we can set the columns using `dataframe[c('col_1', 'col_2')]`. In R, a vector is a list of items. `c()` is a function from R that creates a vector from a list of values.
 
 `layer.name ='Avg income'` sets the layer name to 'Avg income'.
 
 `la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')]` sets the columns show in the popup to householdincome_medhinc_cy and STUD_AR_NM
-
 
 ```{r, fix_map}
 #| eval: false
@@ -216,7 +213,6 @@ mapview(la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')],
         zcol='householdincome_medhinc_cy',
         layer.name ='Avg income') 
 ```
-
 
 Add iNaturalist data
 
@@ -229,7 +225,7 @@ mapview(la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')],
 
 ```
 
-::: exercise
+:::: exercise
 ## Exercise 1
 
 Create a map using one of the columns from Park Needs Assessment and one species from iNaturalist.
@@ -237,7 +233,7 @@ Create a map using one of the columns from Park Needs Assessment and one species
 -   use `filter()` on the iNaturalist data to select a species
 -   use `z_col` to pick a column from Park Needs Assessment
 
-:::::: solution
+::: solution
 ```{r, exercise_create_map}
 #| eval: false
 inat_poppy <- inat %>% 
@@ -248,18 +244,16 @@ mapview(la_county_pna[c('PCT_Walk')],
         zcol='PCT_Walk') +
   mapview(inat_poppy)
 ```
-::::::
 :::
+::::
 
 ## Parks
 
 Let's look the location of parks
 
-
 DPR Park Facilities View (Accessible Parks) - County of Los Angeles parks. <https://geohub.lacity.org/datasets/lacounty::dpr-park-facilities-view-accessible-parks/explore>
 
 Los Angeles Recreation and Parks Boundaries - City of Los Angeles parks. <https://geohub.lacity.org/datasets/lahub::los-angeles-recreation-and-parks-boundaries/about>
-
 
 ```{r, get_parks_data}
 parks_county <- read_sf('data/raw/DPR_Park_Facilities_View_(Accessible_Parks)/DPR_Park_Facilities_View_(Accessible_Parks).shp')
@@ -278,6 +272,7 @@ st_crs(parks_county) == st_crs(inat_obs)
 dim(parks_city)
 st_crs(parks_city) == st_crs(inat_obs)
 ```
+
 ```{r, city_parks_dataframe_info_2}
 dim(parks_state)
 st_crs(parks_state) == st_crs(inat_obs)
@@ -296,6 +291,7 @@ parks_city <- st_transform(parks_city, crs = 4326)
 
 st_crs(parks_city) == st_crs(inat_obs)
 ```
+
 ```{r, update_city_crs_2}
 parks_state <- st_transform(parks_state, crs = 4326)
 

@@ -1,8 +1,6 @@
 ---
 title: "Working with data"
-format: 
-   html:
-     df-print: kable
+format: html
 include-in-header: "components/add-answer-button.html"
 ---
 

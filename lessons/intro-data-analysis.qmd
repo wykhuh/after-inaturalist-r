@@ -1,8 +1,6 @@
 ---
 title: "Introduction to Data Analysis"
-format: 
-   html:
-     df-print: kable
+format: html
 ---
 
 ::: summary

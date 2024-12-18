@@ -1,8 +1,6 @@
 ---
 title: "Creating charts"
-format: 
-   html:
-     df-print: kable
+format: html
 include-in-header: "components/add-answer-button.html"
 ---
 
