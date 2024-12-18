@@ -143,7 +143,7 @@ ggplot() +
 
 ```
 
-We can also set the color of the marker by using the values of a given column using `mapping=aes(color=<column_name>)`. 
+We can also set the color of the marker by using the values of a given column using `mapping=aes(color=<column_name>)`.
 
 Let's use 'quality_grade' to set the color of the map markers.
 
@@ -169,7 +169,7 @@ mapview(inat_oak)
 Use `color` to set the color of the border. User `col.regions` to set the color of the fill.
 
 ```{r, create_interactive_map}
-mapview(inat_oak, color='red', col.regions='yellow')
+mapview(inat_oak, color='black', col.regions='green')
 ```
 
 We can also set the color of the marker by using the values of a given column using `zcol=<column_name>`.
@@ -210,6 +210,9 @@ mapview(la_county) +
 ## Exercise 1
 
 Create a map for one species. Include the boundaries for LA County.
+
+- use `filter()` to select observations for one species
+- create either a static or interactive map.
 
 ::: answer
 ```{r, exercise_create_map_one_species}
@@ -298,7 +301,9 @@ Create a map for one species that are inside of a specific area
 -   Used [Draw map boundaries](https://wykhuh.github.io/draw-map-boundaries/) to draw and download an area that you are interested in.
 -   Save the file to the `data/raw` directory.
 -   use `st_read` to read your boundary data.
--   use `st_intersection` to get observations inside a boundary :::::: answer
+-   use `st_intersection` to get observations inside a boundary 
+
+:::::: answer
 
 ```{r,exercise_create_map_of_observations_inside_boundary}
 
@@ -314,15 +319,18 @@ inat_finch <- inat_map %>%
 mapview(expo_park) + 
   mapview(inat_finch)
 ```
+::::::
 :::
 
 ## Exporting maps
 
-We can export the static maps created with ggplot. We can not export the interactive maps created with mapview.
+We can export the maps created with ggplot and mapview as image files. 
 
-Assign the map to an object. Then run ggsave() to save our map The first argument we give is the path to the file we want to save, including the correct file extension. You can save as jpb, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.
+### static maps
 
-```{r, assign_map}
+Assign the map created by ggplot to an object. Then run ggsave() to save our map. The first argument is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.
+
+```{r, assign_static_map}
 my_map <- ggplot() +
   geom_sf(data = expo_park)  +
   geom_sf(data = inat_expo) 
@@ -330,6 +338,22 @@ my_map <- ggplot() +
 my_map
 ```
 
-```{r, save_map}
+```{r, save_static_map}
 ggsave(filename = 'results/expo_park_observations.jpg', plot = my_map,  height = 6, width = 8)
 ```
+
+### interactive map
+
+Assign the map created by mapview to an object. Then run mapshot() to save our map. The first argument is map you want to to save. The second argument is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, or png.  
+
+```{r, assign_interactive_map}
+my_map_2 <- mapview(expo_park) + 
+  mapview(inat_expo)
+
+my_map_2
+```
+
+```{r, save_interactive_map}
+mapshot(my_map_2, file = 'results/expo_park_observations_2.jpg')
+```
+
