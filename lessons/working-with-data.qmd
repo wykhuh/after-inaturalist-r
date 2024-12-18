@@ -83,13 +83,15 @@ library(lubridate) # manipulate dates
 
 We will use the `read_csv()` function from **readr** package to read the iNaturalist CSV. We will pass in a relative path to the CSV file as an argument for `read_csv()`.
 
-```{r, read_csv}
+`read_csv()` will return the content of the file. In order for us access the data later on, we need to assign the content to an object. Double click on `inat_data` in **Environment** to see all the data.
+
+```{r, assign_read_csv_to_object}
 #| warning: false
 #| message: false
-
-read_csv('data/cleaned/cnc-los-angeles-observations.csv')
-
+#| cache: true
+inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 ```
+
 
 ::: callout-tip
 Typing out paths can be error prone, so we can utilize a keyboard shortcut. Inside the parentheses of `read_csv()`, type out a pair of quotes and put your cursor between them. Then hit <kbd>Tab</kbd>. A small menu showing your folders and files should show up. You can use the <kbd>↑</kbd> and <kbd>↓</kbd> keys to move through the options, or start typing to narrow them down. You can hit <kbd>Enter</kbd> to select a file or folder, and hit <kbd>Tab</kbd> again to continue building the file path. This might take a bit of getting used to, but once you get the hang of it, it will speed up writing file paths and reduce the number of mistakes you make.
@@ -98,19 +100,12 @@ Typing out paths can be error prone, so we can utilize a keyboard shortcut. Insi
 To learn more about a function, you can type a ? in front of the name of the function, which will bring up the official documentation for that function:
 
 ```{r, help_for_functions}
+#| eval: false
 ?read_csv
 ```
 
 Function documentation is written by the authors of the functions, so they can vary pretty widely in their style and readability. The first section, **Description**, gives you a concise description of what the function does, but it may not always be enough. The **Arguments** section defines all the arguments for the function and is usually worth reading thoroughly. Finally, the **Examples** section at the end will often have some helpful examples that you can run to get a sense of what the function is doing.
 
-`read_csv()` will return the content of the file. In order for us access the data later on, we need to assign the content to an object. Double click on `inat_data` in **Environment** to see all the data.
-
-```{r, assign_read_csv_to_object}
-#| warning: false
-#| message: false
-
-inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
-```
 
 ## The data.frame
 
@@ -538,7 +533,7 @@ inat_data %>%
 
 You can save the filtered data as CSVs. Assign the dataframe to an object.
 
-```{r, top_ten}
+```{r, top_ten_save}
 
 top_ten <- inat_data %>% 
   count(common_name, scientific_name, name='obs_count') %>%
@@ -552,5 +547,6 @@ top_ten
 Use `write_csv` to create a CSV. The first argument is the dataframe to save. The second argument is the relative path of where to save the file.
 
 ```{r, save_file}
+#| eval: false
 write_csv(top_ten, 'results/top_ten_observations.csv')
 ```

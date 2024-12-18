@@ -65,6 +65,7 @@ st_crs(inat_obs)
 ```
 
 ```{r,create_map_of_inaturalist_observations}
+#| eval: false
 mapview(inat_obs)
 ```
 
@@ -193,6 +194,7 @@ There are 96 fields in the dataset.
 Let's look at the Household Median Income using `zcol='householdincome_medhinc_cy'`.
 
 ```{r, map_of_median_income}
+#| eval: false
 mapview(la_county_pna, 
         zcol='householdincome_medhinc_cy')
 ```
@@ -209,6 +211,7 @@ There are two issues with the previous map.
 
 
 ```{r, fix_map}
+#| eval: false
 mapview(la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')], 
         zcol='householdincome_medhinc_cy',
         layer.name ='Avg income') 
@@ -218,6 +221,7 @@ mapview(la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')],
 Add iNaturalist data
 
 ```{r, map_of_median_income_and_inat}
+#| eval: false
 mapview(la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')],
         zcol='householdincome_medhinc_cy',
         layer.name ='Avg income')  +
@@ -235,6 +239,7 @@ Create a map using one of the columns from Park Needs Assessment and one species
 
 :::::: solution
 ```{r, exercise_create_map}
+#| eval: false
 inat_poppy <- inat %>% 
   st_as_sf(coords = c("longitude", "latitude"), crs = 4326, remove=FALSE) %>% 
   filter(common_name == 'California poppy') 
@@ -298,6 +303,7 @@ st_crs(parks_state) == st_crs(inat_obs)
 ```
 
 ```{r, map_of_parks_with_inat}
+#| eval: false
 mapview(parks_county, col.region='red') + 
   mapview(parks_city, col.region='yellow') +
   mapview(parks_state, col.region='green') +

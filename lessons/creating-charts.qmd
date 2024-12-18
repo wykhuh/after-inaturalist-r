@@ -132,14 +132,14 @@ ggplot(data = inat_year_count,
   geom_col()
 ```
 
-:::::: exercise
+:::: exercise
 ## Exercise 1
 
 Create a chart with all your observations for each year
 
-- Use `mutate()` to add year column
+-   Use `mutate()` to add year column
 
-- Use `filter()` to select user
+-   Use `filter()` to select user
 
 ::: solution
 ```{r, exercise_create_bar_chart}
@@ -153,7 +153,7 @@ ggplot(data = my_year, mapping = aes(x = year)) +
   geom_bar()
 ```
 :::
-::::::
+::::
 
 ## Changing aesthetics
 
@@ -246,21 +246,20 @@ myplot +
        y = "Observations")
 ```
 
-::: exercise
+:::: exercise
 ## Exercise 2: Customizing a plot
 
 Take the chart from exercise 1 (your observations for each year) and assign it to an object. Customize the appearance. Here are some ideas.
 
-- add a title
+-   add a title
 
-- choose the one of the built in themes
+-   choose the one of the built in themes
 
-- change the axis titles
+-   change the axis titles
 
-- change the colors of the bar 
+-   change the colors of the bar
 
-
-:::::: solution
+::: solution
 ```{r, exercise_change_chart_appearance}
 my_yearly_plot  <- inat %>% 
   mutate(year = year(observed_on))  %>% 
@@ -273,8 +272,8 @@ my_yearly_plot +
   labs(title = "CNC Los Angeles",  x = "Year",  y = "Observations") 
 
 ```
-::::::
 :::
+::::
 
 ## Exporting plots
 
@@ -296,5 +295,6 @@ finalplot
 ```
 
 ```{r, save_plot}
+#| eval: false
 ggsave(filename = 'results/observations_per_year.jpg', plot = finalplot,  height = 6, width = 8)
 ```

@@ -163,12 +163,14 @@ Since there are over 191K rows in inat_map, an interactive map will be very slow
 Let's create interactive map for Coast Live Oak. When you click on observation, all the fields that were set from `select()` will be displayed in a popup.
 
 ```{r, create_interactive_map}
+#| eval: false
 mapview(inat_oak)
 ```
 
 Use `color` to set the color of the border. User `col.regions` to set the color of the fill.
 
 ```{r, create_interactive_map_use_color}
+#| eval: false
 mapview(inat_oak, color='black', col.regions='green')
 ```
 
@@ -177,6 +179,7 @@ We can also set the color of the marker by using the values of a given column us
 Let's use 'quality_grade' to set the color of the map markers.
 
 ```{r, create_interactive_map_for_oak_use_quality_grade}
+#| eval: false
 mapview(inat_oak, zcol='quality_grade')
 ```
 
@@ -201,7 +204,7 @@ ggplot() +
 ```
 
 ```{r, add_LA_County_to_interactive_map}
-
+#| eval: false
 mapview(la_county) +
   mapview(inat_oak) 
 ```
@@ -216,6 +219,7 @@ Create a map for one species. Include the boundaries for LA County.
 
 ::: answer
 ```{r, exercise_create_map_one_species}
+#| eval: false
 inat_finch <- inat_map %>% 
   filter(common_name == 'House Finch')
 
@@ -246,6 +250,7 @@ ggplot() +
 ```
 
 ```{r,create_interactive_map_expo_park}
+#| eval: false
 mapview(expo_park) 
 ```
 
@@ -281,6 +286,7 @@ ggplot() +
 ```
 
 ```{r,create_interactive_map_of_observations_in_expo_park}
+#| eval: false
 mapview(expo_park) +
   mapview(inat_expo) 
 
@@ -289,6 +295,7 @@ mapview(expo_park) +
 Use `alpha.regions` to set opacity. Use `col.regions` to set color.
 
 ```{r, set_color_of_map}
+#| eval: false
 mapview(expo_park,   alpha.regions=0.3, col.regions="#333333") +
   mapview(inat_expo, col.regions="green") 
 ```
@@ -306,6 +313,7 @@ Create a map for one species that are inside of a specific area
 :::::: answer
 
 ```{r,exercise_create_map_of_observations_inside_boundary}
+#| eval: false
 
 expo_park <- st_read('data/raw/boundaries_expo_park_area.geojson')  %>% 
   st_transform(4326)
@@ -314,7 +322,6 @@ expo_park <- st_read('data/raw/boundaries_expo_park_area.geojson')  %>%
 inat_finch <- inat_map %>% 
   filter(common_name == 'House Finch')  %>% 
   st_intersection(expo_park)
-
 
 mapview(expo_park) + 
   mapview(inat_finch)
@@ -339,6 +346,8 @@ my_map
 ```
 
 ```{r, save_static_map}
+#| eval: false
+
 ggsave(filename = 'results/expo_park_observations.jpg', plot = my_map,  height = 6, width = 8)
 ```
 
@@ -347,14 +356,15 @@ ggsave(filename = 'results/expo_park_observations.jpg', plot = my_map,  height =
 Assign the map created by mapview to an object. Then run mapshot() to save our map. The first argument is map you want to to save. The second argument is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, or png.  
 
 ```{r, assign_interactive_map}
+#| eval: false
 my_map_2 <- mapview(expo_park) + 
   mapview(inat_expo)
 
 my_map_2
 ```
 
-```{r, save_interactive_map, purl=FALSE}
-#| purl: false
-mapshot(my_map_2, file = 'results/expo_park_observations_4.jpg')
+```{r, save_interactive_map}
+#| eval: false
+mapshot(my_map_2, file = 'results/expo_park_observations_3.jpg')
 ```
 
