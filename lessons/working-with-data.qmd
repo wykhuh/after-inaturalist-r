@@ -52,7 +52,8 @@ R will connect to the internet and download packages from servers that have R pa
 
 In order to use a package, use `library()` function from **R**. We pass in the name of the package as an argument. Do not use quotes around the package name when using `library`.
 
-```         
+```{r load_all_libraries}
+#| eval: false
 library(readr) # read and write tabular data
 library(dplyr) # manipulate data
 library(ggplot2) # create data visualizations
@@ -221,28 +222,32 @@ We are writing instructions for the computer. If there is typos, mispelling, pas
 
 typo: we used `%>`, when it should be `%>%`
 
-```         
+```{r, error_typo_pipe}
+#| eval: false
 inat_data %>
   select(user_login, observed_on, common_name)
 ```
 
 Misspelled `user_logi`
 
-```         
+```{r, error_misspell_field}
+#| eval: false
 inat_data %>%
   select(user_logi, observed_on, common_name) 
 ```
 
 typo: we use `=`, when it should be `==`
 
-```         
+```{r, error_equality}
+#| eval: false
 inat_data %>%
   filter(user_login = 'natureinla')
 ```
 
 typo: extra `)`
 
-```         
+```{r, error_parenthesis}      
+#| eval: false
 inat_data %>%
   select(user_login, observed_on, common_name))
 ```

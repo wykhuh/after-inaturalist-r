@@ -165,12 +165,16 @@ Let's create interactive map for Coast Live Oak. When you click on observation, 
 mapview(inat_oak)
 ```
 
+![](images/mapview/creating_maps/create_interactive_map.png){fig-alt="interactive map of Coast Live Oak observations"}
+
 Use `color` to set the color of the border. User `col.regions` to set the color of the fill.
 
 ```{r, create_interactive_map_use_color}
 #| eval: false
 mapview(inat_oak, color='black', col.regions='green')
 ```
+
+![](images/mapview/creating_maps/create_interactive_map_use_color.png){fig-alt="interactive map of Coast Live Oak using green map markers"}
 
 We can also set the color of the marker by using the values of a given column using `zcol=<column_name>`.
 
@@ -180,6 +184,8 @@ Let's use 'quality_grade' to set the color of the map markers.
 #| eval: false
 mapview(inat_oak, zcol='quality_grade')
 ```
+
+![](images/mapview/creating_maps/create_interactive_map_for_oak_use_quality_grade.png){fig-alt="interactive map of Coast Live Oaks observations using colors based on quality grade"}
 
 ## working with other geographic files
 
@@ -207,13 +213,15 @@ mapview(la_county) +
   mapview(inat_oak) 
 ```
 
+![](images/mapview/creating_maps/add_LA_County_to_interactive_map.png){fig-alt="add L.A. County boundary to interactive map of Coast Live Oak observations"}
+
 :::: exercise
 ## Exercise 1
 
 Create a map for one species. Include the boundaries for LA County.
 
-- use `filter()` to select observations for one species
-- create either a static or interactive map.
+-   use `filter()` to select observations for one species
+-   create either a static or interactive map.
 
 ::: answer
 ```{r, exercise_create_map_one_species}
@@ -251,6 +259,8 @@ ggplot() +
 #| eval: false
 mapview(expo_park) 
 ```
+
+![](images/mapview/creating_maps/create_interactive_map_expo_park.png){fig-alt="interactive map of Expo Park"}
 
 We want to get observation inside Expo Park.
 
@@ -290,6 +300,8 @@ mapview(expo_park) +
 
 ```
 
+![](images/mapview/creating_maps/create_interactive_map_of_observations_in_expo_park.png){fig-alt="interactive map of Expo Park with iNaturalist observations"}
+
 Use `alpha.regions` to set opacity. Use `col.regions` to set color.
 
 ```{r, set_color_of_map}
@@ -298,7 +310,9 @@ mapview(expo_park,   alpha.regions=0.3, col.regions="#333333") +
   mapview(inat_expo, col.regions="green") 
 ```
 
-::: exercise
+![](images/mapview/creating_maps/set_color_of_map.png){fig-alt="interactive map of Expo Park with iNaturalist observations with green map markers"}
+
+:::: exercise
 ## Exercise 2
 
 Create a map for one species that are inside of a specific area
@@ -306,10 +320,9 @@ Create a map for one species that are inside of a specific area
 -   Used [Draw map boundaries](https://wykhuh.github.io/draw-map-boundaries/) to draw and download an area that you are interested in.
 -   Save the file to the `data/raw` directory.
 -   use `st_read` to read your boundary data.
--   use `st_intersection` to get observations inside a boundary 
+-   use `st_intersection` to get observations inside a boundary
 
-:::::: answer
-
+::: answer
 ```{r,exercise_create_map_of_observations_inside_boundary}
 #| eval: false
 
@@ -324,12 +337,12 @@ inat_finch <- inat_map %>%
 mapview(expo_park) + 
   mapview(inat_finch)
 ```
-::::::
 :::
+::::
 
 ## Exporting maps
 
-We can export the maps created with ggplot and mapview as image files. 
+We can export the maps created with ggplot and mapview as image files.
 
 ### static maps
 
@@ -351,7 +364,7 @@ ggsave(filename = 'results/expo_park_observations.jpg', plot = my_map,  height =
 
 ### interactive map
 
-Assign the map created by mapview to an object. Then run mapshot() to save our map. The first argument is map you want to to save. The second argument is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, or png.  
+Assign the map created by mapview to an object. Then run mapshot() to save our map. The first argument is map you want to to save. The second argument is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, or png.
 
 ```{r, assign_interactive_map}
 #| eval: false
@@ -360,9 +373,10 @@ my_map_2 <- mapview(expo_park) +
 
 my_map_2
 ```
+![](images/mapview/creating_maps/create_interactive_map_of_observations_in_expo_park.png){fig-alt="interactive map of Expo Park with iNaturalist observations"}
+
 
 ```{r, save_interactive_map}
 #| eval: false
 mapshot(my_map_2, file = 'results/expo_park_observations_3.jpg')
 ```
-

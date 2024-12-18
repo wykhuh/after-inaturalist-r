@@ -46,7 +46,7 @@ Let's get observations for Coast Live Oak.
 inat <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 ```
 
-Add a geometry column using `st_as_sf().` Select observations for 'Quercus agrifolia' aka Coast Live Oak using `filter()`.
+imagesAdd a geometry column using `st_as_sf().` Select observations for 'Quercus agrifolia' aka Coast Live Oak using `filter()`.
 
 ```{r, get_oak_observations}
 inat_obs <- inat %>% 
@@ -66,6 +66,8 @@ st_crs(inat_obs)
 #| eval: false
 mapview(inat_obs)
 ```
+
+![](images/mapview/other-datasets/create_map_of_inaturalist_observations.png){fig-alt="interactive map of iNaturalist observations"}
 
 ## Demographic data
 
@@ -99,7 +101,7 @@ dim(la_county_pna)
 There are 96 fields in the dataset.
 
 | field | description |
-|---------------------------|---------------------------------------------|
+|------------------------------------|------------------------------------|
 | STUD_AR_ID | Study Area ID |
 | STUD_AR_NM | Study Area Name |
 | STUD_AR_LBL | Label |
@@ -197,6 +199,8 @@ mapview(la_county_pna,
         zcol='householdincome_medhinc_cy')
 ```
 
+![](images/mapview/other-datasets/map_of_median_income.png){fig-alt="interactive map of Household Median Income"}
+
 There are two issues with the previous map.
 
 1.  The name of the layer is too long. We can rename the layer using `layer.name ='New Name'`
@@ -214,6 +218,8 @@ mapview(la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')],
         layer.name ='Avg income') 
 ```
 
+![](images/mapview/other-datasets/fix_map.png){fig-alt="interactive map of Household Median Income with fixed layer name and popups"}
+
 Add iNaturalist data
 
 ```{r, map_of_median_income_and_inat}
@@ -224,6 +230,8 @@ mapview(la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')],
   mapview(inat_obs)
 
 ```
+
+![](images/mapview/other-datasets/map_of_median_income_and_inat.png){fig-alt="interactive map of Household Median Income and iNaturalist observations"}
 
 :::: exercise
 ## Exercise 1
@@ -251,16 +259,18 @@ mapview(la_county_pna[c('PCT_Walk')],
 
 Let's look the location of parks
 
-DPR Park Facilities View (Accessible Parks) - County of Los Angeles parks. <https://geohub.lacity.org/datasets/lacounty::dpr-park-facilities-view-accessible-parks/explore>
+California State Parks: https://www.parks.ca.gov/?page_id=29682
 
-Los Angeles Recreation and Parks Boundaries - City of Los Angeles parks. <https://geohub.lacity.org/datasets/lahub::los-angeles-recreation-and-parks-boundaries/about>
+County of Los Angeles parks: https://geohub.lacity.org/datasets/lacounty::dpr-park-facilities-view-accessible-parks/explore
+
+City of Los Angeles parks:  https://geohub.lacity.org/datasets/lahub::los-angeles-recreation-and-parks-boundaries/about
 
 ```{r, get_parks_data}
 parks_county <- read_sf('data/raw/DPR_Park_Facilities_View_(Accessible_Parks)/DPR_Park_Facilities_View_(Accessible_Parks).shp')
 
 parks_city <- read_sf('data/raw/Los_Angeles_Recreation_and_Parks_Boundaries/Los_Angeles_Recreation_and_Parks_Boundaries.shp')
 
-parks_state <- read_sf('data/raw/Park_Boundaries/ParkBoundaries.shp')
+parks_state <- read_sf('data/raw/ca_state_parks_la_county.geojson')
 ```
 
 ```{r, county_parks_dataframe_info}
@@ -298,6 +308,8 @@ parks_state <- st_transform(parks_state, crs = 4326)
 st_crs(parks_state) == st_crs(inat_obs)
 ```
 
+Create map with parks and iNaturalist data.
+
 ```{r, map_of_parks_with_inat}
 #| eval: false
 mapview(parks_county, col.region='red') + 
@@ -305,3 +317,5 @@ mapview(parks_county, col.region='red') +
   mapview(parks_state, col.region='green') +
   mapview(inat_obs)
 ```
+
+![](images/mapview/other-datasets/map_of_parks_with_inat.png){fig-alt="interactive map of city, county, and state parks and iNaturalist observations"}

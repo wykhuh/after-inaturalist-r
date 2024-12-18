@@ -127,6 +127,7 @@ Create maps. For example, create a map showing all the observations for Western 
 
 ```{r, map_of_western_fence_lizard}
 #| cache: true
+#| eval: false
 
 lizard <- inat %>% 
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326, remove=FALSE) %>% 
@@ -136,3 +137,5 @@ lizard <- inat %>%
 
 mapview(lizard)
 ```
+
+![](images/mapview/intro-data-analysis/map_of_western_fence_lizard.png){alt="map of western fence lizard"}
