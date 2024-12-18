@@ -309,7 +309,7 @@ inat_data %>%
 
 Here we will get observations where `common_name` is 'Western Fence Lizard' or `common_name` is 'Western Honey Bee'.
 
-```{r, filter_with_and_2}
+```{r, filter_with_or_2}
 inat_data %>% 
   filter(common_name == 'Western Honey Bee' | common_name == 'Western Fence Lizard')  %>% 
   select(user_login, observed_on, common_name)

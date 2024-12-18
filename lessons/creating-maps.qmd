@@ -103,14 +103,14 @@ dim(inat_map)
 
 Let's use filter to get the observations for 'Quercus agrifolia' aka Coast Live Oak.
 
-```{r, get_lizard_data}
+```{r, get_oak_data}
 inat_oak <- inat_map %>% 
   filter(scientific_name == 'Quercus agrifolia')
 ```
 
 Use dim to get number of rows. About 700 rows.
 
-```{r, get_size_of_lizard_dataframe}
+```{r, get_size_of_oak_dataframe}
 dim(inat_oak)
 ```
 
@@ -127,7 +127,7 @@ ggplot() +
 
 Let's create a map for Coast Live Oak observations.
 
-```{r, create_static_map_for_lizard}
+```{r, create_static_map_for_oak}
 
 ggplot() +
   geom_sf(data = inat_oak)  
@@ -136,7 +136,7 @@ ggplot() +
 
 We can set the color of the map marker using `color` argument.
 
-```{r, create_static_map_for_lizard}
+```{r, create_static_map_for_oak_use_color}
 
 ggplot() +
   geom_sf(data = inat_oak, color='green')  
@@ -147,7 +147,7 @@ We can also set the color of the marker by using the values of a given column us
 
 Let's use 'quality_grade' to set the color of the map markers.
 
-```{r, create_static_map_for_lizard}
+```{r, create_static_map_for_oak_use_quality_grade}
 
 ggplot() +
   geom_sf(data = inat_oak, mapping=aes(color=quality_grade))  
@@ -168,7 +168,7 @@ mapview(inat_oak)
 
 Use `color` to set the color of the border. User `col.regions` to set the color of the fill.
 
-```{r, create_interactive_map}
+```{r, create_interactive_map_use_color}
 mapview(inat_oak, color='black', col.regions='green')
 ```
 
@@ -176,7 +176,7 @@ We can also set the color of the marker by using the values of a given column us
 
 Let's use 'quality_grade' to set the color of the map markers.
 
-```{r}
+```{r, create_interactive_map_for_oak_use_quality_grade}
 mapview(inat_oak, zcol='quality_grade')
 ```
 
@@ -194,13 +194,13 @@ la_county <- read_sf('data/raw/County_Boundary/County_Boundary.shp')
 
 add LA County to maps.
 
-```{r, add_LA_Count_to_static_map}
+```{r, add_LA_County_to_static_map}
 ggplot() +
   geom_sf(data = la_county)  +
   geom_sf(data = inat_oak) 
 ```
 
-```{r, add_LA_Count_to_interactive_map}
+```{r, add_LA_County_to_interactive_map}
 
 mapview(la_county) +
   mapview(inat_oak) 
@@ -353,7 +353,8 @@ my_map_2 <- mapview(expo_park) +
 my_map_2
 ```
 
-```{r, save_interactive_map}
-mapshot(my_map_2, file = 'results/expo_park_observations_2.jpg')
+```{r, save_interactive_map, purl=FALSE}
+#| purl: false
+mapshot(my_map_2, file = 'results/expo_park_observations_4.jpg')
 ```
 

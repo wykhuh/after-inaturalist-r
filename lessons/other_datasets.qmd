@@ -234,7 +234,7 @@ Create a map using one of the columns from Park Needs Assessment and one species
 -   use `z_col` to pick a column from Park Needs Assessment
 
 :::::: solution
-```{r}
+```{r, exercise_create_map}
 inat_poppy <- inat %>% 
   st_as_sf(coords = c("longitude", "latitude"), crs = 4326, remove=FALSE) %>% 
   filter(common_name == 'California poppy') 
@@ -273,7 +273,7 @@ st_crs(parks_county) == st_crs(inat_obs)
 dim(parks_city)
 st_crs(parks_city) == st_crs(inat_obs)
 ```
-```{r, city_parks_dataframe_info}
+```{r, city_parks_dataframe_info_2}
 dim(parks_state)
 st_crs(parks_state) == st_crs(inat_obs)
 ```
@@ -291,7 +291,7 @@ parks_city <- st_transform(parks_city, crs = 4326)
 
 st_crs(parks_city) == st_crs(inat_obs)
 ```
-```{r, update_city_crs}
+```{r, update_city_crs_2}
 parks_state <- st_transform(parks_state, crs = 4326)
 
 st_crs(parks_state) == st_crs(inat_obs)
