@@ -1,0 +1,681 @@
+Attributes
+Learn about charts
+Study Area ID
+Display name
+Study Area ID
+Name
+STUD_AR_ID
+Type
+Character string
+Study Area Name
+Display name
+Study Area Name
+Name
+STUD_AR_NM
+Type
+Character string
+Label
+Display name
+Label
+Name
+STUD_AR_LBL
+Type
+Character string
+Toolkit ID
+Display name
+Toolkit ID
+Name
+TOOLKIT_ID
+Type
+Short integer
+Park Acres
+Display name
+Park Acres
+Name
+Acres
+Type
+Double-precision decimal number
+Acres/1000
+Display name
+Acres/1000
+Name
+AC_PER_1K
+Type
+Double-precision decimal number
+Accessible Park Acres
+Display name
+Accessible Park Acres
+Name
+RepPrkAc
+Type
+Double-precision decimal number
+Need Description
+Display name
+Need Description
+Name
+NEED_DESCP
+Type
+Character string
+Chart
+Table
+Moderate
+Very High
+Low
+Very Low
+High
+Not Participating
+***
+Need Description
+0
+10
+20
+30
+40
+50
+Count
+Walkable Percentage
+Display name
+Walkable Percentage
+Name
+PCT_Walk
+Type
+Double-precision decimal number
+HasData
+Name
+HasData
+Type
+Long integer
+ORIGINAL_OID
+Name
+ORIGINAL_OID
+Type
+Long integer
+Total Population
+Display name
+Total Population
+Name
+populationtotals_totpop_cy
+Type
+Double-precision decimal number
+Average Household Size
+Display name
+Average Household Size
+Name
+householdtotals_avghhsz_cy
+Type
+Double-precision decimal number
+Median Household Income
+Display name
+Median Household Income
+Name
+householdincome_medhinc_cy
+Type
+Double-precision decimal number
+Pop Age 25+: < 9th Grade
+Display name
+Pop Age 25+: < 9th Grade
+Name
+educationalattainment_nohs_cy
+Type
+Double-precision decimal number
+Pop Age 25+: High School/No Diploma
+Display name
+Pop Age 25+: High School/No Diploma
+Name
+educationalattainment_somehs_cy
+Type
+Double-precision decimal number
+Pop Age 25+: High School Diploma
+Display name
+Pop Age 25+: High School Diploma
+Name
+educationalattainment_hsgrad_cy
+Type
+Double-precision decimal number
+Pop Age 25+: GED
+Display name
+Pop Age 25+: GED
+Name
+educationalattainment_ged_cy
+Type
+Double-precision decimal number
+Pop Age 25+: Some College/No Degree
+Display name
+Pop Age 25+: Some College/No Degree
+Name
+educationalattainment_smcoll_cy
+Type
+Double-precision decimal number
+Pop Age 25+: Associate's Degree
+Display name
+Pop Age 25+: Associate's Degree
+Name
+educationalattainment_asscdeg_c
+Type
+Double-precision decimal number
+Pop Age 25+: Bachelor's Degree
+Display name
+Pop Age 25+: Bachelor's Degree
+Name
+educationalattainment_bachdeg_c
+Type
+Double-precision decimal number
+Pop Age 25+: Grad/Professional Degree
+Display name
+Pop Age 25+: Grad/Professional Degree
+Name
+educationalattainment_graddeg_c
+Type
+Double-precision decimal number
+Educational Attainment Base
+Display name
+Educational Attainment Base
+Name
+educationalattainment_educbasec
+Type
+Double-precision decimal number
+Participated in baseball in last 12 months: Index
+Display name
+Participated in baseball in last 12 months: Index
+Name
+sports_mp33003a_b_i
+Type
+Long integer
+Participated in basketball in last 12 months: Index
+Display name
+Participated in basketball in last 12 months: Index
+Name
+sports_mp33004a_b_i
+Type
+Long integer
+Participated in bicycling (mountain) in last 12 mo: Index
+Display name
+Participated in bicycling (mountain) in last 12 mo: Index
+Name
+sports_mp33005a_b_i
+Type
+Long integer
+Participated in football in last 12 months: Index
+Display name
+Participated in football in last 12 months: Index
+Name
+sports_mp33012a_b_i
+Type
+Long integer
+Participated in golf in last 12 months: Index
+Display name
+Participated in golf in last 12 months: Index
+Name
+sports_mp33014a_b_i
+Type
+Long integer
+Participated in hiking in last 12 months: Index
+Display name
+Participated in hiking in last 12 months: Index
+Name
+sports_mp33015a_b_i
+Type
+Long integer
+Participated in horseback riding in last 12 months: Index
+Display name
+Participated in horseback riding in last 12 months: Index
+Name
+sports_mp33016a_b_i
+Type
+Long integer
+Participated in jogging/running in last 12 months: Index
+Display name
+Participated in jogging/running in last 12 months: Index
+Name
+sports_mp33020a_b_i
+Type
+Long integer
+Participated in soccer in last 12 months: Index
+Display name
+Participated in soccer in last 12 months: Index
+Name
+sports_mp33024a_b_i
+Type
+Long integer
+Participated in softball in last 12 months: Index
+Display name
+Participated in softball in last 12 months: Index
+Name
+sports_mp33025a_b_i
+Type
+Long integer
+Participated in swimming in last 12 months: Index
+Display name
+Participated in swimming in last 12 months: Index
+Name
+sports_mp33026a_b_i
+Type
+Long integer
+Participated in tennis in last 12 months: Index
+Display name
+Participated in tennis in last 12 months: Index
+Name
+sports_mp33028a_b_i
+Type
+Long integer
+Participated in volleyball in last 12 months: Index
+Display name
+Participated in volleyball in last 12 months: Index
+Name
+sports_mp33029a_b_i
+Type
+Long integer
+Participated in walking for exercise in last 12 mo: Index
+Display name
+Participated in walking for exercise in last 12 mo: Index
+Name
+sports_mp33030a_b_i
+Type
+Long integer
+Population Age 0-4
+Display name
+Population Age 0-4
+Name
+F5yearincrements_pop0_cy
+Type
+Double-precision decimal number
+Population Age 5-9
+Display name
+Population Age 5-9
+Name
+F5yearincrements_pop5_cy
+Type
+Double-precision decimal number
+Population Age 10-14
+Display name
+Population Age 10-14
+Name
+F5yearincrements_pop10_cy
+Type
+Double-precision decimal number
+Population Age 15-19
+Display name
+Population Age 15-19
+Name
+F5yearincrements_pop15_cy
+Type
+Double-precision decimal number
+Population Age 20-24
+Display name
+Population Age 20-24
+Name
+F5yearincrements_pop20_cy
+Type
+Double-precision decimal number
+Population Age 25-29
+Display name
+Population Age 25-29
+Name
+F5yearincrements_pop25_cy
+Type
+Double-precision decimal number
+Population Age 30-34
+Display name
+Population Age 30-34
+Name
+F5yearincrements_pop30_cy
+Type
+Double-precision decimal number
+Population Age 35-39
+Display name
+Population Age 35-39
+Name
+F5yearincrements_pop35_cy
+Type
+Double-precision decimal number
+Population Age 40-44
+Display name
+Population Age 40-44
+Name
+F5yearincrements_pop40_cy
+Type
+Double-precision decimal number
+Population Age 45-49
+Display name
+Population Age 45-49
+Name
+F5yearincrements_pop45_cy
+Type
+Double-precision decimal number
+Population Age 50-54
+Display name
+Population Age 50-54
+Name
+F5yearincrements_pop50_cy
+Type
+Double-precision decimal number
+Population Age 55-59
+Display name
+Population Age 55-59
+Name
+F5yearincrements_pop55_cy
+Type
+Double-precision decimal number
+Population Age 60-64
+Display name
+Population Age 60-64
+Name
+F5yearincrements_pop60_cy
+Type
+Double-precision decimal number
+Population Age 65-69
+Display name
+Population Age 65-69
+Name
+F5yearincrements_pop65_cy
+Type
+Double-precision decimal number
+Population Age 70-74
+Display name
+Population Age 70-74
+Name
+F5yearincrements_pop70_cy
+Type
+Double-precision decimal number
+Population Age 75-79
+Display name
+Population Age 75-79
+Name
+F5yearincrements_pop75_cy
+Type
+Double-precision decimal number
+Population Age 80-84
+Display name
+Population Age 80-84
+Name
+F5yearincrements_pop80_cy
+Type
+Double-precision decimal number
+Population Age 85+
+Display name
+Population Age 85+
+Name
+F5yearincrements_pop85_cy
+Type
+Double-precision decimal number
+Population Age 18+
+Display name
+Population Age 18+
+Name
+F5yearincrements_pop18up_cy
+Type
+Double-precision decimal number
+Population Age 18
+Display name
+Population Age 18
+Name
+F1yearincrements_age18_cy
+Type
+Double-precision decimal number
+Population Age 19
+Display name
+Population Age 19
+Name
+F1yearincrements_age19_cy
+Type
+Double-precision decimal number
+MEAN Asthma
+Display name
+MEAN Asthma
+Name
+MEAN_Asthma
+Type
+Double-precision decimal number
+MEAN Low_Birth_Weight
+Display name
+MEAN Low_Birth_Weight
+Name
+MEAN_Low_Birth_Weight
+Type
+Double-precision decimal number
+MEAN Cardiovascular
+Display name
+MEAN Cardiovascular
+Name
+MEAN_Cardiovascular
+Type
+Double-precision decimal number
+aggregationMethod_1
+Name
+aggregationMethod_1
+Type
+Character string
+Chart
+Table
+BlockApportionment:US.BlockGroups
+aggregationMethod_1
+0
+50
+100
+150
+200
+Count
+HasData_1
+Name
+HasData_1
+Type
+Long integer
+ORIGINAL_OID_1
+Name
+ORIGINAL_OID_1
+Type
+Long integer
+sourceCountry_1
+Name
+sourceCountry_1
+Type
+Character string
+Chart
+Table
+US
+sourceCountry_1
+0
+50
+100
+150
+200
+Count
+Hispanic Population
+Display name
+Hispanic Population
+Name
+raceandhispanicorigin_hisppop_c
+Type
+Double-precision decimal number
+Non-Hispanic Population
+Display name
+Non-Hispanic Population
+Name
+raceandhispanicorigin_nonhisp_c
+Type
+Double-precision decimal number
+Non-Hispanic White Pop
+Display name
+Non-Hispanic White Pop
+Name
+raceandhispanicorigin_nhspwht_c
+Type
+Double-precision decimal number
+Non-Hispanic Black Pop
+Display name
+Non-Hispanic Black Pop
+Name
+raceandhispanicorigin_nhspblk_c
+Type
+Double-precision decimal number
+Non-Hispanic American Indian Pop
+Display name
+Non-Hispanic American Indian Pop
+Name
+raceandhispanicorigin_nhspai_cy
+Type
+Double-precision decimal number
+Non-Hispanic Asian Pop
+Display name
+Non-Hispanic Asian Pop
+Name
+raceandhispanicorigin_nhspasn_c
+Type
+Double-precision decimal number
+Non-Hispanic Pacific Islander Pop
+Display name
+Non-Hispanic Pacific Islander Pop
+Name
+raceandhispanicorigin_nhsppi_cy
+Type
+Double-precision decimal number
+Non-Hispanic Other Race Pop
+Display name
+Non-Hispanic Other Race Pop
+Name
+raceandhispanicorigin_nhspoth_c
+Type
+Double-precision decimal number
+Non-Hispanic Multiple Race Pop
+Display name
+Non-Hispanic Multiple Race Pop
+Name
+raceandhispanicorigin_nhspmlt_c
+Type
+Double-precision decimal number
+Age 0-17 Pct
+Display name
+Age 0-17 Pct
+Name
+Age0_17Pct
+Type
+Double-precision decimal number
+Age 18-34 Pct
+Display name
+Age 18-34 Pct
+Name
+Age18_34Pct
+Type
+Double-precision decimal number
+Age 35-54 Pct
+Display name
+Age 35-54 Pct
+Name
+Age35_54Pct
+Type
+Double-precision decimal number
+Age 55-69 Pct
+Display name
+Age 55-69 Pct
+Name
+Age55_69Pct
+Type
+Double-precision decimal number
+Age 70+ Pct
+Display name
+Age 70+ Pct
+Name
+Age70upPct
+Type
+Double-precision decimal number
+Hispanic Pct
+Display name
+Hispanic Pct
+Name
+HispanicPct
+Type
+Double-precision decimal number
+White Pct
+Display name
+White Pct
+Name
+WhitePct
+Type
+Double-precision decimal number
+Black Pct
+Display name
+Black Pct
+Name
+Black_Pct
+Type
+Double-precision decimal number
+Asian Pct
+Display name
+Asian Pct
+Name
+Asian_Pct
+Type
+Double-precision decimal number
+American Indian Pct
+Display name
+American Indian Pct
+Name
+Am_Indian
+Type
+Double-precision decimal number
+Pacific Islander Pct
+Display name
+Pacific Islander Pct
+Name
+Pac_Island
+Type
+Double-precision decimal number
+Other Race Pct
+Display name
+Other Race Pct
+Name
+Other_Race
+Type
+Double-precision decimal number
+Multiple Race Pct
+Display name
+Multiple Race Pct
+Name
+Multi_Race
+Type
+Double-precision decimal number
+No High School Diploma Pct
+Display name
+No High School Diploma Pct
+Name
+No_HS
+Type
+Short integer
+High School Graduate Pct
+Display name
+High School Graduate Pct
+Name
+HS_Grad
+Type
+Short integer
+Some College Pct
+Display name
+Some College Pct
+Name
+Some_College
+Type
+Short integer
+College Degree Pct
+Display name
+College Degree Pct
+Name
+College
+Type
+Short integer
+Unemployment Rate
+Display name
+Unemployment Rate
+Name
+unemprt_cy
+Type
+Double-precision decimal number
+Shape__Area
+Name
+Shape__Area
+Type
+Double-precision decimal number
+Shape__Length
+Name
+Shape__Length
+Type
+Double-precision decimal number
