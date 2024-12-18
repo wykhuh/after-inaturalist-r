@@ -4,11 +4,9 @@ Sometimes we have geospatial files that cover California or U.S., but we only wa
 
 ## State parks in LA area
 
-California State Parks 
-https://www.parks.ca.gov/?page_id=29682
+California State Parks https://www.parks.ca.gov/?page_id=29682
 
-California County Boundaries and Identifiers
-https://gis.data.ca.gov/datasets/California::california-county-boundaries-and-identifiers/explore
+California County Boundaries and Identifiers https://gis.data.ca.gov/datasets/California::california-county-boundaries-and-identifiers/explore
 
 Read files
 
@@ -38,6 +36,7 @@ counties <- c('Los Angeles County',
 
 mapview(socal_counties)
 ```
+
 Compare CRS
 
 ```{r}
@@ -48,8 +47,8 @@ st_crs(parks_state)
 st_crs(la_county)
 
 ```
-Set and check CRS.
 
+Set and check CRS.
 
 ```{r}
 la_county <- st_transform(la_county, crs = st_crs(parks_state) )
@@ -79,13 +78,12 @@ mapview(la_county) + mapview(la_parks_2)
 create file
 
 ```{r}
-st_write(la_parks_2, 'data/raw/ca_county_parks_la_county.geojson')
+st_write(la_parks_2, 'data/raw/ca_state_parks_la_county.geojson')
 ```
 
-## National  parks in LA area
+## National parks in LA area
 
-National Park Boundaries
-https://catalog.data.gov/dataset/national-park-boundaries
+National Park Boundaries https://catalog.data.gov/dataset/national-park-boundaries
 
 Read files
 
@@ -120,6 +118,7 @@ set and check crs
 parks_nps <- st_transform(parks_nps, crs = st_crs(la_county) )
 st_crs(parks_nps) == st_crs(la_county)
 ```
+
 get national parks within LA county
 
 ```{r}
@@ -129,7 +128,8 @@ la_parks <- parks_nps[st_intersects(parks_nps, la_county ) %>% lengths > 0,]
 mapview(la_county) + mapview(la_parks)
 ```
 
-write file 
+write file
+
 ```{r}
 st_write(la_parks, 'data/raw/nps_la_county.geojson')
 ```
