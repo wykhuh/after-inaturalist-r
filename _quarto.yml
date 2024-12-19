@@ -8,13 +8,14 @@ project:
     - lessons/creating-maps.qmd
     - lessons/creating-charts.qmd
     - lessons/other_datasets.qmd
+    - lessons/next-steps.qmd
 
   output-dir: docs
   preview:
     port: 4200
 
 website:
-  title: "quarto_website"
+  title: "iNaturalist CNC"
   navbar:
     left:
       - href: index.qmd
@@ -29,6 +30,7 @@ website:
       - lessons/creating-maps.qmd
       - lessons/creating-charts.qmd
       - lessons/other_datasets.qmd
+      - lessons/next-steps.qmd
 
 
 format:
