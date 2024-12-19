@@ -19,7 +19,7 @@ include-in-header: "components/add-answer-button.html"
 
 ## What are R and RStudio?
 
-R refers to a programming language as well as the software that runs R code. R was started in 1993. All programming languages have commands and syntax that you must use in order to write instructions to tell the computer to do something. The code is written down and saved in files so you can reuse and share them.
+R refers to a programming language as well as the software that runs R code. R was started in 1993. All programming languages have commands and syntax that you must use in order to write instructions to tell the computer to do something.
 
 [RStudio](https://rstudio.com) is software to make it easier to write and run code in R. It was started in 2010.
 
@@ -40,13 +40,11 @@ We will use the RStudio integrated development environment (IDE) to write code i
 In the above screenshot, we can see 4 "panes" in the default layout. If you only have 3 panes, and the Console pane is in the top left, press <kbd>Shift+Cmd+N</kbd> (Mac) or <kbd>Shift+Ctrl+N</kbd> (Windows) to open a blank R script, which should make the Source pane appear.
 
 -   Top-Left: the **Source** pane that displays scripts and other files.
--   Top-Right: the **Environment/History** pane which shows all the objects in your current R session (Environment) and your command history (History)
-    -   There are some other tabs here, including Connections, Build, Tutorial, and possibly Git
+-   Top-Right: the **Environment** pane shows all the objects in your current R session.
+    -   There are some other tabs here including History, Connections, Build.
 -   Bottom-Left: the **Console** pane, where you can type in commands. The R console will interpret R commands and prints the results
     -   There are also tabs for Terminal and Jobs
--   Bottom-Right: the **Files** pane is used to display directories and files on your computer.
-    -   Plot and Viewer displays plots out other types of output
-    -   Help display help pages
+-   Bottom-Right: the **Files** pane is used to display directories and files on your computer. **Plot** and **Viewer** displays plots and other types of output. **Help** display help pages
 
 ## Working in R and RStudio
 

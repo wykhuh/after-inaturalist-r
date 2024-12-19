@@ -52,7 +52,7 @@ inat <- inat_raw %>%
 
 ```
 
-The original dataframe 'inat_raw' had 193K rows, the cleaned dataframe 'inat' has 191K rows.
+The original data frame 'inat_raw' had 193K rows, the cleaned dataframe 'inat' has 191K rows.
 
 We can double check our work.
 

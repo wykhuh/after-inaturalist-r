@@ -1,6 +1,6 @@
 ---
-title: "Introduction"
+title: "Home"
 format: html
 ---
 
-This is the City Nature Challenge workshop.
+This is the iNaturalist City Nature Challenge coding with R workshop.

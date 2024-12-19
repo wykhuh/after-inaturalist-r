@@ -16,3 +16,7 @@ border: 5px solid #fce762;
 .exercise h3 {
 margin-top: 0;
 }
+
+kbd {
+  padding: .1rem .2rem;
+}

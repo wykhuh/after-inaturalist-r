@@ -36,7 +36,7 @@ For this workshop, I downloaded a few datasets from Los Angeles Geohub <https://
 
 ## iNaturalist data
 
-Let's get observations for Coast Live Oak.
+Let's get observations for Coast Live Oak and create a map.
 
 ```{r, get_inaturalist_observations}
 #| cache: true
@@ -46,7 +46,7 @@ Let's get observations for Coast Live Oak.
 inat <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 ```
 
-imagesAdd a geometry column using `st_as_sf().` Select observations for 'Quercus agrifolia' aka Coast Live Oak using `filter()`.
+Add a geometry column using `st_as_sf().` Select observations for 'Quercus agrifolia' aka Coast Live Oak using `filter()`.
 
 ```{r, get_oak_observations}
 inat_obs <- inat %>% 
@@ -55,7 +55,7 @@ inat_obs <- inat %>%
 
 ```
 
-Get the size and CRS of the dataframe
+Get the size and CRS of the data frame
 
 ```{r, inat_dataframe_info}
 dim(inat_obs)
@@ -77,13 +77,13 @@ L.A. County completed Comprehensive Countywide Park Needs Assessment in 2016. As
 A lot of demographics data from the Park Needs Assessment comes from the U.S. Census. The reason we're using the parks data instead directly using Census data is because the Census data is more difficult to use. If you want to learn how to use U.S. Census data in R, check out the book *\[Analyzing US Census Data: Methods, Maps, and Models in R\](<https://walker-data.com/census-r/index.html>)*
 :::
 
-Load data. Use `st_read()` to read geojson file.
+Load Park Needs Assessment data. Use `st_read()` to read geojson file. Click `la_county_pna` in the **Enviroment** pane to browse the data frame.
 
 ```{r, get_pna_data}
 la_county_pna <- st_read('data/raw/PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907.geojson')
 ```
 
-Let's get the size and compare CRS for the data
+Let's get the size of the dataframe,  and compare CRS to the iNaturalist data.
 
 ```{r, pna_datafame_info}
 dim(la_county_pna)
@@ -98,10 +98,10 @@ la_county_pna <- la_county_pna[-c(189), ]
 dim(la_county_pna)
 ```
 
-There are 96 fields in the dataset.
+There are 96 fields in the dataset. Here's a short description of the fields.
 
 | field | description |
-|------------------------------------|------------------------------------|
+|----|----|
 | STUD_AR_ID | Study Area ID |
 | STUD_AR_NM | Study Area Name |
 | STUD_AR_LBL | Label |
@@ -191,7 +191,7 @@ There are 96 fields in the dataset.
 
 ### Household Median Income
 
-Let's look at the Household Median Income using `zcol='householdincome_medhinc_cy'`.
+Let's look at the Household Median Income. We can use `zcol` to choose which column view to in the map.  The field 'householdincome_medhinc_cy' refers to Household Median Income.
 
 ```{r, map_of_median_income}
 #| eval: false
@@ -205,26 +205,30 @@ There are two issues with the previous map.
 
 1.  The name of the layer is too long. We can rename the layer using `layer.name ='New Name'`
 
-2.  When you click on region, the popup shows too many fields. To select the columns displayed in popups, we can set the columns using `dataframe[c('col_1', 'col_2')]`. In R, a vector is a list of items. `c()` is a function from R that creates a vector from a list of values.
+2.  When you click on region, the popup shows too many fields. To select the columns displayed in popups, we can set the columns using `dataframe[c('col_1', 'col_2')]`. 
+
+::: callout-info
+In R, a vector is a list of items. `c()` is a function from R that creates a vector from a list of values.
+:::
 
 `layer.name ='Avg income'` sets the layer name to 'Avg income'.
 
-`la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')]` sets the columns show in the popup to householdincome_medhinc_cy and STUD_AR_NM
+`la_county_pna[c('STUD_AR_NM', 'householdincome_medhinc_cy')]` sets the columns show in the popup to householdincome_medhinc_cy and STUD_AR_NM
 
 ```{r, fix_map}
 #| eval: false
-mapview(la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')], 
+mapview(la_county_pna[c('STUD_AR_NM', 'householdincome_medhinc_cy')], 
         zcol='householdincome_medhinc_cy',
         layer.name ='Avg income') 
 ```
 
 ![](images/mapview/other-datasets/fix_map.png){fig-alt="interactive map of Household Median Income with fixed layer name and popups"}
 
-Add iNaturalist data
+Add iNaturalist data to the map.
 
 ```{r, map_of_median_income_and_inat}
 #| eval: false
-mapview(la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')],
+mapview(la_county_pna[c('STUD_AR_NM', 'householdincome_medhinc_cy')],
         zcol='householdincome_medhinc_cy',
         layer.name ='Avg income')  +
   mapview(inat_obs)
@@ -236,21 +240,17 @@ mapview(la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')],
 :::: exercise
 ## Exercise 1
 
-Create a map using one of the columns from Park Needs Assessment and one species from iNaturalist.
+Create a map using one of the columns from Park Needs Assessment.
 
--   use `filter()` on the iNaturalist data to select a species
 -   use `z_col` to pick a column from Park Needs Assessment
 
 ::: solution
 ```{r, exercise_create_map}
 #| eval: false
-inat_poppy <- inat %>% 
-  st_as_sf(coords = c("longitude", "latitude"), crs = 4326, remove=FALSE) %>% 
-  filter(common_name == 'California poppy') 
  
 mapview(la_county_pna[c('PCT_Walk')], 
         zcol='PCT_Walk') +
-  mapview(inat_poppy)
+  mapview(inat_obs)
 ```
 :::
 ::::
@@ -265,13 +265,17 @@ County of Los Angeles parks: https://geohub.lacity.org/datasets/lacounty::dpr-pa
 
 City of Los Angeles parks:  https://geohub.lacity.org/datasets/lahub::los-angeles-recreation-and-parks-boundaries/about
 
+Load all the parks data.
+
 ```{r, get_parks_data}
+parks_state <- read_sf('data/raw/ca_state_parks_la_county.geojson')
+
 parks_county <- read_sf('data/raw/DPR_Park_Facilities_View_(Accessible_Parks)/DPR_Park_Facilities_View_(Accessible_Parks).shp')
 
 parks_city <- read_sf('data/raw/Los_Angeles_Recreation_and_Parks_Boundaries/Los_Angeles_Recreation_and_Parks_Boundaries.shp')
-
-parks_state <- read_sf('data/raw/ca_state_parks_la_county.geojson')
 ```
+
+Let's get the size of the dataframe,  and compare CRS to the iNaturalist data.
 
 ```{r, county_parks_dataframe_info}
 dim(parks_county)
@@ -308,7 +312,7 @@ parks_state <- st_transform(parks_state, crs = 4326)
 st_crs(parks_state) == st_crs(inat_obs)
 ```
 
-Create map with parks and iNaturalist data.
+Create map with parks and iNaturalist data. Use `col.region` to set the color of the parks.
 
 ```{r, map_of_parks_with_inat}
 #| eval: false

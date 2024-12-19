@@ -31,8 +31,8 @@ We are going to be using functions from the **`ggplot2`** package to create visu
 Main steps:
 
 1.  Load data
-2.  Use `filter`(), `select()`, `mutate()`, `count()` so the dataframe has the data we need
-3.  Set which columns will be used for chart elements such as x and y axis
+2.  Use `filter`(), `select()`, `mutate()`, `count()` so the data frame has the data we need
+3.  Set which columns in a data frame will be used for chart elements such as x and y axis
 4.  Select the chart type
 5.  Create chart
 
@@ -59,17 +59,17 @@ inat_year <- inat %>%
   mutate(year = year(observed_on))
 ```
 
-Pass the inaturalist observation to `ggplot`() function using the `data` argument.
+Pass the inaturalist observation to `ggplot()` function using the `data` argument.
 
 ```{r, pass_data_to_ggplot}
 ggplot(data = inat_year)
 ```
 
-We need tell ggplot how to process the data. We tell ggplot how to map the data to various plot elements, such as x/y axis, size, or color by using the `aes()` function. `aes` is short for aesthetic mappings.
+We need to tell **ggplot** how to process the data. We tell **ggplot** how to map the data to various plot elements, such as x/y axis, size, or color by using the `aes()` function. `aes` is short for aesthetic mappings.
 
 For bar charts, we need to tell what column to use for the x axis.
 
-We want to create a plot with years on the x axis so we use `mapping = aes(x = year)`. ggplot will count the number of rows for each year, and use the count for y axis.
+We want to create a plot with `year` on the x axis so we use `mapping = aes(x = year)`. **ggplot** will count the number of rows for each year, and use the count for y axis.
 
 ```{r, pass_mapping_to_ggplot}
 ggplot(data = inat_year, mapping = aes(x = year))
@@ -77,7 +77,7 @@ ggplot(data = inat_year, mapping = aes(x = year))
 
 Next we need to specify how we want the data to be displayed. We do this using `geom_` functions, which specify the type of geometry we want, such as points, lines, or bars. We use `geom_bar()` to create a vertical bar plot.
 
-We can add a `geom_bar()` layer to our plot by using the `+` sign. We indent onto a new line to make it easier to read, and we have to **end** the first line with the `+` sign.
+We can add a `geom_bar()` layer to our plot by using the `+` sign. We indent onto a new line to make it easier to read, and we have to end the first line with the `+` sign.
 
 ```{r, set_bar_type}
 ggplot(data = inat_year, mapping = aes(x = year)) +
@@ -98,7 +98,7 @@ Create a line chart that shows the number of observations per year.
 
 For line charts, we need both specify which columns to use for the x and y axis.
 
-We need to create a dataframe that has a year column, and a column that counts the observations per year. Use `mutate()` to add year column. Use `count()` to add column that has the count per year.
+We need to create a data frame that has a year column, and a column that counts the observations per year. Use `mutate()` to add year column. Use `count()` to add column that has the count per year.
 
 ```{r, create_dataframe_with_year_count}
 inat_year_count <- inat %>% 
@@ -108,7 +108,7 @@ inat_year_count <- inat %>%
 inat_year_count
 ```
 
-for `aes`, use year on the x axis and obs_count on the y axis. And we use `geom_line()` for to create a line chart.
+for `aes`, use `year` on the x axis and `obs_count` on the y axis. And we use `geom_line()` to create a line chart.
 
 ```{r, create_line_chart}
 ggplot(data = inat_year_count, 
@@ -122,7 +122,7 @@ Create a bar chart that shows the number of observations per year.
 
 To create bar chart when we already have x and y, use `geom_col()`
 
-We want year on the x axis, and count on the y axis.
+We want `year` on the x axis, and `obs_count` on the y axis.
 
 ```{r, create_column_chart}
 ggplot(data = inat_year_count, 
@@ -138,6 +138,10 @@ Create a chart with all your observations for each year
 -   Use `mutate()` to add year column
 
 -   Use `filter()` to select user
+
+-   Use `ggplot()` to set the data and aesthetics.
+
+-   Choose whih type of chart you want: bar or line.
 
 ::: solution
 ```{r, exercise_create_bar_chart}
@@ -155,7 +159,7 @@ ggplot(data = my_year, mapping = aes(x = year)) +
 
 ## Changing aesthetics
 
-Building **`ggplot`** plots is often an iterative process, so we'll continue developing the column plot we just made. We can change the color of the bars using `fill='color'`.
+Building **`ggplot`** plots is often an iterative process, so we'll continue developing the column plot we just made.
 
 Use `colors()` to get a list of the 657 colors in R.
 
@@ -163,6 +167,8 @@ Use `colors()` to get a list of the 657 colors in R.
 colors()
 ```
 
+We can change the color of the bars using `fill='color'`.
+ 
 ```{r, set_bar_color}
 ggplot(data = inat_year, mapping = aes(x = year)) +
   geom_bar(fill='aquamarine')
@@ -177,7 +183,7 @@ ggplot(data = inat_year, mapping = aes(x = year)) +
 
 ## Changing themes
 
-we can assign a plot to an object
+Let's assign a plot to an object.
 
 ```{r, assign_plot_to_object}
 myplot <- ggplot(data = inat_year, mapping = aes(x = year)) +
@@ -187,14 +193,14 @@ myplot
 
 ```
 
-We can change the overall appearance using `theme_` functions. Let's try a black-and-white theme by adding `theme_bw()` to our plot:
+**ggplot** has built in themes that affects the overall appearance of a plot. To see a list of available themes in ggplot, visit https://ggplot2.tidyverse.org/reference/index.html#themes
+
+Let's add the black-and-white theme `theme_bw()` to our plot:
 
 ```{r set_theme, warning=FALSE,}
 myplot + 
   theme_bw()
 ```
-
-To see a list of available themes in ggplot, visit https://ggplot2.tidyverse.org/reference/index.html#themes
 
 To individually change parts of a plot, we can use the `theme()` function, which can take many different arguments to change things about the text, grid lines, background color, and more.
 
@@ -206,7 +212,7 @@ myplot +
   theme(axis.title = element_text(size = 14))
 ```
 
-Another change we might want to make is to remove the vertical grid lines. To do this, inside `theme()`, we will change the `panel.grid.major.x` to an `element_blank()`.
+Another change we might want to make is to remove the vertical grid lines. To do this, we will change the `panel.grid.major.x` and `panel.grid.major.x` to an `element_blank()`.
 
 ```{r remove_vertical_grid_lines, warning=FALSE}
 myplot +
@@ -231,7 +237,7 @@ Because there are so many possible arguments to the `theme()` function, it can s
 
 ## Changing labels
 
-We can customize the axis labels and add a chart title using `labs()` function.
+We can customize the axis labels and add a chart title using `labs()`.
 
 ```{r changing_labels, warning=FALSE}
 myplot +
@@ -247,7 +253,7 @@ myplot +
 :::: exercise
 ## Exercise 2: Customizing a plot
 
-Take the chart from exercise 1 (your observations for each year) and assign it to an object. Customize the appearance. Here are some ideas.
+Take the `my_year` data frame from exercise 1 (your observations for each year) and create a plot. Customize the appearance. Here are some ideas.
 
 -   add a title
 
@@ -259,13 +265,10 @@ Take the chart from exercise 1 (your observations for each year) and assign it t
 
 ::: solution
 ```{r, exercise_change_chart_appearance}
-my_yearly_plot  <- inat %>% 
-  mutate(year = year(observed_on))  %>% 
-  filter(user_login == 'natureinla') %>% 
-  ggplot(data = my_year, mapping = aes(x = year)) +
-  geom_bar(fill='#E0A90A')
+my_map <- ggplot(data = my_year, mapping = aes(x = year)) +
+  geom_bar()
 
-my_yearly_plot +
+my_map +
   theme_classic() +
   labs(title = "CNC Los Angeles",  x = "Year",  y = "Observations") 
 
@@ -273,13 +276,17 @@ my_yearly_plot +
 :::
 ::::
 
-## Exporting plots
+## Saving plots
 
-Once we are happy with ourplot, we can export the plot.
+Once we are happy with ourplot, we can save the plot.
 
 Assign the plot to an object. Then run `ggsave()` to save our plot. The first argument we give is the path to the file we want to save, including the correct file extension. You can save as jpb, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.
 
-```{r, create_plot}
+
+```{r, save_plot}
+#| eval: false
+
+# create plot
 finalplot <- myplot +
   theme_bw() +
   theme(axis.title = element_text(size = 14), 
@@ -289,10 +296,6 @@ finalplot <- myplot +
        x = "Year",
        y = "Observations")
 
-finalplot
-```
-
-```{r, save_plot}
-#| eval: false
+# save plot
 ggsave(filename = 'results/observations_per_year.jpg', plot = finalplot,  height = 6, width = 8)
 ```

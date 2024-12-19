@@ -39,6 +39,8 @@ The iNaturalist CSV has information about:
 -   the observed species
 -   links for photos, videos, sounds
 
+Here's a rough draft that lists [descriptions for each field](https://docs.google.com/spreadsheets/d/1mrRY_sy8MmGmwzoNSexahHC54e3q-ZAy1vJl_FIsKrY/edit?gid=0#gid=0). There is a [Github issue](https://github.com/inaturalist/inaturalist/issues/3687) for the iNaturalist team to add page that describes the field.
+
 ## Downloading iNaturalist data
 
 Here's a video showing how to download iNaturalist data.
@@ -54,6 +56,8 @@ If you would like to download iNaturalist data for your own project, here's more
 [How to Search iNaturalist Observations](https://help.inaturalist.org/en/support/solutions/articles/151000169670)
 
 [How can I download data from iNaturalist?](https://help.inaturalist.org/en/support/solutions/articles/151000170342-how-can-i-download-data-from-inaturalist)
+
+[step-by-step to download iNaturalist data](https://gsmit.org/wp-content/uploads/2021/04/inaturalist_data_walkthrough.pdf)
 
 ## Analyzing data
 
