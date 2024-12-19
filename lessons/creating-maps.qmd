@@ -290,6 +290,7 @@ st_intersects(inat_map, expo_park)
 We can use `lengths(...) > 0` to return TRUE/FALSE for  every row in `inat_map` that has 1 or more items that inside `expo_park`
 
 ```{r, get_true_false}
+#| eval: false
 lengths(st_intersects(inat_map, expo_park)) > 0
 ```
 

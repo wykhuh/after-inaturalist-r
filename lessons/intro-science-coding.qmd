@@ -5,6 +5,10 @@ format: html
 
 ## Biology Concepts
 
+### Ecology
+
+More content needed...
+
 ### Taxonomy
 
 There are millions of species on our planet. In order to help organize the millions of species, people have developed ways to classify and name species. Scientists want to give each species a unique name so when someone says a organism name, people around the world know which organism they are referring to. Scientists also want to group related species together.
@@ -33,6 +37,10 @@ Let's look at the taxonomy for Western Fence Lizard, the most common species in 
 
 ## Coding Concepts
 
+### Programming
+
+The basis of programming is that we write down instructions for the computer to follow, and then we tell the computer to follow those instructions. We write these instructions in the form of *code*, which is a common language that is understood by the computer and humans (after some practice). We call these instructions *commands*, and we tell the computer to follow the instructions by *running* (also called *executing*) the commands.
+
 ### File paths
 
 When we reference other files from an R script, we need to give R precise instructions on where those files are. We do that using something called a **file path**.
@@ -45,7 +53,9 @@ Functions are predefined bits of code that automate more complicated actions. Ar
 
 R has built in functions. You can also write your own functions.
 
-```{r, function_examples}
+Let's create a function that saves a person's name and email.
+
+```{r, create_function}
 
 # create a function named save_contact. 1st argument is name, 2nd is email.
 
@@ -59,6 +69,11 @@ save_contact <- function(name, email){
   # TODO: return new contact
 }
 
+```
+
+To use a function, we write the name of the function, and pass it some values.
+
+```{r, calling_a_function}
 # pass in the argument names and values in order
 save_contact(name='Jane', email='jane@user.com')
 
@@ -72,7 +87,7 @@ save_contact(email='jane@user.com', name='Jane')
 save_contact('jane@user.com', 'Jane')
 ```
 
-Often times, a function will process the input and return a value. To store value so we can continue to work with it, we need to assign it to an object.
+Often times, a function will process the input and return a value. To save the function results so we can continue to work with it,  use `<-` to assign the to value to an object. 
 
 ```{r, assign_function}
 new_contact <- save_contact('Jane', 'jane@user.com')
