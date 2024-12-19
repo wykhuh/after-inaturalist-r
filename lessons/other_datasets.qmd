@@ -49,7 +49,7 @@ inat <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 Add a geometry column using `st_as_sf().` Select observations for 'Quercus agrifolia' aka Coast Live Oak using `filter()`.
 
 ```{r, get_oak_observations}
-inat_obs <- inat %>% 
+oak_obs <- inat %>% 
   st_as_sf(coords = c("longitude", "latitude"), crs = 4326, remove=FALSE) %>% 
   filter(scientific_name == 'Quercus agrifolia') 
 
@@ -58,18 +58,20 @@ inat_obs <- inat %>%
 Get the size and CRS of the data frame
 
 ```{r, inat_dataframe_info}
-dim(inat_obs)
-st_crs(inat_obs)
+dim(oak_obs)
+st_crs(oak_obs)
 ```
 
 ```{r,create_map_of_inaturalist_observations}
 #| eval: false
-mapview(inat_obs)
+mapview(oak_obs)
 ```
 
 ![](images/mapview/other-datasets/create_map_of_inaturalist_observations.png){fig-alt="interactive map of iNaturalist observations"}
 
 ## Demographic data
+
+Let's compare iNaturalist data with demographics data about the people who in L.A.
 
 L.A. County completed Comprehensive Countywide Park Needs Assessment in 2016. As part of that study, they looked at demographics data throughout the county. For more information: https://geohub.lacity.org/datasets/lacounty::l-a-county-park-needs-assessment-demographics/about
 
@@ -87,7 +89,7 @@ Let's get the size of the dataframe,  and compare CRS to the iNaturalist data.
 
 ```{r, pna_datafame_info}
 dim(la_county_pna)
-st_crs(la_county_pna) == st_crs(inat_obs)
+st_crs(la_county_pna) == st_crs(oak_obs)
 ```
 
 The last row has data for the entire LA County. Let's remove that last row.
@@ -231,7 +233,7 @@ Add iNaturalist data to the map.
 mapview(la_county_pna[c('STUD_AR_NM', 'householdincome_medhinc_cy')],
         zcol='householdincome_medhinc_cy',
         layer.name ='Avg income')  +
-  mapview(inat_obs)
+  mapview(oak_obs)
 
 ```
 
@@ -251,14 +253,14 @@ Create a map using one of the columns from Park Needs Assessment.
  
 mapview(la_county_pna[c('PCT_Walk')], 
         zcol='PCT_Walk') +
-  mapview(inat_obs)
+  mapview(oak_obs)
 ```
 :::
 ::::
 
 ## Parks
 
-Let's look the location of parks
+Let's compare iNaturalist data with the location of state, conty, and city parks.
 
 California State Parks: https://www.parks.ca.gov/?page_id=29682
 
@@ -280,17 +282,17 @@ Let's get the size of the dataframe,  and compare CRS to the iNaturalist data.
 
 ```{r, county_parks_dataframe_info}
 dim(parks_county)
-st_crs(parks_county) == st_crs(inat_obs)
+st_crs(parks_county) == st_crs(oak_obs)
 ```
 
 ```{r, city_parks_dataframe_info}
 dim(parks_city)
-st_crs(parks_city) == st_crs(inat_obs)
+st_crs(parks_city) == st_crs(oak_obs)
 ```
 
 ```{r, city_parks_dataframe_info_2}
 dim(parks_state)
-st_crs(parks_state) == st_crs(inat_obs)
+st_crs(parks_state) == st_crs(oak_obs)
 ```
 
 We want to convert the CRS of the parks data to match the CRS of the iNaturalist data.
@@ -298,19 +300,19 @@ We want to convert the CRS of the parks data to match the CRS of the iNaturalist
 ```{r, update_county_crs}
 parks_county <- st_transform(parks_county, crs = 4326)
 
-st_crs(parks_county) == st_crs(inat_obs)
+st_crs(parks_county) == st_crs(oak_obs)
 ```
 
 ```{r, update_city_crs}
 parks_city <- st_transform(parks_city, crs = 4326)
 
-st_crs(parks_city) == st_crs(inat_obs)
+st_crs(parks_city) == st_crs(oak_obs)
 ```
 
 ```{r, update_city_crs_2}
 parks_state <- st_transform(parks_state, crs = 4326)
 
-st_crs(parks_state) == st_crs(inat_obs)
+st_crs(parks_state) == st_crs(oak_obs)
 ```
 
 Create map with parks and iNaturalist data. Use `col.region` to set the color of the parks.
@@ -320,7 +322,7 @@ Create map with parks and iNaturalist data. Use `col.region` to set the color of
 mapview(parks_county, col.region='red') + 
   mapview(parks_city, col.region='yellow') +
   mapview(parks_state, col.region='green') +
-  mapview(inat_obs)
+  mapview(oak_obs)
 ```
 
 ![](images/mapview/other-datasets/map_of_parks_with_inat.png){fig-alt="interactive map of city, county, and state parks and iNaturalist observations"}
