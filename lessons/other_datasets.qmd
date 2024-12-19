@@ -213,7 +213,7 @@ In R, a vector is a list of items. `c()` is a function from R that creates a vec
 
 `layer.name ='Avg income'` sets the layer name to 'Avg income'.
 
-`la_county_pna[c('STUD_AR_NM', 'householdincome_medhinc_cy')]` sets the columns show in the popup to householdincome_medhinc_cy and STUD_AR_NM
+`la_county_pna[c('STUD_AR_NM', 'householdincome_medhinc_cy')]` sets the columns show in the popup to householdincome_medhinc_cy  and STUD_AR_NM
 
 ```{r, fix_map}
 #| eval: false
@@ -243,8 +243,9 @@ mapview(la_county_pna[c('STUD_AR_NM', 'householdincome_medhinc_cy')],
 Create a map using one of the columns from Park Needs Assessment.
 
 -   use `z_col` to pick a column from Park Needs Assessment
+-   set which fields are shown in the popup
 
-::: solution
+::: answer
 ```{r, exercise_create_map}
 #| eval: false
  

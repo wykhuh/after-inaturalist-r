@@ -143,7 +143,7 @@ Create a chart with all your observations for each year
 
 -   Choose whih type of chart you want: bar or line.
 
-::: solution
+::: answer
 ```{r, exercise_create_bar_chart}
 
 my_year  <- inat %>% 
@@ -263,7 +263,7 @@ Take the `my_year` data frame from exercise 1 (your observations for each year) 
 
 -   change the colors of the bar
 
-::: solution
+::: answer
 ```{r, exercise_change_chart_appearance}
 my_map <- ggplot(data = my_year, mapping = aes(x = year)) +
   geom_bar()
