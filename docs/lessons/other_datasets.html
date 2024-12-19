@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Using to other datasets – quarto_website</title>
+<title>Using to other datasets – iNaturalist CNC</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">quarto_website</span>
+    <span class="navbar-title">iNaturalist CNC</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -199,7 +199,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
+ <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -236,6 +236,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../lessons/other_datasets.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Using to other datasets</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/next-steps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Next steps</span></a>
   </div>
 </li>
     </ul>
@@ -311,7 +317,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="inaturalist-data" class="level2">
 <h2 class="anchored" data-anchor-id="inaturalist-data">iNaturalist data</h2>
-<p>Let’s get observations for Coast Live Oak.</p>
+<p>Let’s get observations for Coast Live Oak and create a map.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'data/cleaned/cnc-los-angeles-observations.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -321,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>), <span class="at">crs =</span> <span class="dv">4326</span>, <span class="at">remove=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientific_name <span class="sc">==</span> <span class="st">'Quercus agrifolia'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Get the size and CRS of the dataframe</p>
+<p>Get the size and CRS of the data frame</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(inat_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -363,6 +369,7 @@ GEOGCRS["WGS 84",
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(inat_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><img src="images/mapview/other-datasets/create_map_of_inaturalist_observations.png" class="img-fluid" alt="interactive map of iNaturalist observations"></p>
 </section>
 <section id="demographic-data" class="level2">
 <h2 class="anchored" data-anchor-id="demographic-data">Demographic data</h2>
@@ -380,7 +387,7 @@ Note
 <p>A lot of demographics data from the Park Needs Assessment comes from the U.S. Census. The reason we’re using the parks data instead directly using Census data is because the Census data is more difficult to use. If you want to learn how to use U.S. Census data in R, check out the book <em>[Analyzing US Census Data: Methods, Maps, and Models in R](<a href="https://walker-data.com/census-r/index.html" class="uri">https://walker-data.com/census-r/index.html</a>)</em></p>
 </div>
 </div>
-<p>Load data. Use <code>st_read()</code> to read geojson file.</p>
+<p>Load Park Needs Assessment data. Use <code>st_read()</code> to read geojson file. Click <code>la_county_pna</code> in the <strong>Enviroment</strong> pane to browse the data frame.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>la_county_pna <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">'data/raw/PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907.geojson'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -393,7 +400,7 @@ Bounding box:  xmin: -118.9447 ymin: 32.7996 xmax: -117.6464 ymax: 34.8233
 Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
-<p>Let’s get the size and compare CRS for the data</p>
+<p>Let’s get the size of the dataframe, and compare CRS to the iNaturalist data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(la_county_pna)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -413,11 +420,11 @@ Geodetic CRS:  WGS 84</code></pre>
 <pre><code>[1] 188  96</code></pre>
 </div>
 </div>
-<p>There are 96 fields in the dataset.</p>
+<p>There are 96 fields in the dataset. Here’s a short description of the fields.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 37%">
-<col style="width: 62%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -774,64 +781,68 @@ Geodetic CRS:  WGS 84</code></pre>
 </table>
 <section id="household-median-income" class="level3">
 <h3 class="anchored" data-anchor-id="household-median-income">Household Median Income</h3>
-<p>Let’s look at the Household Median Income using <code>zcol='householdincome_medhinc_cy'</code>.</p>
+<p>Let’s look at the Household Median Income. We can use <code>zcol</code> to choose which column view to in the map. The field ‘householdincome_medhinc_cy’ refers to Household Median Income.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_pna, </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">zcol=</span><span class="st">'householdincome_medhinc_cy'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><img src="images/mapview/other-datasets/map_of_median_income.png" class="img-fluid" alt="interactive map of Household Median Income"></p>
 <p>There are two issues with the previous map.</p>
 <ol type="1">
 <li><p>The name of the layer is too long. We can rename the layer using <code>layer.name ='New Name'</code></p></li>
-<li><p>When you click on region, the popup shows too many fields. To select the columns displayed in popups, we can set the columns using <code>dataframe[c('col_1', 'col_2')]</code>. In R, a vector is a list of items. <code>c()</code> is a function from R that creates a vector from a list of values.</p></li>
+<li><p>When you click on region, the popup shows too many fields. To select the columns displayed in popups, we can set the columns using <code>dataframe[c('col_1', 'col_2')]</code>.</p></li>
 </ol>
+<div class="callout-info">
+<p>In R, a vector is a list of items. <code>c()</code> is a function from R that creates a vector from a list of values.</p>
+</div>
 <p><code>layer.name ='Avg income'</code> sets the layer name to ‘Avg income’.</p>
-<p><code>la_county_pna[c('householdincome_medhinc_cy', 'STUD_AR_NM')]</code> sets the columns show in the popup to householdincome_medhinc_cy and STUD_AR_NM</p>
+<p><code>la_county_pna[c('STUD_AR_NM', 'householdincome_medhinc_cy')]</code> sets the columns show in the popup to householdincome_medhinc_cy and STUD_AR_NM</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_pna[<span class="fu">c</span>(<span class="st">'householdincome_medhinc_cy'</span>, <span class="st">'STUD_AR_NM'</span>)], </span>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_pna[<span class="fu">c</span>(<span class="st">'STUD_AR_NM'</span>, <span class="st">'householdincome_medhinc_cy'</span>)], </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">zcol=</span><span class="st">'householdincome_medhinc_cy'</span>,</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">layer.name =</span><span class="st">'Avg income'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Add iNaturalist data</p>
+<p><img src="images/mapview/other-datasets/fix_map.png" class="img-fluid" alt="interactive map of Household Median Income with fixed layer name and popups"></p>
+<p>Add iNaturalist data to the map.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_pna[<span class="fu">c</span>(<span class="st">'householdincome_medhinc_cy'</span>, <span class="st">'STUD_AR_NM'</span>)],</span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_pna[<span class="fu">c</span>(<span class="st">'STUD_AR_NM'</span>, <span class="st">'householdincome_medhinc_cy'</span>)],</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">zcol=</span><span class="st">'householdincome_medhinc_cy'</span>,</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">layer.name =</span><span class="st">'Avg income'</span>)  <span class="sc">+</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><img src="images/mapview/other-datasets/map_of_median_income_and_inat.png" class="img-fluid" alt="interactive map of Household Median Income and iNaturalist observations"></p>
 </section>
 </section>
 <section id="exercise-1" class="level2 exercise">
 <h2 class="anchored" data-anchor-id="exercise-1">Exercise 1</h2>
-<p>Create a map using one of the columns from Park Needs Assessment and one species from iNaturalist.</p>
+<p>Create a map using one of the columns from Park Needs Assessment.</p>
 <ul>
-<li>use <code>filter()</code> on the iNaturalist data to select a species</li>
 <li>use <code>z_col</code> to pick a column from Park Needs Assessment</li>
 </ul>
 <div class="proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>inat_poppy <span class="ot">&lt;-</span> inat <span class="sc">%&gt;%</span> </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>), <span class="at">crs =</span> <span class="dv">4326</span>, <span class="at">remove=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'California poppy'</span>) </span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_pna[<span class="fu">c</span>(<span class="st">'PCT_Walk'</span>)], </span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">zcol=</span><span class="st">'PCT_Walk'</span>) <span class="sc">+</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_poppy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_pna[<span class="fu">c</span>(<span class="st">'PCT_Walk'</span>)], </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">zcol=</span><span class="st">'PCT_Walk'</span>) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="parks" class="level2">
 <h2 class="anchored" data-anchor-id="parks">Parks</h2>
 <p>Let’s look the location of parks</p>
-<p>DPR Park Facilities View (Accessible Parks) - County of Los Angeles parks. <a href="https://geohub.lacity.org/datasets/lacounty::dpr-park-facilities-view-accessible-parks/explore" class="uri">https://geohub.lacity.org/datasets/lacounty::dpr-park-facilities-view-accessible-parks/explore</a></p>
-<p>Los Angeles Recreation and Parks Boundaries - City of Los Angeles parks.&nbsp;<a href="https://geohub.lacity.org/datasets/lahub::los-angeles-recreation-and-parks-boundaries/about" class="uri">https://geohub.lacity.org/datasets/lahub::los-angeles-recreation-and-parks-boundaries/about</a></p>
+<p>California State Parks: https://www.parks.ca.gov/?page_id=29682</p>
+<p>County of Los Angeles parks: https://geohub.lacity.org/datasets/lacounty::dpr-park-facilities-view-accessible-parks/explore</p>
+<p>City of Los Angeles parks:&nbsp; https://geohub.lacity.org/datasets/lahub::los-angeles-recreation-and-parks-boundaries/about</p>
+<p>Load all the parks data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>parks_county <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/DPR_Park_Facilities_View_(Accessible_Parks)/DPR_Park_Facilities_View_(Accessible_Parks).shp'</span>)</span>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>parks_state <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/ca_state_parks_la_county.geojson'</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>parks_city <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/Los_Angeles_Recreation_and_Parks_Boundaries/Los_Angeles_Recreation_and_Parks_Boundaries.shp'</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>parks_county <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/DPR_Park_Facilities_View_(Accessible_Parks)/DPR_Park_Facilities_View_(Accessible_Parks).shp'</span>)</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>parks_state <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/Park_Boundaries/ParkBoundaries.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>parks_city <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/Los_Angeles_Recreation_and_Parks_Boundaries/Los_Angeles_Recreation_and_Parks_Boundaries.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Let’s get the size of the dataframe, and compare CRS to the iNaturalist data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(parks_county)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -855,7 +866,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(parks_state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 468  12</code></pre>
+<pre><code>[1] 40 12</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(parks_state) <span class="sc">==</span> <span class="fu">st_crs</span>(inat_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -887,12 +898,14 @@ Geodetic CRS:  WGS 84</code></pre>
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
+<p>Create map with parks and iNaturalist data. Use <code>col.region</code> to set the color of the parks.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(parks_county, <span class="at">col.region=</span><span class="st">'red'</span>) <span class="sc">+</span> </span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(parks_city, <span class="at">col.region=</span><span class="st">'yellow'</span>) <span class="sc">+</span></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(parks_state, <span class="at">col.region=</span><span class="st">'green'</span>) <span class="sc">+</span></span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><img src="images/mapview/other-datasets/map_of_parks_with_inat.png" class="img-fluid" alt="interactive map of city, county, and state parks and iNaturalist observations"></p>
 
 
 </section>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Creating charts – quarto_website</title>
+<title>Creating charts – iNaturalist CNC</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">quarto_website</span>
+    <span class="navbar-title">iNaturalist CNC</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -199,7 +199,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
+ <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -238,6 +238,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Using to other datasets</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/next-steps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Next steps</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -258,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#changing-themes" id="toc-changing-themes" class="nav-link" data-scroll-target="#changing-themes">Changing themes</a></li>
   <li><a href="#changing-labels" id="toc-changing-labels" class="nav-link" data-scroll-target="#changing-labels">Changing labels</a></li>
   <li><a href="#exercise-2-customizing-a-plot" id="toc-exercise-2-customizing-a-plot" class="nav-link" data-scroll-target="#exercise-2-customizing-a-plot">Exercise 2: Customizing a plot</a></li>
-  <li><a href="#exporting-plots" id="toc-exporting-plots" class="nav-link" data-scroll-target="#exporting-plots">Exporting plots</a></li>
+  <li><a href="#saving-plots" id="toc-saving-plots" class="nav-link" data-scroll-target="#saving-plots">Saving plots</a></li>
   </ul>
 </nav>
     </div>
@@ -311,8 +317,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Main steps:</p>
 <ol type="1">
 <li>Load data</li>
-<li>Use <code>filter</code>(), <code>select()</code>, <code>mutate()</code>, <code>count()</code> so the dataframe has the data we need</li>
-<li>Set which columns will be used for chart elements such as x and y axis</li>
+<li>Use <code>filter</code>(), <code>select()</code>, <code>mutate()</code>, <code>count()</code> so the data frame has the data we need</li>
+<li>Set which columns in a data frame will be used for chart elements such as x and y axis</li>
 <li>Select the chart type</li>
 <li>Create chart</li>
 </ol>
@@ -332,7 +338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>inat_year <span class="ot">&lt;-</span> inat <span class="sc">%&gt;%</span> </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Pass the inaturalist observation to <code>ggplot</code>() function using the <code>data</code> argument.</p>
+<p>Pass the inaturalist observation to <code>ggplot()</code> function using the <code>data</code> argument.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> inat_year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -343,9 +349,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>We need tell ggplot how to process the data. We tell ggplot how to map the data to various plot elements, such as x/y axis, size, or color by using the <code>aes()</code> function. <code>aes</code> is short for aesthetic mappings.</p>
+<p>We need to tell <strong>ggplot</strong> how to process the data. We tell <strong>ggplot</strong> how to map the data to various plot elements, such as x/y axis, size, or color by using the <code>aes()</code> function. <code>aes</code> is short for aesthetic mappings.</p>
 <p>For bar charts, we need to tell what column to use for the x axis.</p>
-<p>We want to create a plot with years on the x axis so we use <code>mapping = aes(x = year)</code>. ggplot will count the number of rows for each year, and use the count for y axis.</p>
+<p>We want to create a plot with <code>year</code> on the x axis so we use <code>mapping = aes(x = year)</code>. <strong>ggplot</strong> will count the number of rows for each year, and use the count for y axis.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> inat_year, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -357,7 +363,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Next we need to specify how we want the data to be displayed. We do this using <code>geom_</code> functions, which specify the type of geometry we want, such as points, lines, or bars. We use <code>geom_bar()</code> to create a vertical bar plot.</p>
-<p>We can add a <code>geom_bar()</code> layer to our plot by using the <code>+</code> sign. We indent onto a new line to make it easier to read, and we have to <strong>end</strong> the first line with the <code>+</code> sign.</p>
+<p>We can add a <code>geom_bar()</code> layer to our plot by using the <code>+</code> sign. We indent onto a new line to make it easier to read, and we have to end the first line with the <code>+</code> sign.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> inat_year, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year)) <span class="sc">+</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -387,7 +393,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="line-chart">Line chart</h2>
 <p>Create a line chart that shows the number of observations per year.</p>
 <p>For line charts, we need both specify which columns to use for the x and y axis.</p>
-<p>We need to create a dataframe that has a year column, and a column that counts the observations per year. Use <code>mutate()</code> to add year column. Use <code>count()</code> to add column that has the count per year.</p>
+<p>We need to create a data frame that has a year column, and a column that counts the observations per year. Use <code>mutate()</code> to add year column. Use <code>count()</code> to add column that has the count per year.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>inat_year_count <span class="ot">&lt;-</span> inat <span class="sc">%&gt;%</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on)) <span class="sc">%&gt;%</span></span>
@@ -409,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 9  2024     22258</code></pre>
 </div>
 </div>
-<p>for <code>aes</code>, use year on the x axis and obs_count on the y axis. And we use <code>geom_line()</code> for to create a line chart.</p>
+<p>for <code>aes</code>, use <code>year</code> on the x axis and <code>obs_count</code> on the y axis. And we use <code>geom_line()</code> to create a line chart.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> inat_year_count, </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y=</span>obs_count)) <span class="sc">+</span></span>
@@ -427,7 +433,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="more-bar-charts">More bar charts</h2>
 <p>Create a bar chart that shows the number of observations per year.</p>
 <p>To create bar chart when we already have x and y, use <code>geom_col()</code></p>
-<p>We want year on the x axis, and count on the y axis.</p>
+<p>We want <code>year</code> on the x axis, and <code>obs_count</code> on the y axis.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> inat_year_count, </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> obs_count)) <span class="sc">+</span></span>
@@ -447,6 +453,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><p>Use <code>mutate()</code> to add year column</p></li>
 <li><p>Use <code>filter()</code> to select user</p></li>
+<li><p>Use <code>ggplot()</code> to set the data and aesthetics.</p></li>
+<li><p>Choose whih type of chart you want: bar or line.</p></li>
 </ul>
 <div class="proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
@@ -470,7 +478,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="changing-aesthetics" class="level2">
 <h2 class="anchored" data-anchor-id="changing-aesthetics">Changing aesthetics</h2>
-<p>Building <strong><code>ggplot</code></strong> plots is often an iterative process, so we’ll continue developing the column plot we just made. We can change the color of the bars using <code>fill='color'</code>.</p>
+<p>Building <strong><code>ggplot</code></strong> plots is often an iterative process, so we’ll continue developing the column plot we just made.</p>
 <p>Use <code>colors()</code> to get a list of the 657 colors in R.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colors</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -696,6 +704,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [655] "yellow3"              "yellow4"              "yellowgreen"         </code></pre>
 </div>
 </div>
+<p>We can change the color of the bars using <code>fill='color'</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> inat_year, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year)) <span class="sc">+</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill=</span><span class="st">'aquamarine'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -722,7 +731,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="changing-themes" class="level2">
 <h2 class="anchored" data-anchor-id="changing-themes">Changing themes</h2>
-<p>we can assign a plot to an object</p>
+<p>Let’s assign a plot to an object.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>myplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> inat_year, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year)) <span class="sc">+</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill=</span><span class="st">'#75cd5e'</span>)</span>
@@ -736,7 +745,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>We can change the overall appearance using <code>theme_</code> functions. Let’s try a black-and-white theme by adding <code>theme_bw()</code> to our plot:</p>
+<p><strong>ggplot</strong> has built in themes that affects the overall appearance of a plot. To see a list of available themes in ggplot, visit https://ggplot2.tidyverse.org/reference/index.html#themes</p>
+<p>Let’s add the black-and-white theme <code>theme_bw()</code> to our plot:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>myplot <span class="sc">+</span> </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -748,7 +758,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>To see a list of available themes in ggplot, visit https://ggplot2.tidyverse.org/reference/index.html#themes</p>
 <p>To individually change parts of a plot, we can use the <code>theme()</code> function, which can take many different arguments to change things about the text, grid lines, background color, and more.</p>
 <p>Let’s try changing the size of the text on our axis titles. We can do this by specifying that the <code>axis.title</code> should be an <code>element_text()</code> with <code>size</code> set to 14.</p>
 <div class="cell">
@@ -763,7 +772,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Another change we might want to make is to remove the vertical grid lines. To do this, inside <code>theme()</code>, we will change the <code>panel.grid.major.x</code> to an <code>element_blank()</code>.</p>
+<p>Another change we might want to make is to remove the vertical grid lines. To do this, we will change the <code>panel.grid.major.x</code> and <code>panel.grid.major.x</code> to an <code>element_blank()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>myplot <span class="sc">+</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
@@ -810,7 +819,7 @@ Tip
 </section>
 <section id="changing-labels" class="level2">
 <h2 class="anchored" data-anchor-id="changing-labels">Changing labels</h2>
-<p>We can customize the axis labels and add a chart title using <code>labs()</code> function.</p>
+<p>We can customize the axis labels and add a chart title using <code>labs()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>myplot <span class="sc">+</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
@@ -831,7 +840,7 @@ Tip
 </section>
 <section id="exercise-2-customizing-a-plot" class="level2 exercise">
 <h2 class="anchored" data-anchor-id="exercise-2-customizing-a-plot">Exercise 2: Customizing a plot</h2>
-<p>Take the chart from exercise 1 (your observations for each year) and assign it to an object. Customize the appearance. Here are some ideas.</p>
+<p>Take the <code>my_year</code> data frame from exercise 1 (your observations for each year) and create a plot. Customize the appearance. Here are some ideas.</p>
 <ul>
 <li><p>add a title</p></li>
 <li><p>choose the one of the built in themes</p></li>
@@ -841,15 +850,12 @@ Tip
 <div class="proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>my_yearly_plot  <span class="ot">&lt;-</span> inat <span class="sc">%&gt;%</span> </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on))  <span class="sc">%&gt;%</span> </span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data =</span> my_year, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year)) <span class="sc">+</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill=</span><span class="st">'#E0A90A'</span>)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>my_yearly_plot <span class="sc">+</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"CNC Los Angeles"</span>,  <span class="at">x =</span> <span class="st">"Year"</span>,  <span class="at">y =</span> <span class="st">"Observations"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>my_map <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> my_year, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year)) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>my_map <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"CNC Los Angeles"</span>,  <span class="at">x =</span> <span class="st">"Year"</span>,  <span class="at">y =</span> <span class="st">"Observations"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -860,31 +866,23 @@ Tip
 </div>
 </div>
 </section>
-<section id="exporting-plots" class="level2">
-<h2 class="anchored" data-anchor-id="exporting-plots">Exporting plots</h2>
-<p>Once we are happy with ourplot, we can export the plot.</p>
+<section id="saving-plots" class="level2">
+<h2 class="anchored" data-anchor-id="saving-plots">Saving plots</h2>
+<p>Once we are happy with ourplot, we can save the plot.</p>
 <p>Assign the plot to an object. Then run <code>ggsave()</code> to save our plot. The first argument we give is the path to the file we want to save, including the correct file extension. You can save as jpb, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>finalplot <span class="ot">&lt;-</span> myplot <span class="sc">+</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>), </span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">20</span>)) <span class="sc">+</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"CNC Los Angeles"</span>,</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span><span class="st">"Observations per year"</span>,</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>,</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Observations"</span>)</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>finalplot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="creating-charts_files/figure-html/create_plot-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">'results/observations_per_year.jpg'</span>, <span class="at">plot =</span> finalplot,  <span class="at">height =</span> <span class="dv">6</span>, <span class="at">width =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create plot</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>finalplot <span class="ot">&lt;-</span> myplot <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>), </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"CNC Los Angeles"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span><span class="st">"Observations per year"</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Observations"</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># save plot</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">'results/observations_per_year.jpg'</span>, <span class="at">plot =</span> finalplot,  <span class="at">height =</span> <span class="dv">6</span>, <span class="at">width =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
