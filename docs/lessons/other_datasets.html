@@ -216,8 +216,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../lessons/intro-science-coding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Science and Coding concepts</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../lessons/working-with-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Working with data</span></a>
+ <span class="menu-text">Working with iNaturalist data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -818,9 +824,9 @@ Geodetic CRS:  WGS 84</code></pre>
 <p>Create a map using one of the columns from Park Needs Assessment.</p>
 <ul>
 <li>use <code>z_col</code> to pick a column from Park Needs Assessment</li>
+<li>set which fields are shown in the popup</li>
 </ul>
-<div class="proof solution">
-<p><span class="proof-title"><em>Solution</em>. </span></p>
+<div class="answer">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_pna[<span class="fu">c</span>(<span class="st">'PCT_Walk'</span>)], </span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">zcol=</span><span class="st">'PCT_Walk'</span>) <span class="sc">+</span></span>
