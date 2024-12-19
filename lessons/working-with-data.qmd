@@ -1,5 +1,5 @@
 ---
-title: "Working with data"
+title: "Working with iNaturalist data"
 format: html
 include-in-header: "components/add-answer-button.html"
 ---
@@ -17,88 +17,6 @@ include-in-header: "components/add-answer-button.html"
 -   Create new data.frame columns using existing columns.
 -   Export data to a CSV file.
 :::
-
-## Coding Concepts
-
-### File paths
-
-When we reference other files from an R script, we need to give R precise instructions on where those files are. We do that using something called a **file path**.
-
-There are two kinds of paths: **absolute** and **relative**. Absolute paths are specific to a particular computer, whereas relative paths are relative to a certain folder. For instance an absolute path is "/Users/username/Documents/coding/CNC-coding-workshop/data/cleaned/cnc-los-angeles-observations.csv", and relative path is "data/cleaned/cnc-los-angeles-observations.csv".
-
-### Functions
-
-Functions are predefined bits of code that automate more complicated actions. Arguments are values that we pass into a function, and the function does something to the values. A function can have one or more arguments. A function’s arguments come in a particular order, and if you put them in the correct order, you don’t need to name them. Executing a function is called *calling* or *running* the function.
-
-R has built in functions. You can also write your own functions.
-
-```{r, function_examples}
-
-# create a function named save_contact. 1st argument is name, 2nd is email.
-
-save_contact <- function(name, email){
-  # prints the arguments
-  cat('name:', name, ' email:', email)
-  
-  # TODO: check if name and email are present
-  # TODO: check if email is valid
-  # TODO: save the values to a database
-  # TODO: return new contact
-}
-
-# pass in the argument names and values in order
-save_contact(name='Jane', email='jane@user.com')
-
-# pass in values in order
-save_contact('Jane', 'jane@user.com')
-
-# pass in the argument names and values out of order
-save_contact(email='jane@user.com', name='Jane')
-
-# pass in values out of order
-save_contact('jane@user.com', 'Jane')
-```
-
-Often times, a function will process the input and return a value. To store value so we can continue to work with it, we need to assign it to an object.
-
-```{r, assign_function}
-new_contact <- save_contact('Jane', 'jane@user.com')
-```
-
-
-### R packages
-
-R itself has many built-in functions, but we can access many more by loading other packages. **R packages** contain code, data, and documentation that people can download and install to add more functionality to R.
-
-To install these packages, use `install.packages()` function from R. We pass in the package names as arguments. The name of the packages must be in quotes.
-
-```{r, install_packages} 
-#| eval: false
-# install one package
-install.packages("readr")
-
-# install multiple packages
-install.packages(c("readr", "dplyr", "ggplot2", 
-                   "sf", "lubridate", "mapview"))
-```
-
-R will connect to the internet and download packages from servers that have R packages. R will then install the packages on your computer. The console window will show you the progress of the installation process.
-
-In order to use a package, use `library()` function from R. We pass in the name of the package as an argument. Do not use quotes around the package name when using `library()`.
-
-These are R packages we will use in this workshop.
-
-```{r load_all_libraries}
-#| eval: false
-library(readr) # read and write tabular data
-library(dplyr) # manipulate data
-library(ggplot2) # create data visualizations
-library(sf) # handle geospatial data
-library(lubridate) # manipulate dates
-library(mapview) # create interactive maps
-```
-
-Generally it is a good idea to list all the libraries that you will use in the script at the beginning of the script. You want to install the package to your computer once, and then load it with `library()` in each script where you need to use it.
 
 ## Importing iNaturalist data
 
@@ -154,7 +72,6 @@ head(inat_data)
 tail(inat_data)
 ```
 
-
 Use `glimpse()` from **dplyr** to see a information about a data frame. Number of rows and columns. For each column, we see the name, data type (**dbl** for number, **chr** for character, **lgl** for logical (true, false), **date** for date), and the first few values.
 
 ```{r, call_glimpse}
@@ -189,6 +106,7 @@ The `filter()` function is used to select rows that meet certain criteria. To ge
 filter(inat_data, common_name == 'Western Fence Lizard')
 
 ```
+
 There are over 3000 observations for 'Western Fence Lizard'.
 
 The `==` sign means "is equal to". Take note, there are two equal signs.
@@ -205,7 +123,7 @@ We use the pipe operator (`%>%`) to call multiple functions.
 You can insert `%>%` by using the keyboard shortcut <kbd>Shift+Cmd+M</kbd> (Mac) or <kbd>Shift+Ctrl+M</kbd> (Windows).
 :::
 
-Get `user_login`, `common_name`, `scientific_name`, `observed_on` for all observations where `common_name` is 'Western Fence Lizard'. Use filter to select rows, then use select to select columns. 
+Get `user_login`, `common_name`, `scientific_name`, `observed_on` for all observations where `common_name` is 'Western Fence Lizard'. Use filter to select rows, then use select to select columns.
 
 ```{r, pipe_filter_select}
 inat_data %>% 
@@ -450,18 +368,19 @@ Let's get `observed_on` for rows 10315 to 10325
 ```{r}
 (inat_data$observed_on)[10315:10325]
 ```
-Let's get use `year()` to get the year from  `observed_on` for rows 10300 to 10320
+
+Let's get use `year()` to get the year from `observed_on` for rows 10300 to 10320
 
 ```{r}
 year(inat_data$observed_on)[10315:10325]
 ```
-This code will  add `year` column using the `year(observed_on)`
+
+This code will add `year` column using the `year(observed_on)`
 
 ```{r, mutate_year}
 temp <- inat_data %>% 
   mutate(year = year(observed_on))
 ```
-
 
 You can click on `temp` in **Environment** tab to see the data frame with `year` column.
 
@@ -599,7 +518,7 @@ top_ten
 
 ```
 
-Then  `write_csv()` from **dplyr** to create a CSV. The first argument is the data frame to save. The second argument is the relative path of where to save the file. To keep our files organized, we are saving CSVs to the results folder. You should give the file a sensible name to help you remember what is in the file.
+Then `write_csv()` from **dplyr** to create a CSV. The first argument is the data frame to save. The second argument is the relative path of where to save the file. To keep our files organized, we are saving CSVs to the results folder. You should give the file a sensible name to help you remember what is in the file.
 
 ```{r, save_file}
 #| eval: false
