@@ -12,7 +12,7 @@ In order to simplify things for the workshop attendees, we filtered out the prob
 
 ## Cleaning up iNaturalist file
 
-These are the steps we took to produced the cleaned up file. The raw file is at `data/raw/observations-512870.csv`, the cleaned file is at `data/cleaned/cnc-los-angeles-observations.csv`
+These are the steps we took to produced the cleaned up file. The raw file is at `data/raw/observations-513664`, the cleaned file is at `data/cleaned/cnc-los-angeles-observations.csv`
 
 ```{r}
 library(readr)
@@ -23,7 +23,7 @@ library(ggplot2)
 ```
 
 ```{r}
-inat_raw <- read_csv('data/raw/observations-512870.csv')
+inat_raw <- read_csv('data/raw/observations-513664.csv')
 ```
 
 Use `colSums(is.na())` to count the number of rows that have NA values for each column.
@@ -60,6 +60,80 @@ latitude, longitude, scientific_name have zero NA.
 
 ```{r}
 colSums(is.na(inat))
+```
+
+We want to delete unused columns to keep the CSV under 100 MB for Github
+
+```{r}
+names(inat)
+```
+
+```{r}
+inat$uuid <- NULL
+inat$observed_on_string <- NULL
+inat$time_zone <- NULL
+inat$num_identification_agreements <- NULL
+inat$num_identification_disagreements <- NULL
+inat$oauth_application_id <- NULL
+inat$place_guess <- NULL
+inat$private_place_guess <- NULL
+inat$private_longitude <- NULL
+inat$private_latitude <- NULL
+inat$positioning_method <- NULL
+inat$positioning_device <- NULL
+inat$species_guess <- NULL
+```
+
+```{r}
+inat %>% filter(!is.na(taxon_subphylum_name)) %>% dim
+```
+
+```{r}
+inat %>% filter(!is.na(taxon_superclass_name)) %>% dim
+inat %>% filter(!is.na(taxon_subclass_name)) %>% dim
+```
+
+```{r}
+inat %>% filter(!is.na(taxon_superorder_name)) %>% dim
+inat %>% filter(!is.na(taxon_suborder_name)) %>% dim
+```
+
+```{r}
+inat %>% filter(!is.na(taxon_superfamily_name)) %>% dim
+inat %>% filter(!is.na(taxon_subfamily_name)) %>% dim
+```
+
+```{r}
+inat %>% filter(!is.na(taxon_supertribe_name)) %>% dim
+inat %>% filter(!is.na(taxon_tribe_name)) %>% dim
+inat %>% filter(!is.na(taxon_subtribe_name)) %>% dim
+```
+
+```{r}
+inat %>% filter(!is.na(taxon_genushybrid_name)) %>% dim
+inat %>% filter(!is.na(taxon_hybrid_name)) %>% dim
+```
+
+```{r}
+inat %>% filter(!is.na(taxon_subspecies_name)) %>% dim
+inat %>% filter(!is.na(taxon_variety_name)) %>% dim
+inat %>% filter(!is.na(taxon_form_name)) %>% dim
+```
+
+```{r}
+inat$taxon_superclass_name <- NULL
+inat$taxon_superorder_name <- NULL
+inat$taxon_supertribe_name <- NULL
+inat$taxon_subtribe_name <- NULL
+inat$taxon_genushybrid_name <- NULL
+inat$taxon_hybrid_name <- NULL
+inat$taxon_subspecies_name <- NULL
+inat$taxon_variety_name <- 
+inat$taxon_form_name <- NULL
+```
+
+```{r}
+names(inat)
 ```
 
 We want to save the cleaned up data set so we can use it later. We can save data.frame to a CSV using the `write_csv()` function from the `readr` package. The first argument is the name of the data.frame, and the second is the path to the new file we want to create.
