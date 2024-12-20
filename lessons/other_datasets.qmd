@@ -341,7 +341,7 @@ City of Los Angeles parks:  https://geohub.lacity.org/datasets/lahub::los-angel
 Load all the parks data.
 
 ```{r, get_parks_data}
-parks_state <- read_sf('data/cleaned/state_parks_los_angeles_county.shp')
+parks_state <- read_sf('data/cleaned/state_parks_los_angeles_county/state_parks_los_angeles_county.shp')
 
 parks_county <- read_sf('data/raw/DPR_Park_Facilities_View_(Accessible_Parks)/DPR_Park_Facilities_View_(Accessible_Parks).shp')
 

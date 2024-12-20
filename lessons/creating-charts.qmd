@@ -167,7 +167,7 @@ colors()
 ```
 
 We can change the color of the bars using `fill='color'`.
- 
+
 ```{r, set_bar_color}
 ggplot(data = inat_year, mapping = aes(x = year)) +
   geom_bar(fill='aquamarine')
@@ -280,7 +280,6 @@ my_map +
 Once we are happy with ourplot, we can save the plot.
 
 Assign the plot to an object. Then run `ggsave()` to save our plot. The first argument we give is the path to the file we want to save, including the correct file extension. You can save as jpb, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.
-
 
 ```{r, save_plot}
 #| eval: false

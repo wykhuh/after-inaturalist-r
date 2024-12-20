@@ -15,7 +15,7 @@ There are millions of species on our planet. In order to help organize the milli
 
 "The Swedish botanist [Carl Linnaeus](https://en.wikipedia.org/wiki/Carl_Linnaeus "Carl Linnaeus") is regarded as the founder of the current system of taxonomy, as he developed a ranked system known as [Linnaean taxonomy](https://en.wikipedia.org/wiki/Linnaean_taxonomy "Linnaean taxonomy") for categorizing organisms and [binomial nomenclature](https://en.wikipedia.org/wiki/Binomial_nomenclature "Binomial nomenclature") for naming organisms." — Wikipedia
 
-To help group related organisms together, scientists have developed a hierarchy of taxonomic ranks. The main ranks are domain, kingdom, phylum, class, order, family, genus, and species. Each species have a two part name consisting of genus and species. The scientific names are in Latin. As scientists learn new things, they can reclassify and rename species. Each scientific name can have multiple common names in multiple languages.
+To help group related organisms together, scientists have developed a hierarchy of taxonomic ranks. The main ranks are domain, kingdom, phylum, class, order, family, genus, and species. Each species have a two part name consisting of genus and species. The scientific names are in Latin. Each scientific name can have multiple common names in multiple languages. As scientists learn new things, they can reclassify and rename species.
 
 Let's look at the taxonomy for Western Fence Lizard, the most common species in Los Angeles City Nature Challenge.
 
@@ -87,7 +87,7 @@ save_contact(email='jane@user.com', name='Jane')
 save_contact('jane@user.com', 'Jane')
 ```
 
-Often times, a function will process the input and return a value. To save the function results so we can continue to work with it,  use `<-` to assign the to value to an object. 
+Often times, a function will process the input and return a value. To save the function results so we can continue to work with it, use `<-` to assign the to value to an object.
 
 ```{r, assign_function}
 new_contact <- save_contact('Jane', 'jane@user.com')

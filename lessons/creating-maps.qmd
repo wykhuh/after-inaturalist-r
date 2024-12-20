@@ -34,7 +34,7 @@ Main steps:
 
 1.  Load iNaturalist data
 2.  Add geometry column to iNaturalist data frame
-3.  Use `filter()` and `select()` to get the rows and columns we want.
+3.  Use `filter()`, `select(),` and `mutate()`, to get the rows and columns we want.
 4.  Create map.
 
 loading R packages
@@ -115,7 +115,7 @@ dim(inat_oak)
 
 **ggplot** is a data visualization package. We can use **ggplot** to create static maps. `geom_sf()` will use plot each observation using the information in the `geometry` column.
 
-Let's create a mapp for all the observations.
+Let's create a map for all the observations.
 
 ```{r, create_static_map}
 
@@ -190,9 +190,9 @@ mapview(inat_oak, zcol='quality_grade')
 
 ![](images/mapview/creating_maps/create_interactive_map_for_oak_use_quality_grade.png){fig-alt="interactive map of Coast Live Oaks observations using colors based on quality grade"}
 
-## working with other geographic files
+## Add object boundaries
 
-Let's add LA county boundaries to the map.
+Let's add the boundaries for LA county to the map.
 
 Shape files is a file format for geographic information system software. I downloaded the LA county boundaries as a Shape file from https://geohub.lacity.org/datasets/lacounty::county-boundaries/explore
 
@@ -202,7 +202,7 @@ We will use `read_sf()` from `sf` package to read the Shape file.
 la_county <- read_sf('data/raw/County_Boundary/County_Boundary.shp')
 ```
 
-Let's add LA County to the maps.
+Let's create a map with LA County and oak observations.
 
 ```{r, add_LA_County_to_static_map}
 ggplot() +
@@ -280,21 +280,20 @@ st_crs(expo_park) == st_crs(inat_map)
 
 ```
 
-`st_intersects()` from **sf** can tell us which points are inside a boundary. 
-`st_intersects()` returns number of items  in `inat_map` that is inside `expo_park` for every row.
+`st_intersects()` from **sf** can tell us which points are inside a boundary. `st_intersects()` returns number of items in each row of `inat_map` that is inside `expo_park`.
 
 ```{r, st_intersects}
 st_intersects(inat_map, expo_park)
 ```
-We can use `lengths(...) > 0` to return TRUE/FALSE for  every row in `inat_map` that has 1 or more items that inside `expo_park`
+
+We can use `lengths(...) > 0` to return TRUE/FALSE for every row in `inat_map` that has 1 or more items that inside `expo_park`
 
 ```{r, get_true_false}
 #| eval: false
 lengths(st_intersects(inat_map, expo_park)) > 0
 ```
 
-
- `inat_map[..., ]` selects all rows where a condition is true. In this case, we want all observations from `inat_map` that are inside `expo_park`.
+`inat_map[..., ]` selects all rows where a condition is true. In this case, we want all observations from `inat_map` that are inside `expo_park`.
 
 ```{r, get_all_observations_within_expo_park}
 inat_expo <- inat_map[lengths(st_intersects(inat_map, expo_park)) > 0, ]
@@ -353,7 +352,7 @@ Create a map for all CNC observations that are inside of a specific area
 -   Used [Draw map boundaries](https://wykhuh.github.io/draw-map-boundaries/) to draw and download an area that you are interested in.
 -   Save the file to the `data/raw` directory.
 -   use `st_read` to read your boundary data.
-- `inat_map` is a data frame with all CNC observations 
+-   `inat_map` is a data frame with all CNC observations
 -   use `inat_map[lengths(st_intersects(inat_map, your_boundary)) > 0, ]` to get observations inside a boundary
 
 ::: answer
@@ -394,7 +393,6 @@ ggsave(filename = 'results/expo_park_observations.jpg', plot = my_map,  height =
 ### interactive map
 
 Assign the map created by mapview to an object. Then run mapshot() to save our map. The first argument is map you want to to save. The second argument is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, or png.
-
 
 ```{r, save_interactive_map}
 #| eval: false
