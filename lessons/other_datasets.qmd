@@ -266,7 +266,6 @@ California State Parks has file that lists all the state parks in California. ht
 California state has a file that lists all the counties in California. https://gis.data.ca.gov/datasets/California::california-county-boundaries-and-identifiers/explore
 
 ```{r, view_state_parks}
-#| eval: false
 state_parks <- read_sf('data/raw/Park_Boundaries/ParkBoundaries.shp')
 
 mapview(state_parks)
@@ -275,7 +274,6 @@ mapview(state_parks)
 ![](images/mapview/other-datasets/view_state_parks.png){fig-alt="map of California state parks"}
 
 ```{r, view_ca_counties}
-#| eval: false
 ca_counties <- read_sf('data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp')
 
 mapview(ca_counties)

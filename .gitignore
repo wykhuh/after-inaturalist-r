@@ -6,4 +6,6 @@
 /.quarto/
 /lessons/**/html/
 /lessons/*/figure-html/
+/lessons/*/libs/
+
 /site_libs/

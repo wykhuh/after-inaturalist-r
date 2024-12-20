@@ -5,4 +5,6 @@ format: html
 
 This is the iNaturalist City Nature Challenge coding with R workshop.
 
+<https://www.inaturalist.org/projects/los-angeles-city-nature-challenge-cumulative-observations-2016-2024>
+
 More content needed...
