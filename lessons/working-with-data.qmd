@@ -79,7 +79,7 @@ glimpse(inat_data)
 
 You can also use `names()` from R to see the fields in the data frame.
 
-```{r}
+```{r use_names_to_list_fields}
 names(inat_data)
 ```
 
@@ -130,7 +130,7 @@ inat_data %>%
   select(user_login, common_name, scientific_name, observed_on) 
 ```
 
-Pipe operator take the thing on the lefthand side and insert it as the first argument of the function on the righthand side. By putting each of our functions onto a new line, we can build a nice, readable pipeline. `inat_data` gets piped into a `filter()` function, and it comes out modified somewhat. The output from `filter()` then gets sent into the `select()` function, where it is further modified, and then the final product gets printed out to our console. It can also be helpful to think of `%>%` as meaning "and then".
+Pipe operator take the thing on the lefthand side and insert it as the first argument of the function on the righthand side. By putting each of our functions onto a new line, we can build a nice, readable pipeline. `inat_data` gets piped into a `filter()` function, and it comes out modified somewhat. The output from `filter()` then gets sent into the `select()` function, where it is further modified. It can also be helpful to think of `%>%` as meaning "and then".
 
 If we want to store this final data frame as an object, we use an assignment arrow `<-`:
 
@@ -141,9 +141,11 @@ western_fence_lizard_obs <- inat_data %>%
 
 ```
 
-Sometimes the coordinates for iNaturalist observations are obscured. For instance, when the observation involves an endangered species, iNaturalist will automatically obscure the coordinates in order to protect the animal, plant, fungi. Sometimes people will choose to obscure their location when they are making observations so that other people will not know their exact location.
+Sometimes the coordinates for iNaturalist observations are obscured. For instance, when the observation involves an endangered species, iNaturalist will automatically obscure the coordinates in order to protect the animal, plant, fungi. Sometimes peopleb choose to obscure their location when they are making observations so that other people will not know their exact location.
 
 To access one column in a data frame, use `dataframe$column_name`. To get a count of number of values for one column, use `table()` function from R and pass in one column.
+
+Let's find out how many observations have obscured locations.
 
 ```{r, call_table}
 table(inat_data$coordinates_obscured)
@@ -181,7 +183,7 @@ Let's look for observations for all oak trees.
 
 We can use filter where the `common_name` is 'oaks'.
 
-```{r}
+```{r, filter_oaks_observations}
 oaks_obs <- inat_data %>% 
   filter(common_name == 'oaks')
 
@@ -190,38 +192,44 @@ dim(oaks_obs)
 
 We have 218 observations. However, when we used the iNaturalist site to look for 'oaks' for 'Los Angeles City Nature Challenge Cumulative Observations 2016-2024', we get [1369 observations](https://www.inaturalist.org/observations?project_id=los-angeles-city-nature-challenge-cumulative-observations-2016-2024&subview=map&taxon_id=47851&verifiable=any). What's causing the difference?
 
-When you search for 'oaks' on iNaturalist, click the 'About' link, and it will bring you to the [taxa page for 'oaks'](https://www.inaturalist.org/taxa/47851-Quercus). 'Oaks' is the common name for genus Quercus. When you search iNaturalist observations for 'oaks', iNaturalist returns observations that belong to the genus Quercus such as 'Live Coast Oak' and 'Valley Oak'. To match the iNaturalist search results, we need to look for all observations where the genus equals Quercus.
+When you search for 'oaks' on iNaturalist, click the 'About' link, and it will bring you to the [taxa page for 'oaks'](https://www.inaturalist.org/taxa/47851-Quercus).
+
+![](images/search_oaks.png)
+
+![](images/oaks_taxa.png){fig-alt="oaks taxa page"}
+
+'Oaks' is the common name for genus Quercus. When you search iNaturalist observations for 'oaks', iNaturalist returns observations that belong to the genus Quercus such as 'Live Coast Oak' and 'Valley Oak'. To match the iNaturalist search results, we need to look for all observations where the genus equals Quercus.
 
 We can use `names()` to get a list of fields.
 
-```{r}
+```{r use_names_to_get_fields_2}
 names(inat_data)
 ```
 
 Since we know 'oaks' is genus Quercus, we need to use the field `taxon_genus_name` and 'Quercus'.
 
-```{r}
+```{r get_quercus_observations}
 oaks_obs_fixed <- inat_data %>% 
   filter(taxon_genus_name == 'Quercus')
 
 dim(oaks_obs_fixed)
 ```
+
 We now get 1367 observations.
 
 ::: callout-note
 The reason why iNaturalist has two more observations for 'oaks' is because there are two observations which don't have latitude and longitude data. Our cleaned iNaturalist data excludes observations without latitude and longitude.
 :::
 
-Whenever we need to search for higher taxonomy groups, we need to use the iNaturalist site to get the taxon rank and Latin name. 
-
 Another example, let's search for 'trees'. iNaturalist taxa page for 'trees' is [Phylum Tracheophyta](https://www.inaturalist.org/taxa/211194-Tracheophyta). We need to do search using `taxon_phylum_name` and 'Tracheophyta'
 
-```{r}
+```{r get_Tracheophyta_observations}
 trees_obs <- inat_data %>% 
   filter(taxon_phylum_name == 'Tracheophyta')
 
 dim(trees_obs)
 ```
+
 There are 95372 tree observations.
 
 ## Errors in code
@@ -323,7 +331,6 @@ unique(my_data$common_name)
 
 When we want to get rows that match one or more criteria, we can use the or operator `|`
 
-
 Let's get observations where `common_name` is 'Western Fence Lizard' or `common_name` is 'Western Honey Bee'.
 
 ```{r, filter_with_or_2_species}
@@ -332,14 +339,13 @@ my_data <- inat_data %>%
   select(user_login, observed_on, common_name)
 ```
 
-
 ```{r, or_common_name}
 unique(my_data$common_name)
 ```
 
 ## & (and) versus \| (or)
 
-** & (and)** return rows where all conditions are true
+\*\* & (and)\*\* return rows where all conditions are true
 
 ```{r, and_comparison}
 and_data <- inat_data %>% 
@@ -347,6 +353,7 @@ and_data <- inat_data %>%
 
 dim(and_data)
 ```
+
 ```{r, and_comparison_user_login}
 unique(and_data$user_login)
 ```
@@ -358,9 +365,7 @@ unique(and_data$common_name)
 -   observations where user_login is 'natureinla' and common_name is 'Western Fence Lizard'
 -   79 rows with 1 user_login and 1 common_name
 
-
-**| (or)** returns rows where any conditions are true.
-
+**\| (or)** returns rows where any conditions are true.
 
 ```{r, or_comparison}
 or_data <- inat_data %>% 
@@ -376,6 +381,7 @@ unique(or_data$user_login) %>% length
 ```{r, or_comparison_common_name}
 unique(or_data$common_name) %>% length
 ```
+
 -   observations where user_login is 'natureinla' plus observations where common_name is 'Western Fence Lizard'
 -   6,216 rows with 1052 user_login and 1031 common_name
 
@@ -459,13 +465,13 @@ Use `year()` from **lubridate** on a date column to get the year.
 
 Let's get `observed_on` for rows 10315 to 10325
 
-```{r}
+```{r show_observed_on}
 (inat_data$observed_on)[10315:10325]
 ```
 
-Let's get use `year()` to get the year from `observed_on` for rows 10300 to 10320
+Let's get use `year()` to get the year from `observed_on` for rows 10315 to 10325
 
-```{r}
+```{r get_years_from_observed_on}
 year(inat_data$observed_on)[10315:10325]
 ```
 
@@ -484,7 +490,7 @@ We can also use `table()` to get the number of observations per year.
 table(temp$year)
 ```
 
-Let's get all observations for 2020.
+Let's get all observations for 2020. We use mutate to add year column, and use filter to select rows where year is 2020.
 
 ```{r, 2020_observations}
 inat_data %>% 
@@ -522,7 +528,7 @@ Let's try counting of all observations by year. Use `mutate()` to add a year col
 ```{r, count_year}
 inat_data %>% 
   mutate(year = year(observed_on)) %>%
-  count(year)  
+  count(year) 
 ```
 
 We can specify the name of the count column by passing in `name` argument to `count()`.
@@ -581,9 +587,8 @@ counts
 Get the number of observation you made per year
 
 -   Use `mutate()` and `year()` to add year column
--   Use `filter()` and `count()`
--   The results should have `user_login` equal to your iNaturalist username
--   The results should have a year and count columns
+-   Use `count() to count the number of observations`
+-   Use `filter()` to select your observations
 
 ::: answer
 ```{r, exercise_observations_per_year}
