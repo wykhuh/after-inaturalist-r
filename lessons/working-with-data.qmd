@@ -177,61 +177,6 @@ inat_data %>%
   select(user_login, common_name, scientific_name, observed_on)
 ```
 
-## higher taxonomy
-
-Let's look for observations for all oak trees.
-
-We can use filter where the `common_name` is 'oaks'.
-
-```{r, filter_oaks_observations}
-oaks_obs <- inat_data %>% 
-  filter(common_name == 'oaks')
-
-dim(oaks_obs)
-```
-
-We have 218 observations. However, when we used the iNaturalist site to look for 'oaks' for 'Los Angeles City Nature Challenge Cumulative Observations 2016-2024', we get [1369 observations](https://www.inaturalist.org/observations?project_id=los-angeles-city-nature-challenge-cumulative-observations-2016-2024&subview=map&taxon_id=47851&verifiable=any). What's causing the difference?
-
-When you search for 'oaks' on iNaturalist, click the 'About' link, and it will bring you to the [taxa page for 'oaks'](https://www.inaturalist.org/taxa/47851-Quercus).
-
-![](images/search_oaks.png)
-
-![](images/oaks_taxa.png){fig-alt="oaks taxa page"}
-
-'Oaks' is the common name for genus Quercus. When you search iNaturalist observations for 'oaks', iNaturalist returns observations that belong to the genus Quercus such as 'Live Coast Oak' and 'Valley Oak'. To match the iNaturalist search results, we need to look for all observations where the genus equals Quercus.
-
-We can use `names()` to get a list of fields.
-
-```{r use_names_to_get_fields_2}
-names(inat_data)
-```
-
-Since we know 'oaks' is genus Quercus, we need to use the field `taxon_genus_name` and 'Quercus'.
-
-```{r get_quercus_observations}
-oaks_obs_fixed <- inat_data %>% 
-  filter(taxon_genus_name == 'Quercus')
-
-dim(oaks_obs_fixed)
-```
-
-We now get 1367 observations.
-
-::: callout-note
-The reason why iNaturalist has two more observations for 'oaks' is because there are two observations which don't have latitude and longitude data. Our cleaned iNaturalist data excludes observations without latitude and longitude.
-:::
-
-Another example, let's search for 'trees'. iNaturalist taxa page for 'trees' is [Phylum Tracheophyta](https://www.inaturalist.org/taxa/211194-Tracheophyta). We need to do search using `taxon_phylum_name` and 'Tracheophyta'
-
-```{r get_Tracheophyta_observations}
-trees_obs <- inat_data %>% 
-  filter(taxon_phylum_name == 'Tracheophyta')
-
-dim(trees_obs)
-```
-
-There are 95372 tree observations.
-
 ## Errors in code
 
 We are writing instructions for the computer. If there is a typo, mispelling, pass in wrong arguments into functions, etc, the code will not work and we will see errors. R will display the errors in red. You need to fix the errors in order for the code to work.
@@ -331,21 +276,44 @@ unique(my_data$common_name)
 
 When we want to get rows that match one or more criteria, we can use the or operator `|`
 
-Let's get observations where `common_name` is 'Western Fence Lizard' or `common_name` is 'Western Honey Bee'.
+Let's get observations where `common_name` is 'Western Fence Lizard' or  'Western Honey Bee'.
 
 ```{r, filter_with_or_2_species}
 my_data <- inat_data %>% 
   filter(common_name == 'Western Honey Bee' | common_name == 'Western Fence Lizard')  %>% 
   select(user_login, observed_on, common_name)
+
+dim(my_data)
 ```
 
 ```{r, or_common_name}
 unique(my_data$common_name)
 ```
 
+## %in% c()
+
+If you need to examine multiple values for a field, you can use `field_name %in% c(value1, value2)` instead of `|` (or).
+
+`c()` is a function from R that creates a vector with the passed in agruments. A vector is how R stores a list of items.  `%in%` operator from R checks if a vector is contained in another vector.
+
+Let's rewrite the the code for  `common_name` is 'Western Fence Lizard' or 'Western Honey Bee' using `%in% c()`. 
+
+```{r, in_c_with_2_species}
+my_data <- inat_data %>% 
+  filter(common_name %in% c('Western Honey Bee', 'Western Fence Lizard'))  %>% 
+  select(user_login, observed_on, common_name)
+
+dim(my_data)
+```
+```{r, in_c_common_name}
+unique(my_data$common_name)
+```
+
+
 ## & (and) versus \| (or)
 
-\*\* & (and)\*\* return rows where all conditions are true
+\*\* & (and)\*\* return rows where all conditions are true. This code looks for  observations where user_login is 'natureinla' and common_name is 'Western Fence Lizard'.
+
 
 ```{r, and_comparison}
 and_data <- inat_data %>% 
@@ -361,11 +329,10 @@ unique(and_data$user_login)
 ```{r, and_comparison_common_name}
 unique(and_data$common_name)
 ```
+We get 79 rows with 1 user_login and 1 common_name
 
--   observations where user_login is 'natureinla' and common_name is 'Western Fence Lizard'
--   79 rows with 1 user_login and 1 common_name
+**\| (or)** returns rows where any conditions are true. This code looks for observations where user_login is 'natureinla' plus observations where common_name is 'Western Fence Lizard'
 
-**\| (or)** returns rows where any conditions are true.
 
 ```{r, or_comparison}
 or_data <- inat_data %>% 
@@ -382,10 +349,10 @@ unique(or_data$user_login) %>% length
 unique(or_data$common_name) %>% length
 ```
 
--   observations where user_login is 'natureinla' plus observations where common_name is 'Western Fence Lizard'
--   6,216 rows with 1052 user_login and 1031 common_name
+We get 6,216 rows with 1052 user_login and 1031 common_name
 
 And / Or will return different results. In other words, check the results of your code to make sure your results matches what you intended
+
 
 ## More complex queries
 
@@ -408,6 +375,144 @@ unique(complex_query$common_name)
 ```{r, complex_unique_user_login}
 unique(complex_query$user_login)
 ```
+
+
+## Higher taxonomy
+
+Instead of looking at one species, let's look for observations for all oak trees.
+
+We can use filter where the `common_name` is 'oaks'.
+
+```{r, filter_oaks_observations}
+oaks_obs <- inat_data %>% 
+  filter(common_name == 'oaks')
+
+dim(oaks_obs)
+```
+
+We have 218 observations. However, when we used the iNaturalist site to look for 'oaks' for 'Los Angeles City Nature Challenge Cumulative Observations 2016-2024', we get [1369 observations](https://www.inaturalist.org/observations?project_id=los-angeles-city-nature-challenge-cumulative-observations-2016-2024&subview=map&taxon_id=47851&verifiable=any). What's causing the difference?
+
+When you search for 'oaks' on iNaturalist, click the 'About' link, and it will bring you to the [taxa page for 'oaks'](https://www.inaturalist.org/taxa/47851-Quercus).
+
+![](images/search_oaks.png)
+
+![](images/oaks_taxa.png){fig-alt="oaks taxa page"}
+
+'Oaks' is the common name for genus Quercus. When you search iNaturalist observations for 'oaks', iNaturalist returns observations that belong to the genus Quercus such as 'Live Coast Oak' and 'Valley Oak'. Our query `common_name == 'oaks'` only looked for observations that were labeled 'oaks'; it ignored observations that were labeled as specific oak species. To match the iNaturalist search results, we need to look for all observations where the genus equals Quercus.
+
+We can use `names()` to get a list of fields.
+
+```{r use_names_to_get_fields_2}
+names(inat_data)
+```
+
+Since we know 'oaks' is genus Quercus, we need to use the field `taxon_genus_name` and 'Quercus'.
+
+```{r get_quercus_observations}
+oaks_obs_fixed <- inat_data %>% 
+  filter(taxon_genus_name == 'Quercus')
+
+dim(oaks_obs_fixed)
+```
+
+We now get 1367 observations.
+
+::: callout-note
+The reason why iNaturalist has 1369 observations for 'oaks' but we have 1367 is because iNaturalist has two 'oaks' observations which don't have latitude and longitude data. Our cleaned iNaturalist data excludes observations without latitude and longitude.
+:::
+
+Let's examine the number of observations for each type of oak. We can use `count()` to get the counts, and `View()` to see the results.
+
+```{r get_quercus_counts}
+oaks_count <- oaks_obs_fixed %>%
+  count(common_name, scientific_name) %>%
+  arrange(desc(n))
+```
+```{r}
+#| eval: false
+View(oaks_count)
+
+```
+
+While most of the observations are species (as evidence by the two part name), there are 218 observations that could only be identified to the genus Quercus.
+
+Another example, let's search for 'trees'. When we search iNaturalist for 'trees', the first result is [Phylum Tracheophyta](https://www.inaturalist.org/taxa/211194-Tracheophyta). Let's look at our data using `taxon_phylum_name` and 'Tracheophyta'
+
+```{r get_Tracheophyta_observations}
+trees_obs <- inat_data %>% 
+  filter(taxon_phylum_name == 'Tracheophyta')
+
+dim(trees_obs)
+```
+
+There are 95372 Tracheophyta observations.
+
+Let's get a count of observations for Tracheophyta.
+
+```{r get_Tracheophyta_counts}
+trees_count <- trees_obs %>%
+  count(common_name) %>%
+  arrange(desc(n))
+```
+```{r}
+#| eval: false
+View(trees_count)
+```
+
+We are getting plants such as California poppy, grasses, which aren't trees. Why is that?
+
+If we look up ['Tracheophyta' in Wikipedia](https://en.wikipedia.org/wiki/Vascular_plant):
+
+> Vascular plants, also called tracheophytes or collectively tracheophyta from Ancient Greek τραχεῖα ἀρτηρία (trakheîa artēría) 'windpipe' and φυτά (phutá) 'plants'), are plants that have lignified tissues (the xylem) for conducting water and minerals throughout the plant. They also have a specialized non-lignified tissue (the phloem) to conduct products of photosynthesis. The group includes most land plants (c. 300,000 accepted known species) other than mosses.
+
+If we look up ['tree' in Wikipedia](https://en.wikipedia.org/wiki/Tree):
+
+> Trees are not a monophyletic taxonomic group but consist of a wide variety of plant species that have independently evolved a trunk and branches as a way to tower above other plants to compete for sunlight. The majority of tree species are angiosperms or hardwoods; of the rest, many are gymnosperms or softwoods.
+
+> Although "tree" is a common word, there is no universally recognised precise definition of what a tree is, either botanically or in common language.
+
+In other words, there is no one word we can use to find all trees. The fact that iNaturalist shows Tracheophyta as the first search result for 'trees' is a little quirk with the iNaturalist search algorithm. To find all trees, we would need to pass in a list of species or genera of plants that you would label as trees.
+
+The Los Angeles County Community Forest Management Plan has [LACO Master Tree List](https://lacountycfmp.org/resources/). It is a list of recommended tree species for LA County. Let's examine all the genera in that list.
+
+```{r get_laco_observations}
+
+laco_trees <- c('Acacia', 'Afrocarpus','Agonis', 'Angophora', 'Arbutus',
+                'Bauhinia', 'Brachychiton', 'Caesalpinia', 'Callistemon',
+                'Cassia', 'Casuarina','Cedrus', 'Ceiba', 'Celtis', 'Cercidum',
+                'Cercis','Chilopsis', 'Chitalpa', 'Cordia','Corymbia', 
+                'Cotinus', 'Dalbergia', 'Ebenopsis', 'Eriobotrya',
+                'Ficus','Fraxinus','Geijera', 'Ginkgo', 'Hakea', 'Handroanthus',
+                'Hesperocyparis', 'Heteromeles', 'Hymenosporum', 'Jacaranda',
+                'Koelreuteria', 'Lagerstroemia', 'Lagunaria', 'Laurus',
+                'Lophostemon', 'Lyonothamnus', 'Melaleuca', 'Metrosideros',
+                'Olea', 'Olneya', 'Parkinsonia', 'Pinus', 'Pistacia', 
+                'Platanus', 'Prosopis', 'Prunus', 'Quercus', 'Searsia',
+                'Spathodea', 'Stenocarpus', 'Tipuana', 'Tristaniopsis', 
+                'Ulmus', 'Umbellularia', 'Vachellia', 'Zelkova')
+
+laco_trees_obs <- inat_data %>% 
+  filter(taxon_genus_name %in% laco_trees)
+
+dim(laco_trees_obs)
+```
+5743 observations for LACO tree genera.
+
+Let's get a count of observations for LACO tree genera.
+
+```{r get_laco_counts}
+laco_trees_count <- laco_trees_obs %>%
+  count(common_name, scientific_name, taxon_genus_name) %>%
+  arrange(desc(n))
+```
+
+```{r}
+#| eval: false
+View(laco_trees_count)
+```
+The LACO list of trees is not a list of all trees in L.A. county. You might want to add or subtract from the LACO list. 
+
+In other words, when looking for multiple species, it might take some trial and error to get the results you want.
 
 :::: exercise
 ## Exercise 2
