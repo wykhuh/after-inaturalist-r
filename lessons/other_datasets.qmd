@@ -84,7 +84,7 @@ Load Park Needs Assessment data. Use `st_read()` to read geojson file. Click `la
 la_county_pna <- st_read('data/raw/PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907.geojson')
 ```
 
-Let's get the size of the dataframe,  and compare CRS to the iNaturalist data.
+Let's get the size of the dataframe, and compare CRS to the iNaturalist data.
 
 ```{r, pna_datafame_info}
 dim(la_county_pna)
@@ -102,7 +102,7 @@ dim(la_county_pna)
 There are 96 fields in the dataset. Here's a short description of the fields.
 
 | field | description |
-|----|----|
+|------------------------------------|------------------------------------|
 | STUD_AR_ID | Study Area ID |
 | STUD_AR_NM | Study Area Name |
 | STUD_AR_LBL | Label |
@@ -192,7 +192,7 @@ There are 96 fields in the dataset. Here's a short description of the fields.
 
 ### Household Median Income
 
-Let's look at the Household Median Income. We can use `zcol` to choose which column view to in the map.  The field 'householdincome_medhinc_cy' refers to Household Median Income.
+Let's look at the Household Median Income. We can use `zcol` to choose which column view to in the map. The field 'householdincome_medhinc_cy' refers to Household Median Income.
 
 ```{r, map_of_median_income}
 #| eval: false
@@ -206,7 +206,7 @@ There are two issues with the previous map.
 
 1.  The name of the layer is too long. We can rename the layer using `layer.name ='New Name'`
 
-2.  When you click on region, the popup shows too many fields. To select the columns displayed in popups, we can set the columns using `dataframe[c('col_1', 'col_2')]`. 
+2.  When you click on region, the popup shows too many fields. To select the columns displayed in popups, we can set the columns using `dataframe[c('col_1', 'col_2')]`.
 
 ::: callout-info
 In R, a vector is a list of items. `c()` is a function from R that creates a vector from a list of values.
@@ -214,7 +214,7 @@ In R, a vector is a list of items. `c()` is a function from R that creates a vec
 
 `layer.name ='Avg income'` sets the layer name to 'Avg income'.
 
-`la_county_pna[c('STUD_AR_NM', 'householdincome_medhinc_cy')]` sets the columns show in the popup to householdincome_medhinc_cy  and STUD_AR_NM
+`la_county_pna[c('STUD_AR_NM', 'householdincome_medhinc_cy')]` sets the columns show in the popup to householdincome_medhinc_cy and STUD_AR_NM
 
 ```{r, fix_map}
 #| eval: false
@@ -257,6 +257,77 @@ mapview(la_county_pna[c('PCT_Walk')],
 :::
 ::::
 
+## Extracting objects from an existing file
+
+Sometimes we find a geospatial file that has more than we need. We only want some data in the file. For example we want to get the California state park within Los Angeles county.
+
+California State Parks has file that lists all the state parks in California. https://www.parks.ca.gov/?page_id=29682
+
+California state has a file that lists all the counties in California. https://gis.data.ca.gov/datasets/California::california-county-boundaries-and-identifiers/explore
+
+```{r, view_state_parks}
+state_parks <- read_sf('data/raw/Park_Boundaries/ParkBoundaries.shp')
+
+mapview(state_parks)
+```
+
+![](images/mapview/other-datasets/view_state_parks.png){fig-alt="map of California state parks"}
+
+```{r, view_ca_counties}
+ca_counties <- read_sf('data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp')
+
+mapview(ca_counties)
+
+```
+
+![](images/mapview/other-datasets/view_ca_counties.png){fig-alt="map of California counties"}
+
+Compare CRS for the state parks map and the county map.
+
+```{r, compare_crs}
+st_crs(state_parks) == st_crs(ca_counties)
+
+```
+
+Use `st_transform()` to change the CRS of counties map to match the parks map.
+
+```{r, change_counties_crs}
+
+ca_counties <- st_transform(ca_counties, crs = st_crs(state_parks))
+
+st_crs(state_parks) == st_crs(ca_counties)
+```
+
+Let's get the boundary for Los Angeles County
+
+```{r, extract_la_county}
+LA_county <-  ca_counties %>%
+   filter(COUNTY == 'Los Angeles County')
+
+mapview(LA_county)
+```
+
+![](images/mapview/other-datasets/extract_la_county.png){fig-alt="map of LA County"}
+
+Use `st_intersects()` to find the state parks within LA county.
+
+```{r, get_parks_inside_la_county}
+
+LA_parks <- state_parks[st_intersects(state_parks, LA_county ) %>% lengths > 0,]
+
+mapview(LA_county) + mapview(LA_parks, col.regions ='red')
+```
+
+![](images/mapview/other-datasets/get_parks_inside_la_county.png){fig-alt="map of state  parks inside LA County"}
+
+Use `st_write()` to save the boundaries for state parks within Ventura County as a Shape file. The first argument is the map data we want to save, and the second argument is the file path.
+
+```{r, save_file}
+#| eval: false
+
+st_write(LA_parks, 'data/cleaned/state_parks_los_angeles_county/state_parks_los_angeles_county.shp')
+```
+
 ## Parks
 
 Let's compare iNaturalist data with the location of state, conty, and city parks.
@@ -270,14 +341,14 @@ City of Los Angeles parks:  https://geohub.lacity.org/datasets/lahub::los-angel
 Load all the parks data.
 
 ```{r, get_parks_data}
-parks_state <- read_sf('data/raw/ca_state_parks_la_county.geojson')
+parks_state <- read_sf('data/cleaned/state_parks_los_angeles_county.shp')
 
 parks_county <- read_sf('data/raw/DPR_Park_Facilities_View_(Accessible_Parks)/DPR_Park_Facilities_View_(Accessible_Parks).shp')
 
 parks_city <- read_sf('data/raw/Los_Angeles_Recreation_and_Parks_Boundaries/Los_Angeles_Recreation_and_Parks_Boundaries.shp')
 ```
 
-Let's get the size of the dataframe,  and compare CRS to the iNaturalist data.
+Let's get the size of the dataframe, and compare CRS to the iNaturalist data.
 
 ```{r, county_parks_dataframe_info}
 dim(parks_county)
