@@ -41,7 +41,6 @@ We will use the `read_csv()` function from **readr** package to read the iNatura
 ```{r, assign_read_csv_to_object}
 #| warning: false
 #| message: false
-#| cache: true
 inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 ```
 

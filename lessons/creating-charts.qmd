@@ -41,7 +41,6 @@ Main steps:
 First, read data from the iNaturalist observation file.
 
 ```{r, load_inaturalist_data}
-#| cache: true
 #| warning: false
 #| message: false
 inat <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')

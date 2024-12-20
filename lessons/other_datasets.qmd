@@ -39,7 +39,6 @@ For this workshop, I downloaded a few datasets from Los Angeles Geohub <https://
 Let's get observations for Coast Live Oak and create a map.
 
 ```{r, get_inaturalist_observations}
-#| cache: true
 #| warning: false
 #| message: false
 

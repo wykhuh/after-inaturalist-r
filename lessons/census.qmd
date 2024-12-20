@@ -37,7 +37,6 @@ We are using tidycensus to access U.S. Census data.
 Let's get observations for the Great Blue Heron.
 
 ```{r}
-#| cache: true
 #| warning: false
 #| message: false
 inat <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')

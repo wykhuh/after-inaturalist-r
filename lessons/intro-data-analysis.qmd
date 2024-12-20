@@ -97,7 +97,6 @@ Load iNaturalist data from City Nature Challenge Los Angeles 2013-2024. There ar
 #| error: false
 #| warning: false
 #| message: false
-#| cache: true
 
 inat <- read_csv("data/cleaned/cnc-los-angeles-observations.csv")
 ```

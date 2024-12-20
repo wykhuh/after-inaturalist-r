@@ -55,7 +55,6 @@ library(mapview) # create interactive maps
 Read data from the cleaned iNaturalist observation file.
 
 ```{r, read_data_from_csv}
-#| cache: true
 #| warning: false
 #| message: false
 inat <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
