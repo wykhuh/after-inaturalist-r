@@ -266,6 +266,7 @@ California State Parks has file that lists all the state parks in California. ht
 California state has a file that lists all the counties in California. https://gis.data.ca.gov/datasets/California::california-county-boundaries-and-identifiers/explore
 
 ```{r, view_state_parks}
+#| eval: false
 state_parks <- read_sf('data/raw/Park_Boundaries/ParkBoundaries.shp')
 
 mapview(state_parks)
@@ -274,6 +275,7 @@ mapview(state_parks)
 ![](images/mapview/other-datasets/view_state_parks.png){fig-alt="map of California state parks"}
 
 ```{r, view_ca_counties}
+#| eval: false
 ca_counties <- read_sf('data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp')
 
 mapview(ca_counties)
@@ -301,6 +303,7 @@ st_crs(state_parks) == st_crs(ca_counties)
 Let's get the boundary for Los Angeles County
 
 ```{r, extract_la_county}
+#| eval: false
 LA_county <-  ca_counties %>%
    filter(COUNTY == 'Los Angeles County')
 
@@ -312,6 +315,7 @@ mapview(LA_county)
 Use `st_intersects()` to find the state parks within LA county.
 
 ```{r, get_parks_inside_la_county}
+#| eval: false
 
 LA_parks <- state_parks[st_intersects(state_parks, LA_county ) %>% lengths > 0,]
 
