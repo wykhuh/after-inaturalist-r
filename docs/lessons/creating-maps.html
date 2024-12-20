@@ -264,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#mapping-inaturalist-data" id="toc-mapping-inaturalist-data" class="nav-link" data-scroll-target="#mapping-inaturalist-data">Mapping iNaturalist data</a></li>
   <li><a href="#static-map" id="toc-static-map" class="nav-link" data-scroll-target="#static-map">static map</a></li>
   <li><a href="#interactive-map" id="toc-interactive-map" class="nav-link" data-scroll-target="#interactive-map">interactive map</a></li>
-  <li><a href="#working-with-other-geographic-files" id="toc-working-with-other-geographic-files" class="nav-link" data-scroll-target="#working-with-other-geographic-files">working with other geographic files</a></li>
+  <li><a href="#add-object-boundaries" id="toc-add-object-boundaries" class="nav-link" data-scroll-target="#add-object-boundaries">Add object boundaries</a></li>
   <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise 1</a></li>
   <li><a href="#exploring-inaturlist-data-in-specific-area" id="toc-exploring-inaturlist-data-in-specific-area" class="nav-link" data-scroll-target="#exploring-inaturlist-data-in-specific-area">Exploring iNaturlist data in specific area</a></li>
   <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2">Exercise 2</a></li>
@@ -328,7 +328,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>Load iNaturalist data</li>
 <li>Add geometry column to iNaturalist data frame</li>
-<li>Use <code>filter()</code> and <code>select()</code> to get the rows and columns we want.</li>
+<li>Use <code>filter()</code>, <code>select(),</code> and <code>mutate()</code>, to get the rows and columns we want.</li>
 <li>Create map.</li>
 </ol>
 <p>loading R packages</p>
@@ -362,12 +362,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [23] "coordinates_obscured"       "scientific_name"           
 [25] "common_name"                "iconic_taxon_name"         
 [27] "taxon_id"                   "taxon_kingdom_name"        
-[29] "taxon_phylum_name"          "taxon_subphylum_name"      
-[31] "taxon_class_name"           "taxon_subclass_name"       
-[33] "taxon_order_name"           "taxon_suborder_name"       
-[35] "taxon_superfamily_name"     "taxon_family_name"         
-[37] "taxon_subfamily_name"       "taxon_tribe_name"          
-[39] "taxon_genus_name"           "taxon_species_name"        </code></pre>
+[29] "taxon_phylum_name"          "taxon_class_name"          
+[31] "taxon_order_name"           "taxon_family_name"         
+[33] "taxon_genus_name"           "taxon_species_name"        
+[35] "taxon_subspecies_name"     </code></pre>
 </div>
 </div>
 <p>We use the <strong>sf</strong> package to add geographic data to our data frame. <code>st_as_sf()</code> from <strong>sf</strong> package will take the longitude and latitude and add a <code>geometry</code> column that we can use for mapping.</p>
@@ -398,13 +396,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [23] "coordinates_obscured"       "scientific_name"           
 [25] "common_name"                "iconic_taxon_name"         
 [27] "taxon_id"                   "taxon_kingdom_name"        
-[29] "taxon_phylum_name"          "taxon_subphylum_name"      
-[31] "taxon_class_name"           "taxon_subclass_name"       
-[33] "taxon_order_name"           "taxon_suborder_name"       
-[35] "taxon_superfamily_name"     "taxon_family_name"         
-[37] "taxon_subfamily_name"       "taxon_tribe_name"          
-[39] "taxon_genus_name"           "taxon_species_name"        
-[41] "geometry"                  </code></pre>
+[29] "taxon_phylum_name"          "taxon_class_name"          
+[31] "taxon_order_name"           "taxon_family_name"         
+[33] "taxon_genus_name"           "taxon_species_name"        
+[35] "taxon_subspecies_name"      "geometry"                  </code></pre>
 </div>
 </div>
 <p>use <code>select()</code> to pick which columns to use.</p>
@@ -436,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="static-map" class="level2">
 <h2 class="anchored" data-anchor-id="static-map">static map</h2>
 <p><strong>ggplot</strong> is a data visualization package. We can use <strong>ggplot</strong> to create static maps. <code>geom_sf()</code> will use plot each observation using the information in the <code>geometry</code> column.</p>
-<p>Let’s create a mapp for all the observations.</p>
+<p>Let’s create a map for all the observations.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> inat_map)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -508,15 +503,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><img src="images/mapview/creating_maps/create_interactive_map_for_oak_use_quality_grade.png" class="img-fluid" alt="interactive map of Coast Live Oaks observations using colors based on quality grade"></p>
 </section>
-<section id="working-with-other-geographic-files" class="level2">
-<h2 class="anchored" data-anchor-id="working-with-other-geographic-files">working with other geographic files</h2>
-<p>Let’s add LA county boundaries to the map.</p>
+<section id="add-object-boundaries" class="level2">
+<h2 class="anchored" data-anchor-id="add-object-boundaries">Add object boundaries</h2>
+<p>Let’s add the boundaries for LA county to the map.</p>
 <p>Shape files is a file format for geographic information system software.&nbsp;I downloaded the LA county boundaries as a Shape file from https://geohub.lacity.org/datasets/lacounty::county-boundaries/explore</p>
 <p>We will use <code>read_sf()</code> from <code>sf</code> package to read the Shape file.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>la_county <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/County_Boundary/County_Boundary.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Let’s add LA County to the maps.</p>
+<p>Let’s create a map with LA County and oak observations.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> la_county)  <span class="sc">+</span></span>
@@ -630,7 +625,7 @@ GEOGCRS["WGS 84",
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
-<p><code>st_intersects()</code> from <strong>sf</strong> can tell us which points are inside a boundary. <code>st_intersects()</code> returns number of items in <code>inat_map</code> that is inside <code>expo_park</code> for every row.</p>
+<p><code>st_intersects()</code> from <strong>sf</strong> can tell us which points are inside a boundary. <code>st_intersects()</code> returns number of items in each row of <code>inat_map</code> that is inside <code>expo_park</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(inat_map, expo_park)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
