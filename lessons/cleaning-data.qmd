@@ -121,13 +121,25 @@ inat %>% filter(!is.na(taxon_form_name)) %>% dim
 ```
 
 ```{r}
+inat$taxon_subphylum_name <- NULL
+
 inat$taxon_superclass_name <- NULL
+inat$taxon_subclass_name <- NULL
+
 inat$taxon_superorder_name <- NULL
+inat$taxon_suborder_name <- NULL
+
+inat$taxon_superfamily_name <- NULL
+inat$taxon_subfamily_name <- NULL
+
 inat$taxon_supertribe_name <- NULL
+inat$taxon_tribe_name <- NULL
 inat$taxon_subtribe_name <- NULL
+
 inat$taxon_genushybrid_name <- NULL
 inat$taxon_hybrid_name <- NULL
-inat$taxon_subspecies_name <- NULL
+
+# inat$taxon_subspecies_name <- NULL
 inat$taxon_variety_name <- 
 inat$taxon_form_name <- NULL
 ```
