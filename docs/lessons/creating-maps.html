@@ -348,26 +348,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(inat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "id"                               "uuid"                            
- [3] "observed_on_string"               "observed_on"                     
- [5] "time_observed_at"                 "time_zone"                       
- [7] "user_id"                          "user_login"                      
- [9] "user_name"                        "created_at"                      
-[11] "updated_at"                       "quality_grade"                   
-[13] "license"                          "url"                             
-[15] "image_url"                        "sound_url"                       
-[17] "tag_list"                         "description"                     
-[19] "num_identification_agreements"    "num_identification_disagreements"
-[21] "captive_cultivated"               "oauth_application_id"            
-[23] "place_guess"                      "latitude"                        
-[25] "longitude"                        "positional_accuracy"             
-[27] "private_place_guess"              "private_latitude"                
-[29] "private_longitude"                "public_positional_accuracy"      
-[31] "geoprivacy"                       "taxon_geoprivacy"                
-[33] "coordinates_obscured"             "positioning_method"              
-[35] "positioning_device"               "species_guess"                   
-[37] "scientific_name"                  "common_name"                     
-[39] "iconic_taxon_name"                "taxon_id"                        </code></pre>
+<pre><code> [1] "id"                         "observed_on"               
+ [3] "time_observed_at"           "user_id"                   
+ [5] "user_login"                 "user_name"                 
+ [7] "created_at"                 "updated_at"                
+ [9] "quality_grade"              "license"                   
+[11] "url"                        "image_url"                 
+[13] "sound_url"                  "tag_list"                  
+[15] "description"                "captive_cultivated"        
+[17] "latitude"                   "longitude"                 
+[19] "positional_accuracy"        "public_positional_accuracy"
+[21] "geoprivacy"                 "taxon_geoprivacy"          
+[23] "coordinates_obscured"       "scientific_name"           
+[25] "common_name"                "iconic_taxon_name"         
+[27] "taxon_id"                   "taxon_kingdom_name"        
+[29] "taxon_phylum_name"          "taxon_subphylum_name"      
+[31] "taxon_class_name"           "taxon_subclass_name"       
+[33] "taxon_order_name"           "taxon_suborder_name"       
+[35] "taxon_superfamily_name"     "taxon_family_name"         
+[37] "taxon_subfamily_name"       "taxon_tribe_name"          
+[39] "taxon_genus_name"           "taxon_species_name"        </code></pre>
 </div>
 </div>
 <p>We use the <strong>sf</strong> package to add geographic data to our data frame. <code>st_as_sf()</code> from <strong>sf</strong> package will take the longitude and latitude and add a <code>geometry</code> column that we can use for mapping.</p>
@@ -384,27 +384,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "id"                               "uuid"                            
- [3] "observed_on_string"               "observed_on"                     
- [5] "time_observed_at"                 "time_zone"                       
- [7] "user_id"                          "user_login"                      
- [9] "user_name"                        "created_at"                      
-[11] "updated_at"                       "quality_grade"                   
-[13] "license"                          "url"                             
-[15] "image_url"                        "sound_url"                       
-[17] "tag_list"                         "description"                     
-[19] "num_identification_agreements"    "num_identification_disagreements"
-[21] "captive_cultivated"               "oauth_application_id"            
-[23] "place_guess"                      "latitude"                        
-[25] "longitude"                        "positional_accuracy"             
-[27] "private_place_guess"              "private_latitude"                
-[29] "private_longitude"                "public_positional_accuracy"      
-[31] "geoprivacy"                       "taxon_geoprivacy"                
-[33] "coordinates_obscured"             "positioning_method"              
-[35] "positioning_device"               "species_guess"                   
-[37] "scientific_name"                  "common_name"                     
-[39] "iconic_taxon_name"                "taxon_id"                        
-[41] "geometry"                        </code></pre>
+<pre><code> [1] "id"                         "observed_on"               
+ [3] "time_observed_at"           "user_id"                   
+ [5] "user_login"                 "user_name"                 
+ [7] "created_at"                 "updated_at"                
+ [9] "quality_grade"              "license"                   
+[11] "url"                        "image_url"                 
+[13] "sound_url"                  "tag_list"                  
+[15] "description"                "captive_cultivated"        
+[17] "latitude"                   "longitude"                 
+[19] "positional_accuracy"        "public_positional_accuracy"
+[21] "geoprivacy"                 "taxon_geoprivacy"          
+[23] "coordinates_obscured"       "scientific_name"           
+[25] "common_name"                "iconic_taxon_name"         
+[27] "taxon_id"                   "taxon_kingdom_name"        
+[29] "taxon_phylum_name"          "taxon_subphylum_name"      
+[31] "taxon_class_name"           "taxon_subclass_name"       
+[33] "taxon_order_name"           "taxon_suborder_name"       
+[35] "taxon_superfamily_name"     "taxon_family_name"         
+[37] "taxon_subfamily_name"       "taxon_tribe_name"          
+[39] "taxon_genus_name"           "taxon_species_name"        
+[41] "geometry"                  </code></pre>
 </div>
 </div>
 <p>use <code>select()</code> to pick which columns to use.</p>
@@ -429,7 +429,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(inat_oak)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 710  10</code></pre>
+<pre><code>[1] 711  10</code></pre>
 </div>
 </div>
 </section>
