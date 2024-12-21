@@ -365,7 +365,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [29] "taxon_phylum_name"          "taxon_class_name"          
 [31] "taxon_order_name"           "taxon_family_name"         
 [33] "taxon_genus_name"           "taxon_species_name"        
-[35] "taxon_subspecies_name"     </code></pre>
+[35] "taxon_subspecies_name"      "threatened"                
+[37] "establishment_means"       </code></pre>
 </div>
 </div>
 <p>We use the <strong>sf</strong> package to add geographic data to our data frame. <code>st_as_sf()</code> from <strong>sf</strong> package will take the longitude and latitude and add a <code>geometry</code> column that we can use for mapping.</p>
@@ -399,7 +400,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [29] "taxon_phylum_name"          "taxon_class_name"          
 [31] "taxon_order_name"           "taxon_family_name"         
 [33] "taxon_genus_name"           "taxon_species_name"        
-[35] "taxon_subspecies_name"      "geometry"                  </code></pre>
+[35] "taxon_subspecies_name"      "threatened"                
+[37] "establishment_means"        "geometry"                  </code></pre>
 </div>
 </div>
 <p>use <code>select()</code> to pick which columns to use.</p>
