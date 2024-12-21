@@ -51,6 +51,7 @@ inat_obs <- inat %>%
 ```
 
 ```{r}
+#| eval: false
 mapview(inat_obs)
 ```
 
@@ -109,6 +110,7 @@ ggplot() +
 Use mapview to create an interactive map.
 
 ```{r}
+#| eval: false
 mapview(la_income, zcol = "estimate")
 
 ```
@@ -116,6 +118,7 @@ mapview(la_income, zcol = "estimate")
 add iNaturalist dadta
 
 ```{r}
+#| eval: false
 mapview(la_income, zcol = "estimate") +
   mapview(inat_obs)
 
@@ -153,6 +156,7 @@ ggplot() +
 Create interactive map
 
 ```{r}
+#| eval: false
 mapview(la_pop, zcol="value") +
   mapview(inat_obs)
 ```
@@ -203,6 +207,7 @@ ggplot() +
 Create interactive map
 
 ```{r}
+#| eval: false
 mapview(la_hispanic, zcol='percent') +
   mapview(inat_obs)
 

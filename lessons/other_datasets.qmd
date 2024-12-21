@@ -54,13 +54,6 @@ oak_obs <- inat %>%
 
 ```
 
-Get the size and CRS of the data frame
-
-```{r, inat_dataframe_info}
-dim(oak_obs)
-st_crs(oak_obs)
-```
-
 ```{r,create_map_of_inaturalist_observations}
 #| eval: false
 mapview(oak_obs)
@@ -259,11 +252,13 @@ mapview(la_county_pna[c('PCT_Walk')],
 
 ## Extracting objects from an existing file
 
-Sometimes we find a geospatial file that has more than we need. We only want some data in the file. For example we want to get the California state park within Los Angeles county.
+Sometimes we find a geospatial file that has more than we need. We only want some data in the file.
 
 California State Parks has file that lists all the state parks in California. https://www.parks.ca.gov/?page_id=29682
 
 California state has a file that lists all the counties in California. https://gis.data.ca.gov/datasets/California::california-county-boundaries-and-identifiers/explore
+
+Let's get the California state park within Los Angeles county.
 
 ```{r, get_state_parks}
 state_parks <- read_sf('data/raw/Park_Boundaries/ParkBoundaries.shp')

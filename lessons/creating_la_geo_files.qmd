@@ -19,6 +19,7 @@ ca_counties <- read_sf('data/raw/California_County_Boundaries_and_Identifiers_Bl
 get counties
 
 ```{r}
+
 counties <- c('Los Angeles County', 
                        'Ventura County',
                        'San Bernardino County', 

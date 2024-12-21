@@ -39,7 +39,7 @@ The iNaturalist CSV has information about:
 -   the observed species
 -   links for photos, videos, sounds
 
-Here's a rough draft that lists [descriptions for each field](https://docs.google.com/spreadsheets/d/1mrRY_sy8MmGmwzoNSexahHC54e3q-ZAy1vJl_FIsKrY/edit?gid=0#gid=0). There is a [Github issue](https://github.com/inaturalist/inaturalist/issues/3687) for the iNaturalist team to add page that describes the field.
+Here's a rough draft that lists [descriptions for each field](https://docs.google.com/spreadsheets/d/1mrRY_sy8MmGmwzoNSexahHC54e3q-ZAy1vJl_FIsKrY/edit?gid=0#gid=0).
 
 ## Downloading iNaturalist data
 
@@ -49,7 +49,7 @@ Here's a video showing how to download iNaturalist data.
 
 </iframe>
 
-To save time and ensure everyone at the workshop has the same data, a CSV with data from iNaturalist City Nature Challenge Los Angeles from 2013 to 2024 is provided `data/cleaned/cnc-los-angeles-observations.csv`.
+To save time and ensure everyone at the workshop has the same data, we provide a CSV with data from iNaturalist City Nature Challenge Los Angeles from 2013 to 2024. We did some minor edits to the downloaded CSV, and the code we used to clean the CSV is available [here](cleaning-data.qmd)
 
 If you would like to download iNaturalist data for your own project, here's more info.
 
@@ -67,7 +67,7 @@ It is difficult for people to see any patterns when reading rows after row of te
 
 2)  Geographic information system (GIS) are computer application that people can use to view, edit and analyze geographic data. The programs can do calculations and create maps. Examples include ArcGIS and QGIS.
 
-3)  Programming languages allow people to write instructions to tell a computer to do stuff. We can write code to do calculations, create charts, and create maps. Example programming languages include R, Python, C.
+3)  Programming languages allow people to write instructions to tell a computer to do stuff. We can write code to do calculations, create charts, and create maps. Example programming languages include R, Python, and JavaScript.
 
 This class uses R because it is a popular language in ecology research and other types of scientific research.
 

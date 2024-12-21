@@ -11,15 +11,15 @@ More content needed...
 
 ### Taxonomy
 
-There are millions of species on our planet. In order to help organize the millions of species, people have developed ways to classify and name species. Scientists want to give each species a unique name so when someone says a organism name, people around the world know which organism they are referring to. Scientists also want to group related species together.
+Wikipedia description of [taxonomy](https://en.wikipedia.org/wiki/Taxonomy_(biology))
 
-"The Swedish botanist [Carl Linnaeus](https://en.wikipedia.org/wiki/Carl_Linnaeus "Carl Linnaeus") is regarded as the founder of the current system of taxonomy, as he developed a ranked system known as [Linnaean taxonomy](https://en.wikipedia.org/wiki/Linnaean_taxonomy "Linnaean taxonomy") for categorizing organisms and [binomial nomenclature](https://en.wikipedia.org/wiki/Binomial_nomenclature "Binomial nomenclature") for naming organisms." — Wikipedia
+> In biology, taxonomy (from Ancient Greek τάξις (taxis) 'arrangement' and -νομία (-nomia) 'method') is the scientific study of naming, defining (circumscribing) and classifying groups of biological organisms based on shared characteristics. Organisms are grouped into taxa (singular: taxon) and these groups are given a taxonomic rank; groups of a given rank can be aggregated to form a more inclusive group of higher rank, thus creating a taxonomic hierarchy. The principal ranks in modern use are domain, kingdom, phylum (division is sometimes used in botany in place of phylum), class, order, family, genus, and species.
 
-To help group related organisms together, scientists have developed a hierarchy of taxonomic ranks. The main ranks are domain, kingdom, phylum, class, order, family, genus, and species. Each species have a two part name consisting of genus and species. The scientific names are in Latin. Each scientific name can have multiple common names in multiple languages. As scientists learn new things, they can reclassify and rename species.
+The current system of taxonomy uses Latin names for the scientific name. Each scientific name can have multiple common names in multiple languages.
 
-Let's look at the taxonomy for Western Fence Lizard, the most common species in Los Angeles City Nature Challenge.
+Here's iNaturalist taxonomy for Western Fence Lizard, the most common species in Los Angeles City Nature Challenge.
 
-**Rank**: Latin scientific name (English common name from iNaturalist)
+**Rank**: Latin scientific name (English common name)
 
 -   **Kingdom**: Animalia (Animals)
 
@@ -34,6 +34,8 @@ Let's look at the taxonomy for Western Fence Lizard, the most common species in 
 -   **Genus**: Sceloporus (Spiny Lizards)
 
 -   **Species**: Sceloporus occidentalis (Western Fence Lizard)
+
+In theory, every iNaturalist observation represents a species. In reality, an iNaturalist observation will be assigned to a particular taxa name and taxon rank based on the qualitity of the recorded data, the expertise of the observer, the suggestion algorithms of iNaturalist, and the expertise of people who help identify observations.
 
 ## Coding Concepts
 

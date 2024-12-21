@@ -3,19 +3,18 @@ title: "Next steps"
 format: html
 ---
 
-We have covered  various ways to do basic analyze iNaturalist data.
+We have covered various ways to do basic analyze iNaturalist data.
 
 Next step is for you to come up with some questions, and analyze the CNC iNaturalist data.
 
-We covered a lot of information, so review the lessons notes, scripts, and videos. 
+We covered a lot of information, so review the lessons notes, scripts, and videos.
 
-Create a script file to save your work. Copy and paste examples provided in the lessons, and adjust them to fit your needs.  When you have something that kinda works, save the script file and the results. 
+Create a script file to save your work. Copy and paste examples provided in the lessons, and adjust them to fit your needs. When you have something that kinda works, save the script file and the results.
 
-Try lots of different way to look at the data. You can create multiple script files. 
+Try lots of different way to look at the data. You can create multiple script files.
 
 Add comments to the code to remind yourself what the code does.
 
 As you are analyzing the data, think about how you want to present your results.
 
-Attend the office hours or email me if you have questions. 
-
+Attend the office hours or email me if you have questions.
