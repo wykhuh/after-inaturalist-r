@@ -22,7 +22,6 @@ Load packages
 library(tidycensus)
 library(dplyr)
 library(mapview)
-library(readr)
 library(dplyr)
 library(sf)
 library(ggplot2)
@@ -39,7 +38,7 @@ Let's get observations for the Great Blue Heron.
 ```{r}
 #| warning: false
 #| message: false
-inat <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+inat <- read.csv('data/cleaned/cnc-los-angeles-observations.csv')
 ```
 
 ```{r}

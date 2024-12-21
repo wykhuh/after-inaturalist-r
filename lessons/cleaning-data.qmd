@@ -1,12 +1,13 @@
 ---
 title: "Cleaning data"
-format: html
+format: 
+  html:
+    df-print: tibble
 ---
 
 ```{r}
 #| message: false
 
-library(readr)
 library(sf)
 library(mapview)
 library(dplyr)
@@ -39,7 +40,7 @@ These are the steps we took to produced the cleaned up file. The raw file is at 
 
 ```{r}
 
-inat_raw <- read_csv(observations_raw_path)
+inat_raw <- read.csv(observations_raw_path)
 
 ```
 
@@ -166,11 +167,11 @@ inat$taxon_form_name <- NULL
 names(inat)
 ```
 
-We want to save the cleaned up data set so we can use it later. We can save data.frame to a CSV using the `write_csv()` function from the `readr` package. The first argument is the name of the data.frame, and the second is the path to the new file we want to create.
+We want to save the cleaned up data set so we can use it later. We can save data.frame to a CSV using the `write.csv()` function from the **R**. The first argument is the name of the data.frame, and the second is the path to the new file we want to create.
 
 ```{r}
 #| eval: false
-write_csv(inat, file= observations_cleaned_path )
+write.csv(inat, file= observations_cleaned_path, row.names=FALSE)
 ```
 
 ## Adding more information
@@ -180,10 +181,10 @@ Add threatened, introduced, and native information to cleaned observations file
 ```{r}
 #| message: false
 
-inat_data <- read_csv(observations_cleaned_path)
-threatened_raw <- read_csv(threatened_raw_path)
-introduced_raw <- read_csv(introduced_raw_path)
-native_raw <- read_csv(native_raw_path)
+inat_data <- read.csv(observations_cleaned_path)
+threatened_raw <- read.csv(threatened_raw_path)
+introduced_raw <- read.csv(introduced_raw_path)
+native_raw <- read.csv(native_raw_path)
 
 ```
 
@@ -251,5 +252,5 @@ combined_data <- left_join(combined_data, dedup_establishment_means)
 
 ```{r}
 #| eval: false
-write_csv(combined_data, observations_cleaned_path)
+write.csv(combined_data, observations_cleaned_path, row.names=FALSE)
 ```

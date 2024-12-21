@@ -1,6 +1,8 @@
 ---
 title: "Working with iNaturalist data"
-format: html
+format: 
+  html:
+    df-print: tibble
 include-in-header: "components/add-answer-button.html"
 ---
 
@@ -24,42 +26,41 @@ A CSV of iNaturalist observations for City Nature Challenge Los Angeles from 201
 
 ### Reading a file
 
-In order to analyze the iNaturalist csv, we need to load **readr**, **lubridate** and **dplyr** packages.
+In order to analyze the iNaturalist csv, we need to load  **lubridate** and **dplyr** packages.
 
 ```{r, loading_packages}
 #| message: false
 
-library(readr) # read and write tabular data
 library(dplyr) # manipulate data
 library(lubridate) # manipulate dates
 ```
 
-We will use the `read_csv()` function from **readr** package to read the iNaturalist CSV. We will pass in a relative path to the CSV file as an argument for `read_csv()`.
+We will use the `read.csv()` function from **R** to read the iNaturalist CSV. We will pass in a relative path to the CSV file as an argument for `read.csv()`.
 
-`read_csv()` will return the content of the file. In order for us access the data later on, we need to assign the content to an object called `inat_data`. Objects are displayed in the **Environment** panel. Double click on `inat_data` in **Environment** to see all the data.
+`read.csv()` will return the content of the file. In order for us access the data later on, we need to assign the content to an object called `inat_data`. Objects are displayed in the **Environment** panel. Double click on `inat_data` in **Environment** to see all the data.
 
 ```{r, assign_read_csv_to_object}
 #| warning: false
 #| message: false
-inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+inat_data <- read.csv('data/cleaned/cnc-los-angeles-observations.csv')
 ```
 
 ::: callout-tip
-Typing out paths can be error prone, so we can utilize a keyboard shortcut. Inside the parentheses of `read_csv()`, type out a pair of quotes and put your cursor between them. Then hit <kbd>Tab</kbd>. A small menu showing your folders and files should show up. You can use the <kbd>↑</kbd> and <kbd>↓</kbd> keys to move through the options, or start typing to narrow them down. You can hit <kbd>Enter</kbd> to select a file or folder, and hit <kbd>Tab</kbd> again to continue building the file path. This might take a bit of getting used to, but once you get the hang of it, it will speed up writing file paths and reduce the number of mistakes you make.
+Typing out paths can be error prone, so we can utilize a keyboard shortcut. Inside the parentheses of `read.csv()`, type out a pair of quotes and put your cursor between them. Then hit <kbd>Tab</kbd>. A small menu showing your folders and files should show up. You can use the <kbd>↑</kbd> and <kbd>↓</kbd> keys to move through the options, or start typing to narrow them down. You can hit <kbd>Enter</kbd> to select a file or folder, and hit <kbd>Tab</kbd> again to continue building the file path. This might take a bit of getting used to, but once you get the hang of it, it will speed up writing file paths and reduce the number of mistakes you make.
 :::
 
 To learn more about a function, you can type a `?` in front of the name of the function, which will bring up the official documentation for that function:
 
 ```{r, help_for_functions}
 #| eval: false
-?read_csv
+?read.csv
 ```
 
 Function documentation is written by the authors of the functions, so they can vary pretty widely in their style and readability. The first section, **Description**, gives you a concise description of what the function does, but it may not always be enough. The **Arguments** section defines all the arguments for the function and is usually worth reading thoroughly. Finally, the **Examples** section at the end will often have some helpful examples that you can run to get a sense of what the function is doing.
 
 ## The data.frame
 
-read_csv returns a **data.frame**. A **data.frame** is the most common way that R represents tabular data (data with rows and columns).
+read.csv returns a **data.frame**. A **data.frame** is the most common way that R represents tabular data (data with rows and columns).
 
 We can view the first few rows with the `head()` function from R, and the last few rows with the `tail()` function from R:
 
@@ -704,9 +705,9 @@ top_ten
 
 ```
 
-Then `write_csv()` from **dplyr** to create a CSV. The first argument is the data frame to save. The second argument is the relative path of where to save the file. To keep our files organized, we are saving CSVs to the results folder. You should give the file a sensible name to help you remember what is in the file.
+Then `write.csv()` from **R** to create a CSV. The first argument is the data frame to save. The second argument is the relative path of where to save the file. To keep our files organized, we are saving CSVs to the results folder. You should give the file a sensible name to help you remember what is in the file. `row.names=FALSE` means do not add a column that keeps track of the row numbers.
 
 ```{r, save_file}
 #| eval: false
-write_csv(top_ten, 'results/top_ten_observations.csv')
+write.csv(top_ten, 'results/top_ten_observations.csv', row.names=FALSE)
 ```

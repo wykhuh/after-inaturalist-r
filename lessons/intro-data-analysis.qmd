@@ -1,6 +1,8 @@
 ---
 title: "Introduction to Data Analysis"
-format: html
+format: 
+  html:
+    df-print: tibble
 ---
 
 ::: summary
@@ -82,7 +84,6 @@ Load software that will will need.
 #| warning: false
 #| message: false
 
-library(readr) # read and write tabular data
 library(dplyr) # manipulate data
 library(ggplot2) # create data visualizations
 library(sf) # handle geospatial data
@@ -98,7 +99,7 @@ Load iNaturalist data from City Nature Challenge Los Angeles 2013-2024. There ar
 #| warning: false
 #| message: false
 
-inat <- read_csv("data/cleaned/cnc-los-angeles-observations.csv")
+inat <- read.csv("data/cleaned/cnc-los-angeles-observations.csv")
 ```
 
 Create summaries of the data. For instance, get the 10 most commonly observed 'species'.
