@@ -327,9 +327,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="navigating-rstudio" class="level2">
 <h2 class="anchored" data-anchor-id="navigating-rstudio">Navigating RStudio</h2>
-<p>We will use the RStudio integrated development environment (IDE) to write code into scripts, run code in R, navigate files on our computer, inspect objects we create in R, and look at the plots we make. RStudio also includes features like keyboard shortcuts, autocompletion of code, and syntax highlighting (different types of code are colored differently).</p>
+<p>We will use the RStudio integrated development environment (IDE) to write and run R code. RStudio includes features such as file navigation, inspecting objects, keyboard shortcuts, autocompletion of code, and syntax highlighting (different types of code are colored differently).</p>
 <p><img src="images/rstudio_screenshot.png" class="img-fluid" alt="Screenshot of RStudio showing the 4 &quot;panes&quot;."></p>
-<p>In the above screenshot, we can see 4 “panes” in the default layout. If you only have 3 panes, and the Console pane is in the top left, press <kbd>Shift+Cmd+N</kbd> (Mac) or <kbd>Shift+Ctrl+N</kbd> (Windows) to open a blank R script, which should make the Source pane appear.</p>
+<p>In the above screenshot, we can see 4 panes. If you only have 3 panes, and the Console pane is in the top left, press <kbd>Shift+Cmd+N</kbd> (Mac) or <kbd>Shift+Ctrl+N</kbd> (Windows) to open a blank R script, which should make the Source pane appear.</p>
 <ul>
 <li>Top-Left: the <strong>Source</strong> pane that displays scripts and other files.</li>
 <li>Top-Right: the <strong>Environment</strong> pane shows all the objects in your current R session.
@@ -356,6 +356,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>By pressing <kbd>Return</kbd> (Mac) or <kbd>Enter</kbd> (Windows), R will execute those commands and print the result.</li>
 <li>When you write commands in the R console, you will not be able to access your work in future.</li>
 </ul>
+<p>Let’s try running some code in the console.</p>
+<p>First, click down in the Console pane, and type out <code>1+2</code>. Hit <kbd>Enter</kbd> to run the code. You should see your code echoed, and then the value of <code>3</code> returned.</p>
 </section>
 <section id="script" class="level4">
 <h4 class="anchored" data-anchor-id="script">Script</h4>
@@ -375,7 +377,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="first-script" class="level2">
 <h2 class="anchored" data-anchor-id="first-script">First script</h2>
 <p>Let’s try running some code in the console and in a script.</p>
-<p>First, click down in the Console pane, and type out <code>1+2</code>. Hit <kbd>Enter</kbd> to run the code. You should see your code echoed, and then the value of <code>3</code> returned.</p>
 <p>You can make a new R script by clicking <code>File → New File → R Script</code>, clicking the green <code>+</code> button in the top left corner of RStudio, or pressing <kbd>Shift+Cmd+N</kbd> (Mac) or <kbd>Shift+Ctrl+N</kbd> (Windows). It will be unsaved, and called “Untitled1”</p>
 <p>Now click into your blank script, and type out <code>1+2</code>. With your cursor on that line, hit <kbd>Cmd+Enter</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) to run the code. You will see that your code was sent from the script to the console, where it returned a value of <code>3</code>.</p>
 <p>Sometimes we want to store a value in memory so we can use it later. <code>&lt;-</code> tells R to assign the value on the right to the named object on the left. We refer to the value using the object name.</p>
@@ -393,6 +394,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 50</code></pre>
 </div>
 </div>
+<p>We can reassign object to new values</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>price_1 <span class="ot">&lt;-</span> <span class="dv">50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="exercise">
 <section id="exercise" class="level3">
 <h3 class="anchored" data-anchor-id="exercise">Exercise</h3>
@@ -402,9 +407,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="solution">Solution</h3>
 <div class="answer">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">-</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">-</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -10</code></pre>
+<pre><code>[1] 20</code></pre>
 </div>
 </div>
 </div>
