@@ -10,6 +10,7 @@ project:
     - lessons/creating-charts.qmd
     - lessons/other_datasets.qmd
     - lessons/next-steps.qmd
+    - lessons/cleaning-data.qmd
 
   output-dir: docs
   preview:

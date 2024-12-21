@@ -1,20 +1,11 @@
-## Cleaning data
-
-A common step during data analysis is to clean up the raw data. We fix any obvious errors, edit column names, exclude rows we do not want, and save the cleaned up data set. We do the analysis on the cleaned data set.
-
-The CSV we downloaded from iNaturalist had several problems.
-
--   some observation did not have a species
--   some observations did not have location information
--   some observations were not in Los Angeles
-
-In order to simplify things for the workshop attendees, we filtered out the problematic observations and created a cleaned up CSV.
-
-## Cleaning up iNaturalist file
-
-These are the steps we took to produced the cleaned up file. The raw file is at `data/raw/observations-513664`, the cleaned file is at `data/cleaned/cnc-los-angeles-observations.csv`
+---
+title: "Cleaning data"
+format: html
+---
 
 ```{r}
+#| message: false
+
 library(readr)
 library(sf)
 library(mapview)
@@ -23,7 +14,33 @@ library(ggplot2)
 ```
 
 ```{r}
-inat_raw <- read_csv('data/raw/observations-513664.csv')
+observations_raw_path <- 'data/raw/observations-513664.csv'
+observations_cleaned_path <- 'data/cleaned/cnc-los-angeles-observations.csv'
+threatened_raw_path <- 'data/raw/observations-514065_threatened.csv'
+introduced_raw_path <- 'data/raw/observations-514069_introduced.csv'
+native_raw_path <- 'data/raw/observations-514076_native.csv'
+
+```
+
+A common step during data analysis is to clean up the raw data. We fix any obvious errors, edit column names, exclude rows we do not want, and save the cleaned up data set. We do the analysis on the cleaned data set.
+
+The CSV we downloaded from iNaturalist had several problems.
+
+-   some observation did not have a species
+-   some observations did not have location information
+-   some observations were not in Los Angeles
+-   there were some fields that we did not need
+
+In order to simplify things for the workshop attendees, we filtered out the problematic observations and created a cleaned up CSV.
+
+## Cleaning up iNaturalist file
+
+These are the steps we took to produced the cleaned up file. The raw file is at `data/raw/observations-513664.zip`, the cleaned file is at `data/cleaned/cnc-los-angeles-observations.csv`
+
+```{r}
+
+inat_raw <- read_csv(observations_raw_path)
+
 ```
 
 Use `colSums(is.na())` to count the number of rows that have NA values for each column.
@@ -62,11 +79,13 @@ latitude, longitude, scientific_name have zero NA.
 colSums(is.na(inat))
 ```
 
-We want to delete unused columns to keep the CSV under 100 MB for Github
+We want to delete unneeded columns to keep the CSV under 100 MB for Github
 
 ```{r}
 names(inat)
 ```
+
+Setting a column to NULL will remove the column.
 
 ```{r}
 inat$uuid <- NULL
@@ -139,7 +158,6 @@ inat$taxon_subtribe_name <- NULL
 inat$taxon_genushybrid_name <- NULL
 inat$taxon_hybrid_name <- NULL
 
-# inat$taxon_subspecies_name <- NULL
 inat$taxon_variety_name <- 
 inat$taxon_form_name <- NULL
 ```
@@ -151,5 +169,87 @@ names(inat)
 We want to save the cleaned up data set so we can use it later. We can save data.frame to a CSV using the `write_csv()` function from the `readr` package. The first argument is the name of the data.frame, and the second is the path to the new file we want to create.
 
 ```{r}
-write_csv(inat, file= 'data/cleaned/cnc-los-angeles-observations.csv')
+#| eval: false
+write_csv(inat, file= observations_cleaned_path )
+```
+
+## Adding more information
+
+Add threatened, introduced, and native information to cleaned observations file
+
+```{r}
+#| message: false
+
+inat_data <- read_csv(observations_cleaned_path)
+threatened_raw <- read_csv(threatened_raw_path)
+introduced_raw <- read_csv(introduced_raw_path)
+native_raw <- read_csv(native_raw_path)
+
+```
+
+```{r}
+threatened_data <- threatened_raw %>% 
+  mutate(threatened = TRUE)
+
+threatened_data <- threatened_data[!duplicated(threatened_data), ]
+
+threatened_data
+```
+
+```{r}
+introduced_data <- introduced_raw %>% 
+  mutate(establishment_means = 'introduced') 
+  
+introduced_data <- introduced_data[!duplicated(introduced_data), ]
+
+
+introduced_data
+```
+
+```{r}
+native_data <- native_raw %>% 
+  mutate(establishment_means = 'native') 
+  
+native_data <- native_data[!duplicated(native_data), ]
+
+
+native_data
+```
+
+```{r}
+establishment_means <- rbind(introduced_data, native_data)
+
+establishment_means
+```
+
+remove rows where taxon_id has both native and introduced
+
+```{r}
+non_duplicates <- establishment_means %>%
+  count(taxon_id) %>%
+  arrange(desc(n)) %>%
+  filter(n == 1)  
+  
+keep_ids <- non_duplicates$taxon_id
+
+length(keep_ids)
+```
+
+```{r}
+dedup_establishment_means <- establishment_means %>%
+  filter(taxon_id %in% keep_ids)
+```
+
+```{r}
+combined_data <- left_join(inat_data, threatened_data)
+```
+
+```{r}
+combined_data <- left_join(combined_data, dedup_establishment_means)
+
+```
+
+```{r}
+#| eval: false
+write_csv(combined_data, observations_cleaned_path)
 ```
