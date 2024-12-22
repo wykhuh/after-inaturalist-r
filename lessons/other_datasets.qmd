@@ -1,8 +1,6 @@
 ---
 title: "Using to other datasets"
-format: 
-  html:
-    df-print: tibble
+format: html
 include-in-header: "components/add-answer-button.html"
 ---
 
@@ -24,6 +22,7 @@ Load packages
 
 library(dplyr)
 library(mapview)
+library(readr)
 library(dplyr)
 library(sf)
 library(ggplot2)
@@ -43,7 +42,7 @@ Let's get observations for Coast Live Oak and create a map.
 #| warning: false
 #| message: false
 
-inat <- read.csv('data/cleaned/cnc-los-angeles-observations.csv')
+inat <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 ```
 
 Add a geometry column using `st_as_sf().` Select observations for 'Quercus agrifolia' aka Coast Live Oak using `filter()`.

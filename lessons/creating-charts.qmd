@@ -1,8 +1,6 @@
 ---
 title: "Creating charts"
-format: 
-  html:
-    df-print: tibble
+format: html
 include-in-header: "components/add-answer-button.html"
 ---
 
@@ -20,6 +18,7 @@ include-in-header: "components/add-answer-button.html"
 ```{r, load_packages}
 #| message: false
 
+library(readr) # read and write tabular data
 library(dplyr) # manipulate data
 library(ggplot2) # create data visualizations
 library(lubridate) # manipulate dates
@@ -44,7 +43,7 @@ First, read data from the iNaturalist observation file.
 ```{r, load_inaturalist_data}
 #| warning: false
 #| message: false
-inat <- read.csv('data/cleaned/cnc-los-angeles-observations.csv')
+inat <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 
 ```
 

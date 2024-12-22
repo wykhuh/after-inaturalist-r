@@ -1,8 +1,6 @@
 ---
 title: "Creating maps"
-format: 
-  html:
-    df-print: tibble
+format: html
 include-in-header: "components/add-answer-button.html"
 ---
 
@@ -46,6 +44,7 @@ loading R packages
 #| warning: false
 #| message: false
 
+library(readr) # read and write tabular data
 library(dplyr) # manipulate data
 
 library(ggplot2) # create data visualizations
@@ -58,7 +57,7 @@ Read data from the cleaned iNaturalist observation file.
 ```{r, read_data_from_csv}
 #| warning: false
 #| message: false
-inat <- read.csv('data/cleaned/cnc-los-angeles-observations.csv')
+inat <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 
 ```
 

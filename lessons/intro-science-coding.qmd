@@ -104,10 +104,10 @@ To install these packages, use `install.packages()` function from R. We pass in 
 ```{r, install_packages}
 #| eval: false
 # install one package
-install.packages("dplyr")
+install.packages("readr")
 
 # install multiple packages
-install.packages(c("dplyr", "ggplot2", 
+install.packages(c("readr", "dplyr", "ggplot2", 
                    "sf", "lubridate", "mapview"))
 ```
 
@@ -119,6 +119,7 @@ These are R packages we will use in this workshop.
 
 ```{r load_all_libraries}
 #| eval: false
+library(readr) # read and write tabular data
 library(dplyr) # manipulate data
 library(ggplot2) # create data visualizations
 library(sf) # handle geospatial data
