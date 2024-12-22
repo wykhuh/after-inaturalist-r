@@ -30,14 +30,17 @@ The CSV we downloaded from iNaturalist had several problems.
 -   some observations did not have location information
 -   some observations were not in Los Angeles
 -   there were some fields that we did not need
+-   information about observations with threatened, native, and introduced species had to be downloaded separately
 
-In order to simplify things for the workshop attendees, we filtered out the problematic observations and created a cleaned up CSV.
+In order to simplify things for the workshop attendees, we fixed the various issues and created a cleaned up CSV.
 
 ## Cleaning up iNaturalist file
 
-These are the steps we took to produced the cleaned up file. The raw file is at `data/raw/observations-513664.zip`, the cleaned file is at `data/cleaned/cnc-los-angeles-observations.csv`
+These are the steps we took to produced the cleaned up file. The raw file is at '`{r} observations_raw_path`', the cleaned file is at '`{r} observations_cleaned_path`'
 
 ```{r}
+#| message: false
+#| warning: false
 
 inat_raw <- read_csv(observations_raw_path)
 
@@ -55,7 +58,7 @@ some rows don't have scientific_name, latitude or longitude.
 
 Use `filter` to select the observations we want.
 
-`!is.na` will select rows that have are not NA, meaning rows that have a value. We select observations that have latitude, langitude, and scientific_name.
+`!is.na` will select rows that have are not NA, meaning rows that have a value. We select observations that have latitude, langitude, and scientific_name. We also ignored observations outside of LA
 
 We save the cleaned up data in a new object `inat`.
 
@@ -100,8 +103,9 @@ inat$private_longitude <- NULL
 inat$private_latitude <- NULL
 inat$positioning_method <- NULL
 inat$positioning_device <- NULL
-inat$species_guess <- NULL
 ```
+
+use `filter` and `dim` to see how often the taxon names were used.
 
 ```{r}
 inat %>% filter(!is.na(taxon_subphylum_name)) %>% dim
@@ -140,6 +144,8 @@ inat %>% filter(!is.na(taxon_form_name)) %>% dim
 ```
 
 ```{r}
+inat$species_guess <- NULL
+
 inat$taxon_subphylum_name <- NULL
 
 inat$taxon_superclass_name <- NULL
@@ -158,7 +164,7 @@ inat$taxon_subtribe_name <- NULL
 inat$taxon_genushybrid_name <- NULL
 inat$taxon_hybrid_name <- NULL
 
-inat$taxon_variety_name <- 
+inat$taxon_variety_name <- NULL
 inat$taxon_form_name <- NULL
 ```
 
@@ -175,7 +181,7 @@ write_csv(inat, file= observations_cleaned_path )
 
 ## Adding more information
 
-Add threatened, introduced, and native information to cleaned observations file
+In order to get information about observations with threatened, introduced, and native species, we had to download a separate CSV for each option. We want to merge all these files into one cleaned observations file.
 
 ```{r}
 #| message: false
@@ -187,6 +193,8 @@ native_raw <- read_csv(native_raw_path)
 
 ```
 
+Get threatened species.
+
 ```{r}
 threatened_data <- threatened_raw %>% 
   mutate(threatened = TRUE)
@@ -195,6 +203,8 @@ threatened_data <- threatened_data[!duplicated(threatened_data), ]
 
 threatened_data
 ```
+
+Get introduced species.
 
 ```{r}
 introduced_data <- introduced_raw %>% 
@@ -206,6 +216,8 @@ introduced_data <- introduced_data[!duplicated(introduced_data), ]
 introduced_data
 ```
 
+Get native species.
+
 ```{r}
 native_data <- native_raw %>% 
   mutate(establishment_means = 'native') 
@@ -216,13 +228,15 @@ native_data <- native_data[!duplicated(native_data), ]
 native_data
 ```
 
+Get combine introduced and native dataframes
+
 ```{r}
 establishment_means <- rbind(introduced_data, native_data)
 
 establishment_means
 ```
 
-remove rows where taxon_id has both native and introduced
+remove rows where taxon_id is listed as both native and introduced
 
 ```{r}
 non_duplicates <- establishment_means %>%
@@ -240,14 +254,20 @@ dedup_establishment_means <- establishment_means %>%
   filter(taxon_id %in% keep_ids)
 ```
 
+add threatened info to the main inat dataframe.
+
 ```{r}
 combined_data <- left_join(inat_data, threatened_data)
 ```
+
+add native, introduced info to main inat dataframe
 
 ```{r}
 combined_data <- left_join(combined_data, dedup_establishment_means)
 
 ```
+
+save file
 
 ```{r}
 #| eval: false

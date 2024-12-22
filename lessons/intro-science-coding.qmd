@@ -5,7 +5,7 @@ format: html
 
 ## Biology Concepts
 
-### Ecology
+### Urban Ecology
 
 More content needed...
 
@@ -35,13 +35,13 @@ Here's iNaturalist taxonomy for Western Fence Lizard, the most common species in
 
 -   **Species**: Sceloporus occidentalis (Western Fence Lizard)
 
-In theory, every iNaturalist observation represents a species. In reality, an iNaturalist observation will be assigned to a particular taxa name and taxon rank based on the qualitity of the recorded data, the expertise of the observer, the suggestion algorithms of iNaturalist, and the expertise of people who help identify observations.
+In theory, every iNaturalist observation represents a species. In practice, an iNaturalist observation will be assigned to a particular taxa name and taxon rank based on the qualitity of the recorded data, the expertise of the observer, the suggestion algorithms of iNaturalist, and the expertise of people who help identify observations.
 
 ## Coding Concepts
 
 ### Programming
 
-The basis of programming is that we write down instructions for the computer to follow, and then we tell the computer to follow those instructions. We write these instructions in the form of *code*, which is a common language that is understood by the computer and humans (after some practice). We call these instructions *commands*, and we tell the computer to follow the instructions by *running* (also called *executing*) the commands.
+The basis of programming is that we write down instructions for the computer to follow, and then we tell the computer to follow those instructions. We write these instructions in the form of *code*, which is a common language that is understood by the computer and humans (after some practice). We call these instructions *commands*, and we tell the computer to follow the instructions by *running* (also called *executing*) the commands.
 
 ### File paths
 
@@ -65,8 +65,7 @@ save_contact <- function(name, email){
   # prints the arguments
   cat('name:', name, ' email:', email)
   
-  # TODO: check if name and email are present
-  # TODO: check if email is valid
+  # TODO: check if name and email are valid
   # TODO: save the values to a database
   # TODO: return new contact
 }

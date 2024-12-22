@@ -49,7 +49,7 @@ Here's a video showing how to download iNaturalist data.
 
 </iframe>
 
-To save time and ensure everyone at the workshop has the same data, we provide a CSV with data from iNaturalist City Nature Challenge Los Angeles from 2013 to 2024. We did some minor edits to the downloaded CSV, and the code we used to clean the CSV is available [here](cleaning-data.qmd)
+To save time and ensure everyone at the workshop has the same data, we provide a CSV with data from iNaturalist City Nature Challenge Los Angeles from 2013 to 2024. We made some changes to the CSVs we downloaded from iNaturalist, and the code we used edit the CSV is available [here](cleaning-data.qmd)
 
 If you would like to download iNaturalist data for your own project, here's more info.
 

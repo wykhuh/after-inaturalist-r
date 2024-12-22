@@ -34,9 +34,10 @@ library(dplyr) # manipulate data
 library(lubridate) # manipulate dates
 ```
 
-We will use the `read_csv()` function from **readr** package to read the iNaturalist CSV. We will pass in a relative path to the CSV file as an argument for `read_csv()`.
 
-`read_csv()` will return the content of the file. In order for us access the data later on, we need to assign the content to an object called `inat_data`. Objects are displayed in the **Environment** panel. Double click on `inat_data` in **Environment** to see all the data.
+We call `read_csv()` function from **readr**, and pass in a relative path to a CSV file in order to load the CSV.
+
+`read_csv()` will return the content of the file. In order for us access the content later on, we will assign the content to an object called `inat_data`. `inat_data` is displayed in the **Environment** panel. Double click on `inat_data` in **Environment** to see all the data.
 
 ```{r, assign_read_csv_to_object}
 #| warning: false
@@ -57,31 +58,34 @@ To learn more about a function, you can type a `?` in front of the name of the f
 
 Function documentation is written by the authors of the functions, so they can vary pretty widely in their style and readability. The first section, **Description**, gives you a concise description of what the function does, but it may not always be enough. The **Arguments** section defines all the arguments for the function and is usually worth reading thoroughly. Finally, the **Examples** section at the end will often have some helpful examples that you can run to get a sense of what the function is doing.
 
-## The data.frame
+## data.frame
 
 read_csv returns a **data.frame**. A **data.frame** is the most common way that R represents tabular data (data with rows and columns).
 
-We can view the first few rows with the `head()` function from R, and the last few rows with the `tail()` function from R:
 
-```{r, call_head}
-head(inat_data)
-```
-
-```{r, call_tail}
-tail(inat_data)
-```
-
-Use `glimpse()` from **dplyr** to see a information about a data frame. Number of rows and columns. For each column, we see the name, data type (**dbl** for number, **chr** for character, **lgl** for logical (true, false), **date** for date), and the first few values.
+Use `glimpse()` from **dplyr** to see a information about a data frame. It shows the number of rows and columns. For each column, we see the name, data type (**dbl** for number, **chr** for character, **lgl** for logical (TRUE, FALSE), **date** for date), and the first few values.
 
 ```{r, call_glimpse}
 glimpse(inat_data)
 ```
+You can use `View()`  from **R** to view the data frame in a new viewer.
 
-You can also use `names()` from R to see the fields in the data frame.
+```{r view_dataframe}
+#| eval: false
+View(inat_data)
+```
+
+You can use `names()` from **R** to see the fields in the data frame.
 
 ```{r use_names_to_list_fields}
 names(inat_data)
 ```
+We can use `dim()` function from **R** to get the dimension of a data frame. 
+
+```{r}
+dim(inat_data)
+```
+`inat_data` has over 193K rows and 37 columns.
 
 ## Manipulating data
 
@@ -89,32 +93,35 @@ One of the most important skills for working with data in R is the ability to ma
 
 ### select()
 
-`select()` picks certain columns of a data.frame. To use the `select()` function, the first argument is the name of the data.frame, and the rest of the arguments are unquoted names of the columns you want.
+The `select()` function is used to select certain columns of a data frame.
 
-We want four columns: `user_login`, `common_name`, `scientific_name`, `observed_on`. The columns are arranged in the order we specified inside `select()`.
+Our `inat_data` dataframe has 37 columns. We want four columns: `user_login`, `common_name`, `scientific_name`, `observed_on`.
+
+To use the `select()` function, the first argument is the name of the data frame, and the rest of the arguments are unquoted names of the columns you want. 
 
 ```{r, select_columns}
 select(inat_data, user_login, common_name, scientific_name, observed_on)
 ```
+`select()` creates a new data frame with 193K rows, and 4 columns.
 
 ### filter()
 
-The `filter()` function is used to select rows that meet certain criteria. To get all the rows where the value of `common_name` is equal to 'Western Fence Lizard', we would run the following:
+The `filter()` function is used to select rows that meet certain criteria. 
+
+Let's find all the observations for 'Western Fence Lizard', the most popular species in CNC Los Angeles. 
+
+The use `filter()` the first agrument is the name of the data frame, and the second argument is the selection criteria.  We want all the rows where `common_name` is equal to 'Western Fence Lizard'. Use `==` to test for equality.
 
 ```{r, filter_rows}
 filter(inat_data, common_name == 'Western Fence Lizard')
 
 ```
+`filter()` creates a new data frame with over 3000 rows, and 37 columns.
 
-There are over 3000 observations for 'Western Fence Lizard'.
-
-The `==` sign means "is equal to". Take note, there are two equal signs.
-
-There are several other operators we can use: \> "greater than", \>= "greater than or equal", \< "less than", \<= "less than or equal", and != "not equal to".
 
 ### The pipe: %\>%
 
-What happens if we want to select columns and filter rows?
+What happens if we want to select columns and filter rows? 
 
 We use the pipe operator (`%>%`) to call multiple functions.
 
@@ -122,15 +129,16 @@ We use the pipe operator (`%>%`) to call multiple functions.
 You can insert `%>%` by using the keyboard shortcut <kbd>Shift+Cmd+M</kbd> (Mac) or <kbd>Shift+Ctrl+M</kbd> (Windows).
 :::
 
-Get `user_login`, `common_name`, `scientific_name`, `observed_on` for all observations where `common_name` is 'Western Fence Lizard'. Use filter to select rows, then use select to select columns.
+Let's get all observations where `common_name` is 'Western Fence Lizard', and we only want columns `user_login`, `common_name`, `scientific_name`, `observed_on`. 
 
 ```{r, pipe_filter_select}
 inat_data %>%
   filter(common_name == 'Western Fence Lizard') %>%
   select(user_login, common_name, scientific_name, observed_on)
 ```
+The new data frame has over 3000 rows and 4 columns.
 
-Pipe operator take the thing on the lefthand side and insert it as the first argument of the function on the righthand side. By putting each of our functions onto a new line, we can build a nice, readable pipeline. `inat_data` gets piped into a `filter()` function, and it comes out modified somewhat. The output from `filter()` then gets sent into the `select()` function, where it is further modified. It can also be helpful to think of `%>%` as meaning "and then".
+Pipe operator take the thing on the lefthand side and insert it as the first argument of the function on the righthand side.`inat_data` gets piped into a `filter()` function, where it is modified. The output from `filter()` is then gets sent into the `select()` function, where it is further modified. It can also be helpful to think of `%>%` as meaning "and then".
 
 If we want to store this final data frame as an object, we use an assignment arrow `<-`:
 
@@ -141,9 +149,11 @@ western_fence_lizard_obs <- inat_data %>%
 
 ```
 
-Sometimes the coordinates for iNaturalist observations are obscured. For instance, when the observation involves an endangered species, iNaturalist will automatically obscure the coordinates in order to protect the animal, plant, fungi. Sometimes peopleb choose to obscure their location when they are making observations so that other people will not know their exact location.
+Sometimes the coordinates for iNaturalist observations are obscured. For instance, when the observation involves an endangered species, iNaturalist will automatically obscure the coordinates in order to protect the animal, plant, fungi. Sometimes people choose to obscure their location when they are making observations so that other people will not know their exact location.
 
-To access one column in a data frame, use `dataframe$column_name`. To get a count of number of values for one column, use `table()` function from R and pass in one column.
+To access one column in a data frame, use `dataframe$column_name`. 
+
+When we pass in a data frame column to `table()` function from R, it will return the unique values in a column, and the number of rows that contain each value.
 
 Let's find out how many observations have obscured locations.
 
@@ -151,9 +161,9 @@ Let's find out how many observations have obscured locations.
 table(inat_data$coordinates_obscured)
 ```
 
-176K coordinates are ok, 14K are obscured
+176K row are false (coordinates are normal), 14K rows are true (coordinates are obscured).
 
-Let's get the observations where the coordinates are not obscured.
+If the exact location of the observation will affect your analysis, then you want unobscured coordinates. Let's get the observations where the coordinates are not obscured. 
 
 ```{r, observations_with_unobscured_coordinates}
 inat_data %>%
@@ -161,7 +171,7 @@ inat_data %>%
   select(user_login, common_name, scientific_name, observed_on)
 ```
 
-iNaturalist gives a quality grade to each observation. When researchers use iNaturalist data, they normally use research grade observations.
+iNaturalist gives a quality grade to each observation. 
 
 To see all the unique values for a column, use `unique()` function from R and pass in the column name.
 
@@ -169,7 +179,7 @@ To see all the unique values for a column, use `unique()` function from R and pa
 unique(inat_data$quality_grade)
 ```
 
-Let's get the observations that are research grade.
+When researchers use iNaturalist data, they normally use research grade observations. Let's get the observations that are research grade.
 
 ```{r, research_grade_observations}
 inat_data %>%
