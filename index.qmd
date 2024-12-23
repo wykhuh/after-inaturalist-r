@@ -1,10 +1,22 @@
 ---
-title: "Home"
+title: "After iNaturalist - Learn How To Explore City Nature Challenge Data through R Coding"
 format: html
 ---
 
-This is the iNaturalist City Nature Challenge coding with R workshop.
+Put your nature eyes on in a whole new way in this introductory workshop to R coding! Learn how to explore nature in L.A. using biodiversity data collected during nine years of the City Nature Challenge. **No previous coding experience necessary!**
 
-<https://www.inaturalist.org/projects/los-angeles-city-nature-challenge-cumulative-observations-2016-2024>
+Program content will consist of a virtual information session, two in-person workshops, and two optional virtual office hours. The first in-person workshop will include a high-level overview of R and how to run sample scripts. There will be a three-week break between sessions for you to practice swapping out variables and develop a short presentation.
 
-More content needed...
+Schedule
+
+-   **Jan. 16, 2025, 6–7 pm**: VIRTUAL Information Session (recording will be available)
+
+-   **Feb. 1, 2025, 9 am–3:30 pm**: IN-PERSON Session with 30-minute Lunch Break at the Natural History Museum of Los Angeles County
+
+-   **THREE-WEEK BREAK** to Practice R and Develop a Short Presentation of Your Script
+
+-   **Feb. 8, 2025, 10–11 am**: VIRTUAL Office Hour and Q&A (Optional)
+
+-   **Feb. 15, 2025, 10–11 am**: VIRTUAL Office Hour and Q&A (Optional)
+
+-   **Feb. 22, 2025, 9 am–12 pm**:  IN-PERSON Session and Participant Presentations  at the Natural History Museum of Los Angeles County
