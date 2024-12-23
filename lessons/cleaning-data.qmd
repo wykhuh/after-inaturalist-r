@@ -7,10 +7,8 @@ format: html
 #| message: false
 
 library(readr)
-library(sf)
-library(mapview)
 library(dplyr)
-library(ggplot2)
+
 ```
 
 ```{r}
@@ -176,7 +174,7 @@ We want to save the cleaned up data set so we can use it later. We can save data
 
 ```{r}
 #| eval: false
-write_csv(inat, file= observations_cleaned_path )
+write_csv(inat, file= observations_cleaned_path, na = "" )
 ```
 
 ## Adding more information
@@ -271,5 +269,5 @@ save file
 
 ```{r}
 #| eval: false
-write_csv(combined_data, observations_cleaned_path)
+write_csv(combined_data, observations_cleaned_path, na = "")
 ```
