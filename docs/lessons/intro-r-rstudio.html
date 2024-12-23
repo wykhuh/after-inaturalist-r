@@ -262,15 +262,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#what-are-r-and-rstudio" id="toc-what-are-r-and-rstudio" class="nav-link active" data-scroll-target="#what-are-r-and-rstudio">What are R and RStudio?</a></li>
   <li><a href="#navigating-rstudio" id="toc-navigating-rstudio" class="nav-link" data-scroll-target="#navigating-rstudio">Navigating RStudio</a></li>
+  <li><a href="#overview-of-workshop-files" id="toc-overview-of-workshop-files" class="nav-link" data-scroll-target="#overview-of-workshop-files">Overview of workshop files</a></li>
   <li><a href="#working-in-r-and-rstudio" id="toc-working-in-r-and-rstudio" class="nav-link" data-scroll-target="#working-in-r-and-rstudio">Working in R and RStudio</a>
   <ul class="collapse">
   <li><a href="#console-vs.-script" id="toc-console-vs.-script" class="nav-link" data-scroll-target="#console-vs.-script">Console vs.&nbsp;script</a></li>
   </ul></li>
   <li><a href="#first-script" id="toc-first-script" class="nav-link" data-scroll-target="#first-script">First script</a></li>
-  <li><a href="#overview-of-workshop-files" id="toc-overview-of-workshop-files" class="nav-link" data-scroll-target="#overview-of-workshop-files">Overview of workshop files</a>
-  <ul class="collapse">
   <li><a href="#creating-your-own-project-folder-from-scratch" id="toc-creating-your-own-project-folder-from-scratch" class="nav-link" data-scroll-target="#creating-your-own-project-folder-from-scratch">Creating your own project folder from scratch</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -343,6 +341,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Bottom-Right: the <strong>Files</strong> pane is used to display directories and files on your computer. <strong>Plot</strong> and <strong>Viewer</strong> displays plots and other types of output. <strong>Help</strong> display help pages</li>
 </ul>
 </section>
+<section id="overview-of-workshop-files" class="level2">
+<h2 class="anchored" data-anchor-id="overview-of-workshop-files">Overview of workshop files</h2>
+<p>Let’s examine the project files using the <strong>Files</strong> pane.</p>
+<p>It is a good practice to organize your projects into self-contained folders right from the start. Using a consistent folder structure across all your new projects will help keep a growing project organized, and make it easy to find files in the future.</p>
+<p>We will use this basic structure for this workshop.</p>
+<pre><code>project_folder
+│
+└── data
+│    └── cleaned
+│    └── raw
+│
+└─── results
+│
+└── scripts
+│
+└── CNC-coding-workshop.Rproj</code></pre>
+<p>Within our project folder, we have a <code>data</code> folder containing <code>cleaned</code> and <code>raw</code> subfolders. In general, you want to keep your <code>raw</code> data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the <code>cleaned</code> folder. We also have a <code>results</code> folder for any other documents you might produce. We also have a <code>scripts</code> folder to hold any scripts we write.</p>
+<p>RStudio provides a “Projects” feature that can make it easier to work on individual projects in R. When you need to work on the project, click on the .Rproj file to start RStudio.</p>
+<p>One of the benefits to using RStudio Projects is that they automatically set the <strong>working directory</strong> to the top-level folder for the project. The working directory is the folder where R is working, so it views the location of all files (including data and scripts) as being relative to the working directory.</p>
+</section>
 <section id="working-in-r-and-rstudio" class="level2">
 <h2 class="anchored" data-anchor-id="working-in-r-and-rstudio">Working in R and RStudio</h2>
 <section id="console-vs.-script" class="level3">
@@ -376,38 +394,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="first-script" class="level2">
 <h2 class="anchored" data-anchor-id="first-script">First script</h2>
-<p>Let’s try running some code in the console and in a script.</p>
+<p>Let’s create our first script.</p>
 <p>You can make a new R script by clicking <code>File → New File → R Script</code>, clicking the green <code>+</code> button in the top left corner of RStudio, or pressing <kbd>Shift+Cmd+N</kbd> (Mac) or <kbd>Shift+Ctrl+N</kbd> (Windows). It will be unsaved, and called “Untitled1”</p>
 <p>Now click into your blank script, and type out <code>1+2</code>. With your cursor on that line, hit <kbd>Cmd+Enter</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) to run the code. You will see that your code was sent from the script to the console, where it returned a value of <code>3</code>.</p>
 <p>Sometimes we want to store a value in memory so we can use it later. <code>&lt;-</code> tells R to assign the value on the right to the named object on the left. We refer to the value using the object name.</p>
 <pre><code>object_name &lt;- value</code></pre>
 <p>Let’s create a price_1 and price_2 objects, and assign them a value.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>price_1 <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>price_2 <span class="ot">&lt;-</span> <span class="dv">30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>price_1 <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>price_2 <span class="ot">&lt;-</span> <span class="dv">30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Objects <code>price_1</code> and <code>price_2</code> are created, and stored in memory. The objects are show in the <strong>Enviroment</strong> panel.</p>
 <p>We can refer to the object names, and do something with those values. Let’s add the two prices</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">+</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">+</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 50</code></pre>
 </div>
 </div>
 <p>We can reassign object to new values</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>price_1 <span class="ot">&lt;-</span> <span class="dv">50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>price_1 <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">+</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 80</code></pre>
 </div>
+</div>
+<p>We can do comparison of price_1 and price_2</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># equal</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">==</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># not equal</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">!=</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># greater than</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">&gt;</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># greater or equal than</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">&gt;=</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># less than</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">&lt;</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># less or equan than</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">&lt;</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>Save the script <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a name such as ‘first_script.R’. Save it in the <code>scripts</code> folder.</p>
 <div class="exercise">
 <section id="exercise" class="level3">
 <h3 class="anchored" data-anchor-id="exercise">Exercise</h3>
-<p>Add a line to the script to substract price_1 and price_2.</p>
+<p>Add a line to the script to substract price_1 and price_2. Run the new code. Save the file.</p>
 </section>
 <section id="solution" class="level3">
 <h3 class="anchored" data-anchor-id="solution">Solution</h3>
 <div class="answer">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">-</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">-</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 20</code></pre>
 </div>
@@ -416,26 +477,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </div>
 </section>
-<section id="overview-of-workshop-files" class="level2">
-<h2 class="anchored" data-anchor-id="overview-of-workshop-files">Overview of workshop files</h2>
-<p>It is a good practice to organize your projects into self-contained folders right from the start. Using a consistent folder structure across all your new projects will help keep a growing project organized, and make it easy to find files in the future.</p>
-<p>We will use this basic structure for this workshop.</p>
-<pre><code>project_folder
-│
-└── data
-│    └── cleaned
-│    └── raw
-│
-└─── results
-│
-└── scripts
-│
-└── CNC-coding-workshop.Rproj</code></pre>
-<p>Within our project folder, we have a <code>data</code> folder containing <code>cleaned</code> and <code>raw</code> subfolders. In general, you want to keep your <code>raw</code> data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the <code>cleaned</code> folder. We also have a <code>results</code> folder for any other documents you might produce. We also have a <code>scripts</code> folder to hold any scripts we write.</p>
-<p>RStudio provides a “Projects” feature that can make it easier to work on individual projects in R. When you need to work on the project, click on the .Rproj file to start RStudio.</p>
-<p>One of the benefits to using RStudio Projects is that they automatically set the <strong>working directory</strong> to the top-level folder for the project. The working directory is the folder where R is working, so it views the location of all files (including data and scripts) as being relative to the working directory.</p>
-<section id="creating-your-own-project-folder-from-scratch" class="level3">
-<h3 class="anchored" data-anchor-id="creating-your-own-project-folder-from-scratch">Creating your own project folder from scratch</h3>
+<section id="creating-your-own-project-folder-from-scratch" class="level2">
+<h2 class="anchored" data-anchor-id="creating-your-own-project-folder-from-scratch">Creating your own project folder from scratch</h2>
 <p>If you want to create your own project folder in R Studio, follow these steps.</p>
 <ol type="1">
 <li>Start RStudio (you should see a view similar to the screenshot above).</li>
@@ -467,7 +510,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Next, click the <strong>New Folder</strong> button, and type in <code>scripts</code> to generate your <code>scripts</code> folder. It should appear in the Files list now. Repeat the process to make your <code>data</code>, and <code>results</code> folders. Then, click on the <code>data</code> folder in the Files pane. This will take you into the <code>data</code> folder, which will be empty. Use the <strong>New Folder</strong> button to create <code>raw</code> and <code>cleaned</code> folders. To return to the project folder, click on it in the file path, which is highlighted in yellow in the previous image. It’s worth noting that the <strong>Files</strong> pane helps you create, find, and open files, but moving through your files won’t change where the <strong>working directory</strong> of your project is.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

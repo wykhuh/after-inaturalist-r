@@ -313,15 +313,16 @@ Note
 <p>Here’s an overview of what we learn in this workshop.</p>
 <p>Load software that will will need.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># manipulate data</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># create data visualizations</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="co"># handle geospatial data</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># manipulate dates</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapview) <span class="co"># create interactive maps</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) <span class="co"># read and write tabular data</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># manipulate data</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># create data visualizations</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="co"># handle geospatial data</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># manipulate dates</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapview) <span class="co"># create interactive maps</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Load iNaturalist data from City Nature Challenge Los Angeles 2013-2024. There are over 191,000 observations.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/cleaned/cnc-los-angeles-observations.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/cleaned/cnc-los-angeles-observations.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create summaries of the data. For instance, get the 10 most commonly observed ‘species’.</p>
 <div class="cell">
@@ -333,17 +334,19 @@ Note
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>top_10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>              common_name          scientific_name count
-1    Western Fence Lizard  Sceloporus occidentalis  3339
-2       Western Honey Bee           Apis mellifera  2060
-3                  dicots            Magnoliopsida  2013
-4                  plants                  Plantae  1712
-5    Eastern Fox Squirrel            Sciurus niger  1475
-6             House Finch     Haemorhous mexicanus  1263
-7           Mourning Dove         Zenaida macroura  1205
-8        flowering plants             Angiospermae  1161
-9        California poppy Eschscholzia californica   934
-10 Convergent Lady Beetle    Hippodamia convergens   929</code></pre>
+<pre><code># A tibble: 10 × 3
+   common_name            scientific_name          count
+   &lt;chr&gt;                  &lt;chr&gt;                    &lt;int&gt;
+ 1 Western Fence Lizard   Sceloporus occidentalis   3339
+ 2 Western Honey Bee      Apis mellifera            2060
+ 3 dicots                 Magnoliopsida             2013
+ 4 plants                 Plantae                   1712
+ 5 Eastern Fox Squirrel   Sciurus niger             1475
+ 6 House Finch            Haemorhous mexicanus      1263
+ 7 Mourning Dove          Zenaida macroura          1205
+ 8 flowering plants       Angiospermae              1161
+ 9 California poppy       Eschscholzia californica   934
+10 Convergent Lady Beetle Hippodamia convergens      929</code></pre>
 </div>
 </div>
 <p>Create charts. For example, create a bar chart showing the number of observations per year.</p>
