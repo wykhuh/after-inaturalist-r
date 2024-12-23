@@ -43,32 +43,32 @@ First, read data from the iNaturalist observation file.
 ```{r, load_inaturalist_data}
 #| warning: false
 #| message: false
-inat <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 
 ```
 
 ## Bar chart
 
-Create a bar chart that shows the number of observations per year.
+Let's create a bar chart that shows the number of observations per year.
 
 First, add year column to iNaturalist data.
 
 ```{r, add_year_column}
-inat_year <- inat %>% 
+inat_year <- inat_data %>% 
   mutate(year = year(observed_on))
 ```
 
-Pass the inaturalist observation to `ggplot()` function using the `data` argument.
+Then we pass the inaturalist observation to `ggplot()` function using the `data` argument.
 
 ```{r, pass_data_to_ggplot}
 ggplot(data = inat_year)
 ```
 
-We need to tell **ggplot** how to process the data. We tell **ggplot** how to map the data to various plot elements, such as x/y axis, size, or color by using the `aes()` function. `aes` is short for aesthetic mappings.
+We need to tell **ggplot** how to use data to create a plot. We tell **ggplot** how to map the data to various plot elements, such as x/y axis, size, or color by using the `aes()` function. `aes` is short for aesthetic mappings.
 
 For bar charts, we need to tell what column to use for the x axis.
 
-We want to create a plot with `year` on the x axis so we use `mapping = aes(x = year)`. **ggplot** will count the number of rows for each year, and use the count for y axis.
+We want to create a plot with `year` on the x axis so we use `mapping = aes(x = year)`. **ggplot** will count the number of rows for each year, and use the number of rows for y axis.
 
 ```{r, pass_mapping_to_ggplot}
 ggplot(data = inat_year, mapping = aes(x = year))
@@ -100,14 +100,14 @@ For line charts, we need both specify which columns to use for the x and y axis.
 We need to create a data frame that has a year column, and a column that counts the observations per year. Use `mutate()` to add year column. Use `count()` to add column that has the count per year.
 
 ```{r, create_dataframe_with_year_count}
-inat_year_count <- inat %>% 
+inat_year_count <- inat_data %>% 
   mutate(year = year(observed_on)) %>%
   count(year, name='obs_count')  
 
 inat_year_count
 ```
 
-for `aes`, use `year` on the x axis and `obs_count` on the y axis. And we use `geom_line()` to create a line chart.
+For `aes`, use `year` on the x axis and `obs_count` on the y axis. And we use `geom_line()` to create a line chart.
 
 ```{r, create_line_chart}
 ggplot(data = inat_year_count, 
@@ -119,7 +119,7 @@ ggplot(data = inat_year_count,
 
 Create a bar chart that shows the number of observations per year.
 
-To create bar chart when we already have x and y, use `geom_col()`
+In the previous example we created a data frame `inat_year_count` that has observations per year. To create bar chart when we already have values for x and y, use `geom_col()`
 
 We want `year` on the x axis, and `obs_count` on the y axis.
 
@@ -138,27 +138,27 @@ Create a chart with all your observations for each year
 
 -   Use `filter()` to select user
 
+-   Save the data frame to `my_obs_by_year object`
+
 -   Use `ggplot()` to set the data and aesthetics.
 
--   Choose whih type of chart you want: bar or line.
+-   Choose which type of chart you want: bar or line.
 
 ::: answer
 ```{r, exercise_create_bar_chart}
 
-my_year  <- inat %>% 
+my_obs_by_year  <- inat_data %>% 
   mutate(year = year(observed_on))  %>% 
   filter(user_login == 'natureinla')
 
   
-ggplot(data = my_year, mapping = aes(x = year)) +
+ggplot(data = my_obs_by_year, mapping = aes(x = year)) +
   geom_bar()
 ```
 :::
 ::::
 
-## Changing aesthetics
-
-Building **`ggplot`** plots is often an iterative process, so we'll continue developing the column plot we just made.
+## Changing chart colors
 
 Use `colors()` to get a list of the 657 colors in R.
 
@@ -182,7 +182,7 @@ ggplot(data = inat_year, mapping = aes(x = year)) +
 
 ## Changing themes
 
-Let's assign a plot to an object.
+Let's assign a plot to an object so can refer to it later.
 
 ```{r, assign_plot_to_object}
 myplot <- ggplot(data = inat_year, mapping = aes(x = year)) +
@@ -252,7 +252,7 @@ myplot +
 :::: exercise
 ## Exercise 2: Customizing a plot
 
-Take the `my_year` data frame from exercise 1 (your observations for each year) and create a plot. Customize the appearance. Here are some ideas.
+Take the `my_obs_by_year` data frame from exercise 1 and create a plot. Customize the appearance or the chart. Here are some ideas.
 
 -   add a title
 
@@ -264,10 +264,10 @@ Take the `my_year` data frame from exercise 1 (your observations for each year) 
 
 ::: answer
 ```{r, exercise_change_chart_appearance}
-my_map <- ggplot(data = my_year, mapping = aes(x = year)) +
+my_chart <- ggplot(data = my_obs_by_year, mapping = aes(x = year)) +
   geom_bar()
 
-my_map +
+my_chart +
   theme_classic() +
   labs(title = "CNC Los Angeles",  x = "Year",  y = "Observations") 
 

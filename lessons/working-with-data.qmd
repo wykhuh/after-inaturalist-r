@@ -34,7 +34,6 @@ library(dplyr) # manipulate data
 library(lubridate) # manipulate dates
 ```
 
-
 We call `read_csv()` function from **readr**, and pass in a relative path to a CSV file in order to load the CSV.
 
 `read_csv()` will return the content of the file. In order for us access the content later on, we will assign the content to an object called `inat_data`. `inat_data` is displayed in the **Environment** panel. Double click on `inat_data` in **Environment** to see all the data.
@@ -60,15 +59,15 @@ Function documentation is written by the authors of the functions, so they can v
 
 ## data.frame
 
-read_csv returns a **data.frame**. A **data.frame** is the most common way that R represents tabular data (data with rows and columns).
-
+`read_csv()` returns a **data.frame**. A **data.frame** is the most common way that R represents tabular data (data with rows and columns).
 
 Use `glimpse()` from **dplyr** to see a information about a data frame. It shows the number of rows and columns. For each column, we see the name, data type (**dbl** for number, **chr** for character, **lgl** for logical (TRUE, FALSE), **date** for date), and the first few values.
 
 ```{r, call_glimpse}
 glimpse(inat_data)
 ```
-You can use `View()`  from **R** to view the data frame in a new viewer.
+
+You can use `View()` from **R** to view the data frame in a new viewer.
 
 ```{r view_dataframe}
 #| eval: false
@@ -80,11 +79,13 @@ You can use `names()` from **R** to see the fields in the data frame.
 ```{r use_names_to_list_fields}
 names(inat_data)
 ```
-We can use `dim()` function from **R** to get the dimension of a data frame. 
 
-```{r}
+We can use `dim()` function from **R** to get the dimension of a data frame.
+
+```{r use_dim_to_get_size}
 dim(inat_data)
 ```
+
 `inat_data` has over 193K rows and 37 columns.
 
 ## Manipulating data
@@ -95,33 +96,35 @@ One of the most important skills for working with data in R is the ability to ma
 
 The `select()` function is used to select certain columns of a data frame.
 
+To use the `select()` function, the first argument is the name of the data frame, and the rest of the arguments are unquoted names of the columns you want.
+
 Our `inat_data` dataframe has 37 columns. We want four columns: `user_login`, `common_name`, `scientific_name`, `observed_on`.
 
-To use the `select()` function, the first argument is the name of the data frame, and the rest of the arguments are unquoted names of the columns you want. 
 
 ```{r, select_columns}
 select(inat_data, user_login, common_name, scientific_name, observed_on)
 ```
+
 `select()` creates a new data frame with 193K rows, and 4 columns.
 
 ### filter()
 
-The `filter()` function is used to select rows that meet certain criteria. 
+The `filter()` function is used to select rows that meet certain criteria.
 
-Let's find all the observations for 'Western Fence Lizard', the most popular species in CNC Los Angeles. 
+To use the `filter()` function, the first agrument is the name of the data frame, and the second argument is the selection criteria.
 
-The use `filter()` the first agrument is the name of the data frame, and the second argument is the selection criteria.  We want all the rows where `common_name` is equal to 'Western Fence Lizard'. Use `==` to test for equality.
+Let's find all the observations for 'Western Fence Lizard', the most popular species in CNC Los Angeles. We want all the rows where `common_name` is equal to 'Western Fence Lizard'. Use `==` to test for equality.
 
 ```{r, filter_rows}
 filter(inat_data, common_name == 'Western Fence Lizard')
 
 ```
-`filter()` creates a new data frame with over 3000 rows, and 37 columns.
 
+`filter()` creates a new data frame with over 3000 rows, and 37 columns.
 
 ### The pipe: %\>%
 
-What happens if we want to select columns and filter rows? 
+What happens if we want to select columns and filter rows?
 
 We use the pipe operator (`%>%`) to call multiple functions.
 
@@ -129,13 +132,14 @@ We use the pipe operator (`%>%`) to call multiple functions.
 You can insert `%>%` by using the keyboard shortcut <kbd>Shift+Cmd+M</kbd> (Mac) or <kbd>Shift+Ctrl+M</kbd> (Windows).
 :::
 
-Let's get all observations where `common_name` is 'Western Fence Lizard', and we only want columns `user_login`, `common_name`, `scientific_name`, `observed_on`. 
+Let's get all observations for 'Western Fence Lizard', and we only want columns `user_login`, `common_name`, `scientific_name`, `observed_on`.
 
 ```{r, pipe_filter_select}
 inat_data %>%
   filter(common_name == 'Western Fence Lizard') %>%
   select(user_login, common_name, scientific_name, observed_on)
 ```
+
 The new data frame has over 3000 rows and 4 columns.
 
 Pipe operator take the thing on the lefthand side and insert it as the first argument of the function on the righthand side.`inat_data` gets piped into a `filter()` function, where it is modified. The output from `filter()` is then gets sent into the `select()` function, where it is further modified. It can also be helpful to think of `%>%` as meaning "and then".
@@ -149,9 +153,9 @@ western_fence_lizard_obs <- inat_data %>%
 
 ```
 
-Sometimes the coordinates for iNaturalist observations are obscured. For instance, when the observation involves an endangered species, iNaturalist will automatically obscure the coordinates in order to protect the animal, plant, fungi. Sometimes people choose to obscure their location when they are making observations so that other people will not know their exact location.
+Sometimes the coordinates for iNaturalist observations are obscured. For instance, when the observation involves an endangered species, iNaturalist will automatically obscure the coordinates in order to protect the animal, plant, fungi. Sometimes people choose to obscure their location when they are making observations so that other people will not know their exact location. iNaturalist information about [obscured coordinates](https://help.inaturalist.org/en/support/solutions/articles/151000169938-what-is-geoprivacy-what-does-it-mean-for-an-observation-to-be-obscured-). 
 
-To access one column in a data frame, use `dataframe$column_name`. 
+To access one column in a data frame, use `dataframe$column_name`.
 
 When we pass in a data frame column to `table()` function from R, it will return the unique values in a column, and the number of rows that contain each value.
 
@@ -163,7 +167,7 @@ table(inat_data$coordinates_obscured)
 
 176K row are false (coordinates are normal), 14K rows are true (coordinates are obscured).
 
-If the exact location of the observation will affect your analysis, then you want unobscured coordinates. Let's get the observations where the coordinates are not obscured. 
+If the exact location of the observation will affect your analysis, then you want unobscured coordinates. Let's get the observations where the coordinates are not obscured.
 
 ```{r, observations_with_unobscured_coordinates}
 inat_data %>%
@@ -171,7 +175,29 @@ inat_data %>%
   select(user_login, common_name, scientific_name, observed_on)
 ```
 
-iNaturalist gives a quality grade to each observation. 
+::: callout-tip
+When using both `filter()` and `select()`, it is a good idea to use `filter()` before `select()`. The following code will cause an error "object 'coordinates_obscured' not found".
+
+```{r select_filter_error}
+#| eval: false
+
+inat_data %>%
+  select(user_login, common_name, scientific_name, observed_on)  %>% 
+  filter(coordinates_obscured == FALSE)
+```
+
+`select()` creates a data frame with four fields. 
+
+```{r show_4_columns_from_select}
+inat_data %>%
+  select(user_login, common_name, scientific_name, observed_on) %>%
+  names
+```
+When we try to `filter()` using `coordinates_obscured`, we get an error because the 4-field data frame we pass to `filter()` does not have the field `coordinates_obscured`.
+:::
+
+
+iNaturalist gives a quality grade to each observation.
 
 To see all the unique values for a column, use `unique()` function from R and pass in the column name.
 
@@ -189,7 +215,7 @@ inat_data %>%
 
 ## Errors in code
 
-We are writing instructions for the computer. If there is a typo, mispelling, pass in wrong arguments into functions, etc, the code will not work and we will see errors. R will display the errors in red. You need to fix the errors in order for the code to work.
+We are writing instructions for the computer. If there is a typo, mispelling, pass in wrong arguments into functions, etc, the code will not work and we will see errors. R will display the errors in red. You need to fix the errors in order for the code to work. Here are some example errors.
 
 typo: we used `%>`, when it should be `%>%`
 
@@ -228,10 +254,9 @@ inat_data %>%
 
 Get all your City Nature Challenge observations.
 
--   Use `select()`, `filter()`
--   The results should have `user_login` equal to your iNaturalist username
--   The results should have `user_login`, `observed_on`, `common_name`, `scientific_name` columns
--   save the results to `my_obs`
+-   Use `filter()` to select observations. with your iNaturalist username
+-   Use `select()` to select 4 columns. One of the columns should be `common_name` 
+-   assign the results to `my_obs` object
 -   click on `my_obs` in the Environment tab to see the results
 
 ::: answer
@@ -245,14 +270,16 @@ my_obs <- inat_data %>%
 
 ## and operator: &
 
-When we want go get rows that match multiple criteria, we can use the and operator `&`
+When we want to get rows that match multiple criteria, we use the and operator `&` in between the criteria.
 
-Let's get all observations that are research grade and `common_name` is 'Western Fence Lizard'.
+`condtion_1 & condition_2`
+
+Let's get all 'Western Fence Lizard' observations that are research grade. 
 
 ```{r, filter_with_and}
 my_data <- inat_data %>%
-  filter( common_name == 'Western Fence Lizard'
-         & quality_grade == 'research')  %>%
+  filter(common_name == 'Western Fence Lizard' & 
+           quality_grade == 'research')  %>%
   select(user_login, common_name, scientific_name, observed_on, quality_grade)
 ```
 
@@ -266,11 +293,12 @@ unique(my_data$common_name)
 unique(my_data$quality_grade)
 ```
 
-Let's get observations where `user_login` is 'natureinla' and `common_name` is 'Western Fence Lizard'.
+Let's get 'Western Fence Lizard' observations made by 'natureinla'.
 
 ```{r, filter_with_and_2_conditions}
 my_data <- inat_data %>%
-  filter(user_login == 'natureinla' & common_name == 'Western Fence Lizard') %>%
+  filter(user_login == 'natureinla' & 
+           common_name == 'Western Fence Lizard') %>%
   select(user_login, common_name, scientific_name, observed_on)
 ```
 
@@ -284,7 +312,9 @@ unique(my_data$common_name)
 
 ## or operator: \|
 
-When we want to get rows that match one or more criteria, we can use the or operator `|`
+When we want to get rows that match one or more criteria, we can use the or operator `|` in between the conditions
+
+`condition_1 | condition_2`
 
 Let's get observations where `common_name` is 'Western Fence Lizard' or 'Western Honey Bee'.
 
@@ -320,9 +350,28 @@ dim(my_data)
 unique(my_data$common_name)
 ```
 
+iNaturalist observations, photos, and sounds are covered by licenses. The default license is **CC BY-NC** (Creative Commons: Attribution-NonCommercial) so other people can use the content if they give attribution to you and use it for non-commercial purposes. More info about [iNaturalist licenses](https://help.inaturalist.org/en/support/solutions/articles/151000175695-what-are-licenses-how-can-i-update-the-licenses-on-my-content-).
+
+We can use `table()` to see the license types and count.
+
+```{r view_license_values}
+table(inat_data$license)
+```
+
+Let's get observations with CC0, CC-BY, or CC BY-NC license.
+
+```{r filter_by_license}
+my_data <- inat_data %>%
+  filter(license %in% c('CC0', 'CC-BY', 'CC BY-NC')) %>%
+  select(user_login, observed_on, common_name)
+
+dim(my_data)
+
+```
+
 ## & (and) versus \| (or)
 
-\*\* & (and)\*\* return rows where all conditions are true. This code looks for observations where user_login is 'natureinla' and common_name is 'Western Fence Lizard'.
+**& (and)** return rows where all conditions are true. This code looks for observations where user_login is 'natureinla' and common_name is 'Western Fence Lizard'.
 
 ```{r, and_comparison}
 and_data <- inat_data %>%
@@ -360,16 +409,36 @@ unique(or_data$common_name) %>% length
 
 We get 6,216 rows with 1052 user_login and 1031 common_name
 
-And / Or will return different results. In other words, check the results of your code to make sure your results matches what you intended
+`&` vs `|` will return different results. Check the results of your code to make sure your results matches what you intended
+
+:::: exercise
+## Exercise 2
+
+Get all your observations that are research grade
+
+-   Use `&` with `filter()` since we want to pick observations by both username and quality grade
+-   Use `select()` to pick 4 columns
+
+::: answer
+```{r, exercise_your_research_grade}
+inat_data %>%
+  filter(user_login == 'natureinla' & 
+           quality_grade == 'research') %>%
+  select(user_login, observed_on, common_name, scientific_name)
+```
+:::
+::::
 
 ## More complex queries
 
-Sometimes we want to use both `and` `or` to select the rows. We want observations where user is 'cdegroof' or 'deedeeflower5', and species is 'Western Fence Lizard'. You can use multiple filter statememts.
+Sometimes we want to use both `&` `|` to select the rows. You can use multiple filter statememts. 
+
+Let's get observations where user is 'cdegroof' or 'deedeeflower5', and species is 'Western Fence Lizard'. 
 
 ```{r, complex_queries}
 complex_query <- inat_data %>%
-  filter(user_login == 'cdegroof'
-         | user_login == 'deedeeflower5') %>%
+  filter(user_login == 'cdegroof' | 
+           user_login == 'deedeeflower5') %>%
   filter(common_name == 'Western Fence Lizard')  %>%
   select(user_login, common_name, scientific_name, observed_on)
 
@@ -384,6 +453,32 @@ unique(complex_query$common_name)
 unique(complex_query$user_login)
 ```
 
+:::: exercise
+## Exercise 3
+
+Get all your observations for two species
+
+-   Use `unique(my_obs$common_names)` from Exercise 1 to find two species name.
+-   Use `filter()` to pick two species and your username.  
+-   Use `|` or `%in% c()%` to handle multiple species. 
+-   Use `select()` to pick four columns.
+
+
+::: answer
+```{r, exercise_unique_common_names}
+unique(my_obs$common_name)[0:10]
+```
+
+```{r, exercise_two_species}
+inat_data %>%
+  filter(user_login == 'natureinla') %>%
+  filter(common_name == 'Red-eared Slider' | common_name=='Monarch') %>%
+  select(user_login, observed_on, common_name, scientific_name)
+```
+:::
+::::
+
+
 ## Higher taxonomy
 
 So far we looked at species. Instead of looking at specific species, we can also look for a group of related species.
@@ -392,7 +487,7 @@ Let's look for observations for all oak trees. We can use filter where the `comm
 
 ```{r, filter_oaks_observations}
 oaks_obs <- inat_data %>%
-  filter(common_name == 'oaks')
+  filter(common_name == 'oaks') 
 
 dim(oaks_obs)
 ```
@@ -401,17 +496,32 @@ We have 218 observations. However, when we used the iNaturalist site to look for
 
 When you search for 'oaks' on iNaturalist, click the 'About' link, and it will bring you to the [taxa page for 'oaks'](https://www.inaturalist.org/taxa/47851-Quercus).
 
-![](images/search_oaks.png)
+![](images/search_oaks.png){fig-alt="search autocomplete when searching for oaks on iNaturalist"}
 
-![](images/oaks_taxa.png){fig-alt="oaks taxa page"}
+![](images/oaks_taxa.png){fig-alt="oaks taxa page on iNaturlaist"}
 
-'Oaks' is the common name for genus Quercus. When you search iNaturalist observations for 'oaks', iNaturalist returns observations that belong to the genus Quercus, which includes species such as 'Live Coast Oak' and 'Valley Oak'. Our query `common_name == 'oaks'` only looked for observations that are 'oaks'; it ignored observations that are oak species. To match the iNaturalist search results, we need to look for all observations where the genus equals Quercus.
+'Oaks' is the common name for genus Quercus. When you search iNaturalist observations for 'oaks', iNaturalist returns observations that belong to the genus Quercus, which includes species such as 'Live Coast Oak' and 'Valley Oak'. 
 
-We can use `names()` to get all the taxon name fields.
+
+Let's look at the scientific name when we use `common_name == 'oaks'` 
+ 
+```{r}
+unique(oaks_obs$scientific_name)
+```
+The scientific name for the  218 'oaks' observation is Quercus. This means we aren't including oak species. To match the iNaturalist search results, we need to look for all observations where the genus equals Quercus including oak species.
+
+We can use `names()` to get all the taxon name fields. There are several taxon__xxx__name fields. 
 
 ```{r use_names_to_get_fields_2}
 names(inat_data)
 ```
+::: callout-note
+When you download iNaturalist data, you can to select which taxon name fields to include in the download. By default, none are selected because the 'Taxon extras' fields slow down the export process. 
+
+![](images/taxon_extra_export.png){fig-alt="Taxon Extra fields on iNaturalist export page"}
+
+We included the main taxon ranks names in the CNC observations csv.
+:::
 
 The 'Taxonomy' tab on iNaturalist taxa pages show the taxonomic hierarchy with all the taxon ranks.
 
@@ -431,11 +541,11 @@ oaks_obs_fixed <- inat_data %>%
   )
 ```
 
-::: callout-note
-The reason why I listed the hierarchy instead of just filtering by `taxon_genus_name == 'Quercus'` is because of limitations of my knowledge and the limitations of the information provided by the CSV. Some Latin words are used multiple times to represent different taxa. For instance Eisenia is a genus for a type of worm and a genus for a type kelp. A filter command for `taxon_genus_name == 'Eisenia'` would return observations for two very different organisms. I don't have enough expertise to know if a taxa name is unique, so I list the hierarchy. Someone with more expertise might know there is only one Quercus in Plantae, and use `filter(taxon_kingdom_name == 'Plantae' & taxon_genus_name == 'Quercus')`.
 
-iNaturalist gives each taxa name a unique id. Worm Eisenia is 128842, kelp Eisenia is 125880, and Quercus is 47851. When iNaturalist searches for observations for a given taxa, it uses the unique id for the search to avoid the problem of dupicate names. Unfortunately the the CSV does not provide ids for each taxon rank, so we can't do a search by id.
-:::
+The reason why I listed the hierarchy instead of just filtering by `taxon_genus_name == 'Quercus'` is because of limitations of my taxonomy knowledge and the limitations of the information provided by the CSV. Some Latin words are used multiple times to represent different taxa. For instance Eisenia is a genus for a type of worm and a genus for a type kelp. A filter command for `taxon_genus_name == 'Eisenia'` would return observations for two very different organisms. I don't have enough expertise to know if a taxa name is unique, so to play it safe, I list the entire taxonomy hierarchy. Someone with more expertise might know there is only one Quercus in Plantae, and use `filter(taxon_kingdom_name == 'Plantae' & taxon_genus_name == 'Quercus')`.
+
+iNaturalist gives each taxa name a unique id. Worm Eisenia is 128842, kelp Eisenia is 125880. When iNaturalist searches for observations for a given taxa, it uses the unique id for the search to avoid the problem of duplicate scientific names. Unfortunately the CSV download does not provide ids for each taxon rank, so we can't do a search by taxon rank id. It is possible to get the ids for all the taxon ranks, but that involves more advance coding techniques.
+
 
 ```{r, number_of_oak_observations}
 dim(oaks_obs_fixed)
@@ -447,7 +557,7 @@ We now get 1367 observations.
 The reason why iNaturalist has 1369 observations for 'oaks' but we have 1367 is because iNaturalist has two 'oaks' observations which don't have latitude and longitude data. Our cleaned iNaturalist data excludes observations without latitude and longitude.
 :::
 
-Let's examine the number of observations for each type of oak. We can use `count()` to get the counts, and `View()` to see the results.
+Let's examine the number of observations for each type of oak. We can use `count()` to get the counts.
 
 ```{r get_quercus_counts}
 oaks_count <- oaks_obs_fixed %>%
@@ -457,13 +567,7 @@ oaks_count <- oaks_obs_fixed %>%
 oaks_count
 ```
 
-```{r}
-#| eval: false
-View(oaks_count)
-
-```
-
-While most of the observations are species (as evidence by the two part name), there are 218 observations that could only be identified to the genus Quercus.
+While most of the observations are species, there are 218 observations that could only be identified to the genus Quercus.
 
 Another example, let's search for 'trees'. When we search iNaturalist for 'trees', the first result is [Phylum Tracheophyta](https://www.inaturalist.org/taxa/211194-Tracheophyta). Let's look at our data using `taxon_phylum_name` and 'Tracheophyta'
 
@@ -487,11 +591,6 @@ trees_count <- trees_obs %>%
 trees_count
 ```
 
-```{r}
-#| eval: false
-View(trees_count)
-```
-
 We are getting plants such as California poppy, grasses, which aren't trees. Why is that?
 
 If we look up ['Tracheophyta' in Wikipedia](https://en.wikipedia.org/wiki/Vascular_plant):
@@ -506,53 +605,49 @@ If we look up ['tree' in Wikipedia](https://en.wikipedia.org/wiki/Tree):
 
 In other words, there is no one word we can use to find all trees. The fact that iNaturalist shows Tracheophyta as the first search result for 'trees' is a little quirk with the iNaturalist search algorithm. To find all trees, we would need to get a list of trees names, and create a filter command with all the tree names.
 
-When looking for a group of related organisms using higher taxanomy, it might take some trial and error to get the results you want.
+A quick internet search came up with [LA County recommended trees](https://lacountycfmp.org/resources/) and [Wikipedia list of trees and shrubs](https://en.wikipedia.org/wiki/List_of_trees_and_shrubs_by_taxonomic_family). You can use lists like these as the basis of creating a list of trees. Your search might look something like this.
 
-:::: exercise
-## Exercise 2
+Search by species.
 
-Get all your CNC observations that are research grade
+```{r get_laco_species_observations}
+laco_species <- c('Acacia aneura', 'Acacia stenophylla', 'Afrocarpus falcatus', "Agonis flexuosa", 'Angophora costata', "Arbutus 'marina'", 'Arbutus unedo'  )
 
--   Use `select()`, `filter()`, `&`
--   The results should have `user_login` equal to your iNaturalist username
--   The results should have `quality_grade` equal to research.
--   The results should have `user_login`, `observed_on`, `common_name`, `scientific_name` columns
--   save the results to `my_obs_2` object
-
-::: answer
-```{r, exercise_your_research_grade}
-my_obs_2 <- inat_data %>%
-  filter(user_login == 'natureinla' & quality_grade == 'research') %>%
-  select(user_login, observed_on, common_name, scientific_name)
-```
-:::
-::::
-
-:::: exercise
-## Exercise 3
-
-Get all your observations for two species
-
--   Use `select()`, `filter()` , `|`
--   use `unique()` to see all common names from `my_obs`
--   The results should have `user_login` equal to your iNaturalist username
--   The results should have `common_name` equal to two species
--   The results should have `user_login`, `observed_on`, `common_name`, `scientific_name` columns
--   save the results to `my_obs_3` object
-
-::: answer
-```{r, exercise_unique_common_names}
-unique(my_obs$common_name)[0:10]
+laco_species_obs <- inat_data %>%
+  filter(taxon_species_name %in% laco_species & 
+           taxon_kingdom_name == 'Plantae') %>%
+  select(user_login, common_name, scientific_name, taxon_species_name)
 ```
 
-```{r, exercise_two_species}
-my_obs_3 <- inat_data %>%
-  filter(user_login == 'natureinla') %>%
-  filter(common_name == 'Red-eared Slider' | common_name=='Monarch') %>%
-  select(user_login, observed_on, common_name, scientific_name)
+
+```{r get_laco_species_counts}
+laco_species_count <- laco_species_obs %>%
+  count(common_name, scientific_name, taxon_species_name) %>%
+  arrange(desc(n))
+
+laco_species_count
 ```
-:::
-::::
+Search by genera.
+
+```{r get_laco_genera_observations}
+laco_genera <- c('Acacia',  'Afrocarpus', "Agonis", 'Angophora', "Arbutus" )
+
+laco_genera_obs <- inat_data %>%
+  filter(taxon_genus_name %in% laco_genera & 
+           taxon_kingdom_name == 'Plantae') %>%
+  select(user_login, common_name, scientific_name, taxon_genus_name)
+```
+
+```{r get_laco_genera_counts}
+laco_genera_count <- laco_genera_obs %>%
+  count(common_name, scientific_name, taxon_genus_name) %>%
+  arrange(desc(n))
+
+laco_genera_count
+```
+
+When searching for species, it's generally better to search by scientific names rather than common names. A species should only have one scientific name. A species can have zero to many common names in many languages, and different sources can use different common names. For example iNaturalist uses strawberry tree and LA County tree list uses strawberry madrone for *Arbutus unedo*. The downside of searching by scientific names is trying to spell and say all these Latin words.
+
+When looking for a group of related organisms using higher taxonomy, it might take some additional research and trial and error to get the results you want.
 
 ## Add new columns with mutate()
 
@@ -562,7 +657,23 @@ Use `mutate()` from **dplry** to add a column. We pass in the name of the new co
 
 Use `year()` from **lubridate** on a date column to get the year.
 
-Let's get `observed_on` for rows 10315 to 10325
+
+:::callout-tip
+
+Vector is a list of items. We can access specific values in a vector by using `vector_name[number]`. To access a range of values use `vector_name[start_number:end_number]`
+
+```{r}
+letters <- c('a','b','c', 'd')
+
+# get first item 
+letters[1]
+
+# get second and thrid item
+letters[2:3]
+```
+:::
+
+Let's get `observed_on` for rows 10315 to 10325. 
 
 ```{r show_observed_on}
 (inat_data$observed_on)[10315:10325]
@@ -600,14 +711,11 @@ inat_data %>%
 :::: exercise
 ## Exercise 4
 
-Get all of your observations from last year.
+Get all of your observations from 2024.
 
--   Use `select()` and `filter()`
 -   Use `mutate()` and `year()` to add year column
--   The results should have `user_login` equal to your iNaturalist username
--   The results should have `year` equal last year
--   The results should have `user_login`, `observed_on`, `common-name`, `scientific_name`.
-
+-   Use `filter()` to pick observations with your username and year is 2024
+-   Use select() to pick 4 columns
 ::: answer
 ```{r, exercise_last_year}
 inat_data %>%
@@ -686,8 +794,8 @@ counts
 Get the number of observation you made per year
 
 -   Use `mutate()` and `year()` to add year column
--   Use `count() to count the number of observations`
--   Use `filter()` to select your observations
+-   Use `count()` to count the number of observations per year
+-   Use `filter()` to select observations with your username
 
 ::: answer
 ```{r, exercise_observations_per_year}
@@ -714,9 +822,16 @@ top_ten
 
 ```
 
-Then `write_csv()` from **dplyr** to create a CSV. The first argument is the data frame to save. The second argument is the relative path of where to save the file. To keep our files organized, we are saving CSVs to the results folder. You should give the file a sensible name to help you remember what is in the file.
+Then use `write_csv()` from **dplyr** to create a CSV. 
+
+- The first argument is the data frame to save. 
+- The second argument is the relative path of where to save the file. 
+- To keep our files organized, we are saving CSVs to the results folder. 
+- You should give the file a sensible name to help you remember what is in the file. Some people add the date to the file name to keep track of the various versions.
+- By default `NA` values will be saved as 'NA' string. `na=''` will save `NA` values as empty strings. 
+
 
 ```{r, save_file}
 #| eval: false
-write_csv(top_ten, 'results/top_ten_observations.csv')
+write_csv(top_ten, 'results/top_ten_observations.csv', na='')
 ```

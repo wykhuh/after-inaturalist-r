@@ -128,6 +128,7 @@ We can refer to the object names, and do something with those values. Let's add 
 ```{r, adding_objects}
 price_1 + price_2
 ```
+
 We can reassign object to new values
 
 ```{r}
@@ -145,6 +146,7 @@ price_1 == price_2
 # not equal
 price_1 != price_2
 ```
+
 ```{r greater_comparison}
 # greater than
 price_1 > price_2
@@ -162,7 +164,6 @@ price_1 < price_2
 
 ```
 
-
 Save the script <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a name such as 'first_script.R'. Save it in the `scripts` folder.
 
 :::: exercise
@@ -178,8 +179,6 @@ price_1 - price_2
 ```
 :::
 ::::
-
-
 
 ## Creating your own project folder from scratch
 

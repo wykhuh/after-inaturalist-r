@@ -42,15 +42,16 @@ Let's get observations for Coast Live Oak and create a map.
 #| warning: false
 #| message: false
 
-inat <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 ```
 
 Add a geometry column using `st_as_sf().` Select observations for 'Quercus agrifolia' aka Coast Live Oak using `filter()`.
 
 ```{r, get_oak_observations}
-oak_obs <- inat %>% 
+oak_obs <- inat_data %>% 
   st_as_sf(coords = c("longitude", "latitude"), crs = 4326, remove=FALSE) %>% 
-  filter(scientific_name == 'Quercus agrifolia') 
+  filter(scientific_name == 'Quercus agrifolia') %>%
+  select(user_login, observed_on, common_name, scientific_name)
 
 ```
 
@@ -61,23 +62,23 @@ mapview(oak_obs)
 
 ![](images/mapview/other-datasets/create_map_of_inaturalist_observations.png){fig-alt="interactive map of iNaturalist observations"}
 
-## Demographic data
+## Demographics data
 
-Let's compare iNaturalist data with demographics data about the people who in L.A.
+Let's compare CNC iNaturalist data with demographics data about the people who live in L.A.
 
 L.A. County completed Comprehensive Countywide Park Needs Assessment in 2016. As part of that study, they looked at demographics data throughout the county. For more information: https://geohub.lacity.org/datasets/lacounty::l-a-county-park-needs-assessment-demographics/about
 
 ::: callout-note
-A lot of demographics data from the Park Needs Assessment comes from the U.S. Census. The reason we're using the parks data instead directly using Census data is because the Census data is more difficult to use. If you want to learn how to use U.S. Census data in R, check out the book *\[Analyzing US Census Data: Methods, Maps, and Models in R\](<https://walker-data.com/census-r/index.html>)*
+A lot of demographics data from the Park Needs Assessment comes from the U.S. Census. The reason we're using the parks data instead directly using Census data is because the Census data is more difficult to use. If you want to learn how to use U.S. Census data in R, check out the book [Analyzing US Census Data: Methods, Maps, and Models in R](https://walker-data.com/census-r/index.html)
 :::
 
-Load Park Needs Assessment data. Use `st_read()` to read geojson file. Click `la_county_pna` in the **Enviroment** pane to browse the data frame.
+We load Park Needs Assessment data using `st_read()` to read geojson file. Click `la_county_pna` in the **Enviroment** pane to browse the data frame.
 
 ```{r, get_pna_data}
 la_county_pna <- st_read('data/raw/PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907.geojson')
 ```
 
-Let's get the size of the dataframe, and compare CRS to the iNaturalist data.
+Let's get the size of the dataframe and compare CRS to the iNaturalist data.
 
 ```{r, pna_datafame_info}
 dim(la_county_pna)
@@ -201,10 +202,6 @@ There are two issues with the previous map.
 
 2.  When you click on region, the popup shows too many fields. To select the columns displayed in popups, we can set the columns using `dataframe[c('col_1', 'col_2')]`.
 
-::: callout-info
-In R, a vector is a list of items. `c()` is a function from R that creates a vector from a list of values.
-:::
-
 `layer.name ='Avg income'` sets the layer name to 'Avg income'.
 
 `la_county_pna[c('STUD_AR_NM', 'householdincome_medhinc_cy')]` sets the columns show in the popup to householdincome_medhinc_cy and STUD_AR_NM
@@ -238,13 +235,15 @@ Create a map using one of the columns from Park Needs Assessment.
 
 -   use `z_col` to pick a column from Park Needs Assessment
 -   set which fields are shown in the popup
+-   Set the layer name
 
 ::: answer
 ```{r, exercise_create_map}
 #| eval: false
  
 mapview(la_county_pna[c('PCT_Walk')], 
-        zcol='PCT_Walk') +
+        zcol='PCT_Walk',
+        layer.name ='Walkable percent') +
   mapview(oak_obs)
 ```
 :::
@@ -260,6 +259,8 @@ California state has a file that lists all the counties in California. https://g
 
 Let's get the California state park within Los Angeles county.
 
+First we read the file with all state parks in California.
+
 ```{r, get_state_parks}
 state_parks <- read_sf('data/raw/Park_Boundaries/ParkBoundaries.shp')
 ```
@@ -270,6 +271,8 @@ mapview(state_parks)
 ```
 
 ![](images/mapview/other-datasets/view_state_parks.png){fig-alt="map of California state parks"}
+
+The we read the file with all the counties in California.
 
 ```{r, get_ca_counties}
 ca_counties <- read_sf('data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp')
@@ -302,7 +305,7 @@ ca_counties <- st_transform(ca_counties, crs = st_crs(state_parks))
 st_crs(state_parks) == st_crs(ca_counties)
 ```
 
-Let's get the boundary for Los Angeles County
+Let's use `filter()` to get Los Angeles County from the counties data.
 
 ```{r, extract_la_county}
 LA_county <-  ca_counties %>%
@@ -318,23 +321,26 @@ mapview(LA_county)
 
 ![](images/mapview/other-datasets/extract_la_county.png){fig-alt="map of LA County"}
 
-Use `st_intersects()` to find the state parks within LA county.
+Use `st_intersects()` to find the state parks within LA county. This is similar to how we got all the observations in Expo park in an earlier lesson.
 
 ```{r, get_parks_inside_la_county}
 
 LA_parks <- state_parks[st_intersects(state_parks, LA_county ) %>% lengths > 0,]
 ```
 
+Create a map showing LA County and state parks within LA County.
+
 ```{r, parks_inside_la_county_map}
 #| eval: false
 
-mapview(LA_county) + mapview(LA_parks, col.regions ='red')
+mapview(LA_county) + 
+  mapview(LA_parks, col.regions ='red')
 
 ```
 
 ![](images/mapview/other-datasets/get_parks_inside_la_county.png){fig-alt="map of state  parks inside LA County"}
 
-Use `st_write()` to save the boundaries for state parks within Ventura County as a Shape file. The first argument is the map data we want to save, and the second argument is the file path.
+Use `st_write()` to save the state parks within LA County as a Shape file. The first argument is the map data we want to save, and the second argument is the file path.
 
 ```{r, save_file}
 #| eval: false

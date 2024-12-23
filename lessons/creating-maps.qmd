@@ -57,14 +57,14 @@ Read data from the cleaned iNaturalist observation file.
 ```{r, read_data_from_csv}
 #| warning: false
 #| message: false
-inat <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 
 ```
 
 Use `names()` to see all the column names. "latitude" and "longitude" are the column names we need.
 
 ```{r, get_column_names}
-names(inat)
+names(inat_data)
 ```
 
 We use the **sf** package to add geographic data to our data frame. `st_as_sf()` from **sf** package will take the longitude and latitude and add a `geometry` column that we can use for mapping.
@@ -74,7 +74,7 @@ We use the **sf** package to add geographic data to our data frame. `st_as_sf()`
 -   `remove=FALSE` will keep the longitude and latitude columns in the data frame
 
 ```{r, add_geographic_data}
-temp <- inat %>% 
+temp <- inat_data %>% 
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326, remove=FALSE)
 ```
 
@@ -87,7 +87,7 @@ names(temp)
 use `select()` to pick which columns to use.
 
 ```{r, select_columns}
-inat_map <- inat %>% 
+inat_map <- inat_data %>% 
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326, remove=FALSE) %>% 
   select(id, user_login, common_name, scientific_name, observed_on,  url, longitude, latitude, geometry, quality_grade) 
 ```
@@ -101,14 +101,14 @@ dim(inat_map)
 Let's get the observations for 'Quercus agrifolia' aka Coast Live Oak.
 
 ```{r, get_oak_data}
-inat_oak <- inat_map %>% 
+inat_oak_map <- inat_map %>% 
   filter(scientific_name == 'Quercus agrifolia')
 ```
 
 Use `dim()` to get number of observations. About 700 rows.
 
 ```{r, get_size_of_oak_dataframe}
-dim(inat_oak)
+dim(inat_oak_map)
 ```
 
 ## static map
@@ -129,7 +129,7 @@ Let's create a map for Coast Live Oak observations.
 ```{r, create_static_map_for_oak}
 
 ggplot() +
-  geom_sf(data = inat_oak)  
+  geom_sf(data = inat_oak_map)  
 
 ```
 
@@ -138,7 +138,7 @@ We can set the color of the map marker using `color` argument.
 ```{r, create_static_map_for_oak_use_color}
 
 ggplot() +
-  geom_sf(data = inat_oak, color='green')  
+  geom_sf(data = inat_oak_map, color='green')  
 
 ```
 
@@ -149,7 +149,7 @@ Let's use 'quality_grade' to set the color of the map markers.
 ```{r, create_static_map_for_oak_use_quality_grade}
 
 ggplot() +
-  geom_sf(data = inat_oak, mapping=aes(color=quality_grade))  
+  geom_sf(data = inat_oak_map, mapping=aes(color=quality_grade))  
 
 ```
 
@@ -165,7 +165,7 @@ When you click on observation, all the fields that were passed into `select()` w
 
 ```{r, create_interactive_map}
 #| eval: false
-mapview(inat_oak)
+mapview(inat_oak_map)
 ```
 
 ![](images/mapview/creating_maps/create_interactive_map.png){fig-alt="interactive map of Coast Live Oak observations"}
@@ -174,7 +174,7 @@ Use `color` to set the color of the border. User `col.regions` to set the color 
 
 ```{r, create_interactive_map_use_color}
 #| eval: false
-mapview(inat_oak, color='black', col.regions='green')
+mapview(inat_oak_map, color='black', col.regions='green')
 ```
 
 ![](images/mapview/creating_maps/create_interactive_map_use_color.png){fig-alt="interactive map of Coast Live Oak using green map markers"}
@@ -185,35 +185,35 @@ Let's use `quality_grade` to set the color of the map markers.
 
 ```{r, create_interactive_map_for_oak_use_quality_grade}
 #| eval: false
-mapview(inat_oak, zcol='quality_grade')
+mapview(inat_oak_map, zcol='quality_grade')
 ```
 
 ![](images/mapview/creating_maps/create_interactive_map_for_oak_use_quality_grade.png){fig-alt="interactive map of Coast Live Oaks observations using colors based on quality grade"}
 
-## Add object boundaries
+## Using other geospatial files
 
-Let's add the boundaries for LA county to the map.
+Let's add the boundaries for LA County to the map.
 
-Shape files is a file format for geographic information system software. I downloaded the LA county boundaries as a Shape file from https://geohub.lacity.org/datasets/lacounty::county-boundaries/explore
+Shape files is a file format for geographic information system software. I downloaded the LA County boundaries as a Shape file from https://geohub.lacity.org/datasets/lacounty::county-boundaries/explore
 
-We will use `read_sf()` from `sf` package to read the Shape file.
+We will use `read_sf()` from **sf** package to read the LA County Shape file.
 
 ```{r, get_LA_County_boundaries}
-la_county <- read_sf('data/raw/County_Boundary/County_Boundary.shp')
+la_county_boundary <- read_sf('data/raw/County_Boundary/County_Boundary.shp')
 ```
 
 Let's create a map with LA County and oak observations.
 
 ```{r, add_LA_County_to_static_map}
 ggplot() +
-  geom_sf(data = la_county)  +
-  geom_sf(data = inat_oak) 
+  geom_sf(data = la_county_boundary)  +
+  geom_sf(data = inat_oak_map) 
 ```
 
 ```{r, add_LA_County_to_interactive_map}
 #| eval: false
-mapview(la_county) +
-  mapview(inat_oak) 
+mapview(la_county_boundary) +
+  mapview(inat_oak_map) 
 ```
 
 ![](images/mapview/creating_maps/add_LA_County_to_interactive_map.png){fig-alt="add L.A. County boundary to interactive map of Coast Live Oak observations"}
@@ -232,13 +232,13 @@ Create a map for one species. Include the boundaries for LA County.
 inat_finch <- inat_map %>% 
   filter(common_name == 'House Finch')
 
-mapview(la_county) + 
+mapview(la_county_boundary) + 
   mapview(inat_finch)
 ```
 :::
 ::::
 
-## Exploring iNaturlist data in specific area
+## Exploring iNaturalist data in specific area
 
 Let's look for all iNaturalist observations made in Exposition Park.
 
@@ -247,7 +247,7 @@ I used this [Draw map boundaries](https://wykhuh.github.io/draw-map-boundaries/)
 Let's use `st_read`() to read a geojson file. Use `st_transform` to set the crs
 
 ```{r, get_Expo_park_boundaries}
-expo_park <- st_read('data/raw/boundaries_expo_park_area.geojson')  %>% 
+expo_park_boundary <- st_read('data/raw/boundaries_expo_park_area.geojson')  %>% 
   st_transform(4326)
 ```
 
@@ -255,12 +255,12 @@ First create map of Expo Park.
 
 ```{r, create_static_map_expo_park}
 ggplot() +
-  geom_sf(data = expo_park) 
+  geom_sf(data = expo_park_boundary) 
 ```
 
 ```{r,create_interactive_map_expo_park}
 #| eval: false
-mapview(expo_park) 
+mapview(expo_park_boundary) 
 ```
 
 ![](images/mapview/creating_maps/create_interactive_map_expo_park.png){fig-alt="interactive map of Expo Park"}
@@ -270,33 +270,35 @@ We want to get observation inside Expo Park. When we want to combine two geospat
 `st_crs()` from **sf** returns the CRS for a data frame.
 
 ```{r get_crs}
-st_crs(expo_park)
+st_crs(expo_park_boundary)
 ```
 
 Let's use `st_crs()` to check if the CRS for the iNaturalist data and the Expo Park are the same. `==` checks if two things are equal.
 
 ```{r, check_crs}
-st_crs(expo_park) == st_crs(inat_map)
+st_crs(expo_park_boundary) == st_crs(inat_map)
 
 ```
 
-`st_intersects()` from **sf** can tell us which points are inside a boundary. `st_intersects()` returns number of items in each row of `inat_map` that is inside `expo_park`.
+`st_intersects()` from **sf** can tell us which points are inside a boundary. `st_intersects()` returns number of items in each row of `inat_map` that is inside `expo_park_boundary`.
 
 ```{r, st_intersects}
-st_intersects(inat_map, expo_park)
+st_intersects(inat_map, expo_park_boundary)
 ```
 
-We can use `lengths(...) > 0` to return TRUE/FALSE for every row in `inat_map` that has 1 or more items that inside `expo_park`
+We can use `lengths(...) > 0` to return TRUE/FALSE for every row in `inat_map` that has 1 or more items that inside `expo_park_boundary`
 
 ```{r, get_true_false}
 #| eval: false
-lengths(st_intersects(inat_map, expo_park)) > 0
+lengths(st_intersects(inat_map, expo_park_boundary)) > 0
 ```
 
-`inat_map[..., ]` selects all rows where a condition is true. In this case, we want all observations from `inat_map` that are inside `expo_park`.
+`dataframe[logical_vector, ]` selects all rows in a dataframe where the value is true.
+
+In this case, we want all observations from `inat_map` that are inside `expo_park_boundary`.
 
 ```{r, get_all_observations_within_expo_park}
-inat_expo <- inat_map[lengths(st_intersects(inat_map, expo_park)) > 0, ]
+inat_expo <- inat_map[lengths(st_intersects(inat_map, expo_park_boundary)) > 0, ]
 ```
 
 Use `dim()` to get row and column count. 191K observations in LA county, over 2900 observation in Expo Park.
@@ -311,13 +313,13 @@ Let's create map of all observations in Expo Park.
 
 ```{r, create_static_map_of_observations_in_expo_park}
 ggplot() +
-  geom_sf(data = expo_park)  +
+  geom_sf(data = expo_park_boundary)  +
   geom_sf(data = inat_expo) 
 ```
 
 ```{r,create_interactive_map_of_observations_in_expo_park}
 #| eval: false
-mapview(expo_park) +
+mapview(expo_park_boundary) +
   mapview(inat_expo) 
 
 ```
@@ -330,7 +332,7 @@ For `ggplot()`, use `fill()` to set color and `alpha()` to set opacity for a pol
 
 ```{r, set_color_of_static_map}
 ggplot() +
-  geom_sf(data = expo_park, fill=alpha("yellow", .3))  +
+  geom_sf(data = expo_park_boundary, fill=alpha("yellow", .3))  +
   geom_sf(data = inat_expo, color="green") 
 ```
 
@@ -338,7 +340,7 @@ For `mapview()`, use `col.regions` to set color, and `alpha.regions` to set opac
 
 ```{r, set_color_of_interactive_map}
 #| eval: false
-mapview(expo_park, col.regions="yellow",  alpha.regions=0.3) +
+mapview(expo_park_boundary, col.regions="yellow",  alpha.regions=0.3) +
   mapview(inat_expo, col.regions="green") 
 ```
 
@@ -352,7 +354,6 @@ Create a map for all CNC observations that are inside of a specific area
 -   Used [Draw map boundaries](https://wykhuh.github.io/draw-map-boundaries/) to draw and download an area that you are interested in.
 -   Save the file to the `data/raw` directory.
 -   use `st_read` to read your boundary data.
--   `inat_map` is a data frame with all CNC observations
 -   use `inat_map[lengths(st_intersects(inat_map, your_boundary)) > 0, ]` to get observations inside a boundary
 
 ::: answer
@@ -383,7 +384,7 @@ Assign the map created by ggplot to an object. Then run ggsave() to save our map
 
 # create map
 my_map <- ggplot() +
-  geom_sf(data = expo_park)  +
+  geom_sf(data = expo_park_boundary)  +
   geom_sf(data = inat_expo) 
 
 # save map
@@ -398,9 +399,9 @@ Assign the map created by mapview to an object. Then run mapshot() to save our m
 #| eval: false
 
 # create map
-my_map_2 <- mapview(expo_park) + 
+my_map_2 <- mapview(expo_park_boundary) + 
   mapview(inat_expo)
 
 # save map
-mapshot(my_map_2, file = 'results/expo_park_observations_3.jpg')
+mapshot(my_map_2, file = 'results/expo_park_observations_2.jpg')
 ```
