@@ -1,5 +1,5 @@
 ---
-title: "Working with iNaturalist data"
+title: "Exploring iNaturalist data"
 format: html
 include-in-header: "components/add-answer-button.html"
 ---
@@ -18,11 +18,7 @@ include-in-header: "components/add-answer-button.html"
 -   Export data to a CSV file.
 :::
 
-## Importing iNaturalist data
-
-A CSV of iNaturalist observations for City Nature Challenge Los Angeles from 2015 to 2024 is located at "data/cleaned/cnc-los-angeles-observations.csv". We are going to read that CSV using R.
-
-### Reading a file
+## Exploring iNaturalist data
 
 In order to analyze the iNaturalist csv, we need to load **readr**, **lubridate** and **dplyr** packages.
 
@@ -36,38 +32,56 @@ library(lubridate) # manipulate dates
 
 We call `read_csv()` function from **readr**, and pass in a relative path to a CSV file in order to load the CSV.
 
-`read_csv()` will return the content of the file. In order for us access the content later on, we will assign the content to an object called `inat_data`. `inat_data` is displayed in the **Environment** panel. Double click on `inat_data` in **Environment** to see all the data.
-
 ```{r, assign_read_csv_to_object}
-#| warning: false
-#| message: false
 inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 ```
 
-::: callout-tip
-Typing out paths can be error prone, so we can utilize a keyboard shortcut. Inside the parentheses of `read_csv()`, type out a pair of quotes and put your cursor between them. Then hit <kbd>Tab</kbd>. A small menu showing your folders and files should show up. You can use the <kbd>↑</kbd> and <kbd>↓</kbd> keys to move through the options, or start typing to narrow them down. You can hit <kbd>Enter</kbd> to select a file or folder, and hit <kbd>Tab</kbd> again to continue building the file path. This might take a bit of getting used to, but once you get the hang of it, it will speed up writing file paths and reduce the number of mistakes you make.
-:::
-
-To learn more about a function, you can type a `?` in front of the name of the function, which will bring up the official documentation for that function:
-
-```{r, help_for_functions}
-#| eval: false
-?read_csv
-```
-
-Function documentation is written by the authors of the functions, so they can vary pretty widely in their style and readability. The first section, **Description**, gives you a concise description of what the function does, but it may not always be enough. The **Arguments** section defines all the arguments for the function and is usually worth reading thoroughly. Finally, the **Examples** section at the end will often have some helpful examples that you can run to get a sense of what the function is doing.
-
-## data.frame
-
-`read_csv()` returns a **data.frame**. A **data.frame** is the most common way that R represents tabular data (data with rows and columns).
-
-Use `glimpse()` from **dplyr** to see a information about a data frame. It shows the number of rows and columns. For each column, we see the name, data type (**dbl** for number, **chr** for character, **lgl** for logical (TRUE, FALSE), **date** for date), and the first few values.
+We can use `glimpse()` function from **dplyr** to show information about a data.frame. 
 
 ```{r, call_glimpse}
 glimpse(inat_data)
 ```
 
-You can use `View()` from **R** to view the data frame in a new viewer.
+We can view the first few rows with the `head()` function, and the last few rows with the `tail()`function:
+
+```{r head}
+head(inat_data)
+```
+
+```{r tail}
+tail(inat_data)
+```
+
+To learn more about a function, you can type a `?` in front of the name of the function, which will bring up the official documentation for that function:
+
+```{r function_help_documentation}
+?head
+```
+
+::: callout-note
+Function documentation is written by the authors of the functions, so they can vary pretty widely in their style and readability. The first section, **Description**, gives you a concise description of what the function does, but it may not always be enough. The **Arguments** section defines all the arguments for the function and is usually worth reading thoroughly. Finally, the **Examples** section at the end will often have some helpful examples that you can run to get a sense of what the function is doing.
+:::
+
+The **Arguments** section for `head()` shows four arguments. The first argument `x` is required, the rest are optional. For example, the `n` argument in `head()` specifies the number of rows to print. It defaults to 6, but we can override that by specifying a different number:
+
+```{r}
+head(x = inat_data, n = 10)
+```
+
+If we order the argument the same order they are listed in **Arguments** section, we don’t have to name them:
+
+```{r}
+head(inat_data, 10)
+```
+
+Additionally, if we name them, we can put them in any order we want:
+
+```{r}
+head(n = 10, x = inat_data)
+
+```
+
+You can use `View()` function from **R** to open an interactive viewer, which behaves like a simplified version of a spreadsheet program. If you hover over the tab for the interactive `View()`, you can click the “x” that appears, which will close the tab.
 
 ```{r view_dataframe}
 #| eval: false
@@ -88,6 +102,7 @@ dim(inat_data)
 
 `inat_data` has over 193K rows and 37 columns.
 
+
 ## Manipulating data
 
 One of the most important skills for working with data in R is the ability to manipulate, modify, and reshape data. The **dplyr** package provide a series of powerful functions for many common data manipulation tasks.
@@ -100,7 +115,6 @@ To use the `select()` function, the first argument is the name of the data frame
 
 Our `inat_data` dataframe has 37 columns. We want four columns: `user_login`, `common_name`, `scientific_name`, `observed_on`.
 
-
 ```{r, select_columns}
 select(inat_data, user_login, common_name, scientific_name, observed_on)
 ```
@@ -111,7 +125,7 @@ select(inat_data, user_login, common_name, scientific_name, observed_on)
 
 The `filter()` function is used to select rows that meet certain criteria.
 
-To use the `filter()` function, the first agrument is the name of the data frame, and the second argument is the selection criteria.
+To use the `filter()` function, the first argument is the name of the data frame, and the second argument is the selection criteria.
 
 Let's find all the observations for 'Western Fence Lizard', the most popular species in CNC Los Angeles. We want all the rows where `common_name` is equal to 'Western Fence Lizard'. Use `==` to test for equality.
 
@@ -144,20 +158,9 @@ The new data frame has over 3000 rows and 4 columns.
 
 Pipe operator take the thing on the lefthand side and insert it as the first argument of the function on the righthand side.`inat_data` gets piped into a `filter()` function, where it is modified. The output from `filter()` is then gets sent into the `select()` function, where it is further modified. It can also be helpful to think of `%>%` as meaning "and then".
 
-If we want to store this final data frame as an object, we use an assignment arrow `<-`:
+Sometimes the coordinates for iNaturalist observations are obscured. For instance, when the observation involves an endangered species, iNaturalist will automatically obscure the coordinates in order to protect the animal, plant, fungi. Sometimes people choose to obscure their location when they are making observations so that other people will not know their exact location. iNaturalist information about [obscured coordinates](https://help.inaturalist.org/en/support/solutions/articles/151000169938-what-is-geoprivacy-what-does-it-mean-for-an-observation-to-be-obscured-).
 
-```{r, assign_pipeline}
-western_fence_lizard_obs <- inat_data %>%
-  filter(common_name == 'Western Fence Lizard') %>%
-  select(user_login, common_name, scientific_name, observed_on)
-
-```
-
-Sometimes the coordinates for iNaturalist observations are obscured. For instance, when the observation involves an endangered species, iNaturalist will automatically obscure the coordinates in order to protect the animal, plant, fungi. Sometimes people choose to obscure their location when they are making observations so that other people will not know their exact location. iNaturalist information about [obscured coordinates](https://help.inaturalist.org/en/support/solutions/articles/151000169938-what-is-geoprivacy-what-does-it-mean-for-an-observation-to-be-obscured-). 
-
-To access one column in a data frame, use `dataframe$column_name`.
-
-When we pass in a data frame column to `table()` function from R, it will return the unique values in a column, and the number of rows that contain each value.
+To access one column in a data frame, use `dataframe$column_name`. When we pass in a data frame column to `table()` function from R, it will return the unique values in a column, and the number of rows that contain each value.
 
 Let's find out how many observations have obscured locations.
 
@@ -186,16 +189,16 @@ inat_data %>%
   filter(coordinates_obscured == FALSE)
 ```
 
-`select()` creates a data frame with four fields. 
+`select()` creates a data frame with four fields.
 
 ```{r show_4_columns_from_select}
 inat_data %>%
   select(user_login, common_name, scientific_name, observed_on) %>%
   names
 ```
+
 When we try to `filter()` using `coordinates_obscured`, we get an error because the 4-field data frame we pass to `filter()` does not have the field `coordinates_obscured`.
 :::
-
 
 iNaturalist gives a quality grade to each observation.
 
@@ -255,7 +258,7 @@ inat_data %>%
 Get all your City Nature Challenge observations.
 
 -   Use `filter()` to select observations. with your iNaturalist username
--   Use `select()` to select 4 columns. One of the columns should be `common_name` 
+-   Use `select()` to select 4 columns. One of the columns should be `common_name`
 -   assign the results to `my_obs` object
 -   click on `my_obs` in the Environment tab to see the results
 
@@ -274,7 +277,7 @@ When we want to get rows that match multiple criteria, we use the and operator `
 
 `condtion_1 & condition_2`
 
-Let's get all 'Western Fence Lizard' observations that are research grade. 
+Let's get all 'Western Fence Lizard' observations that are research grade.
 
 ```{r, filter_with_and}
 my_data <- inat_data %>%
@@ -334,7 +337,7 @@ unique(my_data$common_name)
 
 If you need to examine multiple values for a field, you can use `field_name %in% c(value1, value2)` instead of `|` (or).
 
-A vector is how R stores a list of items. `c()` is a function from R that creates a vector with the passed in agruments. `%in%` operator from R checks if a vector is contained in another vector.
+A vector is how R stores a list of items. `c()` is a function from R that creates a vector with the passed in arguments. `%in%` operator from R checks if a vector is contained in another vector.
 
 Let's rewrite the the code for `common_name` is 'Western Fence Lizard' or 'Western Honey Bee' using `%in% c()`. This codes will find observations where `common_names` is in the vector: 'Western Honey Bee', 'Western Fence Lizard'
 
@@ -409,7 +412,7 @@ unique(or_data$common_name) %>% length
 
 We get 6,216 rows with 1052 user_login and 1031 common_name
 
-`&` vs `|` will return different results. Check the results of your code to make sure your results matches what you intended
+`&` vs `|` will return different results. Check the results of your code to make sure your results matches what you intended.
 
 :::: exercise
 ## Exercise 2
@@ -431,9 +434,9 @@ inat_data %>%
 
 ## More complex queries
 
-Sometimes we want to use both `&` `|` to select the rows. You can use multiple filter statememts. 
+Sometimes we want to use both `&` `|` to select the rows. You can use multiple filter statememts.
 
-Let's get observations where user is 'cdegroof' or 'deedeeflower5', and species is 'Western Fence Lizard'. 
+Let's get observations where user is 'cdegroof' or 'deedeeflower5', and species is 'Western Fence Lizard'.
 
 ```{r, complex_queries}
 complex_query <- inat_data %>%
@@ -459,10 +462,9 @@ unique(complex_query$user_login)
 Get all your observations for two species
 
 -   Use `unique(my_obs$common_names)` from Exercise 1 to find two species name.
--   Use `filter()` to pick two species and your username.  
--   Use `|` or `%in% c()%` to handle multiple species. 
+-   Use `filter()` to pick two species and your username.\
+-   Use `|` or `%in% c()%` to handle multiple species.
 -   Use `select()` to pick four columns.
-
 
 ::: answer
 ```{r, exercise_unique_common_names}
@@ -477,7 +479,6 @@ inat_data %>%
 ```
 :::
 ::::
-
 
 ## Higher taxonomy
 
@@ -500,23 +501,24 @@ When you search for 'oaks' on iNaturalist, click the 'About' link, and it will b
 
 ![](images/oaks_taxa.png){fig-alt="oaks taxa page on iNaturlaist"}
 
-'Oaks' is the common name for genus Quercus. When you search iNaturalist observations for 'oaks', iNaturalist returns observations that belong to the genus Quercus, which includes species such as 'Live Coast Oak' and 'Valley Oak'. 
+'Oaks' is the common name for genus Quercus. When you search iNaturalist observations for 'oaks', iNaturalist returns observations that belong to the genus Quercus, which includes species such as 'Live Coast Oak' and 'Valley Oak'.
 
+Let's look at the scientific name when we use `common_name == 'oaks'`
 
-Let's look at the scientific name when we use `common_name == 'oaks'` 
- 
 ```{r}
 unique(oaks_obs$scientific_name)
 ```
-The scientific name for the  218 'oaks' observation is Quercus. This means we aren't including oak species. To match the iNaturalist search results, we need to look for all observations where the genus equals Quercus including oak species.
 
-We can use `names()` to get all the taxon name fields. There are several taxon__xxx__name fields. 
+The scientific name for the 218 'oaks' observation is Quercus. This means we aren't including oak species. To match the iNaturalist search results, we need to look for all observations where the genus equals Quercus including oak species.
+
+We can use `names()` to get all the taxon name fields. There are several taxon\_\_xxx\_\_name fields.
 
 ```{r use_names_to_get_fields_2}
 names(inat_data)
 ```
+
 ::: callout-note
-When you download iNaturalist data, you can to select which taxon name fields to include in the download. By default, none are selected because the 'Taxon extras' fields slow down the export process. 
+When you download iNaturalist data, you can to select which taxon name fields to include in the download. By default, none are selected because the 'Taxon extras' fields slow down the export process.
 
 ![](images/taxon_extra_export.png){fig-alt="Taxon Extra fields on iNaturalist export page"}
 
@@ -541,11 +543,9 @@ oaks_obs_fixed <- inat_data %>%
   )
 ```
 
-
 The reason why I listed the hierarchy instead of just filtering by `taxon_genus_name == 'Quercus'` is because of limitations of my taxonomy knowledge and the limitations of the information provided by the CSV. Some Latin words are used multiple times to represent different taxa. For instance Eisenia is a genus for a type of worm and a genus for a type kelp. A filter command for `taxon_genus_name == 'Eisenia'` would return observations for two very different organisms. I don't have enough expertise to know if a taxa name is unique, so to play it safe, I list the entire taxonomy hierarchy. Someone with more expertise might know there is only one Quercus in Plantae, and use `filter(taxon_kingdom_name == 'Plantae' & taxon_genus_name == 'Quercus')`.
 
 iNaturalist gives each taxa name a unique id. Worm Eisenia is 128842, kelp Eisenia is 125880. When iNaturalist searches for observations for a given taxa, it uses the unique id for the search to avoid the problem of duplicate scientific names. Unfortunately the CSV download does not provide ids for each taxon rank, so we can't do a search by taxon rank id. It is possible to get the ids for all the taxon ranks, but that involves more advance coding techniques.
-
 
 ```{r, number_of_oak_observations}
 dim(oaks_obs_fixed)
@@ -618,7 +618,6 @@ laco_species_obs <- inat_data %>%
   select(user_login, common_name, scientific_name, taxon_species_name)
 ```
 
-
 ```{r get_laco_species_counts}
 laco_species_count <- laco_species_obs %>%
   count(common_name, scientific_name, taxon_species_name) %>%
@@ -626,6 +625,7 @@ laco_species_count <- laco_species_obs %>%
 
 laco_species_count
 ```
+
 Search by genera.
 
 ```{r get_laco_genera_observations}
@@ -657,9 +657,7 @@ Use `mutate()` from **dplry** to add a column. We pass in the name of the new co
 
 Use `year()` from **lubridate** on a date column to get the year.
 
-
-:::callout-tip
-
+::: callout-tip
 Vector is a list of items. We can access specific values in a vector by using `vector_name[number]`. To access a range of values use `vector_name[start_number:end_number]`
 
 ```{r}
@@ -673,7 +671,7 @@ letters[2:3]
 ```
 :::
 
-Let's get `observed_on` for rows 10315 to 10325. 
+Let's get `observed_on` for rows 10315 to 10325.
 
 ```{r show_observed_on}
 (inat_data$observed_on)[10315:10325]
@@ -708,15 +706,15 @@ inat_data %>%
   filter(year == 2020)
 ```
 
-:::: exercise
+::: exercise
 ## Exercise 4
 
 Get all of your observations from 2024.
 
 -   Use `mutate()` and `year()` to add year column
 -   Use `filter()` to pick observations with your username and year is 2024
--   Use select() to pick 4 columns
-::: answer
+-   Use select() to pick 4 columns ::: answer
+
 ```{r, exercise_last_year}
 inat_data %>%
    mutate(year = year(observed_on)) %>%
@@ -724,6 +722,7 @@ inat_data %>%
   select(user_login, observed_on, common_name, scientific_name)
 ```
 :::
+
 ::::
 
 ## Count the number of rows with count()
@@ -822,14 +821,13 @@ top_ten
 
 ```
 
-Then use `write_csv()` from **dplyr** to create a CSV. 
+Then use `write_csv()` from **dplyr** to create a CSV.
 
-- The first argument is the data frame to save. 
-- The second argument is the relative path of where to save the file. 
-- To keep our files organized, we are saving CSVs to the results folder. 
-- You should give the file a sensible name to help you remember what is in the file. Some people add the date to the file name to keep track of the various versions.
-- By default `NA` values will be saved as 'NA' string. `na=''` will save `NA` values as empty strings. 
-
+-   The first argument is the data frame to save.
+-   The second argument is the relative path of where to save the file.
+-   To keep our files organized, we are saving CSVs to the results folder.
+-   You should give the file a sensible name to help you remember what is in the file. Some people add the date to the file name to keep track of the various versions.
+-   By default `NA` values will be saved as 'NA' string. `na=''` will save `NA` values as empty strings.
 
 ```{r, save_file}
 #| eval: false

@@ -16,16 +16,6 @@ include-in-header: "components/add-answer-button.html"
 -   Learn how to create interactive maps with mapview
 :::
 
-## Geographic concepts
-
-Geographic data is data that has a location.
-
-There are various file formats for geographic data. Shape files for GIS applications, KML for Google maps, geojson for web applications.
-
-Earth is a 3D sphere. Maps are 2D representation of a 3D sphere. Map projections are ways to represent a sphere as a flat surface. A coordinate reference system (CRS) defines how the two-dimensional, projected map relates to real places on the earth.
-
-Many organizations offer geospatial data that people can use for free. Los Angeles City has a portal for geospatial data: <https://geohub.lacity.org>
-
 ## Mapping iNaturalist data
 
 iNaturalist data includes latitude and longitude, which means we can put the observations in a map. There are several packages to create maps. We will use **ggplot** and **mapview** packages.

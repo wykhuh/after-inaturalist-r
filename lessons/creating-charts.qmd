@@ -11,8 +11,9 @@ include-in-header: "components/add-answer-button.html"
 
 ## Objectives
 
--   Learn how to create bar and line charts using ggplot2
--   Learn how to customize the appearance of the charts
+-   Create bar and line charts using ggplot2
+-   Customize the appearance of the charts
+-   Save charts as image files
 :::
 
 ```{r, load_packages}
@@ -26,13 +27,17 @@ library(lubridate) # manipulate dates
 
 ## Creating charts
 
-We are going to be using functions from the **`ggplot2`** package to create visualizations. **`ggplot`** plots are built step by step by adding new layers, which allows for extensive customization of plots.
+**`ggplot2`** is a powerful package that allows you to create complex charts from tabular data (data in a table format with rows and columns). The **`gg`** in **`ggplot2`** stands for “grammar of graphics”, and the package uses consistent vocabulary to create plots step by step by adding new layers, which allows for extensive flexibility and customization of plots.
+
+::: callout-note
+Some people involved with visualizing data say charts, graphs, and plots are different things. This workshop will use charts, graphs, and plots interchangeably.
+:::
 
 Main steps:
 
-1.  Load data
+1.  Load data as data frame
 2.  Use `filter`(), `select()`, `mutate()`, `count()` so the data frame has the data we need
-3.  Set which columns in a data frame will be used for chart elements such as x and y axis
+3.  Pass the data to `ggplot2()`. Set which columns in a data frame will be used for chart elements such as x and y axis
 4.  Select the chart type
 5.  Create chart
 
@@ -42,8 +47,9 @@ First, read data from the iNaturalist observation file.
 
 ```{r, load_inaturalist_data}
 #| warning: false
-#| message: false
+#| message: true
 inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+
 
 ```
 
@@ -51,27 +57,25 @@ inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 
 Let's create a bar chart that shows the number of observations per year.
 
-First, add year column to iNaturalist data.
+We need to add a year column to iNaturalist data.
 
 ```{r, add_year_column}
 inat_year <- inat_data %>% 
-  mutate(year = year(observed_on))
+  mutate(year = year(observed_on)) 
 ```
 
-Then we pass the inaturalist observation to `ggplot()` function using the `data` argument.
+Then we pass the data frame `inat_year` to `ggplot()` function as the first argument.
 
 ```{r, pass_data_to_ggplot}
-ggplot(data = inat_year)
+ggplot(inat_year)
 ```
 
-We need to tell **ggplot** how to use data to create a plot. We tell **ggplot** how to map the data to various plot elements, such as x/y axis, size, or color by using the `aes()` function. `aes` is short for aesthetic mappings.
+We need to tell **ggplot** how to use the data to create a chart. We can specify the mapping of data frame fields to elements in the chart, such as x/y coordinates, size, or shape, by using the `aes()` function. `aes` is short for aesthetic mappings.
 
-For bar charts, we need to tell what column to use for the x axis.
+For bar charts, we need to tell what field to use for the x axis. We want to create a plot with `year` on the x axis so we use set the `aes()` function `x` argument to `year`. **ggplot** will count the number of rows for each year, and use the number of rows for the y axis.
 
-We want to create a plot with `year` on the x axis so we use `mapping = aes(x = year)`. **ggplot** will count the number of rows for each year, and use the number of rows for y axis.
-
-```{r, pass_mapping_to_ggplot}
-ggplot(data = inat_year, mapping = aes(x = year))
+```{r, pass_aes_to_ggplot}
+ggplot(inat_year, aes(x = year))
 ```
 
 Next we need to specify how we want the data to be displayed. We do this using `geom_` functions, which specify the type of geometry we want, such as points, lines, or bars. We use `geom_bar()` to create a vertical bar plot.
@@ -79,16 +83,16 @@ Next we need to specify how we want the data to be displayed. We do this using `
 We can add a `geom_bar()` layer to our plot by using the `+` sign. We indent onto a new line to make it easier to read, and we have to end the first line with the `+` sign.
 
 ```{r, set_bar_type}
-ggplot(data = inat_year, mapping = aes(x = year)) +
-  geom_bar()
+ggplot(inat_year,  aes(x = year)) +
+  geom_bar()    
+
 ```
 
-If we want horizontal bar chart, use `coord_flip()`
+If we want horizontal bar chart, set the `aes()` function `y` argument to `year`.
 
 ```{r, horizontal_bar_chart}
-ggplot(data = inat_year, mapping = aes(x = year)) +
-  geom_bar() +
-  coord_flip()
+ggplot(inat_year, aes(y = year)) +
+  geom_bar()
 ```
 
 ## Line chart
@@ -102,30 +106,28 @@ We need to create a data frame that has a year column, and a column that counts 
 ```{r, create_dataframe_with_year_count}
 inat_year_count <- inat_data %>% 
   mutate(year = year(observed_on)) %>%
-  count(year, name='obs_count')  
+  count(year, name='count')  
 
 inat_year_count
 ```
 
-For `aes`, use `year` on the x axis and `obs_count` on the y axis. And we use `geom_line()` to create a line chart.
+For `aes`, use `year` on the `x` axis and `count` on the `y` axis. And we use `geom_line()` to create a line chart.
 
 ```{r, create_line_chart}
-ggplot(data = inat_year_count, 
-       mapping = aes(x = year, y=obs_count)) +
+ggplot(inat_year_count, 
+       aes(x = year, y=count)) +
   geom_line()
 ```
 
 ## More bar charts
 
-Create a bar chart that shows the number of observations per year.
+In the previous example we created a data frame `inat_year_count` that has observations per year. To create bar chart when the data has values for x axis and y axis, use `geom_col()`
 
-In the previous example we created a data frame `inat_year_count` that has observations per year. To create bar chart when we already have values for x and y, use `geom_col()`
-
-We want `year` on the x axis, and `obs_count` on the y axis.
+We want `year` on the `x` axis, and `obs_count` on the y axis.
 
 ```{r, create_column_chart}
-ggplot(data = inat_year_count, 
-       mapping = aes(x = year, y = obs_count)) +
+ggplot(inat_year_count, 
+       aes(x = year, y = count)) +
   geom_col()
 ```
 
@@ -136,9 +138,9 @@ Create a chart with all your observations for each year
 
 -   Use `mutate()` to add year column
 
--   Use `filter()` to select user
+-   Use `filter()` to select observations you made
 
--   Save the data frame to `my_obs_by_year object`
+-   Save the data frame to `my_obs_by_year` object
 
 -   Use `ggplot()` to set the data and aesthetics.
 
@@ -152,13 +154,54 @@ my_obs_by_year  <- inat_data %>%
   filter(user_login == 'natureinla')
 
   
-ggplot(data = my_obs_by_year, mapping = aes(x = year)) +
+ggplot(my_obs_by_year, aes(x = year)) +
   geom_bar()
 ```
 :::
 ::::
 
-## Changing chart colors
+## Stacked bar charts
+
+We can create stacked bar charts by adding a field from the dataframe to `aes()` function `fill` argument. Let's create a stacked bar chart using `quality_grade`.
+
+```{r, create_stacked_bar_chart}
+ggplot(inat_year, aes(x = year, fill = quality_grade)) +
+  geom_bar()   
+```
+
+The height of each bar represents the number of observations per year. The height of the 3 rectangles in each bar represents the number of observations that are labeled casual, needs_id, and research.
+
+**ggplot2** assigns each quality grade a different color, and creates a legend that tells you which values goes with which color. 
+
+
+## Dodged bar charts
+
+To create side-by-side dodged bar charts, use `position=position_dodge()`
+
+```{r create_dodged_bar_chart}
+ggplot(inat_year , aes(x = year, fill = quality_grade))  +
+  geom_bar(position = position_dodge(preserve = 'single'))  
+```
+
+## Multiple line charts
+
+If we want a chart with multiple lines, we need to create a data frame with three columns: one column x axis, one column for y axis, and one column for color.
+
+```{r create_dataframe_for_multi_line_chart}
+year_quality_count <- inat_data %>% 
+  mutate(year = year(observed_on))  %>%
+  count(year, quality_grade,  name='count') 
+
+year_quality_count
+```
+
+```{r create_multi_line_chart}
+ggplot(year_quality_count, 
+         aes(x = year, y = count, color = quality_grade)) +
+  geom_line()
+```
+
+## Changing colors
 
 Use `colors()` to get a list of the 657 colors in R.
 
@@ -166,33 +209,106 @@ Use `colors()` to get a list of the 657 colors in R.
 colors()
 ```
 
-We can change the color of the bars using `fill='color'`.
+We can change the color of the bars using `fill`, `color`, and the name of the color. `fill` is the inside of the bar, `color` is the border of the bar.
 
 ```{r, set_bar_color}
-ggplot(data = inat_year, mapping = aes(x = year)) +
-  geom_bar(fill='aquamarine')
+ggplot(inat_year, aes(x = year)) +
+  geom_bar(fill='aquamarine', color='black')
 ```
 
-We can also use 6 digit hex color. You can use online tools to get hex colors. https://html-color.codes
+We can also use 6 digit hex color. You can use online tools to get [hex colors](https://html-color.codes). 
 
 ```{r, set_bar_color_using_hex_code}
-ggplot(data = inat_year, mapping = aes(x = year)) +
+ggplot(inat_year,  aes(x = year)) +
   geom_bar(fill='#75cd5e')
 ```
+
+## Color scales 
+
+In the previous bar chart, we made all the bars the same green color.  If we want the chart colors to vary based on the data values, we need to put that information inside `aes()`, such as `aes(fill=field_name)`. 
+
+Let's update the previous bar chart to give each year a different color
+
+```{r fill_warining_numerical_value}
+ggplot(inat_year, aes(x = year, fill = year)) +
+  geom_bar()  
+```
+
+That didn't work. There is a warning: "Did you forget to specify a \`group\` aesthetic or to convert a numerical variable into a factor?"
+
+::: callout-note
+Factor is a R data structure used to represent categorical data, which only accepts a finite number of pre-defined values. To create a factor use `factor()`. The distinct values in a factor are called levels.
+
+```{r creating_factor}
+factor(c(2020, 2020, 2021, 2022, 2022, 2022))
+
+factor(c('apple', 'grape', 'apple', 'pear'))
+```
+:::
+
+Let's convert year into a factor.
+
+```{r create_chart_with_fill_color_year}
+ggplot(inat_year, aes(x = year, fill= factor(year))) +
+  geom_bar()  
+```
+
+**ggplot2** assigns each year a different color. **ggplot2** has color scale function that produces a predefined list of colors. The default color scale isn’t always ideal: it isn’t friendly to viewers with colorblindness and it doesn’t translate well to grayscale. However, **`ggplot2`** comes with quite a few other color scales, including the `viridis` scales, which are designed to be colorblind and grayscale friendly. We can change color scales by adding `scale_color_`  and `scale_fill_` functions to our plots. Since we are dealing with bar charts, we want `scale_fill_.`
+
+::: callout-note
+In mathematics and statistics, values can be discrete or continuous. Discrete value have distinct values such as whole numbers (1, 2, 3) or categories (states: California, Oregon). Continuous values represent an infinite number of possible values such as fractions and decimals (1.1, 2-1/2, 2-3/4, 3.9).
+:::
+
+Color scale functions can be discrete or continuous. Let's add viridis scale to the previous bar chart. We want to use `scale_fill_viridis_d()` since year has discrete values.
+
+```{r create_chart_with_fill_viridis_year}
+ggplot(inat_year,  aes(x = year, fill= factor(year))) +
+  geom_bar()  +
+  scale_fill_viridis_d()
+```
+
+ If you try to use viridis continuous funtion, you will get an error: "Discrete values supplied to continuous scale."
+
+```{r create_chart_with_fill_viridis_year_error}
+#| eval: false 
+#| 
+ggplot(inat_year, aes(x = year, fill= factor(year))) +
+  geom_bar()  +
+  scale_fill_viridis_c()
+```
+
+For more information about color scales, visit [Introverse color scales](https://sjspielman.github.io/introverse/articles/color_fill_scales.html) page.
+
+## Changing axis breaks
+
+**ggplot2** will automatically break the axis into multiple chunks and add labels for the values. We can use `n.breaks` argument for `scale_x_continuous()` and `scale_y_continuous()` to adjust the number of breaks along the axis. **ggplot2** may choose a slightly different number to ensure nice break labels.
+
+Let's add more breaks along the year x axis and count y axis.
+
+```{r create_chart_with_custom_breaks}
+ggplot(inat_year,  aes(x = year, fill= factor(year))) +
+  geom_bar()  +
+  scale_fill_viridis_d() +
+  scale_x_continuous(n.breaks=8) +
+  scale_y_continuous(n.breaks=7)
+```
+
+
 
 ## Changing themes
 
 Let's assign a plot to an object so can refer to it later.
 
 ```{r, assign_plot_to_object}
-myplot <- ggplot(data = inat_year, mapping = aes(x = year)) +
-  geom_bar(fill='#75cd5e')
+myplot <- ggplot(inat_year,  aes(x = year)) +
+  geom_bar(fill='#75cd5e') +
+  scale_x_continuous(n.breaks = 8) 
+ 
 
-myplot
-
+  myplot
 ```
 
-**ggplot** has built in themes that affects the overall appearance of a plot. To see a list of available themes in ggplot, visit https://ggplot2.tidyverse.org/reference/index.html#themes
+**ggplot** has built in themes that affects the overall appearance of a plot. To see a list of available themes in ggplot, visit [ggplot2 themes](https://ggplot2.tidyverse.org/reference/index.html#themes)
 
 Let's add the black-and-white theme `theme_bw()` to our plot:
 
@@ -202,6 +318,15 @@ myplot +
 ```
 
 To individually change parts of a plot, we can use the `theme()` function, which can take many different arguments to change things about the text, grid lines, background color, and more.
+
+Let's rotate the x axis labels by 90 degrees so the text is vertical.
+
+```{r rotate_axis_label}
+myplot + 
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90))
+
+```
 
 Let's try changing the size of the text on our axis titles. We can do this by specifying that the `axis.title` should be an `element_text()` with `size` set to 14.
 
@@ -242,6 +367,8 @@ We can customize the axis labels and add a chart title using `labs()`.
 myplot +
   theme_bw() +
   theme(axis.title = element_text(size = 14), 
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
         plot.title = element_text(face = "bold", size = 20)) +
   labs(title = "CNC Los Angeles",
        subtitle="Observations per year",
@@ -260,17 +387,16 @@ Take the `my_obs_by_year` data frame from exercise 1 and create a plot. Customiz
 
 -   change the axis titles
 
--   change the colors of the bar
+-   change the fill colors of the bars
 
 ::: answer
 ```{r, exercise_change_chart_appearance}
-my_chart <- ggplot(data = my_obs_by_year, mapping = aes(x = year)) +
+my_chart <- ggplot(my_obs_by_year, aes(x = year)) +
   geom_bar()
 
 my_chart +
   theme_classic() +
   labs(title = "CNC Los Angeles",  x = "Year",  y = "Observations") 
-
 ```
 :::
 ::::
@@ -288,6 +414,8 @@ Assign the plot to an object. Then run `ggsave()` to save our plot. The first ar
 finalplot <- myplot +
   theme_bw() +
   theme(axis.title = element_text(size = 14), 
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
         plot.title = element_text(face = "bold", size = 20)) +
   labs(title = "CNC Los Angeles",
        subtitle="Observations per year",
@@ -295,5 +423,6 @@ finalplot <- myplot +
        y = "Observations")
 
 # save plot
-ggsave(filename = 'results/observations_per_year.jpg', plot = finalplot,  height = 6, width = 8)
+ggsave(filename = 'results/observations_per_year.jpg', plot = finalplot, 
+       height = 6, width = 8)
 ```

@@ -19,40 +19,28 @@ include-in-header: "components/add-answer-button.html"
 
 ## What are R and RStudio?
 
-R refers to a programming language as well as the software that runs R code. R was started in 1993. All programming languages have commands and syntax that you must use in order to write instructions to tell the computer to do something.
+R refers to a programming language as well as the software that runs R code.
 
-[RStudio](https://rstudio.com) is software to make it easier to write and run code in R. It was started in 2010.
-
-Think of R as English, and RStudio as Microsoft Word or Google Docs.
-
-Both R and RStudio are:
-
--   free
--   cross platform: works on Mac, Windows, Linux
--   open source: allows anyone to use and modify the software
+[RStudio](https://rstudio.com/) is a software interface that can make it easier to write R scripts and interact with the R software.
 
 ## Navigating RStudio
 
-We will use the RStudio integrated development environment (IDE) to write and run R code. RStudio includes features such as file navigation, inspecting objects, keyboard shortcuts, autocompletion of code, and syntax highlighting (different types of code are colored differently).
+We will use the RStudio integrated development environment (IDE) to write code into scripts, run code in R, navigate files on our computer, inspect objects we create in R, and look at the plots we make.
 
 ![](images/rstudio_screenshot.png){alt="Screenshot of RStudio showing the 4 \"panes\"."}
 
 In the above screenshot, we can see 4 panes. If you only have 3 panes, and the Console pane is in the top left, press <kbd>Shift+Cmd+N</kbd> (Mac) or <kbd>Shift+Ctrl+N</kbd> (Windows) to open a blank R script, which should make the Source pane appear.
 
--   Top-Left: the **Source** pane that displays scripts and other files.
--   Top-Right: the **Environment** pane shows all the objects in your current R session.
-    -   There are some other tabs here including History, Connections, Build.
--   Bottom-Left: the **Console** pane, where you can type in commands. The R console will interpret R commands and prints the results
-    -   There are also tabs for Terminal and Jobs
--   Bottom-Right: the **Files** pane is used to display directories and files on your computer. **Plot** and **Viewer** displays plots and other types of output. **Help** display help pages
+-   Top-Left: the **Source** pane that displays scripts and other files.
+-   Top-Right: the **Environment** pane, which shows all the objects in your current R session.
+-   Bottom-Left: the **Console** pane, where you can interact directly with an R console, which interprets R commands and prints the results
+-   Bottom-Right: the **Files** pane displays directories and files on your computer. **Plot** and **Viewer** displays plots and other types of output. **Help** display help pages.
 
 ## Overview of workshop files
 
 Let's examine the project files using the **Files** pane.
 
-It is a good practice to organize your projects into self-contained folders right from the start. Using a consistent folder structure across all your new projects will help keep a growing project organized, and make it easy to find files in the future.
-
-We will use this basic structure for this workshop.
+It is a good practice to organize your projects into self-contained folders right from the start, so we will start building that habit now. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into sub-folders.
 
 ```         
 project_folder
@@ -70,7 +58,7 @@ project_folder
 
 Within our project folder, we have a `data` folder containing `cleaned` and `raw` subfolders. In general, you want to keep your `raw` data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the `cleaned` folder. We also have a `results` folder for any other documents you might produce. We also have a `scripts` folder to hold any scripts we write.
 
-RStudio provides a "Projects" feature that can make it easier to work on individual projects in R. When you need to work on the project, click on the .Rproj file to start RStudio.
+RStudio provides a “Projects” feature that can make it easier to work on individual projects in R.When you need to work on the project, click on the .Rproj file to start RStudio.
 
 One of the benefits to using RStudio Projects is that they automatically set the **working directory** to the top-level folder for the project. The working directory is the folder where R is working, so it views the location of all files (including data and scripts) as being relative to the working directory.
 
@@ -94,10 +82,11 @@ First, click down in the Console pane, and type out `1+2`. Hit <kbd>Enter</kbd> 
 #### Script
 
 -   A script is a record of commands to send to R, preserved in a plain text file with a `.R` extension
--   You send lines of R code to the R console to be evaluated
-    -   <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) will run the line of code that your cursor is on
-    -   If you highlight multiple lines of code, you can run all of them by pressing <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows)
--   By saving the commands in a script, you can edit and rerun them quickly, access the commands in the future, and share them with others
+-   If you type out lines of R code in a script, you can send them to the R console to be evaluated. There are 3 ways to run the code
+    1.  <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) will run the line of code that your cursor is on. If you highlight multiple lines of code, you can run all of them by pressing <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows)
+    2.  click on the `Run` button above the editor panel
+    3.  select “Run Lines” from the “Code” menu
+-   By preserving commands in a script, you can edit and rerun them quickly, save them for later, and share them with others
 -   An additional benefit of scripts is that you can leave **comments** for yourself or others to read. Lines that start with `#` are considered comments and will not be interpreted as R code.
 
 ## First script
@@ -106,13 +95,17 @@ Let's create our first script.
 
 You can make a new R script by clicking `File → New File → R Script`, clicking the green `+` button in the top left corner of RStudio, or pressing <kbd>Shift+Cmd+N</kbd> (Mac) or <kbd>Shift+Ctrl+N</kbd> (Windows). It will be unsaved, and called "Untitled1"
 
-Now click into your blank script, and type out `1+2`. With your cursor on that line, hit <kbd>Cmd+Enter</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) to run the code. You will see that your code was sent from the script to the console, where it returned a value of `3`.
+### R as Calculator
 
-Sometimes we want to store a value in memory so we can use it later. `<-` tells R to assign the value on the right to the named object on the left. We refer to the value using the object name.
+Now click into your blank script, and type out `1+2`. With your cursor on that line, hit <kbd>Cmd+Enter</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) to run the code.  You will see that your code was sent from the script to the console, where it returned a value of `2`, just like when you ran your code directly in the console.
 
-```         
-object_name <- value
-```
+### Objects and Assignment
+
+Sometimes we want to store a value in memory so we can use it later. We can store values in objects using the assignment operator `<-`, like this:
+
+object_name \<- value
+
+`<-` tells R to assign the value on the right to the object on the left. We refer to the value using the object name.
 
 Let's create a price_1 and price_2 objects, and assign them a value.
 
@@ -123,7 +116,7 @@ price_2 <- 30
 
 Objects `price_1` and `price_2` are created, and stored in memory. The objects are show in the **Enviroment** panel.
 
-We can refer to the object names, and do something with those values. Let's add the two prices
+We can refer to the object names and do something with those values. Let's add the two prices
 
 ```{r, adding_objects}
 price_1 + price_2
@@ -137,7 +130,11 @@ price_1 <- 50
 price_1 + price_2
 ```
 
-We can do comparison of price_1 and price_2
+Object names can contain letters, numbers, underscores and periods. They cannot start with a number nor contain spaces at all.
+
+### Comparing values
+
+We can do comparison of price_1 and price_2. The comparisons return TRUE or FALSE.
 
 ```{r equal_comparison}
 # equal
@@ -145,24 +142,12 @@ price_1 == price_2
 
 # not equal
 price_1 != price_2
-```
 
-```{r greater_comparison}
 # greater than
 price_1 > price_2
-
-# greater or equal than
-price_1 >= price_2
 ```
 
-```{r less_comparison}
-# less than
-price_1 < price_2
-
-# less or equan than
-price_1 < price_2
-
-```
+R has other comparison such as `>` greater than, `>=` greater or equal than, `<` less than, `<=` less or equal than.
 
 Save the script <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a name such as 'first_script.R'. Save it in the `scripts` folder.
 

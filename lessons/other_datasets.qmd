@@ -43,11 +43,7 @@ Let's get observations for Coast Live Oak and create a map.
 #| message: false
 
 inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
-```
 
-Add a geometry column using `st_as_sf().` Select observations for 'Quercus agrifolia' aka Coast Live Oak using `filter()`.
-
-```{r, get_oak_observations}
 oak_obs <- inat_data %>% 
   st_as_sf(coords = c("longitude", "latitude"), crs = 4326, remove=FALSE) %>% 
   filter(scientific_name == 'Quercus agrifolia') %>%
@@ -416,3 +412,17 @@ mapview(parks_county, col.region='red') +
 ```
 
 ![](images/mapview/other-datasets/map_of_parks_with_inat.png){fig-alt="interactive map of city, county, and state parks and iNaturalist observations"}
+
+## Environmental Justice
+
+The Green Zones Program’s environmental justice screening method (EJSM) was used to identify stationary sources of pollution and analyze cumulative environmental impacts, based on experts’ recommendations and the information gathered from groundtruthing activities. This tool serves as a public resource and provides a foundation for environmental justice policies.
+
+Environmental Justice Screening Method (EJSM) as developed by USC / Occidental College. This was initiated by the proposed Green Zones Program at the Department of Regional Planning.
+
+The Environmental Justice Screening Method (EJSM) was developed for Los Angeles County by staff at USC PERE / Occidental College who are experts in the field of Environmental Justice, who were also instrumental in helping develop CalEnviroScreen (an industry standard Environmental Justice analysis for the State of CA).  This web map shows the scores throughout LA County at the Census Tract level based on hazard proximity to sensitive uses, health risk and exposure, social and health vulnerability, and climate change vulnerability.  The overall scores illustrate cumulative pollution impacts that are disproportionately borne by people residing in each census tract.  An additional analysis was done by the Department of Regional Planning to include 'Auto Dismantling / Metal Recycling' facilities in the final scoring.
+
+<https://egis-lacounty.hub.arcgis.com/datasets/lacounty::ejsm-scores/about>
+
+City and Unincorporated Community Boundary (LA County Planning)
+
+<https://egis-lacounty.hub.arcgis.com/datasets/lacounty::city-and-unincorporated-community-boundary-la-county-planning/about>
