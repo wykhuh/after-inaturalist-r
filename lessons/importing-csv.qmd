@@ -9,11 +9,12 @@ include-in-header: "components/add-answer-button.html"
 
 -   How do you work with CSV data in R?
 -   What are the basic data types in R?
+-   What are some basic data structures in R?
 
 ## Objectives
 
 -   Import CSV into R.
--   To be aware of the different types of data.
+-   To be aware of the different data types and data structures.
 :::
 
 ## Reading CSV files
@@ -24,11 +25,11 @@ A CSV of iNaturalist observations for City Nature Challenge Los Angeles from 201
 
 When we reference other files from an R script, we need to give R precise instructions on where those files are. We do that using something called a **file path**.
 
-There are two kinds of paths: **absolute** and **relative**. Absolute paths are specific to a particular computer, whereas relative paths are relative to a certain folder. For instance an absolute path is "/Users/username/Documents/coding/CNC-coding-workshop/data/cleaned/cnc-los-angeles-observations.csv", and relative path is "data/cleaned/cnc-los-angeles-observations.csv". Because we are using RStudio "project" feature, all of our paths is relative to the project folder.
+There are two kinds of paths: **absolute** and **relative**. Absolute paths are specific to a particular computer, whereas relative paths are relative to a certain folder.  Because we are using RStudio "project" feature, all of our paths is relative to the project folder. For instance an absolute path is "/Users/username/Documents/CNC-coding-workshop/data/cleaned/cnc-los-angeles-observations.csv", and relative path is "data/cleaned/cnc-los-angeles-observations.csv".
 
 ### Reading a file
 
-In order to analyze the iNaturalist csv, we need to load **readr** package.
+In order to analyze the iNaturalist csv, we need to load **readr** and **dplyr** packages.
 
 ```{r, loading_packages}
 #| message: false
@@ -39,7 +40,7 @@ library(dplyr) # manipulate data
 
 We call `read_csv()` function from **readr**, and pass in a relative path to a CSV file in order to load the CSV.
 
-`read_csv()` will read the file and return the content of the file. In order for us access the content later on, we will assign the content to an object called `inat_data`. When `read_csv()` is finishes reading the file, `inat_data` is displayed in the **Environment** panel. Double click on `inat_data` in **Environment** to see all the data.
+`read_csv()` will read the file and return the content of the file. In order for us access the content later on, we will assign the content to an object called `inat_data`.  Double click on `inat_data` in **Environment** to see all the data.
 
 ```{r, assign_read_csv_to_object}
 inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
@@ -49,82 +50,123 @@ inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 Typing out paths can be error prone, so we can utilize a keyboard shortcut. Inside the parentheses of `read_csv()`, type out a pair of quotes and put your cursor between them. Then hit <kbd>Tab</kbd>. A small menu showing your folders and files should show up. You can use the <kbd>↑</kbd> and <kbd>↓</kbd> keys to move through the options, or start typing to narrow them down. You can hit <kbd>Enter</kbd> to select a file or folder, and hit <kbd>Tab</kbd> again to continue building the file path. This might take a bit of getting used to, but once you get the hang of it, it will speed up writing file paths and reduce the number of mistakes you make.
 :::
 
-`read_csv()` prints out the number of columns and row, the file delimiter, and the number of fields for each vector type.
+`read_csv()` prints out the number of columns and row, the file delimiter, and the number of fields for each vector type. 
+
+
+We can use the `glimpse()` function from **dplyr** get a summary about the contents of `inat_data` . It shows the number of rows and columns. For each column, it shows the name, data type (**dbl**, **chr**, **lgl**, **date**), and the first few values.
+
+```{r, call_glimpse}
+glimpse(inat_data)
+```
+To understand the data produced by `read_csv()`, we will learn how R deals with with data.
+
+## Data Types
+
+Every value in R has a data type. There are 4 main types: **numeric**, **integer**, **logical**, and **character**. 
+
+**numeric** are numbers that contain a decimal (e.g. 1.2, 10.5). By default, R also treats whole numbers as decimals (e.g. 1, 10). 
+
+We can use `class()` function to find the type or class of any object
+
+```{r numeric_type}
+class(1)
+class(1.0)
+```
+
+**integer** are whole numbers that do not have a decimal point. (e.g. 1L, 10L). In R, the `L` suffix forces the number to be an integer, since by default R uses decimal numbers.
+
+
+```{r integer_type}
+class(1L)
+```
+
+**logical** have values of `TRUE` or `FALSE`. 
+
+There is a special type of logical called `NA` that represents missing values. `NA` is short for not applicable. 
+
+```{r logical_type}
+class(TRUE)
+class(NA)
+```
+
+ **character** represent string values (e.g. "abc", "dog"). The strings must be surrounded by quotes, either single quotes 'xxx'  or double quotes "xxx". 
+
+```{r character_type}
+class('dog')
+class("cat")
+```
+
+A value's data type will determine what R can do with the value. For instance, in R we can add numbers but we can't add strings.
+
+
+## Vectors
+
+A data structure is a way to organize and store a collection of values.  A vector is data structure in R that has series of values. All the value in the vector must be the same data type.
+
+To create a vector we use the `c()` combine function, and pass in the values as arguments. 
+
+```{r numeric_vector}
+# numeric vector
+num <- c(1, 2, 5)
+num
+class(num)
+```
+
+```{r character_vector}
+# character vector
+char <- c("apple", "pear", "grape")
+char
+class(char)
+```
+
+```{r logical_vector}
+# logical vector
+log <- c(TRUE, FALSE, TRUE)
+log
+class(log)
+
+```
+
+If you try to put values of different data types into a vector, all the values are converted to the same data type. 
+
+```{r vector_conversion}
+mixed <- c(1, "apple", TRUE)
+mixed
+
+class(mixed)
+
+```
+
+`NA` is a special type of value, and is allowed in vectors of any data type.
+
+```{r c-vector-na}
+# numeric vector
+num <- c(1, 2, NA)
+class(num)
+
+# character vector
+char <- c("apple", "pear", NA)
+class(char)
+
+# logical vector
+log <- c(TRUE, FALSE, NA)
+class(log)
+
+```
+
 
 ## data.frame
 
-`class()` is a function from R that tells us the class of whatever we pass into it. Let's find the class of `inat_data`
+When we call `class()` with `inat_data`, it returns "tbl" and "data.frame". 
 
 ```{r}
 class(inat_data)
 ```
 
-`inat_data` is a **data.frame**. A **data.frame** is the most common way that R represents tabular data (data that can be stored in a table format, like a spreadsheet). 
+**data.frame** is a data structure from R that is used to represent tabular data with rows and columns. **tbl** aka tibble is an updated version of data.frame from the **tibble** package. **readr** uses tibbles instead of data.frames.
 
-`glimpse()` function from **dplyr** show information about a data.frame. It shows the number of rows and columns. For each column, it shows the name, data type (**dbl**, **chr**, **lgl**, **date**), and the first few values.
+When `readr` loads a CSV, it tries to figure the data type for each column. Each column in a data.frame and tibble is a vector. Because each column is a vector, all the values in a column must be of the same data type. 
 
-```{r, call_glimpse}
-glimpse(inat_data)
-```
+For `inat_data`, columns `id` and `latitude` are **numeric**. Columns `captive_cultivated` and `coordinates_obscured` are **logical**.  Columns `user_login` and `license` are **character**. Multiple columns have `NA` such as `license` and `sound_url`.
 
-Each column name starts with a **\$**. **\$** is an operator that allows us to select individual columns from a data.frame using `dataframe$column_name`.
-
-::: callout-tip
-The **\$** operator also allows you to use tab-completion to quickly select which variable you want from a given data.frame. For example, to get the `user_login` field, we can type `inat_data$` and then hit <kbd>Tab</kbd>. We get a list of the variables that we can move through with up and down arrow keys. Hit <kbd>Return</kbd> (Mac) or <kbd>Enter</kbd> (Windows) to select a field.
-:::
-
-```{r use_$_access_dataframe_field}
-#| message: false
-#| eval: false
-inat_data$user_login
-```
-
-## Data Types
-
-Every value in R has a data type. There are 4 main types: `numeric`, `integer`, `logical`, and `character`.
-
-1.  `"character"` for strings of characters. Each entry in a character vector is wrapped in quotes. `user_login` column is "`character"`
-
-2.  `"integer"` for integers. Integers are represented like `2L` or `20L`. The `L` suffix forces the number to be an integer, since by default R uses float numbers.
-
-3.  `"numeric"`, aka `"double"` for numbers including decimals. `id` column is `"numeric".`
-
-4.  `"logical"` for `TRUE` and `FALSE`, which can also be represented as `T` and `F`. `captive_cultivated` column is `"logical".`
-
-A value's data type will determine what R can do with the value. For instance, we can add numbers but we can't add strings.
-
-When `readr` loads a CSV, it tries to figure the data type for each column. `readr` has a special data type `date` that is used to represent dates.
-
-## Vectors
-
-A vector in R is a list of things, with the special condition that everything in the vector must be the same basic data type. Data.frames are made up of vectors; each column in a data.frame is a vector.
-
-To create a vector from scratch, we can use the `c()` combine function, putting values inside, separated by commas.
-
-```{r c-vector}
-# numeric vector
-v1 <- c(1, 2, 5)
-class(v1)
-
-# character vector
-v2 <- c("apple", "pear", "grape")
-class(v2)
-
-
-# logical vector
-v3 <- c(TRUE, FALSE, TRUE)
-class(v3)
-```
-
-When R encounters multiple types to be combined into a single vector, it will force them all to be the same type. 
-
-```{r}
-mixed <- c(TRUE, 2, "apple")
-mixed
-
-class(mixed)
-```
-
-## Missing data
-
-R represents missing data as `NA`, without quotes, in vectors of any type. The column `license` has a combination of characters and `NA`.
+`readr` has a special data type `date` that is used to represent dates. Column `observed_on` is **date**. Other columns are such as `time_observed_at` are treated as **character** because those strings have extra information that `reader` does not recognize as a **date**.
