@@ -18,16 +18,16 @@ include-in-header: "components/add-answer-button.html"
 
 ## Mapping iNaturalist data
 
-iNaturalist data includes latitude and longitude, which means we can put the observations in a map. There are several packages to create maps. We will use **ggplot** and **mapview** packages.
+iNaturalist data includes latitude and longitude information, which means we can put the observations on a map.
 
 Main steps:
 
 1.  Load iNaturalist data
-2.  Add geometry column to iNaturalist data frame
-3.  Use `filter()`, `select(),` and `mutate()`, to get the rows and columns we want.
+2.  Add geometry column to iNaturalist data
+3.  Use `filter()`, `select(),` `mutate()`, and `count()` to get the rows and columns we want.
 4.  Create map.
 
-loading R packages
+Loading R packages. We will use **ggplot, sf** and **mapview** packages to create maps.
 
 ```{r, load_packages}
 #| error: false
@@ -42,7 +42,7 @@ library(sf) # handle geospatial data
 library(mapview) # create interactive maps
 ```
 
-Read data from the cleaned iNaturalist observation file.
+First, we need to read data from the CNC iNaturalist observation file.
 
 ```{r, read_data_from_csv}
 #| warning: false
@@ -51,35 +51,42 @@ inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 
 ```
 
-Use `names()` to see all the column names. "latitude" and "longitude" are the column names we need.
+We can use `names()` to see all the column names. "latitude" and "longitude" are the column names we need.
 
 ```{r, get_column_names}
 names(inat_data)
 ```
 
-We use the **sf** package to add geographic data to our data frame. `st_as_sf()` from **sf** package will take the longitude and latitude and add a `geometry` column that we can use for mapping.
+`st_as_sf()` function from **sf** package will take the longitude and latitude values and add a `geometry` column that we can use for mapping.
 
--   We pass in longitude and latitude columns to `coords` argument. Must wrap longitude and latitude in quotes.
--   `crs` is coordinate reference system. 4326 is code for the WGS 84 CRS. WGS 84 is a commonly used CRS. WGS 84 is used in GPS applications.
--   `remove=FALSE` will keep the longitude and latitude columns in the data frame
-
-```{r, add_geographic_data}
-temp <- inat_data %>% 
-  st_as_sf(coords = c("longitude", "latitude"),   crs = 4326, remove=FALSE)
-```
-
-use `names()` to get a list of all the columns. A `geometry` column was added.
-
-```{r, see_column_names_part_2}
-names(temp)
-```
-
-use `select()` to pick which columns to use.
+-   We pass in longitude and latitude columns as a vector to `coords` argument. We must wrap longitude and latitude in quotes.
+-   `crs` argument sets the [coordinate reference system](intro-science-coding.qmd#coordinate-reference-systems) (CRS). 4326 is the code for the EPSG:4326 CRS, a commonly used CRS.
+-   `st_as_sf()`removes the `longitude` and `latitude` columns and add a `geometry` column.
 
 ```{r, select_columns}
 inat_map <- inat_data %>% 
-  st_as_sf(coords = c("longitude", "latitude"),   crs = 4326, remove=FALSE) %>% 
-  select(id, user_login, common_name, scientific_name, observed_on,  url, longitude, latitude, geometry, quality_grade) 
+  st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)
+```
+
+`st_crs()` from **sf** returns the CRS for a data frame. Let's use `st_crs()` to look at the CRS.
+
+```{r examine_inat_map_crs}
+st_crs(inat_map)
+```
+
+Let's look at the `geometry` value for the first observation. `inat_map$geometry` returns all the values in `geometry` column as a vector. `[1]` returns the the geometry value in the first observation.
+
+```{r examine_inat_map_geometry}
+inat_map$geometry[1]
+```
+
+For this workshop, we won't go into details about what all this information means. Just be aware that **sf** package needs certain information to process geospatial data.
+
+We use `select()` to pick which columns we want for the map.
+
+```{r select_inat_map columns}
+ inat_map <- inat_map %>% 
+  select(user_login, common_name, scientific_name, observed_on,  url, geometry, quality_grade) 
 ```
 
 Use `dim()` to show the number of rows and columns. There are over 191K rows.
@@ -95,7 +102,7 @@ inat_oak_map <- inat_map %>%
   filter(scientific_name == 'Quercus agrifolia')
 ```
 
-Use `dim()` to get number of observations. About 700 rows.
+Use `dim()` to get number of observations. There is 711 rows.
 
 ```{r, get_size_of_oak_dataframe}
 dim(inat_oak_map)
@@ -103,96 +110,69 @@ dim(inat_oak_map)
 
 ## static map
 
-**ggplot** is a data visualization package. We can use **ggplot** to create static maps. `geom_sf()` will use plot each observation using the information in the `geometry` column.
-
-Let's create a map for all the observations.
-
-```{r, create_static_map}
-
-ggplot() +
-  geom_sf(data = inat_map)  
-
-```
+**ggplot2** is a package to create visualizations for data. **ggplot2** is most commonly used for charts, but it can also be used to create static maps. **ggplot2** creates charts and map by adding new layers.
 
 Let's create a map for Coast Live Oak observations.
 
+Call `ggplot()` to start a map. Then we use `+` to add a new layer to the map. We pass the data to `geom_sf()` using the `data` argument. `geom_sf()` uses the information in the `geometry` column to plot each row.
+
 ```{r, create_static_map_for_oak}
-
 ggplot() +
-  geom_sf(data = inat_oak_map)  
-
-```
-
-We can set the color of the map marker using `color` argument.
-
-```{r, create_static_map_for_oak_use_color}
-
-ggplot() +
-  geom_sf(data = inat_oak_map, color='green')  
-
-```
-
-We can also set the color of the marker by using the values of a given column using `mapping=aes(color=<column_name>)`.
-
-Let's use 'quality_grade' to set the color of the map markers.
-
-```{r, create_static_map_for_oak_use_quality_grade}
-
-ggplot() +
-  geom_sf(data = inat_oak_map, mapping=aes(color=quality_grade))  
-
+  geom_sf(data = inat_oak_map)   
 ```
 
 ## interactive map
 
 We can use **mapview** package to create interactive maps where you can zoom in and out.
 
-There are over 191K rows in `inat_map` data frame. Creating an interactive map with 191K rows will be very slow. Do not use **mapview** if there are lots of rows.
-
 Let's create interactive map for 'Coast Live Oak'.
-
-When you click on observation, all the fields that were passed into `select()` will be displayed in a popup.
 
 ```{r, create_interactive_map}
 #| eval: false
 mapview(inat_oak_map)
 ```
 
-![](images/mapview/creating_maps/create_interactive_map.png){fig-alt="interactive map of Coast Live Oak observations"}
+![](images/mapview/creating_maps/create_interactive_map.png){fig-alt="create interactive map"}
 
-Use `color` to set the color of the border. User `col.regions` to set the color of the fill.
-
-```{r, create_interactive_map_use_color}
-#| eval: false
-mapview(inat_oak_map, color='black', col.regions='green')
-```
-
-![](images/mapview/creating_maps/create_interactive_map_use_color.png){fig-alt="interactive map of Coast Live Oak using green map markers"}
-
-We can also set the color of the marker by using the values of a given column using `zcol=<column_name>`.
-
-Let's use `quality_grade` to set the color of the map markers.
-
-```{r, create_interactive_map_for_oak_use_quality_grade}
-#| eval: false
-mapview(inat_oak_map, zcol='quality_grade')
-```
-
-![](images/mapview/creating_maps/create_interactive_map_for_oak_use_quality_grade.png){fig-alt="interactive map of Coast Live Oaks observations using colors based on quality grade"}
+You can zoom in and out. When you click on layer button on the left, you can change basemap and turn on/off layers. When you click on a map marker, all the fields that were passed into `select()` will be displayed in a popup. Clicking on the layer names in the lower right will zoom the map to show all objects in the layer.
 
 ## Using other geospatial files
 
 Let's add the boundaries for LA County to the map.
 
-Shape files is a file format for geographic information system software. I downloaded the LA County boundaries as a Shape file from https://geohub.lacity.org/datasets/lacounty::county-boundaries/explore
+There are various places where you can download geospatial files for free. I downloaded the LA County boundaries from [LA City Geohub](https://geohub.lacity.org/datasets/lacounty::la-county-boundary-7/about). Geohub offers files in various formats including CSV, Shapefile, GeoJSON, and KML. We are using the Shapefile.
 
-We will use `read_sf()` from **sf** package to read the LA County Shape file.
+`st_read()` function from **sf** package can read files and databases in various formats. We will use `st_read()` to read the LA County boundary file.
 
 ```{r, get_LA_County_boundaries}
-la_county_boundary <- read_sf('data/raw/County_Boundary/County_Boundary.shp')
+la_county_boundary <- st_read('data/raw/LA_County_Boundary/LA_County_Boundary.shp')
 ```
 
-Let's create a map with LA County and oak observations.
+We can use `glimpse()` to examine the LA County boundary file.
+
+```{r glimspe_la_county_boundary}
+glimpse(la_county_boundary)
+```
+
+Shapefiles include a CRS and `geometry` column.
+
+When working with multiple geospatial files, it's important that all the data uses the same [coordinate reference system (CRS)](intro-science-coding.qmd#coordinate-reference-systems). Let’s use `st_crs()` to check if the CRS for the iNaturalist data and the LA County boundary are the same. `==` checks if two things are equal.
+
+```{r check_la_county_and_inat_crs}
+st_crs(la_county_boundary) == st_crs(inat_oak_map)
+```
+
+Since the CRS are different, we need to use `st_transform()` to change the CRS of the LA County boundary.
+
+```{r update_la_county_crs}
+la_county_boundary <- st_transform(la_county_boundary,  crs = 4326)
+
+st_crs(la_county_boundary) == st_crs(inat_oak_map)
+```
+
+### Static maps
+
+Let's create a static map with LA County and oak observations. Create a new layer for each dataset using `+`.
 
 ```{r, add_LA_County_to_static_map}
 ggplot() +
@@ -200,13 +180,131 @@ ggplot() +
   geom_sf(data = inat_oak_map) 
 ```
 
+When **ggplot2** draws the iNaturalist observations, it draws a round circle. When it draws the LA County boundary, it draws a polygon (closed shape with many sides). The data in the `geometry` column determines how **ggplot2** draws things.
+
+The Geometry type for the LA County boundary is a MULTIPOLYGON, and for iNaturalist is a POINT.
+
+```{r check_la_county_geometry}
+la_county_boundary$geometry[1]
+```
+
+```{r check_inat_geometry}
+inat_oak_map$geometry[1]
+```
+
+For points, use the `color` argument to set the color. For polygons, use `color` to set the border color and `fill` to set the fill color.
+
+```{r, create_static_map_for_oak_use_color}
+ggplot() +
+  geom_sf(data = la_county_boundary, color="black", fill='beige')  +
+  geom_sf(data = inat_oak_map, color='green')  
+```
+
+We can also use `alpha()` to set the opacity. 0 is transparent, 1 is solid.
+
+```{r, create_static_map_for_oak_use_alpha}
+ggplot() +
+  geom_sf(data = la_county_boundary, color="black", fill=alpha('beige', .5))  +
+  geom_sf(data = inat_oak_map, color=alpha('green', .3))  
+```
+
+Instead of using one color for all the observations, we can also set the color to represent values in a particular column using `geom_sf(mapping=aes(color=<column_name>))`. `mapping` argument tells **ggplot2** how relate data values to elements in the plot. `aes()` function is short for aesthetic mappings, and it describes how data are mapped to visual properties. We set the `color` argument to the name of a column.
+
+Let's use `quality_grade` to set the color of the map markers.
+
+```{r, create_static_map_for_oak_use_quality_grade}
+
+ggplot() +
+  geom_sf(data = la_county_boundary, color="black", fill='beige')  +
+  geom_sf(data = inat_oak_map, mapping=aes(color=quality_grade))  
+
+```
+
+**ggplot2** will assign a different color to each value, and add a legend.
+
+We can add a title to the map using `ggtitle()`, and change the legend title using `labs()`. We can add `theme_void()` to get rid of the grey background and axis labels.
+
+```{r add_title_to_static_map}
+ggplot() +
+  geom_sf(data = la_county_boundary, color="black", fill='beige')  +
+  geom_sf(data = inat_oak_map, mapping=aes(color=quality_grade)) +
+  ggtitle('CNC observations for Live Coast Oaks in LA County',
+          subtitle='2016-2024') +
+  labs(color='Quality Grade') +
+  theme_void()
+
+```
+
+### Interactive maps
+
+Let's create an interactive map with LA County and oak observations. Create a new layer for each dataset using `+`.
+
 ```{r, add_LA_County_to_interactive_map}
 #| eval: false
 mapview(la_county_boundary) +
   mapview(inat_oak_map) 
 ```
 
-![](images/mapview/creating_maps/add_LA_County_to_interactive_map.png){fig-alt="add L.A. County boundary to interactive map of Coast Live Oak observations"}
+![](images/mapview/creating_maps/add_LA_County_to_interactive_map.png){fig-alt="add LA County boundaries to interactive map"}
+
+mapview will add a legend for each layer. We can hide the legend with `legend=FALSE`.
+
+```{r, add_LA_County_to_interactive_map_remove_legend}
+#| eval: false
+mapview(la_county_boundary, legend=FALSE) +
+  mapview(inat_oak_map, legend=FALSE) 
+```
+
+![](images/mapview/creating_maps/add_LA_County_to_interactive_map_remove_legend.png){fig-alt="add LA County to interactive map and remove legend"}
+
+Use `color` to set the border color, and `col.regions` to set the color of the fill.
+
+```{r, create_interactive_map_use_color}
+#| eval: false
+mapview(la_county_boundary, legend=FALSE,
+        color='black', col.regions='beige') +
+  mapview(inat_oak_map, legend=FALSE,
+          color='black', col.regions='green') 
+```
+
+![](images/mapview/creating_maps/create_interactive_map_use_color.png){fig-alt="create interactive map and set colors"}
+
+::: callout-note
+By default, mapview will draw purple layers and use CartoDB Positron basemap.
+
+If we use custom colors, mapview will pick a basemap based on the custom colors. If we want mapview to always use CartoDB Positron basemap, we need to turn off color shuffle.
+
+```         
+mapviewOptions(basemaps.color.shuffle = FALSE)
+```
+:::
+
+We can also set the color of the observation to represent values in a particular column using `zcol=<column_name>`.
+
+Let's use `quality_grade` to set the color of the map markers.
+
+```{r, create_interactive_map_and_show_quality_grade}
+#| eval: false
+
+mapview(la_county_boundary, legend=FALSE,
+        color='black', col.regions='beige') +
+  mapview(inat_oak_map, zcol='quality_grade')
+```
+
+![](images/mapview/creating_maps/create_interactive_map_for_oak_use_quality_grade.png){fig-alt="create interactive map and add quality grade"}
+
+We can set the legend title using `layer.name`. mapview does not have the ability to add a title.
+
+```{r create_interactive_map_and_rename_legend_title}
+#| eval: false
+mapview(la_county_boundary, legend=FALSE,
+        color='black', col.regions='beige') +
+  mapview(inat_oak_map, zcol='quality_grade',
+          layer.name='Quality Grade')
+
+```
+
+![](images/mapview/creating_maps/create_interactive_map_and_rename_legend_title.png){fig-alt="create interactive map and rename legend title"}
 
 :::: exercise
 ## Exercise 1
@@ -228,20 +326,33 @@ mapview(la_county_boundary) +
 :::
 ::::
 
-## Exploring iNaturalist data in specific area
+## Map observations for a specific area
 
 Let's look for all iNaturalist observations made in Exposition Park.
 
-I used this [Draw map boundaries](https://wykhuh.github.io/draw-map-boundaries/) to draw and download the boundaries of Exposition Park. The file is in geojson format.
+Sometimes we won't be able to find a pre-existing file that has boundaries for an area that we want to analyze. In these cases, we need to create our own boundaries. I used this [Draw map boundaries](https://wykhuh.github.io/draw-map-boundaries/) webpage to draw and download the boundaries of Exposition Park. The file is in GeoJSON format.
 
-Let's use `st_read`() to read a geojson file. Use `st_transform` to set the crs
+Let's use `st_read`() to read a geojson file.
 
 ```{r, get_Expo_park_boundaries}
-expo_park_boundary <- st_read('data/raw/boundaries_expo_park_area.geojson')  %>% 
-  st_transform(4326)
+expo_park_boundary <- st_read('data/raw/boundaries_expo_park_area.geojson')  
 ```
 
-First create map of Expo Park.
+We can use `glimpse()` to examine the file.
+
+```{r}
+glimpse(expo_park_boundary)
+```
+
+The Expo Park boundary file has a CRS and `geometry` column.
+
+Let's use `st_crs()` to check if the CRS for the iNaturalist data and Expo Park are the same.
+
+```{r, check_crs}
+st_crs(expo_park_boundary) == st_crs(inat_map)
+```
+
+Let's create static and interactive maps of Expo Park.
 
 ```{r, create_static_map_expo_park}
 ggplot() +
@@ -253,45 +364,44 @@ ggplot() +
 mapview(expo_park_boundary) 
 ```
 
-![](images/mapview/creating_maps/create_interactive_map_expo_park.png){fig-alt="interactive map of Expo Park"}
+![](images/mapview/creating_maps/create_interactive_map_expo_park.png){fig-alt="create interactive map for exposition park"}
 
-We want to get observation inside Expo Park. When we want to combine two geospatial datasets, we need to make sure the CRS are the same.
+The following code will get the observations that are inside Exposition Park. We will save the observations to `inat_expo`.
 
-`st_crs()` from **sf** returns the CRS for a data frame.
+```{r, get_all_observations_within_expo_park}
+inat_expo <- inat_map[lengths(st_intersects(inat_map, expo_park_boundary)) > 0, ]
 
-```{r get_crs}
-st_crs(expo_park_boundary)
+inat_expo
 ```
 
-Let's use `st_crs()` to check if the CRS for the iNaturalist data and the Expo Park are the same. `==` checks if two things are equal.
+::: callout-info
+For those who want to understand that chunk of code, here's a explanation.
 
-```{r, check_crs}
-st_crs(expo_park_boundary) == st_crs(inat_map)
+`st_intersects()` from **sf** tells us the number of items in one spatial object touch, cross, or is within items in a second spatial object.
 
-```
-
-`st_intersects()` from **sf** can tell us which points are inside a boundary. `st_intersects()` returns number of items in each row of `inat_map` that is inside `expo_park_boundary`.
+The following code returns the number of items in each row in `inat_map` that is within `expo_park_boundary`. Since each row only contains one location, we will either get 1 or empty.
 
 ```{r, st_intersects}
 st_intersects(inat_map, expo_park_boundary)
 ```
 
-We can use `lengths(...) > 0` to return TRUE/FALSE for every row in `inat_map` that has 1 or more items that inside `expo_park_boundary`
+We use `lengths(st_intersects(inat_map, expo_park_boundary)) > 0` to create a vector that has TRUE or FALSE. A vector with TRUE/FALSE is called logical vector. If a row for `inat_map` has 1 item inside `expo_park_boundary`, return TRUE. Otherwise return FALSE.
 
 ```{r, get_true_false}
 #| eval: false
 lengths(st_intersects(inat_map, expo_park_boundary)) > 0
 ```
 
-`dataframe[logical_vector, ]` selects all rows in a dataframe where the value is true.
+We can use a logical vectors to filter rows in data frame by using `dataframe[logical_vector, ]`. If the logical vector is true, return the row. Otherwise ignore the row.
 
-In this case, we want all observations from `inat_map` that are inside `expo_park_boundary`.
+This code selects all rows in `inat_map` where there is one or more items in the row that are inside `expo_park_boundary`
 
-```{r, get_all_observations_within_expo_park}
-inat_expo <- inat_map[lengths(st_intersects(inat_map, expo_park_boundary)) > 0, ]
+```{r, all_observations_within_expo_park}
+inat_expo_2 <- inat_map[lengths(st_intersects(inat_map, expo_park_boundary)) > 0, ]
 ```
+:::
 
-Use `dim()` to get row and column count. 191K observations in LA county, over 2900 observation in Expo Park.
+Use `dim()` to get row and column count. 191K observations in LA county, 2964 observation in Expo Park.
 
 ```{r, compare_size_of_dataframes}
 dim(inat_map)
@@ -314,27 +424,7 @@ mapview(expo_park_boundary) +
 
 ```
 
-![](images/mapview/creating_maps/create_interactive_map_of_observations_in_expo_park.png){fig-alt="interactive map of Expo Park with iNaturalist observations"}
-
-There are various ways to change the appearance of a map.
-
-For `ggplot()`, use `fill()` to set color and `alpha()` to set opacity for a polygon. Use `color()` to set color for points.
-
-```{r, set_color_of_static_map}
-ggplot() +
-  geom_sf(data = expo_park_boundary, fill=alpha("yellow", .3))  +
-  geom_sf(data = inat_expo, color="green") 
-```
-
-For `mapview()`, use `col.regions` to set color, and `alpha.regions` to set opacity.
-
-```{r, set_color_of_interactive_map}
-#| eval: false
-mapview(expo_park_boundary, col.regions="yellow",  alpha.regions=0.3) +
-  mapview(inat_expo, col.regions="green") 
-```
-
-![](images/mapview/creating_maps/set_color_of_map.png){fig-alt="interactive map of Expo Park with iNaturalist observations with green map markers"}
+![](images/mapview/creating_maps/create_interactive_map_of_observations_in_expo_park.png){fig-alt="create interactive map of observations in exposition park"}
 
 :::: exercise
 ## Exercise 2
@@ -360,6 +450,102 @@ mapview(usc_boundary) +
 ```
 :::
 ::::
+
+## Choropleth maps
+
+Choropleth maps use colors or shades to show how data changes from place to place.
+
+Let's create a choropleth map to show the number of CNC observations in L.A. County neighborhoods.
+
+Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <https://maps.latimes.com/about/index.html> We'll use the L.A. Times neighborhood boundaries for our map.
+
+```{r read_neighborhood_file}
+la_neighborhoods <- st_read('data/raw/la_times_la_county_neighborhoods.json')
+```
+
+Use `glimpse()` to examine the file data.
+
+```{r glimpse_neighborhood}
+glimpse(la_neighborhoods)
+```
+
+Use `select()` to pick the name amd geometry columns.
+
+```{r select_columns_in_neighborhood}
+la_neighborhoods_edit <- la_neighborhoods %>%
+  select(name, geometry)
+
+```
+
+Check if the neighborhood maps have the same CRS as the iNaturalist data.
+
+```{r check_neighborhood_inat_crs}
+st_crs(la_neighborhoods_edit) == st_crs(inat_map)
+```
+
+Ther is a bug with **sf** <https://github.com/r-spatial/sf/issues/1762>. This bit a code is fix for the bug.
+
+```{r fix_sf_bug}
+sf_use_s2(FALSE)
+```
+
+We want to figure out how many observations are in each neighborhood. `st_join()` from **sf** figures out if items in one spatial object touch, cross, or is within items in a second spatial object. If an item intersects the second item, then the columns from the second item are added to the first item.
+
+The following code will figure out if an observation in `inat_map` intersects the boundaries of `la_neighborhoods_edit`. If the observation intersects a neighborhood, the neighborhood `name` is added the observation. If the observation is not inside a neighborhood, `name` is set to `NA`. `NA` is a special value in R that means not applicable. `filter(!is.na(name))` selects observations where `name` is not `NA`.
+
+```{r get_observations_within_neighborhoods}
+inat_neigborhoods <- st_join(inat_map, la_neighborhoods_edit) %>%
+  filter(!is.na(name)) 
+
+glimpse(inat_neigborhoods)
+```
+
+181K out of the 191K CNC observations are intersect one of the neigborhood boundaries.
+
+Next we use `count()` to get the number of observations per neighborhood. We also use `st_drop_geometry()` from **sf** to remove the `geometry` column. We want to remove the `geometry` column because we don't need the location of each observation for the final map.
+
+```{r count_observations_per_neigbhorhood}
+
+inat_neigborhoods_counts <- inat_neigborhoods %>%
+  count(name, name='obs_count')  %>%
+  st_drop_geometry()
+
+head(inat_neigborhoods_counts)
+```
+
+Next use `left_join()` from **dplyr** to add `obs_count` from `inat_neigborhoods_counts` to neighborhood boundaries from `la_neighborhoods_edit`. `left_join()` will use the `name` column present in both data frames to combine the data.
+
+```{r create_dataframe_with_neighborhood_counts_geometry}
+la_counts_map <- left_join(la_neighborhoods_edit, inat_neigborhoods_counts)
+
+head(la_counts_map)
+```
+
+`la_counts_map` has three columns: name of the neighborhood, the number of observations, and geometry.
+
+We can now create maps showing the number of observations per neighborhood.
+
+`aes(fill=xxx)` sets which column to use determine the color of each neighborhood. `labs(fill='xxx')` sets the title show in the legend.
+
+```{r, create_static_map_with_observations_by_neighborhood}
+
+ggplot() +
+  geom_sf(data = la_counts_map, 
+          mapping=aes(fill=obs_count)) +
+  labs(fill='Observations') 
+
+```
+
+`zcol` sets which column to use determine the color of each neighborhood. `layer.name` sets the title show in the legend.
+
+```{r create_interactive_map_with_observations_by_neighborhood}
+#| eval: false
+mapview(la_counts_map,  
+        zcol = 'obs_count', 
+        layer.name= 'Observations')
+```
+
+![](images/mapview/creating_maps/create_interactive_map_with_observations_by_neighborhood.png){fig-alt="create interactive map with observations by neighborhood"}
 
 ## Exporting maps
 
