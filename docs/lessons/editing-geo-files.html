@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Data Analysis – After iNaturalist</title>
+<title>Editing geospatial files – After iNaturalist</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -114,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/intro-data-analysis.html">Introduction to Data Analysis</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/understanding-data.html">Extra</a></li><li class="breadcrumb-item"><a href="../lessons/editing-geo-files.html">Editing geospatial files</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -147,7 +147,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/intro-data-analysis.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lessons/intro-data-analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to Data Analysis</span></a>
   </div>
 </li>
@@ -222,7 +222,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/editing-geo-files.html" class="sidebar-item-text sidebar-link">
+  <a href="../lessons/editing-geo-files.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Editing geospatial files</span></a>
   </div>
 </li>
@@ -244,18 +244,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#inaturalist-data" id="toc-inaturalist-data" class="nav-link active" data-scroll-target="#inaturalist-data">iNaturalist data</a></li>
-  <li><a href="#downloading-inaturalist-data" id="toc-downloading-inaturalist-data" class="nav-link" data-scroll-target="#downloading-inaturalist-data">Downloading iNaturalist data</a></li>
-  <li><a href="#analyzing-data-using-r" id="toc-analyzing-data-using-r" class="nav-link" data-scroll-target="#analyzing-data-using-r">Analyzing data using R</a></li>
+  <li><a href="#state-parks-in-la-county" id="toc-state-parks-in-la-county" class="nav-link active" data-scroll-target="#state-parks-in-la-county">State parks in LA County</a></li>
+  <li><a href="#national-parks-in-la-county" id="toc-national-parks-in-la-county" class="nav-link" data-scroll-target="#national-parks-in-la-county">National parks in LA County</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/understanding-data.html">Extra</a></li><li class="breadcrumb-item"><a href="../lessons/editing-geo-files.html">Editing geospatial files</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Introduction to Data Analysis</h1>
+<h1 class="title">Editing geospatial files</h1>
 </div>
 
 
@@ -272,128 +271,167 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="summary">
-<section id="questions" class="level2">
-<h2 class="anchored" data-anchor-id="questions">Questions</h2>
-<ul>
-<li>How do we begin to analyze iNaturalist data?</li>
-</ul>
-</section>
-<section id="objectives" class="level2">
-<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
-<ul>
-<li>Learn how to download data from iNaturalist</li>
-<li>Learn about the various ways to analyze data</li>
-</ul>
-</section>
-</div>
-<section id="inaturalist-data" class="level2">
-<h2 class="anchored" data-anchor-id="inaturalist-data">iNaturalist data</h2>
-<p>When iNaturalist users add an observation through the iNaturalist app, that data is saved to the iNaturalist database. People can download the iNaturalist data as CSVs.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>CSV comma-separated values</strong></p>
-<p>CSV is a text file format for tabular data. Each line represents one record. Each column represents a field. The fields are separated by commas. CSVs can be opened in text editors or spreadsheet programs.</p>
-<p>CSV as plain text file.</p>
-<p><img src="images/csv_text.png" class="img-fluid" alt="screenshot of a CSV plain text file."></p>
-<p>CSV in CSV or spreadsheet application.</p>
-<p><img src="images/csv_software.png" class="img-fluid" alt="screenshot of a CSV in a CSV program."></p>
-</div>
-</div>
-<p>The iNaturalist CSV has information about:</p>
-<ul>
-<li>the user who made observation</li>
-<li>the location of the observation</li>
-<li>the observed species</li>
-<li>links for photos, videos, sounds</li>
-</ul>
-<p>Here’s a rough draft that lists <a href="https://docs.google.com/spreadsheets/d/1mrRY_sy8MmGmwzoNSexahHC54e3q-ZAy1vJl_FIsKrY/edit?gid=0#gid=0">descriptions for each field</a>.</p>
-</section>
-<section id="downloading-inaturalist-data" class="level2">
-<h2 class="anchored" data-anchor-id="downloading-inaturalist-data">Downloading iNaturalist data</h2>
-<p>If you would like to download iNaturalist data, here’s some info.</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/wBH7RZAklYU?si=ggo4eHQGKHcq9D1G&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
-</iframe>
-<p><a href="https://help.inaturalist.org/en/support/solutions/articles/151000169670">How to Search iNaturalist Observations</a></p>
-<p><a href="https://gsmit.org/wp-content/uploads/2021/04/inaturalist_data_walkthrough.pdf">step-by-step to download iNaturalist data</a></p>
-<p>To save time and ensure everyone at the workshop has the same data, we provide a CSV with data from iNaturalist City Nature Challenge Los Angeles from 2013 to 2024. We made some changes to the CSVs we downloaded from iNaturalist, and the code we used edit the CSV is available <a href="../lessons/cleaning-data.html">here</a></p>
-</section>
-<section id="analyzing-data-using-r" class="level2">
-<h2 class="anchored" data-anchor-id="analyzing-data-using-r">Analyzing data using R</h2>
-<p>It is difficult for people to see any patterns when reading rows after row of text. To make it easier to see patterns, we can use software to analyze tabular data.</p>
-<p>In this workshop we will use R programming language to analyze iNaturalist data. Programming languages allow people to write instructions to tell a computer to do stuff. The reason we are using R is because R is a popular language in ecology research.</p>
-<p>Here’s an overview of what we learn in this workshop.</p>
-<p>Load software that will will need.</p>
+<p>Load packages</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) <span class="co"># read and write tabular data</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># manipulate data</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># create data visualizations</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="co"># handle geospatial data</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># manipulate dates</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapview) <span class="co"># create interactive maps</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Load iNaturalist data from City Nature Challenge Los Angeles 2013-2024. There are over 191,000 observations.</p>
+<p>Sometimes we find a geospatial file that has more than we need. We only want some data in the files.</p>
+<section id="state-parks-in-la-county" class="level2">
+<h2 class="anchored" data-anchor-id="state-parks-in-la-county">State parks in LA County</h2>
+<p>Let’s get the California state park within Los Angeles county.</p>
+<p>California State Parks has file that lists all the state parks in California. <a href="https://www.parks.ca.gov/?page_id=29682" class="uri">https://www.parks.ca.gov/?page_id=29682</a></p>
+<p>California state has a file that lists all the counties in California. <a href="https://gis.data.ca.gov/datasets/California::california-county-boundaries-and-identifiers/explore" class="uri">https://gis.data.ca.gov/datasets/California::california-county-boundaries-and-identifiers/explore</a></p>
+<p>First we read the file with all state parks in California.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/cleaned/cnc-los-angeles-observations.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Create summaries of the data. For instance, get the 10 most commonly observed ‘species’.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>top_10 <span class="ot">&lt;-</span> inat <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(common_name, scientific_name) <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name, <span class="at">name=</span><span class="st">'count'</span>)  <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(count)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>top_10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>state_parks <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">'data/raw/Park_Boundaries/ParkBoundaries.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 3
-   common_name            scientific_name          count
-   &lt;chr&gt;                  &lt;chr&gt;                    &lt;int&gt;
- 1 Western Fence Lizard   Sceloporus occidentalis   3339
- 2 Western Honey Bee      Apis mellifera            2060
- 3 dicots                 Magnoliopsida             2013
- 4 plants                 Plantae                   1712
- 5 Eastern Fox Squirrel   Sciurus niger             1475
- 6 House Finch            Haemorhous mexicanus      1263
- 7 Mourning Dove          Zenaida macroura          1205
- 8 flowering plants       Angiospermae              1161
- 9 California poppy       Eschscholzia californica   934
-10 Convergent Lady Beetle Hippodamia convergens      929</code></pre>
+<pre><code>Reading layer `ParkBoundaries' from data source 
+  `/Users/wyk/Development/science/city_nature_challenge/NHMLA_workshop/CNC-coding-workshop_quarto/lessons/data/raw/Park_Boundaries/ParkBoundaries.shp' 
+  using driver `ESRI Shapefile'
+Simple feature collection with 468 features and 11 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -13832100 ymin: 3833703 xmax: -12756180 ymax: 5160094
+Projected CRS: WGS 84 / Pseudo-Mercator</code></pre>
 </div>
 </div>
-<p>Create maps. For example, create a map showing all the observations for Western Fence Lizard</p>
+<p>The we read the file with all the counties in California.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lizard <span class="ot">&lt;-</span> inat <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>),   <span class="at">crs =</span> <span class="dv">4326</span>, <span class="at">remove=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, user_login, common_name, scientific_name, observed_on,  url, longitude, latitude, geometry) <span class="sc">%&gt;%</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(lizard)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ca_counties <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">'data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `California_County_Boundaries_and_Identifiers' from data source 
+  `/Users/wyk/Development/science/city_nature_challenge/NHMLA_workshop/CNC-coding-workshop_quarto/lessons/data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp' 
+  using driver `ESRI Shapefile'
+Simple feature collection with 73 features and 12 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -380101.1 ymin: -605327 xmax: 540083.8 ymax: 450446.7
+Projected CRS: NAD83 / California Albers</code></pre>
 </div>
-<p><img src="images/mapview/intro-data-analysis/map_of_western_fence_lizard.png" class="img-fluid" alt="map of western fence lizard"></p>
-<p>Create charts. For example, create a bar chart showing the number of observations per year.</p>
+</div>
+<p>Compare CRS for the state parks map and the county map.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>inat <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on))  <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year)) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(state_parks) <span class="sc">==</span> <span class="fu">st_crs</span>(ca_counties)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>Use <code>st_transform()</code> to change the CRS of counties map to match the parks map.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ca_counties <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(ca_counties, <span class="at">crs =</span> <span class="fu">st_crs</span>(state_parks))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(state_parks) <span class="sc">==</span> <span class="fu">st_crs</span>(ca_counties)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>Let’s use <code>filter()</code> to get Los Angeles County from the counties data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>LA_county <span class="ot">&lt;-</span>  ca_counties <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(COUNTY <span class="sc">==</span> <span class="st">'Los Angeles County'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_county)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="intro-data-analysis_files/figure-html/chart_observations_per_year-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="editing-geo-files_files/figure-html/LA_county_map-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
+</div>
+<p>Use <code>st_intersects()</code> to find the state parks within LA county. This is similar to how we got all the observations in Expo park in an earlier lesson.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>LA_parks <span class="ot">&lt;-</span> state_parks[<span class="fu">st_intersects</span>(state_parks, LA_county ) <span class="sc">%&gt;%</span> lengths <span class="sc">&gt;</span> <span class="dv">0</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Create a map showing LA County and state parks within LA County.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_county) <span class="sc">+</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_parks, <span class="at">fill=</span><span class="st">'yellow'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="editing-geo-files_files/figure-html/parks_inside_la_county_map-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Use <code>st_write()</code> to save the state parks within LA County as a Shape file. The first argument is the map data we want to save, and the second argument is the file path.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(LA_parks, <span class="st">'data/cleaned/state_parks_los_angeles_county/state_parks_los_angeles_county.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="national-parks-in-la-county" class="level2">
+<h2 class="anchored" data-anchor-id="national-parks-in-la-county">National parks in LA County</h2>
+<p>Let’s get the National Parks within Los Angeles county.</p>
+<p>National Park Boundaries https://catalog.data.gov/dataset/national-park-boundaries</p>
+<p>Read files</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>parks_nps <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">'data/raw/nps_boundary/nps_boundary.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `nps_boundary' from data source 
+  `/Users/wyk/Development/science/city_nature_challenge/NHMLA_workshop/CNC-coding-workshop_quarto/lessons/data/raw/nps_boundary/nps_boundary.shp' 
+  using driver `ESRI Shapefile'
+Simple feature collection with 510 features and 9 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -170.7285 ymin: -14.28558 xmax: 145.7284 ymax: 68.65538
+Geodetic CRS:  North_American_Datum_1983</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ca_counties <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">'data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `California_County_Boundaries_and_Identifiers' from data source 
+  `/Users/wyk/Development/science/city_nature_challenge/NHMLA_workshop/CNC-coding-workshop_quarto/lessons/data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp' 
+  using driver `ESRI Shapefile'
+Simple feature collection with 73 features and 12 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -380101.1 ymin: -605327 xmax: 540083.8 ymax: 450446.7
+Projected CRS: NAD83 / California Albers</code></pre>
+</div>
+</div>
+<p>get LA County</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>la_county <span class="ot">&lt;-</span>  ca_counties <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>( COUNTY <span class="sc">==</span> <span class="st">'Los Angeles County'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>check CRS</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(parks_nps) <span class="sc">==</span> <span class="fu">st_crs</span>(la_county)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>set crs</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>parks_nps <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(parks_nps, <span class="at">crs =</span> <span class="fu">st_crs</span>(la_county) )</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(parks_nps) <span class="sc">==</span> <span class="fu">st_crs</span>(la_county)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>get national parks within LA county</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>nps_parks <span class="ot">&lt;-</span> parks_nps[<span class="fu">st_intersects</span>(parks_nps, la_county ) <span class="sc">%&gt;%</span> lengths <span class="sc">&gt;</span> <span class="dv">0</span>,]</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_county) <span class="sc">+</span> </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>nps_parks, <span class="at">fill=</span><span class="st">'yellow'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="editing-geo-files_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>write file</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(nps_parks, <span class="st">'data/cleaned/nps_la_county.geojson'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

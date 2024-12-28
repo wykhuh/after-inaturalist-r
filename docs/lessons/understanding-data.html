@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Data Analysis – After iNaturalist</title>
+<title>Understanding data – After iNaturalist</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -100,6 +100,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script>
+// https://stackoverflow.com/questions/76119872/quarto-website-make-template-for-javascript-button-show-answer
+
+  function addAnswerWithButton(answerClass, buttonText, answerText) {
+
+    const divElement = document.querySelector(`.${answerClass}`);
+    const randomId = "answer-" + Math.floor(Math.random() * 1000000);
+
+    // Create the new button element
+    const buttonElement = document.createElement("button");
+    buttonElement.className = "btn btn-primary show-answer";
+    buttonElement.textContent = 'Show solution';
+    buttonElement.onclick = function() {
+      showAnswer(randomId);
+    };
+
+    // Create the new answer element
+    const answerElement = document.createElement("div");
+    answerElement.id = randomId;
+    answerElement.style.display = "none";
+    answerElement.innerHTML = answerText;
+
+    // Replace the div element with the new button and answer elements
+    divElement.parentNode.replaceChild(buttonElement, divElement);
+    buttonElement.insertAdjacentElement("afterend", answerElement);
+  }
+
+  function showAnswer(answerId) {
+    var answer = document.getElementById(answerId);
+    if (answer.style.display === "none") {
+      answer.style.display = "block";
+    } else {
+      answer.style.display = "none";
+    }
+  }
+
+  function addAnswerButton() {
+    var answers = document.querySelectorAll(".answer")
+    answers.forEach(e => {
+      addAnswerWithButton("answer", " Show solution", e.innerHTML);
+    });
+  }
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    addAnswerButton();
+  });
+</script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -114,7 +161,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/intro-data-analysis.html">Introduction to Data Analysis</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/understanding-data.html">Extra</a></li><li class="breadcrumb-item"><a href="../lessons/understanding-data.html">Understanding data</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -147,7 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/intro-data-analysis.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lessons/intro-data-analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to Data Analysis</span></a>
   </div>
 </li>
@@ -210,7 +257,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/understanding-data.html" class="sidebar-item-text sidebar-link">
+  <a href="../lessons/understanding-data.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Understanding data</span></a>
   </div>
 </li>
@@ -244,18 +291,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#inaturalist-data" id="toc-inaturalist-data" class="nav-link active" data-scroll-target="#inaturalist-data">iNaturalist data</a></li>
-  <li><a href="#downloading-inaturalist-data" id="toc-downloading-inaturalist-data" class="nav-link" data-scroll-target="#downloading-inaturalist-data">Downloading iNaturalist data</a></li>
-  <li><a href="#analyzing-data-using-r" id="toc-analyzing-data-using-r" class="nav-link" data-scroll-target="#analyzing-data-using-r">Analyzing data using R</a></li>
+  <li><a href="#reading-csv-files" id="toc-reading-csv-files" class="nav-link active" data-scroll-target="#reading-csv-files">Reading CSV files</a></li>
+  <li><a href="#data-types" id="toc-data-types" class="nav-link" data-scroll-target="#data-types">Data Types</a></li>
+  <li><a href="#vectors" id="toc-vectors" class="nav-link" data-scroll-target="#vectors">Vectors</a></li>
+  <li><a href="#data.frame" id="toc-data.frame" class="nav-link" data-scroll-target="#data.frame">data.frame</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/understanding-data.html">Extra</a></li><li class="breadcrumb-item"><a href="../lessons/understanding-data.html">Understanding data</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Introduction to Data Analysis</h1>
+<h1 class="title">Understanding data</h1>
 </div>
 
 
@@ -276,125 +324,187 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="questions" class="level2">
 <h2 class="anchored" data-anchor-id="questions">Questions</h2>
 <ul>
-<li>How do we begin to analyze iNaturalist data?</li>
+<li>What are the basic data types in R?</li>
+<li>What are some basic data structures in R?</li>
 </ul>
 </section>
 <section id="objectives" class="level2">
 <h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
 <ul>
-<li>Learn how to download data from iNaturalist</li>
-<li>Learn about the various ways to analyze data</li>
+<li>To be aware of the different data types and data structures.</li>
 </ul>
 </section>
 </div>
-<section id="inaturalist-data" class="level2">
-<h2 class="anchored" data-anchor-id="inaturalist-data">iNaturalist data</h2>
-<p>When iNaturalist users add an observation through the iNaturalist app, that data is saved to the iNaturalist database. People can download the iNaturalist data as CSVs.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>CSV comma-separated values</strong></p>
-<p>CSV is a text file format for tabular data. Each line represents one record. Each column represents a field. The fields are separated by commas. CSVs can be opened in text editors or spreadsheet programs.</p>
-<p>CSV as plain text file.</p>
-<p><img src="images/csv_text.png" class="img-fluid" alt="screenshot of a CSV plain text file."></p>
-<p>CSV in CSV or spreadsheet application.</p>
-<p><img src="images/csv_software.png" class="img-fluid" alt="screenshot of a CSV in a CSV program."></p>
-</div>
-</div>
-<p>The iNaturalist CSV has information about:</p>
-<ul>
-<li>the user who made observation</li>
-<li>the location of the observation</li>
-<li>the observed species</li>
-<li>links for photos, videos, sounds</li>
-</ul>
-<p>Here’s a rough draft that lists <a href="https://docs.google.com/spreadsheets/d/1mrRY_sy8MmGmwzoNSexahHC54e3q-ZAy1vJl_FIsKrY/edit?gid=0#gid=0">descriptions for each field</a>.</p>
-</section>
-<section id="downloading-inaturalist-data" class="level2">
-<h2 class="anchored" data-anchor-id="downloading-inaturalist-data">Downloading iNaturalist data</h2>
-<p>If you would like to download iNaturalist data, here’s some info.</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/wBH7RZAklYU?si=ggo4eHQGKHcq9D1G&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
-</iframe>
-<p><a href="https://help.inaturalist.org/en/support/solutions/articles/151000169670">How to Search iNaturalist Observations</a></p>
-<p><a href="https://gsmit.org/wp-content/uploads/2021/04/inaturalist_data_walkthrough.pdf">step-by-step to download iNaturalist data</a></p>
-<p>To save time and ensure everyone at the workshop has the same data, we provide a CSV with data from iNaturalist City Nature Challenge Los Angeles from 2013 to 2024. We made some changes to the CSVs we downloaded from iNaturalist, and the code we used edit the CSV is available <a href="../lessons/cleaning-data.html">here</a></p>
-</section>
-<section id="analyzing-data-using-r" class="level2">
-<h2 class="anchored" data-anchor-id="analyzing-data-using-r">Analyzing data using R</h2>
-<p>It is difficult for people to see any patterns when reading rows after row of text. To make it easier to see patterns, we can use software to analyze tabular data.</p>
-<p>In this workshop we will use R programming language to analyze iNaturalist data. Programming languages allow people to write instructions to tell a computer to do stuff. The reason we are using R is because R is a popular language in ecology research.</p>
-<p>Here’s an overview of what we learn in this workshop.</p>
-<p>Load software that will will need.</p>
+<section id="reading-csv-files" class="level2">
+<h2 class="anchored" data-anchor-id="reading-csv-files">Reading CSV files</h2>
+<p>In order to analyze the iNaturalist csv, we need to load <strong>readr</strong> and <strong>dplyr</strong> packages.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) <span class="co"># read and write tabular data</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># manipulate data</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># create data visualizations</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="co"># handle geospatial data</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># manipulate dates</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapview) <span class="co"># create interactive maps</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># manipulate data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Load iNaturalist data from City Nature Challenge Los Angeles 2013-2024. There are over 191,000 observations.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/cleaned/cnc-los-angeles-observations.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'data/cleaned/cnc-los-angeles-observations.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 191638 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (26): time_observed_at, user_login, user_name, created_at, updated_at, ...
+dbl   (7): id, user_id, latitude, longitude, positional_accuracy, public_pos...
+lgl   (3): captive_cultivated, coordinates_obscured, threatened
+date  (1): observed_on
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<p>Create summaries of the data. For instance, get the 10 most commonly observed ‘species’.</p>
+</div>
+<p>We can use the <code>glimpse()</code> function from <strong>dplyr</strong> get a summary about the contents of <code>inat_data</code> .</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>top_10 <span class="ot">&lt;-</span> inat <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(common_name, scientific_name) <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name, <span class="at">name=</span><span class="st">'count'</span>)  <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(count)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>top_10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(inat_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 3
-   common_name            scientific_name          count
-   &lt;chr&gt;                  &lt;chr&gt;                    &lt;int&gt;
- 1 Western Fence Lizard   Sceloporus occidentalis   3339
- 2 Western Honey Bee      Apis mellifera            2060
- 3 dicots                 Magnoliopsida             2013
- 4 plants                 Plantae                   1712
- 5 Eastern Fox Squirrel   Sciurus niger             1475
- 6 House Finch            Haemorhous mexicanus      1263
- 7 Mourning Dove          Zenaida macroura          1205
- 8 flowering plants       Angiospermae              1161
- 9 California poppy       Eschscholzia californica   934
-10 Convergent Lady Beetle Hippodamia convergens      929</code></pre>
+<pre><code>Rows: 191,638
+Columns: 37
+$ id                         &lt;dbl&gt; 2931940, 2934641, 2934961, 2934980, 2934994…
+$ observed_on                &lt;date&gt; 2016-04-14, 2016-04-14, 2016-04-14, 2016-0…
+$ time_observed_at           &lt;chr&gt; "2016-04-14 19:25:00 UTC", "2016-04-14 19:0…
+$ user_id                    &lt;dbl&gt; 151043, 10814, 80445, 80445, 80445, 121033,…
+$ user_login                 &lt;chr&gt; "msmorales", "smartrf", "cdegroof", "cdegro…
+$ user_name                  &lt;chr&gt; "Michael Morales", "Richard Smart (he, him)…
+$ created_at                 &lt;chr&gt; "2016-04-14 07:28:36 UTC", "2016-04-14 19:0…
+$ updated_at                 &lt;chr&gt; "2021-12-26 06:58:04 UTC", "2018-05-28 02:0…
+$ quality_grade              &lt;chr&gt; "research", "needs_id", "research", "resear…
+$ license                    &lt;chr&gt; "CC-BY", "CC-BY-NC", NA, NA, NA, "CC-BY-NC"…
+$ url                        &lt;chr&gt; "http://www.inaturalist.org/observations/29…
+$ image_url                  &lt;chr&gt; "https://inaturalist-open-data.s3.amazonaws…
+$ sound_url                  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ tag_list                   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ description                &lt;chr&gt; "Spotted on a the wall of a planter, while …
+$ captive_cultivated         &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, F…
+$ latitude                   &lt;dbl&gt; 34.05829, 34.01742, 34.13020, 34.13143, 34.…
+$ longitude                  &lt;dbl&gt; -117.8219, -118.2892, -118.8226, -118.8215,…
+$ positional_accuracy        &lt;dbl&gt; 4, 5, NA, NA, NA, NA, 17, 55, 55, 55, NA, 5…
+$ public_positional_accuracy &lt;dbl&gt; 4, 5, NA, NA, NA, NA, 17, 55, 55, 55, NA, 5…
+$ geoprivacy                 &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ taxon_geoprivacy           &lt;chr&gt; NA, NA, NA, "open", "open", NA, "open", NA,…
+$ coordinates_obscured       &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, F…
+$ scientific_name            &lt;chr&gt; "Cornu aspersum", "Oestroidea", "Arphia ram…
+$ common_name                &lt;chr&gt; "Garden Snail", "Bot Flies, Blow Flies, and…
+$ iconic_taxon_name          &lt;chr&gt; "Mollusca", "Insecta", "Insecta", "Reptilia…
+$ taxon_id                   &lt;dbl&gt; 480298, 356157, 54247, 36100, 36204, 69731,…
+$ taxon_kingdom_name         &lt;chr&gt; "Animalia", "Animalia", "Animalia", "Animal…
+$ taxon_phylum_name          &lt;chr&gt; "Mollusca", "Arthropoda", "Arthropoda", "Ch…
+$ taxon_class_name           &lt;chr&gt; "Gastropoda", "Insecta", "Insecta", "Reptil…
+$ taxon_order_name           &lt;chr&gt; "Stylommatophora", "Diptera", "Orthoptera",…
+$ taxon_family_name          &lt;chr&gt; "Helicidae", NA, "Acrididae", "Phrynosomati…
+$ taxon_genus_name           &lt;chr&gt; "Cornu", NA, "Arphia", "Uta", "Sceloporus",…
+$ taxon_species_name         &lt;chr&gt; "Cornu aspersum", NA, "Arphia ramona", "Uta…
+$ taxon_subspecies_name      &lt;chr&gt; NA, NA, NA, "Uta stansburiana elegans", NA,…
+$ threatened                 &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ establishment_means        &lt;chr&gt; "introduced", NA, "native", "native", "nati…</code></pre>
 </div>
 </div>
-<p>Create maps. For example, create a map showing all the observations for Western Fence Lizard</p>
+<p>To understand the data produced by <code>read_csv()</code>, we will learn how R deals with with data.</p>
+</section>
+<section id="data-types" class="level2">
+<h2 class="anchored" data-anchor-id="data-types">Data Types</h2>
+<p>Every value in R has a data type. There are 4 main types: <strong>numeric</strong>, <strong>integer</strong>, <strong>logical</strong>, and <strong>character</strong>.</p>
+<ul>
+<li><p><strong>numeric</strong> are numbers that contain a decimal (e.g.&nbsp;1.2, 10.5). By default, R also treats whole numbers as decimals (e.g.&nbsp;1, 10).</p></li>
+<li><p><strong>integer</strong> are whole numbers that do not have a decimal point. (e.g.&nbsp;1L, 10L). In R, the <code>L</code> suffix forces the number to be an integer, since by default R uses decimal numbers.</p></li>
+<li><p><strong>logical</strong> have values of <code>TRUE</code> or <code>FALSE</code>. There is a special type of logical called <code>NA</code> that represents missing values. <code>NA</code> is short for not applicable.</p></li>
+<li><p><strong>character</strong> represent string values (e.g.&nbsp;“abc”, ‘dog’). The strings must be surrounded by quotes, either single quotes or double quotes.</p></li>
+</ul>
+<p>A value’s data type will determine what R can do with the value. For instance, in R we can add numbers but we can’t add strings.</p>
+</section>
+<section id="vectors" class="level2">
+<h2 class="anchored" data-anchor-id="vectors">Vectors</h2>
+<p>A data structure is a way to organize and store a collection of values. A vector is data structure in R that has series of values. All the value in the vector must be the same data type.</p>
+<p>To create a vector we use the <code>c()</code> combine function, and pass in the values as arguments.</p>
+<p>numeric vector</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lizard <span class="ot">&lt;-</span> inat <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>),   <span class="at">crs =</span> <span class="dv">4326</span>, <span class="at">remove=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, user_login, common_name, scientific_name, observed_on,  url, longitude, latitude, geometry) <span class="sc">%&gt;%</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(lizard)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>num <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>num</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 5</code></pre>
 </div>
-<p><img src="images/mapview/intro-data-analysis/map_of_western_fence_lizard.png" class="img-fluid" alt="map of western fence lizard"></p>
-<p>Create charts. For example, create a bar chart showing the number of observations per year.</p>
+</div>
+<p>We can use <code>class()</code> function to find the type or class of any object.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>inat <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on))  <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year)) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="intro-data-analysis_files/figure-html/chart_observations_per_year-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(num)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
 </div>
 </div>
+<p>character vector</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>char <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"apple"</span>, <span class="st">"pear"</span>, <span class="st">"grape"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>char</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "apple" "pear"  "grape"</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(char)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+<p>logical vector</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>log <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE FALSE  TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(log)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "logical"</code></pre>
+</div>
+</div>
+<p>If you try to put values of different data types into a vector, all the values are converted to the same data type.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mixed <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="st">"apple"</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>mixed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1"     "apple" "TRUE" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mixed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+<p><code>NA</code> is a special type of value, and is allowed in vectors of any data type.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># numeric vector</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>num <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(num)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># character vector</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>char <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"apple"</span>, <span class="st">"pear"</span>, <span class="cn">NA</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(char)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># logical vector</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>log <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">NA</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(log)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "logical"</code></pre>
+</div>
+</div>
+</section>
+<section id="data.frame" class="level2">
+<h2 class="anchored" data-anchor-id="data.frame">data.frame</h2>
+<p>When we call <code>class()</code> with <code>inat_data</code>, it returns “tbl” and “data.frame”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(inat_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame" </code></pre>
+</div>
+</div>
+<p><strong>data.frame</strong> is a data structure from R that is used to represent tabular data with rows and columns. <strong>tbl</strong> aka tibble is an updated version of data.frame from the <strong>tibble</strong> package. <strong>readr</strong> uses tibbles instead of data.frames.</p>
+<p>When <code>readr</code> loads a CSV, it tries to figure the data type for each column. Each column in a data.frame and tibble is a vector. Because each column is a vector, all the values in a column must be of the same data type.</p>
+<p>For <code>inat_data</code>, columns <code>id</code> and <code>latitude</code> are <strong>numeric</strong>. Columns <code>captive_cultivated</code> and <code>coordinates_obscured</code> are <strong>logical</strong>. Columns <code>user_login</code> and <code>license</code> are <strong>character</strong>. Multiple columns have <code>NA</code> such as <code>license</code> and <code>sound_url</code>.</p>
+<p><code>readr</code> has a special data type <code>date</code> that is used to represent dates. Column <code>observed_on</code> is <strong>date</strong>. Other columns are such as <code>time_observed_at</code> are treated as <strong>character</strong> because those strings have extra information that <code>reader</code> does not recognize as a <strong>date</strong>.</p>
 
 
 </section>

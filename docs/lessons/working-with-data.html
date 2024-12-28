@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Working with iNaturalist data – After iNaturalist</title>
+<title>Exploring iNaturalist data – After iNaturalist</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -161,7 +161,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/working-with-data.html">Working with iNaturalist data</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/working-with-data.html">Exploring iNaturalist data</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -189,13 +189,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">After iNaturalist - Learn How To Explore City Nature Challenge Data through R Coding</span></a>
+ <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lessons/intro-data-analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to Data Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -213,7 +219,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lessons/working-with-data.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Working with iNaturalist data</span></a>
+ <span class="menu-text">Exploring iNaturalist data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -230,7 +236,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/other_datasets.html" class="sidebar-item-text sidebar-link">
+  <a href="../lessons/other-datasets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using to other datasets</span></a>
   </div>
 </li>
@@ -240,6 +246,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Next steps</span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extra</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/understanding-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Understanding data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/cleaning-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cleaning data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/editing-geo-files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Editing geospatial files</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/setup-local.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup - local computer</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -250,11 +291,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#importing-inaturalist-data" id="toc-importing-inaturalist-data" class="nav-link active" data-scroll-target="#importing-inaturalist-data">Importing iNaturalist data</a>
+  <li><a href="#exploring-inaturalist-data" id="toc-exploring-inaturalist-data" class="nav-link active" data-scroll-target="#exploring-inaturalist-data">Exploring iNaturalist data</a>
   <ul class="collapse">
-  <li><a href="#reading-a-file" id="toc-reading-a-file" class="nav-link" data-scroll-target="#reading-a-file">Reading a file</a></li>
+  <li><a href="#file-paths" id="toc-file-paths" class="nav-link" data-scroll-target="#file-paths">File paths</a></li>
+  <li><a href="#reading-a-csv-file" id="toc-reading-a-csv-file" class="nav-link" data-scroll-target="#reading-a-csv-file">Reading a CSV file</a></li>
   </ul></li>
-  <li><a href="#data.frame" id="toc-data.frame" class="nav-link" data-scroll-target="#data.frame">data.frame</a></li>
   <li><a href="#manipulating-data" id="toc-manipulating-data" class="nav-link" data-scroll-target="#manipulating-data">Manipulating data</a>
   <ul class="collapse">
   <li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select">select()</a></li>
@@ -284,7 +325,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Working with iNaturalist data</h1>
+<h1 class="title">Exploring iNaturalist data</h1>
 </div>
 
 
@@ -319,11 +360,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </div>
-<section id="importing-inaturalist-data" class="level2">
-<h2 class="anchored" data-anchor-id="importing-inaturalist-data">Importing iNaturalist data</h2>
+<section id="exploring-inaturalist-data" class="level2">
+<h2 class="anchored" data-anchor-id="exploring-inaturalist-data">Exploring iNaturalist data</h2>
 <p>A CSV of iNaturalist observations for City Nature Challenge Los Angeles from 2015 to 2024 is located at “data/cleaned/cnc-los-angeles-observations.csv”. We are going to read that CSV using R.</p>
-<section id="reading-a-file" class="level3">
-<h3 class="anchored" data-anchor-id="reading-a-file">Reading a file</h3>
+<section id="file-paths" class="level3">
+<h3 class="anchored" data-anchor-id="file-paths">File paths</h3>
+<p>When we reference other files from an R script, we need to give R precise instructions on where those files are. We do that using something called a file path.</p>
+<p>There are two kinds of paths: absolute and relative. Absolute paths are specific to a particular computer, whereas relative paths are relative to a certain folder. Because we are using RStudio “project” feature, all of our paths is relative to the project folder. For instance an absolute path is “/Users/username/Documents/CNC-coding-workshop/data/cleaned/cnc-los-angeles-observations.csv”, and relative path is “data/cleaned/cnc-los-angeles-observations.csv”.</p>
+</section>
+<section id="reading-a-csv-file" class="level3">
+<h3 class="anchored" data-anchor-id="reading-a-csv-file">Reading a CSV file</h3>
 <p>In order to analyze the iNaturalist csv, we need to load <strong>readr</strong>, <strong>lubridate</strong> and <strong>dplyr</strong> packages.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) <span class="co"># read and write tabular data</span></span>
@@ -331,9 +377,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># manipulate dates</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We call <code>read_csv()</code> function from <strong>readr</strong>, and pass in a relative path to a CSV file in order to load the CSV.</p>
-<p><code>read_csv()</code> will return the content of the file. In order for us access the content later on, we will assign the content to an object called <code>inat_data</code>. <code>inat_data</code> is displayed in the <strong>Environment</strong> panel. Double click on <code>inat_data</code> in <strong>Environment</strong> to see all the data.</p>
+<p><code>read_csv()</code> will read the file and return the content of the file. In order for us access the content later on, we will assign the content to an object called <code>inat_data</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'data/cleaned/cnc-los-angeles-observations.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 191638 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (26): time_observed_at, user_login, user_name, created_at, updated_at, ...
+dbl   (7): id, user_id, latitude, longitude, positional_accuracy, public_pos...
+lgl   (3): captive_cultivated, coordinates_obscured, threatened
+date  (1): observed_on
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -348,17 +406,7 @@ Tip
 <p>Typing out paths can be error prone, so we can utilize a keyboard shortcut. Inside the parentheses of <code>read_csv()</code>, type out a pair of quotes and put your cursor between them. Then hit <kbd>Tab</kbd>. A small menu showing your folders and files should show up. You can use the <kbd>↑</kbd> and <kbd>↓</kbd> keys to move through the options, or start typing to narrow them down. You can hit <kbd>Enter</kbd> to select a file or folder, and hit <kbd>Tab</kbd> again to continue building the file path. This might take a bit of getting used to, but once you get the hang of it, it will speed up writing file paths and reduce the number of mistakes you make.</p>
 </div>
 </div>
-<p>To learn more about a function, you can type a <code>?</code> in front of the name of the function, which will bring up the official documentation for that function:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>?read_csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Function documentation is written by the authors of the functions, so they can vary pretty widely in their style and readability. The first section, <strong>Description</strong>, gives you a concise description of what the function does, but it may not always be enough. The <strong>Arguments</strong> section defines all the arguments for the function and is usually worth reading thoroughly. Finally, the <strong>Examples</strong> section at the end will often have some helpful examples that you can run to get a sense of what the function is doing.</p>
-</section>
-</section>
-<section id="data.frame" class="level2">
-<h2 class="anchored" data-anchor-id="data.frame">data.frame</h2>
-<p><code>read_csv()</code> returns a <strong>data.frame</strong>. A <strong>data.frame</strong> is the most common way that R represents tabular data (data with rows and columns).</p>
-<p>Use <code>glimpse()</code> from <strong>dplyr</strong> to see a information about a data frame. It shows the number of rows and columns. For each column, we see the name, data type (<strong>dbl</strong> for number, <strong>chr</strong> for character, <strong>lgl</strong> for logical (TRUE, FALSE), <strong>date</strong> for date), and the first few values.</p>
+<p>We can use the <code>glimpse()</code> function from <strong>dplyr</strong> get a summary about the contents of <code>inat_data</code>. It shows the number of rows and columns. For each column, it shows the name, data type (dbl, chr, lgl, date), and the first few values.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(inat_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -403,13 +451,151 @@ $ threatened                 &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 $ establishment_means        &lt;chr&gt; "introduced", NA, "native", "native", "nati…</code></pre>
 </div>
 </div>
-<p>You can use <code>View()</code> from <strong>R</strong> to view the data frame in a new viewer.</p>
+<p>We can view the first few rows with the <code>head()</code> function, and the last few rows with the <code>tail()</code>function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(inat_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(inat_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 37
+       id observed_on time_observed_at   user_id user_login user_name created_at
+    &lt;dbl&gt; &lt;date&gt;      &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;     
+1 2931940 2016-04-14  2016-04-14 19:25:…  151043 msmorales  Michael … 2016-04-1…
+2 2934641 2016-04-14  2016-04-14 19:02:…   10814 smartrf    Richard … 2016-04-1…
+3 2934961 2016-04-14  2016-04-14 19:15:…   80445 cdegroof   Chris De… 2016-04-1…
+4 2934980 2016-04-14  2016-04-14 19:18:…   80445 cdegroof   Chris De… 2016-04-1…
+5 2934994 2016-04-14  2016-04-14 19:19:…   80445 cdegroof   Chris De… 2016-04-1…
+6 2935037 2016-04-14  2016-04-14 19:36:…  121033 ttempel    &lt;NA&gt;      2016-04-1…
+# ℹ 30 more variables: updated_at &lt;chr&gt;, quality_grade &lt;chr&gt;, license &lt;chr&gt;,
+#   url &lt;chr&gt;, image_url &lt;chr&gt;, sound_url &lt;chr&gt;, tag_list &lt;chr&gt;,
+#   description &lt;chr&gt;, captive_cultivated &lt;lgl&gt;, latitude &lt;dbl&gt;,
+#   longitude &lt;dbl&gt;, positional_accuracy &lt;dbl&gt;,
+#   public_positional_accuracy &lt;dbl&gt;, geoprivacy &lt;chr&gt;, taxon_geoprivacy &lt;chr&gt;,
+#   coordinates_obscured &lt;lgl&gt;, scientific_name &lt;chr&gt;, common_name &lt;chr&gt;,
+#   iconic_taxon_name &lt;chr&gt;, taxon_id &lt;dbl&gt;, taxon_kingdom_name &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(inat_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 37
+         id observed_on time_observed_at user_id user_login user_name created_at
+      &lt;dbl&gt; &lt;date&gt;      &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;     
+1 254128969 2024-04-28  2024-04-28 17:1… 2834615 thannavic… Thanna V… 2024-12-0…
+2 255041807 2024-04-26  2024-04-26 23:3… 5347031 epiphyte78 &lt;NA&gt;      2024-12-1…
+3 255041881 2024-04-26  2024-04-26 22:1… 5347031 epiphyte78 &lt;NA&gt;      2024-12-1…
+4 255041985 2024-04-26  2024-04-26 22:1… 5347031 epiphyte78 &lt;NA&gt;      2024-12-1…
+5 255042063 2024-04-26  2024-04-26 20:4… 5347031 epiphyte78 &lt;NA&gt;      2024-12-1…
+6 255042124 2024-04-26  2024-04-26 19:1… 5347031 epiphyte78 &lt;NA&gt;      2024-12-1…
+# ℹ 30 more variables: updated_at &lt;chr&gt;, quality_grade &lt;chr&gt;, license &lt;chr&gt;,
+#   url &lt;chr&gt;, image_url &lt;chr&gt;, sound_url &lt;chr&gt;, tag_list &lt;chr&gt;,
+#   description &lt;chr&gt;, captive_cultivated &lt;lgl&gt;, latitude &lt;dbl&gt;,
+#   longitude &lt;dbl&gt;, positional_accuracy &lt;dbl&gt;,
+#   public_positional_accuracy &lt;dbl&gt;, geoprivacy &lt;chr&gt;, taxon_geoprivacy &lt;chr&gt;,
+#   coordinates_obscured &lt;lgl&gt;, scientific_name &lt;chr&gt;, common_name &lt;chr&gt;,
+#   iconic_taxon_name &lt;chr&gt;, taxon_id &lt;dbl&gt;, taxon_kingdom_name &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>To learn more about a function, you can type a&nbsp;<code>?</code>&nbsp;in front of the name of the function, which will bring up the official documentation for that function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>?head</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Function documentation is written by the authors of the functions, so they can vary pretty widely in their style and readability. The first section,&nbsp;<strong>Description</strong>, gives you a concise description of what the function does, but it may not always be enough. The <strong>Arguments</strong>&nbsp;section defines all the arguments for the function and is usually worth reading thoroughly. Finally, the&nbsp;<strong>Examples</strong>&nbsp;section at the end will often have some helpful examples that you can run to get a sense of what the function is doing.</p>
+</div>
+</div>
+<p>The <strong>Arguments</strong> section for <code>head()</code> shows four arguments. The first argument <code>x</code> is required, the rest are optional. For example, the&nbsp;<code>n</code>&nbsp;argument in&nbsp;<code>head()</code>&nbsp;specifies the number of rows to print. It defaults to 6, but we can override that by specifying a different number:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="at">x =</span> inat_data, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 37
+        id observed_on time_observed_at  user_id user_login user_name created_at
+     &lt;dbl&gt; &lt;date&gt;      &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;     
+ 1 2931940 2016-04-14  2016-04-14 19:25…  151043 msmorales  Michael … 2016-04-1…
+ 2 2934641 2016-04-14  2016-04-14 19:02…   10814 smartrf    Richard … 2016-04-1…
+ 3 2934961 2016-04-14  2016-04-14 19:15…   80445 cdegroof   Chris De… 2016-04-1…
+ 4 2934980 2016-04-14  2016-04-14 19:18…   80445 cdegroof   Chris De… 2016-04-1…
+ 5 2934994 2016-04-14  2016-04-14 19:19…   80445 cdegroof   Chris De… 2016-04-1…
+ 6 2935037 2016-04-14  2016-04-14 19:36…  121033 ttempel    &lt;NA&gt;      2016-04-1…
+ 7 2935117 2016-04-15  &lt;NA&gt;                76855 bradrumble &lt;NA&gt;      2016-04-1…
+ 8 2935139 2016-04-14  &lt;NA&gt;               216108 deedeeflo… &lt;NA&gt;      2016-04-1…
+ 9 2935176 2016-04-14  &lt;NA&gt;               216108 deedeeflo… &lt;NA&gt;      2016-04-1…
+10 2935181 2016-04-14  &lt;NA&gt;               216108 deedeeflo… &lt;NA&gt;      2016-04-1…
+# ℹ 30 more variables: updated_at &lt;chr&gt;, quality_grade &lt;chr&gt;, license &lt;chr&gt;,
+#   url &lt;chr&gt;, image_url &lt;chr&gt;, sound_url &lt;chr&gt;, tag_list &lt;chr&gt;,
+#   description &lt;chr&gt;, captive_cultivated &lt;lgl&gt;, latitude &lt;dbl&gt;,
+#   longitude &lt;dbl&gt;, positional_accuracy &lt;dbl&gt;,
+#   public_positional_accuracy &lt;dbl&gt;, geoprivacy &lt;chr&gt;, taxon_geoprivacy &lt;chr&gt;,
+#   coordinates_obscured &lt;lgl&gt;, scientific_name &lt;chr&gt;, common_name &lt;chr&gt;,
+#   iconic_taxon_name &lt;chr&gt;, taxon_id &lt;dbl&gt;, taxon_kingdom_name &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>If we order the argument the same order they are listed in <strong>Arguments</strong> section, we don’t have to name them:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(inat_data, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 37
+        id observed_on time_observed_at  user_id user_login user_name created_at
+     &lt;dbl&gt; &lt;date&gt;      &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;     
+ 1 2931940 2016-04-14  2016-04-14 19:25…  151043 msmorales  Michael … 2016-04-1…
+ 2 2934641 2016-04-14  2016-04-14 19:02…   10814 smartrf    Richard … 2016-04-1…
+ 3 2934961 2016-04-14  2016-04-14 19:15…   80445 cdegroof   Chris De… 2016-04-1…
+ 4 2934980 2016-04-14  2016-04-14 19:18…   80445 cdegroof   Chris De… 2016-04-1…
+ 5 2934994 2016-04-14  2016-04-14 19:19…   80445 cdegroof   Chris De… 2016-04-1…
+ 6 2935037 2016-04-14  2016-04-14 19:36…  121033 ttempel    &lt;NA&gt;      2016-04-1…
+ 7 2935117 2016-04-15  &lt;NA&gt;                76855 bradrumble &lt;NA&gt;      2016-04-1…
+ 8 2935139 2016-04-14  &lt;NA&gt;               216108 deedeeflo… &lt;NA&gt;      2016-04-1…
+ 9 2935176 2016-04-14  &lt;NA&gt;               216108 deedeeflo… &lt;NA&gt;      2016-04-1…
+10 2935181 2016-04-14  &lt;NA&gt;               216108 deedeeflo… &lt;NA&gt;      2016-04-1…
+# ℹ 30 more variables: updated_at &lt;chr&gt;, quality_grade &lt;chr&gt;, license &lt;chr&gt;,
+#   url &lt;chr&gt;, image_url &lt;chr&gt;, sound_url &lt;chr&gt;, tag_list &lt;chr&gt;,
+#   description &lt;chr&gt;, captive_cultivated &lt;lgl&gt;, latitude &lt;dbl&gt;,
+#   longitude &lt;dbl&gt;, positional_accuracy &lt;dbl&gt;,
+#   public_positional_accuracy &lt;dbl&gt;, geoprivacy &lt;chr&gt;, taxon_geoprivacy &lt;chr&gt;,
+#   coordinates_obscured &lt;lgl&gt;, scientific_name &lt;chr&gt;, common_name &lt;chr&gt;,
+#   iconic_taxon_name &lt;chr&gt;, taxon_id &lt;dbl&gt;, taxon_kingdom_name &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>Additionally, if we name them, we can put them in any order we want:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">x =</span> inat_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 37
+        id observed_on time_observed_at  user_id user_login user_name created_at
+     &lt;dbl&gt; &lt;date&gt;      &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;     
+ 1 2931940 2016-04-14  2016-04-14 19:25…  151043 msmorales  Michael … 2016-04-1…
+ 2 2934641 2016-04-14  2016-04-14 19:02…   10814 smartrf    Richard … 2016-04-1…
+ 3 2934961 2016-04-14  2016-04-14 19:15…   80445 cdegroof   Chris De… 2016-04-1…
+ 4 2934980 2016-04-14  2016-04-14 19:18…   80445 cdegroof   Chris De… 2016-04-1…
+ 5 2934994 2016-04-14  2016-04-14 19:19…   80445 cdegroof   Chris De… 2016-04-1…
+ 6 2935037 2016-04-14  2016-04-14 19:36…  121033 ttempel    &lt;NA&gt;      2016-04-1…
+ 7 2935117 2016-04-15  &lt;NA&gt;                76855 bradrumble &lt;NA&gt;      2016-04-1…
+ 8 2935139 2016-04-14  &lt;NA&gt;               216108 deedeeflo… &lt;NA&gt;      2016-04-1…
+ 9 2935176 2016-04-14  &lt;NA&gt;               216108 deedeeflo… &lt;NA&gt;      2016-04-1…
+10 2935181 2016-04-14  &lt;NA&gt;               216108 deedeeflo… &lt;NA&gt;      2016-04-1…
+# ℹ 30 more variables: updated_at &lt;chr&gt;, quality_grade &lt;chr&gt;, license &lt;chr&gt;,
+#   url &lt;chr&gt;, image_url &lt;chr&gt;, sound_url &lt;chr&gt;, tag_list &lt;chr&gt;,
+#   description &lt;chr&gt;, captive_cultivated &lt;lgl&gt;, latitude &lt;dbl&gt;,
+#   longitude &lt;dbl&gt;, positional_accuracy &lt;dbl&gt;,
+#   public_positional_accuracy &lt;dbl&gt;, geoprivacy &lt;chr&gt;, taxon_geoprivacy &lt;chr&gt;,
+#   coordinates_obscured &lt;lgl&gt;, scientific_name &lt;chr&gt;, common_name &lt;chr&gt;,
+#   iconic_taxon_name &lt;chr&gt;, taxon_id &lt;dbl&gt;, taxon_kingdom_name &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>You can use <code>View()</code> function from <strong>R</strong> to open an interactive viewer, which behaves like a simplified version of a spreadsheet program. If you hover over the tab for the interactive&nbsp;<code>View()</code>, you can click the “x” that appears, which will close the tab.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(inat_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can use <code>names()</code> from <strong>R</strong> to see the fields in the data frame.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(inat_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(inat_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "id"                         "observed_on"               
  [3] "time_observed_at"           "user_id"                   
@@ -434,12 +620,13 @@ $ establishment_means        &lt;chr&gt; "introduced", NA, "native", "native", "
 </div>
 <p>We can use <code>dim()</code> function from <strong>R</strong> to get the dimension of a data frame.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(inat_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(inat_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 191638     37</code></pre>
 </div>
 </div>
 <p><code>inat_data</code> has over 193K rows and 37 columns.</p>
+</section>
 </section>
 <section id="manipulating-data" class="level2">
 <h2 class="anchored" data-anchor-id="manipulating-data">Manipulating data</h2>
@@ -450,7 +637,7 @@ $ establishment_means        &lt;chr&gt; "introduced", NA, "native", "native", "
 <p>To use the <code>select()</code> function, the first argument is the name of the data frame, and the rest of the arguments are unquoted names of the columns you want.</p>
 <p>Our <code>inat_data</code> dataframe has 37 columns. We want four columns: <code>user_login</code>, <code>common_name</code>, <code>scientific_name</code>, <code>observed_on</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(inat_data, user_login, common_name, scientific_name, observed_on)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(inat_data, user_login, common_name, scientific_name, observed_on)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 191,638 × 4
    user_login    common_name                         scientific_name observed_on
@@ -473,10 +660,10 @@ $ establishment_means        &lt;chr&gt; "introduced", NA, "native", "native", "
 <section id="filter" class="level3">
 <h3 class="anchored" data-anchor-id="filter">filter()</h3>
 <p>The <code>filter()</code> function is used to select rows that meet certain criteria.</p>
-<p>To use the <code>filter()</code> function, the first agrument is the name of the data frame, and the second argument is the selection criteria.</p>
+<p>To use the <code>filter()</code> function, the first argument is the name of the data frame, and the second argument is the selection criteria.</p>
 <p>Let’s find all the observations for ‘Western Fence Lizard’, the most popular species in CNC Los Angeles. We want all the rows where <code>common_name</code> is equal to ‘Western Fence Lizard’. Use <code>==</code> to test for equality.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(inat_data, common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(inat_data, common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,339 × 37
         id observed_on time_observed_at  user_id user_login user_name created_at
@@ -519,11 +706,13 @@ Tip
 <p>You can insert <code>%&gt;%</code> by using the keyboard shortcut <kbd>Shift+Cmd+M</kbd> (Mac) or <kbd>Shift+Ctrl+M</kbd> (Windows).</p>
 </div>
 </div>
+<section id="select-observations-by-common_name" class="level4">
+<h4 class="anchored" data-anchor-id="select-observations-by-common_name">select observations by common_name</h4>
 <p>Let’s get all observations for ‘Western Fence Lizard’, and we only want columns <code>user_login</code>, <code>common_name</code>, <code>scientific_name</code>, <code>observed_on</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,339 × 4
    user_login    common_name          scientific_name         observed_on
@@ -542,19 +731,15 @@ Tip
 </div>
 </div>
 <p>The new data frame has over 3000 rows and 4 columns.</p>
-<p>Pipe operator take the thing on the lefthand side and insert it as the first argument of the function on the righthand side.<code>inat_data</code> gets piped into a <code>filter()</code> function, where it is modified. The output from <code>filter()</code> is then gets sent into the <code>select()</code> function, where it is further modified. It can also be helpful to think of <code>%&gt;%</code> as meaning “and then”.</p>
-<p>If we want to store this final data frame as an object, we use an assignment arrow <code>&lt;-</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>western_fence_lizard_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>Pipe operator take the thing on the lefthand side and insert it as the first argument of the function on the righthand side.<code>inat_data</code> gets piped into a <code>filter()</code> function, where the rows with ‘Western Fence Lizard’ are selected. The output from <code>filter()</code> is then gets sent into the <code>select()</code> function, where 4 columns are selected. It can also be helpful to think of <code>%&gt;%</code> as meaning “and then”.</p>
+</section>
+<section id="select-observations-by-coordinates_obscured" class="level4">
+<h4 class="anchored" data-anchor-id="select-observations-by-coordinates_obscured">select observations by coordinates_obscured</h4>
 <p>Sometimes the coordinates for iNaturalist observations are obscured. For instance, when the observation involves an endangered species, iNaturalist will automatically obscure the coordinates in order to protect the animal, plant, fungi. Sometimes people choose to obscure their location when they are making observations so that other people will not know their exact location. iNaturalist information about <a href="https://help.inaturalist.org/en/support/solutions/articles/151000169938-what-is-geoprivacy-what-does-it-mean-for-an-observation-to-be-obscured-">obscured coordinates</a>.</p>
-<p>To access one column in a data frame, use <code>dataframe$column_name</code>.</p>
-<p>When we pass in a data frame column to <code>table()</code> function from R, it will return the unique values in a column, and the number of rows that contain each value.</p>
+<p>To access one column in a data frame, use <code>dataframe$column_name</code>. When we pass in a data frame column to <code>table()</code> function from R, it will return the unique values in a column, and the number of rows that contain each value.</p>
 <p>Let’s find out how many observations have obscured locations.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(inat_data<span class="sc">$</span>coordinates_obscured)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(inat_data<span class="sc">$</span>coordinates_obscured)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  FALSE   TRUE 
@@ -564,9 +749,9 @@ Tip
 <p>176K row are false (coordinates are normal), 14K rows are true (coordinates are obscured).</p>
 <p>If the exact location of the observation will affect your analysis, then you want unobscured coordinates. Let’s get the observations where the coordinates are not obscured.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(coordinates_obscured <span class="sc">==</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(coordinates_obscured <span class="sc">==</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 176,942 × 4
    user_login    common_name                         scientific_name observed_on
@@ -596,35 +781,29 @@ Tip
 <div class="callout-body-container callout-body">
 <p>When using both <code>filter()</code> and <code>select()</code>, it is a good idea to use <code>filter()</code> before <code>select()</code>. The following code will cause an error “object ‘coordinates_obscured’ not found”.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on)  <span class="sc">%&gt;%</span> </span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(coordinates_obscured <span class="sc">==</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on)  <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(coordinates_obscured <span class="sc">==</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><code>select()</code> creates a data frame with four fields.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on) <span class="sc">%&gt;%</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  names</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "user_login"      "common_name"     "scientific_name" "observed_on"    </code></pre>
+<p><code>select()</code> creates a data frame with four fields. When we try to <code>filter()</code> using <code>coordinates_obscured</code>, we get an error because the 4-field data frame we pass to <code>filter()</code> does not have the field <code>coordinates_obscured</code>.</p>
 </div>
 </div>
-<p>When we try to <code>filter()</code> using <code>coordinates_obscured</code>, we get an error because the 4-field data frame we pass to <code>filter()</code> does not have the field <code>coordinates_obscured</code>.</p>
-</div>
-</div>
+</section>
+<section id="select-observations-by-quality_grade" class="level4">
+<h4 class="anchored" data-anchor-id="select-observations-by-quality_grade">select observations by quality_grade</h4>
 <p>iNaturalist gives a quality grade to each observation.</p>
 <p>To see all the unique values for a column, use <code>unique()</code> function from R and pass in the column name.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(inat_data<span class="sc">$</span>quality_grade)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(inat_data<span class="sc">$</span>quality_grade)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "research" "needs_id" "casual"  </code></pre>
 </div>
 </div>
 <p>When researchers use iNaturalist data, they normally use research grade observations. Let’s get the observations that are research grade.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(quality_grade <span class="sc">==</span> <span class="st">'research'</span>)  <span class="sc">%&gt;%</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(quality_grade <span class="sc">==</span> <span class="st">'research'</span>)  <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 107,491 × 4
    user_login    common_name                         scientific_name observed_on
@@ -644,28 +823,29 @@ Tip
 </div>
 </section>
 </section>
+</section>
 <section id="errors-in-code" class="level2">
 <h2 class="anchored" data-anchor-id="errors-in-code">Errors in code</h2>
 <p>We are writing instructions for the computer. If there is a typo, mispelling, pass in wrong arguments into functions, etc, the code will not work and we will see errors. R will display the errors in red. You need to fix the errors in order for the code to work. Here are some example errors.</p>
 <p>typo: we used <code>%&gt;</code>, when it should be <code>%&gt;%</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>inat_data %<span class="sc">&gt;</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>inat_data %<span class="sc">&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Misspelled <code>user_logi</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_logi, observed_on, common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_logi, observed_on, common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>typo: we use <code>=</code>, when it should be <code>==</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="at">user_login =</span> <span class="st">'natureinla'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="at">user_login =</span> <span class="st">'natureinla'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>typo: extra <code>)</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name)<span class="er">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name)<span class="er">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exercise-1" class="level2 exercise">
@@ -679,9 +859,9 @@ Tip
 </ul>
 <div class="answer">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>my_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name, scientific_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>my_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name, scientific_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -689,93 +869,114 @@ Tip
 <h2 class="anchored" data-anchor-id="and-operator">and operator: &amp;</h2>
 <p>When we want to get rows that match multiple criteria, we use the and operator <code>&amp;</code> in between the criteria.</p>
 <p><code>condtion_1 &amp; condition_2</code></p>
+<section id="select-observations-by-common_name-and-quality_grade" class="level4">
+<h4 class="anchored" data-anchor-id="select-observations-by-common_name-and-quality_grade">select observations by common_name and quality_grade</h4>
 <p>Let’s get all ‘Western Fence Lizard’ observations that are research grade.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span> <span class="sc">&amp;</span> </span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>           quality_grade <span class="sc">==</span> <span class="st">'research'</span>)  <span class="sc">%&gt;%</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on, quality_grade)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span> <span class="sc">&amp;</span> </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>           quality_grade <span class="sc">==</span> <span class="st">'research'</span>)  <span class="sc">%&gt;%</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on, quality_grade)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can check the results to make sure we wrote the query correctly. We can use <code>unique()</code> to check the column values.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(my_data<span class="sc">$</span>common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(my_data<span class="sc">$</span>common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Western Fence Lizard"</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(my_data<span class="sc">$</span>quality_grade)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(my_data<span class="sc">$</span>quality_grade)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "research"</code></pre>
 </div>
 </div>
+</section>
+<section id="select-observations-by-common_name-and-user_login" class="level4">
+<h4 class="anchored" data-anchor-id="select-observations-by-common_name-and-user_login">select observations by common_name and user_login</h4>
 <p>Let’s get ‘Western Fence Lizard’ observations made by ‘natureinla’.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span> <span class="sc">&amp;</span> </span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>           common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span> <span class="sc">&amp;</span> </span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>           common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(my_data<span class="sc">$</span>user_login)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(my_data<span class="sc">$</span>user_login)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "natureinla"</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(my_data<span class="sc">$</span>common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(my_data<span class="sc">$</span>common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Western Fence Lizard"</code></pre>
 </div>
 </div>
 </section>
+<section id="select-observations-by-coordinates_obscured-and-positional_accuracy" class="level4">
+<h4 class="anchored" data-anchor-id="select-observations-by-coordinates_obscured-and-positional_accuracy">select observations by coordinates_obscured and positional_accuracy</h4>
+<p>In addition to coordinates being intentionally obscured, another thing that can affect the coordinates for an observation is the accuracy of the coordinates. The <code>positional_accuracy</code> from iNaturalist measures the coordinates error in meters. The accuracy of GPS on smart phones can depend on the hardware, software, physcial environment, etc.</p>
+<p>Let’s get observations with unobscured locations that have position accuracy less than 5 meters.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(coordinates_obscured <span class="sc">==</span> <span class="cn">FALSE</span> <span class="sc">&amp;</span> </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>           positional_accuracy <span class="sc">&lt;</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, positional_accuracy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23,782 × 4
+   user_login         common_name            scientific_name positional_accuracy
+   &lt;chr&gt;              &lt;chr&gt;                  &lt;chr&gt;                         &lt;dbl&gt;
+ 1 msmorales          Garden Snail           Cornu aspersum                    4
+ 2 silversea_starsong Southern Alligator Li… Elgaria multic…                   3
+ 3 kimssight          Common Fiddleneck      Amsinckia menz…                   4
+ 4 kimssight          Northern House Wren    Troglodytes ae…                   4
+ 5 silversea_starsong Oblique Streaktail     Allograpta obl…                   3
+ 6 silversea_starsong Cabbage White          Pieris rapae                      3
+ 7 silversea_starsong trailside grasshopper  Lactista gibbo…                   3
+ 8 silversea_starsong Elegant Clarkia        Clarkia unguic…                   3
+ 9 silversea_starsong Cliff Aster            Malacothrix sa…                   3
+10 silversea_starsong intermediate suncup    Camissoniopsis…                   3
+# ℹ 23,772 more rows</code></pre>
+</div>
+</div>
+</section>
+</section>
 <section id="or-operator" class="level2">
 <h2 class="anchored" data-anchor-id="or-operator">or operator: |</h2>
 <p>When we want to get rows that match one or more criteria, we can use the or operator <code>|</code> in between the conditions</p>
 <p><code>condition_1 | condition_2</code></p>
+<section id="select-observations-by-multiple-common_name" class="level4">
+<h4 class="anchored" data-anchor-id="select-observations-by-multiple-common_name">select observations by multiple common_name</h4>
 <p>Let’s get observations where <code>common_name</code> is ‘Western Fence Lizard’ or ‘Western Honey Bee’.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'Western Honey Bee'</span> <span class="sc">|</span> common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>)  <span class="sc">%&gt;%</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name)</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(my_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'Western Honey Bee'</span> <span class="sc">|</span> common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>)  <span class="sc">%&gt;%</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name)</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(my_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5399    3</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(my_data<span class="sc">$</span>common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(my_data<span class="sc">$</span>common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Western Fence Lizard" "Western Honey Bee"   </code></pre>
 </div>
 </div>
 </section>
+</section>
 <section id="in-c" class="level2">
 <h2 class="anchored" data-anchor-id="in-c">%in% c()</h2>
 <p>If you need to examine multiple values for a field, you can use <code>field_name %in% c(value1, value2)</code> instead of <code>|</code> (or).</p>
-<p>A vector is how R stores a list of items. <code>c()</code> is a function from R that creates a vector with the passed in agruments. <code>%in%</code> operator from R checks if a vector is contained in another vector.</p>
-<p>Let’s rewrite the the code for <code>common_name</code> is ‘Western Fence Lizard’ or ‘Western Honey Bee’ using <code>%in% c()</code>. This codes will find observations where <code>common_names</code> is in the vector: ‘Western Honey Bee’, ‘Western Fence Lizard’</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'Western Honey Bee'</span>, <span class="st">'Western Fence Lizard'</span>))  <span class="sc">%&gt;%</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name)</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(my_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 5399    3</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(my_data<span class="sc">$</span>common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Western Fence Lizard" "Western Honey Bee"   </code></pre>
-</div>
-</div>
-<p>iNaturalist observations, photos, and sounds are covered by licenses. The default license is <strong>CC BY-NC</strong> (Creative Commons: Attribution-NonCommercial) so other people can use the content if they give attribution to you and use it for non-commercial purposes. More info about <a href="https://help.inaturalist.org/en/support/solutions/articles/151000175695-what-are-licenses-how-can-i-update-the-licenses-on-my-content-">iNaturalist licenses</a>.</p>
+<p>A vector is how R stores a list of items. <code>c()</code> is a function from R that creates a vector with the passed in arguments. <code>%in%</code> operator from R checks if a vector is contained in another vector.</p>
+<section id="select-observations-by-multiple-license" class="level4">
+<h4 class="anchored" data-anchor-id="select-observations-by-multiple-license">select observations by multiple license</h4>
+<p>iNaturalist observations, photos, and sounds are covered by licenses. The license determines how your data is used. The default license is <strong>CC BY-NC</strong> (Creative Commons: Attribution-NonCommercial) so other people can use the content if they give attribution to you and use it for non-commercial purposes. iNaturalist only exports observations with No Copyright (CC0), Attribution (CC BY), and Attribution-NonCommercial (CC BY-NC) license to <a href="https://www.gbif.org">Global Biodiversity Information Facility (GBIF)</a>, an international organization that provides access to biodiversity information. Many researchers who use iNaturalist data get their data from GBIF because GBIF provides <a href="https://www.doi.org">DOI</a> that researchers can cite in their papers. More info about <a href="https://help.inaturalist.org/en/support/solutions/articles/151000175695-what-are-licenses-how-can-i-update-the-licenses-on-my-content-">iNaturalist licenses</a>.</p>
 <p>We can use <code>table()</code> to see the license types and count.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(inat_data<span class="sc">$</span>license)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(inat_data<span class="sc">$</span>license)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
       CC-BY    CC-BY-NC CC-BY-NC-ND CC-BY-NC-SA    CC-BY-ND    CC-BY-SA 
@@ -784,38 +985,39 @@ Tip
        4934 </code></pre>
 </div>
 </div>
-<p>Let’s get observations with CC0, CC-BY, or CC BY-NC license.</p>
+<p>Let’s get observations with CC0, CC-BY, or CC BY-NC license. This codes will find observations where <code>license</code> is in the vector with these values: ‘CC0’, ‘CC-BY’, ‘CC BY-NC’</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(license <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'CC0'</span>, <span class="st">'CC-BY'</span>, <span class="st">'CC BY-NC'</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name)</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(my_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(license <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'CC0'</span>, <span class="st">'CC-BY'</span>, <span class="st">'CC BY-NC'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name)</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(my_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10318     3</code></pre>
 </div>
 </div>
 </section>
+</section>
 <section id="and-versus-or" class="level2">
 <h2 class="anchored" data-anchor-id="and-versus-or">&amp; (and) versus | (or)</h2>
 <p><strong>&amp; (and)</strong> return rows where all conditions are true. This code looks for observations where user_login is ‘natureinla’ and common_name is ‘Western Fence Lizard’.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>and_data <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span> <span class="sc">&amp;</span> common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>)</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(and_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>and_data <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span> <span class="sc">&amp;</span> common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>)</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(and_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 79 37</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(and_data<span class="sc">$</span>user_login)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(and_data<span class="sc">$</span>user_login)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "natureinla"</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(and_data<span class="sc">$</span>common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(and_data<span class="sc">$</span>common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Western Fence Lizard"</code></pre>
 </div>
@@ -823,28 +1025,28 @@ Tip
 <p>We get 79 rows with 1 user_login and 1 common_name</p>
 <p><strong>| (or)</strong> returns rows where any conditions are true. This code looks for observations where user_login is ‘natureinla’ plus observations where common_name is ‘Western Fence Lizard’</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>or_data <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span> <span class="sc">|</span> common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>)</span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(or_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>or_data <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span> <span class="sc">|</span> common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>)</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(or_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6216   37</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(or_data<span class="sc">$</span>user_login) <span class="sc">%&gt;%</span> length</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(or_data<span class="sc">$</span>user_login) <span class="sc">%&gt;%</span> length</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1052</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(or_data<span class="sc">$</span>common_name) <span class="sc">%&gt;%</span> length</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(or_data<span class="sc">$</span>common_name) <span class="sc">%&gt;%</span> length</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1031</code></pre>
 </div>
 </div>
 <p>We get 6,216 rows with 1052 user_login and 1031 common_name</p>
-<p><code>&amp;</code> vs <code>|</code> will return different results. Check the results of your code to make sure your results matches what you intended</p>
+<p><code>&amp;</code> vs <code>|</code> will return different results. Check the results of your code to make sure your results matches what you intended.</p>
 </section>
 <section id="exercise-2" class="level2 exercise">
 <h2 class="anchored" data-anchor-id="exercise-2">Exercise 2</h2>
@@ -855,10 +1057,10 @@ Tip
 </ul>
 <div class="answer">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span> <span class="sc">&amp;</span> </span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>           quality_grade <span class="sc">==</span> <span class="st">'research'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name, scientific_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span> <span class="sc">&amp;</span> </span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>           quality_grade <span class="sc">==</span> <span class="st">'research'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name, scientific_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,556 × 4
    user_login observed_on common_name            scientific_name              
@@ -881,15 +1083,17 @@ Tip
 <section id="more-complex-queries" class="level2">
 <h2 class="anchored" data-anchor-id="more-complex-queries">More complex queries</h2>
 <p>Sometimes we want to use both <code>&amp;</code> <code>|</code> to select the rows. You can use multiple filter statememts.</p>
+<section id="select-observations-by-multiple-user_login-and-common_name" class="level4">
+<h4 class="anchored" data-anchor-id="select-observations-by-multiple-user_login-and-common_name">select observations by multiple user_login and common_name</h4>
 <p>Let’s get observations where user is ‘cdegroof’ or ‘deedeeflower5’, and species is ‘Western Fence Lizard’.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>complex_query <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'cdegroof'</span> <span class="sc">|</span> </span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>           user_login <span class="sc">==</span> <span class="st">'deedeeflower5'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>)  <span class="sc">%&gt;%</span></span>
-<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on)</span>
-<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>complex_query</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>complex_query <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'cdegroof'</span> <span class="sc">|</span> </span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>           user_login <span class="sc">==</span> <span class="st">'deedeeflower5'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>)  <span class="sc">%&gt;%</span></span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on)</span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>complex_query</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 33 × 4
    user_login    common_name          scientific_name         observed_on
@@ -908,17 +1112,18 @@ Tip
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(complex_query<span class="sc">$</span>common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(complex_query<span class="sc">$</span>common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Western Fence Lizard"</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(complex_query<span class="sc">$</span>user_login)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(complex_query<span class="sc">$</span>user_login)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "cdegroof"      "deedeeflower5"</code></pre>
 </div>
 </div>
+</section>
 </section>
 <section id="exercise-3" class="level2 exercise">
 <h2 class="anchored" data-anchor-id="exercise-3">Exercise 3</h2>
@@ -932,7 +1137,7 @@ Tip
 </ul>
 <div class="answer">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(my_obs<span class="sc">$</span>common_name)[<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(my_obs<span class="sc">$</span>common_name)[<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Red-eared Slider"       "Monarch"                "San Diego Gopher Snake"
  [4] "California Towhee"      "Cooper's Hawk"          "tropical milkweed"     
@@ -941,10 +1146,10 @@ Tip
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'Red-eared Slider'</span> <span class="sc">|</span> common_name<span class="sc">==</span><span class="st">'Monarch'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name, scientific_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'Red-eared Slider'</span> <span class="sc">|</span> common_name<span class="sc">==</span><span class="st">'Monarch'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name, scientific_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 44 × 4
    user_login observed_on common_name      scientific_name          
@@ -969,10 +1174,10 @@ Tip
 <p>So far we looked at species. Instead of looking at specific species, we can also look for a group of related species.</p>
 <p>Let’s look for observations for all oak trees. We can use filter where the <code>common_name</code> is ‘oaks’.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>oaks_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'oaks'</span>) </span>
-<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(oaks_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>oaks_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'oaks'</span>) </span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(oaks_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 218  37</code></pre>
 </div>
@@ -984,7 +1189,7 @@ Tip
 <p>‘Oaks’ is the common name for genus Quercus. When you search iNaturalist observations for ‘oaks’, iNaturalist returns observations that belong to the genus Quercus, which includes species such as ‘Live Coast Oak’ and ‘Valley Oak’.</p>
 <p>Let’s look at the scientific name when we use <code>common_name == 'oaks'</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(oaks_obs<span class="sc">$</span>scientific_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(oaks_obs<span class="sc">$</span>scientific_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Quercus"</code></pre>
 </div>
@@ -992,7 +1197,7 @@ Tip
 <p>The scientific name for the 218 ‘oaks’ observation is Quercus. This means we aren’t including oak species. To match the iNaturalist search results, we need to look for all observations where the genus equals Quercus including oak species.</p>
 <p>We can use <code>names()</code> to get all the taxon name fields. There are several taxon__xxx__name fields.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(inat_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(inat_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "id"                         "observed_on"               
  [3] "time_observed_at"           "user_id"                   
@@ -1034,20 +1239,20 @@ Note
 <p><img src="images/oaks_taxonomy.png" class="img-fluid"></p>
 <p>We can create a filter command to represent the taxonomic hierarchy.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>oaks_obs_fixed <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>    taxon_kingdom_name <span class="sc">==</span> <span class="st">'Plantae'</span> <span class="sc">&amp;</span></span>
-<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>    taxon_phylum_name <span class="sc">==</span> <span class="st">'Tracheophyta'</span> <span class="sc">&amp;</span></span>
-<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>    taxon_class_name <span class="sc">==</span> <span class="st">'Magnoliopsida'</span> <span class="sc">&amp;</span></span>
-<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>    taxon_order_name <span class="sc">==</span> <span class="st">'Fagales'</span> <span class="sc">&amp;</span></span>
-<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a>    taxon_family_name <span class="sc">==</span> <span class="st">'Fagaceae'</span> <span class="sc">&amp;</span></span>
-<span id="cb86-8"><a href="#cb86-8" aria-hidden="true" tabindex="-1"></a>    taxon_genus_name <span class="sc">==</span> <span class="st">'Quercus'</span></span>
-<span id="cb86-9"><a href="#cb86-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>oaks_obs_fixed <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>    taxon_kingdom_name <span class="sc">==</span> <span class="st">'Plantae'</span> <span class="sc">&amp;</span></span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>    taxon_phylum_name <span class="sc">==</span> <span class="st">'Tracheophyta'</span> <span class="sc">&amp;</span></span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>    taxon_class_name <span class="sc">==</span> <span class="st">'Magnoliopsida'</span> <span class="sc">&amp;</span></span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>    taxon_order_name <span class="sc">==</span> <span class="st">'Fagales'</span> <span class="sc">&amp;</span></span>
+<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>    taxon_family_name <span class="sc">==</span> <span class="st">'Fagaceae'</span> <span class="sc">&amp;</span></span>
+<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a>    taxon_genus_name <span class="sc">==</span> <span class="st">'Quercus'</span></span>
+<span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The reason why I listed the hierarchy instead of just filtering by <code>taxon_genus_name == 'Quercus'</code> is because of limitations of my taxonomy knowledge and the limitations of the information provided by the CSV. Some Latin words are used multiple times to represent different taxa. For instance Eisenia is a genus for a type of worm and a genus for a type kelp. A filter command for <code>taxon_genus_name == 'Eisenia'</code> would return observations for two very different organisms. I don’t have enough expertise to know if a taxa name is unique, so to play it safe, I list the entire taxonomy hierarchy. Someone with more expertise might know there is only one Quercus in Plantae, and use <code>filter(taxon_kingdom_name == 'Plantae' &amp; taxon_genus_name == 'Quercus')</code>.</p>
 <p>iNaturalist gives each taxa name a unique id. Worm Eisenia is 128842, kelp Eisenia is 125880. When iNaturalist searches for observations for a given taxa, it uses the unique id for the search to avoid the problem of duplicate scientific names. Unfortunately the CSV download does not provide ids for each taxon rank, so we can’t do a search by taxon rank id. It is possible to get the ids for all the taxon ranks, but that involves more advance coding techniques.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(oaks_obs_fixed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(oaks_obs_fixed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1367   37</code></pre>
 </div>
@@ -1068,11 +1273,11 @@ Note
 </div>
 <p>Let’s examine the number of observations for each type of oak. We can use <code>count()</code> to get the counts.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>oaks_count <span class="ot">&lt;-</span> oaks_obs_fixed <span class="sc">%&gt;%</span></span>
-<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name) <span class="sc">%&gt;%</span></span>
-<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
-<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>oaks_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>oaks_count <span class="ot">&lt;-</span> oaks_obs_fixed <span class="sc">%&gt;%</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name) <span class="sc">%&gt;%</span></span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>oaks_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 34 × 3
    common_name          scientific_name            n
@@ -1093,11 +1298,11 @@ Note
 <p>While most of the observations are species, there are 218 observations that could only be identified to the genus Quercus.</p>
 <p>Another example, let’s search for ‘trees’. When we search iNaturalist for ‘trees’, the first result is <a href="https://www.inaturalist.org/taxa/211194-Tracheophyta">Phylum Tracheophyta</a>. Let’s look at our data using <code>taxon_phylum_name</code> and ‘Tracheophyta’</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>trees_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_kingdom_name <span class="sc">==</span> <span class="st">'Plantae'</span> <span class="sc">&amp;</span></span>
-<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>           taxon_phylum_name <span class="sc">==</span> <span class="st">'Tracheophyta'</span>)</span>
-<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(trees_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>trees_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_kingdom_name <span class="sc">==</span> <span class="st">'Plantae'</span> <span class="sc">&amp;</span></span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>           taxon_phylum_name <span class="sc">==</span> <span class="st">'Tracheophyta'</span>)</span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(trees_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 95372    37</code></pre>
 </div>
@@ -1105,11 +1310,11 @@ Note
 <p>There are 95372 Tracheophyta observations.</p>
 <p>Let’s get a count of observations for Tracheophyta.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>trees_count <span class="ot">&lt;-</span> trees_obs <span class="sc">%&gt;%</span></span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name) <span class="sc">%&gt;%</span></span>
-<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
-<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>trees_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>trees_count <span class="ot">&lt;-</span> trees_obs <span class="sc">%&gt;%</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name) <span class="sc">%&gt;%</span></span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>trees_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,759 × 2
    common_name                n
@@ -1143,19 +1348,19 @@ Note
 <p>A quick internet search came up with <a href="https://lacountycfmp.org/resources/">LA County recommended trees</a> and <a href="https://en.wikipedia.org/wiki/List_of_trees_and_shrubs_by_taxonomic_family">Wikipedia list of trees and shrubs</a>. You can use lists like these as the basis of creating a list of trees. Your search might look something like this.</p>
 <p>Search by species.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>laco_species <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Acacia aneura'</span>, <span class="st">'Acacia stenophylla'</span>, <span class="st">'Afrocarpus falcatus'</span>, <span class="st">"Agonis flexuosa"</span>, <span class="st">'Angophora costata'</span>, <span class="st">"Arbutus 'marina'"</span>, <span class="st">'Arbutus unedo'</span>  )</span>
-<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>laco_species_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_species_name <span class="sc">%in%</span> laco_species <span class="sc">&amp;</span> </span>
-<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>           taxon_kingdom_name <span class="sc">==</span> <span class="st">'Plantae'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, taxon_species_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>laco_species <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Acacia aneura'</span>, <span class="st">'Acacia stenophylla'</span>, <span class="st">'Afrocarpus falcatus'</span>, <span class="st">"Agonis flexuosa"</span>, <span class="st">'Angophora costata'</span>, <span class="st">"Arbutus 'marina'"</span>, <span class="st">'Arbutus unedo'</span>  )</span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>laco_species_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_species_name <span class="sc">%in%</span> laco_species <span class="sc">&amp;</span> </span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>           taxon_kingdom_name <span class="sc">==</span> <span class="st">'Plantae'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, taxon_species_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>laco_species_count <span class="ot">&lt;-</span> laco_species_obs <span class="sc">%&gt;%</span></span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name, taxon_species_name) <span class="sc">%&gt;%</span></span>
-<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
-<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>laco_species_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>laco_species_count <span class="ot">&lt;-</span> laco_species_obs <span class="sc">%&gt;%</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name, taxon_species_name) <span class="sc">%&gt;%</span></span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>laco_species_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
   common_name                   scientific_name     taxon_species_name      n
@@ -1168,19 +1373,19 @@ Note
 </div>
 <p>Search by genera.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>laco_genera <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Acacia'</span>,  <span class="st">'Afrocarpus'</span>, <span class="st">"Agonis"</span>, <span class="st">'Angophora'</span>, <span class="st">"Arbutus"</span> )</span>
-<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>laco_genera_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_genus_name <span class="sc">%in%</span> laco_genera <span class="sc">&amp;</span> </span>
-<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>           taxon_kingdom_name <span class="sc">==</span> <span class="st">'Plantae'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, taxon_genus_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>laco_genera <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Acacia'</span>,  <span class="st">'Afrocarpus'</span>, <span class="st">"Agonis"</span>, <span class="st">'Angophora'</span>, <span class="st">"Arbutus"</span> )</span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>laco_genera_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_genus_name <span class="sc">%in%</span> laco_genera <span class="sc">&amp;</span> </span>
+<span id="cb104-5"><a href="#cb104-5" aria-hidden="true" tabindex="-1"></a>           taxon_kingdom_name <span class="sc">==</span> <span class="st">'Plantae'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb104-6"><a href="#cb104-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, taxon_genus_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>laco_genera_count <span class="ot">&lt;-</span> laco_genera_obs <span class="sc">%&gt;%</span></span>
-<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name, taxon_genus_name) <span class="sc">%&gt;%</span></span>
-<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
-<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>laco_genera_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>laco_genera_count <span class="ot">&lt;-</span> laco_genera_obs <span class="sc">%&gt;%</span></span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name, taxon_genus_name) <span class="sc">%&gt;%</span></span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-5"><a href="#cb105-5" aria-hidden="true" tabindex="-1"></a>laco_genera_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 30 × 4
    common_name             scientific_name      taxon_genus_name     n
@@ -1218,57 +1423,57 @@ Tip
 <div class="callout-body-container callout-body">
 <p>Vector is a list of items. We can access specific values in a vector by using <code>vector_name[number]</code>. To access a range of values use <code>vector_name[start_number:end_number]</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'a'</span>,<span class="st">'b'</span>,<span class="st">'c'</span>, <span class="st">'d'</span>)</span>
-<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="co"># get first item </span></span>
-<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'a'</span>,<span class="st">'b'</span>,<span class="st">'c'</span>, <span class="st">'d'</span>)</span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="co"># get first item </span></span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "a"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get second and thrid item</span></span>
-<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get second and third item</span></span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "b" "c"</code></pre>
 </div>
 </div>
 </div>
 </div>
-<p>Let’s get <code>observed_on</code> for rows 10315 to 10325.</p>
+<p>Let’s get <code>observed_on</code> for rows 10317 to 10320.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>(inat_data<span class="sc">$</span>observed_on)[<span class="dv">10315</span><span class="sc">:</span><span class="dv">10325</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>inat_data<span class="sc">$</span>observed_on[<span class="dv">10317</span><span class="sc">:</span><span class="dv">10320</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "2016-04-15" "2016-04-15" "2016-04-18" "2016-04-16" "2017-04-14"
- [6] "2017-04-15" "2017-04-14" "2017-04-14" "2017-04-14" "2017-04-14"
-[11] "2017-04-14"</code></pre>
+<pre><code>[1] "2016-04-18" "2016-04-16" "2017-04-14" "2017-04-15"</code></pre>
 </div>
 </div>
-<p>Let’s get use <code>year()</code> to get the year from <code>observed_on</code> for rows 10315 to 10325</p>
+<p>Let’s get use <code>year()</code> to get the year from <code>observed_on</code> for rows 10317 to 10320</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">year</span>(inat_data<span class="sc">$</span>observed_on)[<span class="dv">10315</span><span class="sc">:</span><span class="dv">10325</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">year</span>(inat_data<span class="sc">$</span>observed_on)[<span class="dv">10317</span><span class="sc">:</span><span class="dv">10320</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 2016 2016 2016 2016 2017 2017 2017 2017 2017 2017 2017</code></pre>
+<pre><code>[1] 2016 2016 2017 2017</code></pre>
 </div>
 </div>
 <p>This code will add <code>year</code> column using the <code>year(observed_on)</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can click on <code>temp</code> in <strong>Environment</strong> tab to see the data frame with <code>year</code> column.</p>
 <p>We can also use <code>table()</code> to get the number of observations per year.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(temp<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(temp<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  2016  2017  2018  2019  2020  2021  2022  2023  2024 
 10392 17495 19164 34057 19524 22549 19597 26602 22258 </code></pre>
 </div>
 </div>
+<section id="select-observations-by-year" class="level4">
+<h4 class="anchored" data-anchor-id="select-observations-by-year">select observations by year</h4>
 <p>Let’s get all observations for 2020. We use mutate to add year column, and use filter to select rows where year is 2020.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on)) <span class="sc">%&gt;%</span></span>
-<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2020</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on)) <span class="sc">%&gt;%</span></span>
+<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2020</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 19,524 × 38
          id observed_on time_observed_at user_id user_login user_name created_at
@@ -1293,6 +1498,7 @@ Tip
 </div>
 </div>
 </section>
+</section>
 <section id="exercise-4" class="level2 exercise">
 <h2 class="anchored" data-anchor-id="exercise-4">Exercise 4</h2>
 <p>Get all of your observations from 2024.</p>
@@ -1302,10 +1508,10 @@ Tip
 <li>Use select() to pick 4 columns ::: answer</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on)) <span class="sc">%&gt;%</span></span>
-<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span> <span class="sc">&amp;</span> year <span class="sc">==</span> <span class="dv">2024</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name, scientific_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on)) <span class="sc">%&gt;%</span></span>
+<span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span> <span class="sc">&amp;</span> year <span class="sc">==</span> <span class="dv">2024</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb120-4"><a href="#cb120-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name, scientific_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
   user_login observed_on common_name                scientific_name             
@@ -1318,11 +1524,13 @@ Tip
 <section id="count-the-number-of-rows-with-count" class="level2">
 <h2 class="anchored" data-anchor-id="count-the-number-of-rows-with-count">Count the number of rows with count()</h2>
 <p>Use <code>count()</code> from <strong>dplyr</strong> to count the number of values for one or more columns. We pass in the column names as arguments to <code>count()</code></p>
+<section id="get-observations-per-year" class="level4">
+<h4 class="anchored" data-anchor-id="get-observations-per-year">get observations per year</h4>
 <p>Let’s try counting of all observations by year. Use <code>mutate()</code> to add a year column. Use <code>count()</code> to count the number of observations for each year. By default, count will add a new column caled <code>n</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on)) <span class="sc">%&gt;%</span></span>
-<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on)) <span class="sc">%&gt;%</span></span>
+<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 2
    year     n
@@ -1340,9 +1548,9 @@ Tip
 </div>
 <p>We can specify the name of the count column by passing in <code>name</code> argument to <code>count()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on)) <span class="sc">%&gt;%</span></span>
-<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(year, <span class="at">name=</span><span class="st">'obs_count'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on)) <span class="sc">%&gt;%</span></span>
+<span id="cb124-3"><a href="#cb124-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(year, <span class="at">name=</span><span class="st">'obs_count'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 2
    year obs_count
@@ -1358,12 +1566,15 @@ Tip
 9  2024     22258</code></pre>
 </div>
 </div>
+</section>
+<section id="get-top-ten-most-observed-species" class="level4">
+<h4 class="anchored" data-anchor-id="get-top-ten-most-observed-species">get top ten most observed species</h4>
 <p>Let’s count the number of observations for each species. We will pass in both ‘common_name’ and ‘scientific_name’ because some species don’t have a common_name.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name, <span class="at">name=</span><span class="st">'obs_count'</span>)</span>
-<span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-4"><a href="#cb120-4" aria-hidden="true" tabindex="-1"></a>counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name, <span class="at">name=</span><span class="st">'obs_count'</span>)</span>
+<span id="cb126-3"><a href="#cb126-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-4"><a href="#cb126-4" aria-hidden="true" tabindex="-1"></a>counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9,865 × 3
    common_name                             scientific_name        obs_count
@@ -1383,11 +1594,11 @@ Tip
 </div>
 <p>It’s often useful to take a look at the results in some order, like the lowest count to highest. We can use the <code>arrange()</code> function from <strong>dplyr</strong> for that. We pass in the columns we want to order by to <code>arrange()</code>. By default, <code>arrange()</code> will return values from lowest to highest.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name, <span class="at">name=</span><span class="st">'obs_count'</span>)   <span class="sc">%&gt;%</span></span>
-<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(obs_count)</span>
-<span id="cb122-4"><a href="#cb122-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-5"><a href="#cb122-5" aria-hidden="true" tabindex="-1"></a>counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name, <span class="at">name=</span><span class="st">'obs_count'</span>)   <span class="sc">%&gt;%</span></span>
+<span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(obs_count)</span>
+<span id="cb128-4"><a href="#cb128-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-5"><a href="#cb128-5" aria-hidden="true" tabindex="-1"></a>counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9,865 × 3
    common_name                     scientific_name         obs_count
@@ -1407,11 +1618,11 @@ Tip
 </div>
 <p>If we want to reverse the order, we can wrap the column names in <code>desc()</code> from <strong>dplyr</strong>. This will return values from highest to lowest.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name, <span class="at">name=</span><span class="st">'obs_count'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb124-3"><a href="#cb124-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(obs_count))</span>
-<span id="cb124-4"><a href="#cb124-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb124-5"><a href="#cb124-5" aria-hidden="true" tabindex="-1"></a>counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name, <span class="at">name=</span><span class="st">'obs_count'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb130-3"><a href="#cb130-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(obs_count))</span>
+<span id="cb130-4"><a href="#cb130-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-5"><a href="#cb130-5" aria-hidden="true" tabindex="-1"></a>counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9,865 × 3
    common_name            scientific_name          obs_count
@@ -1432,12 +1643,12 @@ Tip
 <p>use <code>slice()</code> from <strong>dplyr</strong> to return only certain number of records. <code>slice(start:end)</code> will return rows from the starting number to the ending number.</p>
 <p>Let’s get the top ten species with the most observations.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name, <span class="at">name=</span><span class="st">'obs_count'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb126-3"><a href="#cb126-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(obs_count))  <span class="sc">%&gt;%</span></span>
-<span id="cb126-4"><a href="#cb126-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb126-5"><a href="#cb126-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb126-6"><a href="#cb126-6" aria-hidden="true" tabindex="-1"></a>counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name, <span class="at">name=</span><span class="st">'obs_count'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb132-3"><a href="#cb132-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(obs_count))  <span class="sc">%&gt;%</span></span>
+<span id="cb132-4"><a href="#cb132-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb132-5"><a href="#cb132-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-6"><a href="#cb132-6" aria-hidden="true" tabindex="-1"></a>counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 3
    common_name            scientific_name          obs_count
@@ -1455,6 +1666,7 @@ Tip
 </div>
 </div>
 </section>
+</section>
 <section id="exercise-5" class="level2 exercise">
 <h2 class="anchored" data-anchor-id="exercise-5">Exercise 5</h2>
 <p>Get the number of observation you made per year</p>
@@ -1465,10 +1677,10 @@ Tip
 </ul>
 <div class="answer">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on)) <span class="sc">%&gt;%</span></span>
-<span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb128-4"><a href="#cb128-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(year, <span class="at">name=</span><span class="st">'obs_count'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on)) <span class="sc">%&gt;%</span></span>
+<span id="cb134-3"><a href="#cb134-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb134-4"><a href="#cb134-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(year, <span class="at">name=</span><span class="st">'obs_count'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 2
    year obs_count
@@ -1487,28 +1699,37 @@ Tip
 </section>
 <section id="save-data" class="level2">
 <h2 class="anchored" data-anchor-id="save-data">Save data</h2>
-<p>If you want to save your results, you can save the data frames as CSVs. First, assign the data frame to an object.</p>
+<p>If you want to save your results, you can save the data frames as CSVs.</p>
+<p>For instance, a user might only want to analyze their observations that are research grade and unobscured location. Instead of writing that filter command every time, they can save that data.frame to <code>data/cleaned</code> directory, and use that saved data set for all their analysis.</p>
+<p>First, assign the data frame to an object.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>top_ten <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name, <span class="at">name=</span><span class="st">'obs_count'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb130-3"><a href="#cb130-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(obs_count))  <span class="sc">%&gt;%</span></span>
-<span id="cb130-4"><a href="#cb130-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb130-5"><a href="#cb130-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-6"><a href="#cb130-6" aria-hidden="true" tabindex="-1"></a>top_ten</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>my_obs <span class="ot">&lt;-</span> my_data <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span> <span class="sc">&amp;</span> </span>
+<span id="cb136-3"><a href="#cb136-3" aria-hidden="true" tabindex="-1"></a>           quality_grade <span class="sc">==</span> <span class="st">'research'</span> <span class="sc">&amp;</span> </span>
+<span id="cb136-4"><a href="#cb136-4" aria-hidden="true" tabindex="-1"></a>           coordinates_obscured <span class="sc">==</span> <span class="cn">FALSE</span>) </span>
+<span id="cb136-5"><a href="#cb136-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-6"><a href="#cb136-6" aria-hidden="true" tabindex="-1"></a>my_obs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 3
-   common_name            scientific_name          obs_count
-   &lt;chr&gt;                  &lt;chr&gt;                        &lt;int&gt;
- 1 Western Fence Lizard   Sceloporus occidentalis       3339
- 2 Western Honey Bee      Apis mellifera                2060
- 3 dicots                 Magnoliopsida                 2013
- 4 plants                 Plantae                       1712
- 5 Eastern Fox Squirrel   Sciurus niger                 1475
- 6 House Finch            Haemorhous mexicanus          1263
- 7 Mourning Dove          Zenaida macroura              1205
- 8 flowering plants       Angiospermae                  1161
- 9 California poppy       Eschscholzia californica       934
-10 Convergent Lady Beetle Hippodamia convergens          929</code></pre>
+<pre><code># A tibble: 1,296 × 37
+        id observed_on time_observed_at user_id user_login user_name  created_at
+     &lt;dbl&gt; &lt;date&gt;      &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     
+ 1 2935688 2016-04-14  &lt;NA&gt;               21786 natureinla NHMLA Com… 2016-04-1…
+ 2 2935724 2016-04-14  &lt;NA&gt;               21786 natureinla NHMLA Com… 2016-04-1…
+ 3 2935782 2016-04-14  &lt;NA&gt;               21786 natureinla NHMLA Com… 2016-04-1…
+ 4 2954406 2016-04-16  &lt;NA&gt;               21786 natureinla NHMLA Com… 2016-04-1…
+ 5 2954533 2016-04-16  &lt;NA&gt;               21786 natureinla NHMLA Com… 2016-04-1…
+ 6 2954609 2016-04-16  &lt;NA&gt;               21786 natureinla NHMLA Com… 2016-04-1…
+ 7 2954698 2016-04-16  &lt;NA&gt;               21786 natureinla NHMLA Com… 2016-04-1…
+ 8 2954805 2016-04-16  &lt;NA&gt;               21786 natureinla NHMLA Com… 2016-04-1…
+ 9 2966003 2016-04-16  &lt;NA&gt;               21786 natureinla NHMLA Com… 2016-04-1…
+10 2966084 2016-04-16  &lt;NA&gt;               21786 natureinla NHMLA Com… 2016-04-1…
+# ℹ 1,286 more rows
+# ℹ 30 more variables: updated_at &lt;chr&gt;, quality_grade &lt;chr&gt;, license &lt;chr&gt;,
+#   url &lt;chr&gt;, image_url &lt;chr&gt;, sound_url &lt;chr&gt;, tag_list &lt;chr&gt;,
+#   description &lt;chr&gt;, captive_cultivated &lt;lgl&gt;, latitude &lt;dbl&gt;,
+#   longitude &lt;dbl&gt;, positional_accuracy &lt;dbl&gt;,
+#   public_positional_accuracy &lt;dbl&gt;, geoprivacy &lt;chr&gt;, taxon_geoprivacy &lt;chr&gt;,
+#   coordinates_obscured &lt;lgl&gt;, scientific_name &lt;chr&gt;, common_name &lt;chr&gt;, …</code></pre>
 </div>
 </div>
 <p>Then use <code>write_csv()</code> from <strong>dplyr</strong> to create a CSV.</p>
@@ -1520,7 +1741,7 @@ Tip
 <li>By default <code>NA</code> values will be saved as ‘NA’ string. <code>na=''</code> will save <code>NA</code> values as empty strings.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(top_ten, <span class="st">'results/top_ten_observations.csv'</span>, <span class="at">na=</span><span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(my_obs, <span class="st">'data/cleaned/my_observations.csv'</span>, <span class="at">na=</span><span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

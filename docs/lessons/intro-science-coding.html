@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -142,13 +108,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">After iNaturalist - Learn How To Explore City Nature Challenge Data through R Coding</span></a>
+ <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lessons/intro-data-analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to Data Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -166,7 +138,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lessons/working-with-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Working with iNaturalist data</span></a>
+ <span class="menu-text">Exploring iNaturalist data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -183,7 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/other_datasets.html" class="sidebar-item-text sidebar-link">
+  <a href="../lessons/other-datasets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using to other datasets</span></a>
   </div>
 </li>
@@ -193,6 +165,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Next steps</span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extra</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/understanding-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Understanding data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/cleaning-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cleaning data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/editing-geo-files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Editing geospatial files</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/setup-local.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup - local computer</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -208,12 +215,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#urban-ecology" id="toc-urban-ecology" class="nav-link" data-scroll-target="#urban-ecology">Urban Ecology</a></li>
   <li><a href="#taxonomy" id="toc-taxonomy" class="nav-link" data-scroll-target="#taxonomy">Taxonomy</a></li>
   </ul></li>
-  <li><a href="#coding-concepts" id="toc-coding-concepts" class="nav-link" data-scroll-target="#coding-concepts">Coding Concepts</a>
+  <li><a href="#coding-concepts" id="toc-coding-concepts" class="nav-link" data-scroll-target="#coding-concepts">Coding Concepts</a></li>
+  <li><a href="#geospatial-concepts" id="toc-geospatial-concepts" class="nav-link" data-scroll-target="#geospatial-concepts">Geospatial concepts</a>
   <ul class="collapse">
-  <li><a href="#programming" id="toc-programming" class="nav-link" data-scroll-target="#programming">Programming</a></li>
-  <li><a href="#file-paths" id="toc-file-paths" class="nav-link" data-scroll-target="#file-paths">File paths</a></li>
-  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a></li>
-  <li><a href="#r-packages" id="toc-r-packages" class="nav-link" data-scroll-target="#r-packages">R packages</a></li>
+  <li><a href="#coordinate-reference-systems" id="toc-coordinate-reference-systems" class="nav-link" data-scroll-target="#coordinate-reference-systems"><strong>Coordinate Reference Systems</strong></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -269,89 +274,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="coding-concepts" class="level2">
 <h2 class="anchored" data-anchor-id="coding-concepts">Coding Concepts</h2>
-<section id="programming" class="level3">
-<h3 class="anchored" data-anchor-id="programming">Programming</h3>
-<p>The basis of programming is that we write down instructions for the computer to follow, and then we tell the computer to follow those instructions. We write these instructions in the form of&nbsp;<em>code</em>, which is a common language that is understood by the computer and humans (after some practice). We call these instructions <em>commands</em>, and we tell the computer to follow the instructions by&nbsp;<em>running</em>&nbsp;(also called&nbsp;<em>executing</em>) the commands.</p>
+<p>The basis of programming is that we write down instructions for the computer to follow, and then we tell the computer to follow those instructions. We write these instructions in the form of&nbsp;<em>code</em>, which is a common language that is understood by the computer and humans (after some practice). We call these instructions&nbsp;<em>commands</em>, and we tell the computer to follow the instructions by&nbsp;<em>running</em>&nbsp;(also called <em>executing</em>) the commands.</p>
 </section>
-<section id="file-paths" class="level3">
-<h3 class="anchored" data-anchor-id="file-paths">File paths</h3>
-<p>When we reference other files from an R script, we need to give R precise instructions on where those files are. We do that using something called a <strong>file path</strong>.</p>
-<p>There are two kinds of paths: <strong>absolute</strong> and <strong>relative</strong>. Absolute paths are specific to a particular computer, whereas relative paths are relative to a certain folder. For instance an absolute path is “/Users/username/Documents/coding/CNC-coding-workshop/data/cleaned/cnc-los-angeles-observations.csv”, and relative path is “data/cleaned/cnc-los-angeles-observations.csv”.</p>
-</section>
-<section id="functions" class="level3">
-<h3 class="anchored" data-anchor-id="functions">Functions</h3>
-<p>Functions are predefined bits of code that automate more complicated actions. Arguments are values that we pass into a function, and the function does something to the values. A function can have one or more arguments. A function’s arguments come in a particular order, and if you put them in the correct order, you don’t need to name them. Executing a function is called <em>calling</em> or <em>running</em> the function.</p>
-<p>R has built in functions. You can also write your own functions.</p>
-<p>Let’s create a function that saves a person’s name and email.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a function named save_contact. 1st argument is name, 2nd is email.</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>save_contact <span class="ot">&lt;-</span> <span class="cf">function</span>(name, email){</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># prints the arguments</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">'name:'</span>, name, <span class="st">' email:'</span>, email)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span><span class="al">TODO</span><span class="co">: check if name and email are valid</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span><span class="al">TODO</span><span class="co">: save the values to a database</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span><span class="al">TODO</span><span class="co">: return new contact</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="geospatial-concepts" class="level2">
+<h2 class="anchored" data-anchor-id="geospatial-concepts">Geospatial concepts</h2>
+<p>Geospatial data is data that has a particular location. There are different software tools that can be used to display and analyze geospatial data.</p>
+<section id="coordinate-reference-systems" class="level3">
+<h3 class="anchored" data-anchor-id="coordinate-reference-systems"><strong>Coordinate Reference Systems</strong></h3>
+<p>Earth is a 3D sphere. Maps are 2D representation of a 3D sphere. Map projections are ways to flatten a spherical Earth to a flat surface.</p>
+<p>In order for software to correctly display and manipulate geospatial data, the data must include coordinate reference system (CRS) information. The CRS associated with a dataset tells your mapping software where the data is located in geographic space. It also tells the mapping software what method should be used to flatten or project the data in geographic space.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/crs.jpg" class="img-fluid figure-img"></p>
+<figcaption>Source: opennews.org, from: https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg</figcaption>
+</figure>
 </div>
-<p>To use a function, we write the name of the function, and pass it some values.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pass in the argument names and values in order</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">save_contact</span>(<span class="at">name=</span><span class="st">'Jane'</span>, <span class="at">email=</span><span class="st">'jane@user.com'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>name: Jane  email: jane@user.com</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pass in values in order</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">save_contact</span>(<span class="st">'Jane'</span>, <span class="st">'jane@user.com'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>name: Jane  email: jane@user.com</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pass in the argument names and values out of order</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">save_contact</span>(<span class="at">email=</span><span class="st">'jane@user.com'</span>, <span class="at">name=</span><span class="st">'Jane'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>name: Jane  email: jane@user.com</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pass in values out of order</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">save_contact</span>(<span class="st">'jane@user.com'</span>, <span class="st">'Jane'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>name: jane@user.com  email: Jane</code></pre>
-</div>
-</div>
-<p>Often times, a function will process the input and return a value. To save the function results so we can continue to work with it, use <code>&lt;-</code> to assign the to value to an object.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>new_contact <span class="ot">&lt;-</span> <span class="fu">save_contact</span>(<span class="st">'Jane'</span>, <span class="st">'jane@user.com'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>name: Jane  email: jane@user.com</code></pre>
-</div>
-</div>
-</section>
-<section id="r-packages" class="level3">
-<h3 class="anchored" data-anchor-id="r-packages">R packages</h3>
-<p>R itself has many built-in functions, but we can access many more by loading other packages. <strong>R packages</strong> contain code, data, and documentation that people can download and install to add more functionality to R.</p>
-<p>To install these packages, use <code>install.packages()</code> function from R. We pass in the package names as arguments. The name of the packages must be in quotes.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install one package</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>R will connect to the internet and download packages from servers that have R packages. R will then install the packages on your computer. The console window will show you the progress of the installation process.</p>
-<p>To save time, we have already installed all the packages we need for the workshop.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install multiple packages</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"readr"</span>, <span class="st">"dplyr"</span>, <span class="st">"ggplot2"</span>, </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"sf"</span>, <span class="st">"lubridate"</span>, <span class="st">"mapview"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>In order to use a package, use <code>library()</code> function from R. We pass in the name of the package as an argument. Do not use quotes around the package name when using <code>library()</code>.</p>
-<p>These are R packages we will use in this workshop.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) <span class="co"># read and write tabular data</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># manipulate data</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># create data visualizations</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="co"># handle geospatial data</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># manipulate dates</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapview) <span class="co"># create interactive maps</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Generally it is a good idea to list all the libraries that you will use in the script at the beginning of the script. You want to install the package to your computer once, and then load it with <code>library()</code> in each script where you need to use it.</p>
+<p>The above image shows maps of the United States in different projections. The differences in shape are a direct result of the calculations used to flatten the data onto a 2-dimensional map.</p>
+<p>Data from the same location but saved in different projections will not line up in any geospatial software. Thus, it’s important when working with multiple geospatial data sets to use the same coordinate reference system for data processing and analysis.</p>
 
 
 </section>
