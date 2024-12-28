@@ -1,0 +1,58 @@
+---
+title: "Setup - local computer"
+format: html
+---
+
+The workshop used Github Codespaces to host the code, data, and software. If you want to install stuff on your on own computer, follow these steps.
+
+## Install packages
+
+Copy an paste the following `install.packages(...)` command into the R console. 
+
+```{r}
+#| eval: false
+install.packages(c("readr", "dplyr", "ggplot2", "sf", "lubridate", "mapview"))
+```
+
+
+## Creating your own project folder from scratch
+
+If you want to create your own project folder in R Studio, follow these steps.
+
+1.  Start RStudio (you should see a view similar to the screenshot above).
+2.  In the top right, you will see a blue 3D cube and the words "Project: (None)". Click on this icon.
+3.  Click **New Project** from the dropdown menu.
+4.  Click **New Directory**, then **New Project**.
+5.  Type out a name for the project.
+6.  Put it in a convenient location using the "Create project as a subdirectory of:" section. We recommend your `Desktop`. You can always move the project somewhere else later, because it will be self-contained.
+7.  Click **Create Project** and your new project will open.
+
+When you need to work on the project, click on the Rproj icon to start RStudio.
+
+There are a few settings we will need to adjust to improve the reproducibility of our work. Go to your menu bar, then click Tools → Global Options to open up the Options window.
+
+![](images/rstudio_settings.png){alt="Screenshot of the RStudio Global Options, with \"Restore .RData into workspace at startup\" unchecked, and \"Save workspace to .RData on exit\" set to \"Never\"."}
+
+Make sure your settings match those highlighted in yellow. We don't want RStudio to store the current status of our R session and reload it the next time we start R. We want to start with a clean, empty R session every time we work.
+
+We will use a basic structure for this workshop.
+
+```         
+project_name
+│
+└── data
+│    └── cleaned
+│    └── raw
+│
+└─── results
+│
+└── scripts
+│
+└── project_name.Rproj
+```
+
+Let's start making our new folders. Go to the **Files** pane (bottom right), and check the current directory, highlighted in yellow below. You should be in the directory for the project you just made. You shouldn't see any folders in here yet.
+
+![](images/files_pane.png){alt="RStudio Files pane with current directory path highlighted."}
+
+Next, click the **New Folder** button, and type in `scripts` to generate your `scripts` folder. It should appear in the Files list now. Repeat the process to make your `data`, and `results` folders. Then, click on the `data` folder in the Files pane. This will take you into the `data` folder, which will be empty. Use the **New Folder** button to create `raw` and `cleaned` folders. To return to the project folder, click on it in the file path, which is highlighted in yellow in the previous image. It's worth noting that the **Files** pane helps you create, find, and open files, but moving through your files won't change where the **working directory** of your project is.
