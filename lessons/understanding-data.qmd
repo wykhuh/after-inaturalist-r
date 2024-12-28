@@ -1,0 +1,128 @@
+---
+title: "Understanding data"
+format: html
+include-in-header: "components/add-answer-button.html"
+---
+
+::: summary
+## Questions
+
+-   What are the basic data types in R?
+-   What are some basic data structures in R?
+
+## Objectives
+
+-   To be aware of the different data types and data structures.
+:::
+
+## Reading CSV files
+
+In order to analyze the iNaturalist csv, we need to load **readr** and **dplyr** packages.
+
+```{r, loading_packages}
+#| message: false
+
+library(readr) # read and write tabular data
+library(dplyr) # manipulate data
+```
+
+```{r, assign_read_csv_to_object}
+inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+```
+
+We can use the `glimpse()` function from **dplyr** get a summary about the contents of `inat_data` .
+
+```{r, call_glimpse}
+glimpse(inat_data)
+```
+
+To understand the data produced by `read_csv()`, we will learn how R deals with with data.
+
+## Data Types
+
+Every value in R has a data type. There are 4 main types: **numeric**, **integer**, **logical**, and **character**.
+
+-   **numeric** are numbers that contain a decimal (e.g. 1.2, 10.5). By default, R also treats whole numbers as decimals (e.g. 1, 10).
+
+-   **integer** are whole numbers that do not have a decimal point. (e.g. 1L, 10L). In R, the `L` suffix forces the number to be an integer, since by default R uses decimal numbers.
+
+-   **logical** have values of `TRUE` or `FALSE`. There is a special type of logical called `NA` that represents missing values. `NA` is short for not applicable.
+
+-   **character** represent string values (e.g. "abc", 'dog'). The strings must be surrounded by quotes, either single quotes or double quotes.
+
+A value's data type will determine what R can do with the value. For instance, in R we can add numbers but we can't add strings.
+
+## Vectors
+
+A data structure is a way to organize and store a collection of values. A vector is data structure in R that has series of values. All the value in the vector must be the same data type.
+
+To create a vector we use the `c()` combine function, and pass in the values as arguments.
+
+numeric vector
+
+```{r numeric_vector}
+num <- c(1, 2, 5)
+num
+```
+
+We can use `class()` function to find the type or class of any object.
+
+```{r class_numeric}
+class(num)
+```
+
+character vector
+
+```{r character_vector}
+char <- c("apple", "pear", "grape")
+char
+class(char)
+```
+
+logical vector
+
+```{r logical_vector}
+log <- c(TRUE, FALSE, TRUE)
+log
+class(log)
+```
+
+If you try to put values of different data types into a vector, all the values are converted to the same data type.
+
+```{r vector_conversion}
+mixed <- c(1, "apple", TRUE)
+mixed
+class(mixed)
+```
+
+`NA` is a special type of value, and is allowed in vectors of any data type.
+
+```{r c-vector-na}
+# numeric vector
+num <- c(1, 2, NA)
+class(num)
+
+# character vector
+char <- c("apple", "pear", NA)
+class(char)
+
+# logical vector
+log <- c(TRUE, FALSE, NA)
+class(log)
+```
+
+## data.frame
+
+When we call `class()` with `inat_data`, it returns "tbl" and "data.frame".
+
+```{r}
+class(inat_data)
+```
+
+**data.frame** is a data structure from R that is used to represent tabular data with rows and columns. **tbl** aka tibble is an updated version of data.frame from the **tibble** package. **readr** uses tibbles instead of data.frames.
+
+When `readr` loads a CSV, it tries to figure the data type for each column. Each column in a data.frame and tibble is a vector. Because each column is a vector, all the values in a column must be of the same data type.
+
+For `inat_data`, columns `id` and `latitude` are **numeric**. Columns `captive_cultivated` and `coordinates_obscured` are **logical**. Columns `user_login` and `license` are **character**. Multiple columns have `NA` such as `license` and `sound_url`.
+
+`readr` has a special data type `date` that is used to represent dates. Column `observed_on` is **date**. Other columns are such as `time_observed_at` are treated as **character** because those strings have extra information that `reader` does not recognize as a **date**.
