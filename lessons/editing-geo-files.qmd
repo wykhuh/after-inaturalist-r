@@ -27,13 +27,13 @@ California state has a file that lists all the counties in California. <https://
 First we read the file with all state parks in California.
 
 ```{r, get_state_parks}
-state_parks <- st_read('data/raw/Park_Boundaries/ParkBoundaries.shp')
+state_parks <- read_sf('data/raw/Park_Boundaries/ParkBoundaries.shp')
 ```
 
 The we read the file with all the counties in California.
 
 ```{r, get_ca_counties}
-ca_counties <- st_read('data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp')
+ca_counties <- read_sf('data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp')
 
 
 ```
@@ -102,9 +102,9 @@ National Park Boundaries https://catalog.data.gov/dataset/national-park-boundari
 Read files
 
 ```{r}
-parks_nps <- st_read('data/raw/nps_boundary/nps_boundary.shp')
+parks_nps <- read_sf('data/raw/nps_boundary/nps_boundary.shp')
 
-ca_counties <- st_read('data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp')
+ca_counties <- read_sf('data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp')
 
 
 ```

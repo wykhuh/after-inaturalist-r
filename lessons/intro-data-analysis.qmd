@@ -11,7 +11,7 @@ format: html
 ## Objectives
 
 -   Learn how to download data from iNaturalist
--   Learn about the various ways to analyze data
+-   Get an overview of the workshop
 :::
 
 ## iNaturalist data

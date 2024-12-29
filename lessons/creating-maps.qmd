@@ -24,8 +24,8 @@ Main steps:
 
 1.  Load iNaturalist data
 2.  Add geometry column to iNaturalist data
-3.  Use `filter()`, `select(),` `mutate()`, and `count()` to get the rows and columns we want.
-4.  Create map.
+3.  Use `filter()`, `select(),` `mutate()`, and `count()` to get the rows and columns we want
+4.  Create map
 
 Loading R packages. We will use **ggplot, sf** and **mapview** packages to create maps.
 
@@ -60,8 +60,8 @@ names(inat_data)
 `st_as_sf()` function from **sf** package will take the longitude and latitude values and add a `geometry` column that we can use for mapping.
 
 -   We pass in longitude and latitude columns as a vector to `coords` argument. We must wrap longitude and latitude in quotes.
--   `crs` argument sets the [coordinate reference system](intro-science-coding.qmd#coordinate-reference-systems) (CRS). 4326 is the code for the EPSG:4326 CRS, a commonly used CRS.
--   `st_as_sf()`removes the `longitude` and `latitude` columns and add a `geometry` column.
+-   `crs` argument sets the [coordinate reference system](intro-science-coding.qmd#coordinate-reference-systems) (CRS). 4326 is the code for the EPSG:4326, a commonly used CRS.
+-   `st_as_sf()` removes the `longitude` and `latitude` columns and adds a `geometry` column.
 
 ```{r, select_columns}
 inat_map <- inat_data %>% 
@@ -110,11 +110,11 @@ dim(inat_oak_map)
 
 ## static map
 
-**ggplot2** is a package to create visualizations for data. **ggplot2** is most commonly used for charts, but it can also be used to create static maps. **ggplot2** creates charts and map by adding new layers.
+**ggplot2** is a powerful package that allows you to create complex plots from tabular data (data in a table format with rows and columns). The **gg** in **ggplot2** stands for “grammar of graphics”, and the package uses consistent vocabulary to create plots step by step by adding new layers, which allows for extensive flexibility and customization of plots.  **ggplot2** is most commonly used for charts, but it can also be used to create static maps.
 
 Let's create a map for Coast Live Oak observations.
 
-Call `ggplot()` to start a map. Then we use `+` to add a new layer to the map. We pass the data to `geom_sf()` using the `data` argument. `geom_sf()` uses the information in the `geometry` column to plot each row.
+Call `ggplot()` to start a map. Then we use `+` to add a new layer to the map. We pass the iNaturalist data to `geom_sf()` using the `data` argument. `geom_sf()` uses the information in the `geometry` column to plot each row.
 
 ```{r, create_static_map_for_oak}
 ggplot() +
@@ -140,12 +140,12 @@ You can zoom in and out. When you click on layer button on the left, you can cha
 
 Let's add the boundaries for LA County to the map.
 
-There are various places where you can download geospatial files for free. I downloaded the LA County boundaries from [LA City Geohub](https://geohub.lacity.org/datasets/lacounty::la-county-boundary-7/about). Geohub offers files in various formats including CSV, Shapefile, GeoJSON, and KML. We are using the Shapefile.
+There are various places where you can download geospatial files for free. We downloaded the LA County boundaries from [LA City Geohub](https://geohub.lacity.org/datasets/lacounty::la-county-boundary-7/about). Geohub offers files in various formats including CSV, Shapefile, GeoJSON, and KML. We are using a Shapefile.
 
-`st_read()` function from **sf** package can read files and databases in various formats. We will use `st_read()` to read the LA County boundary file.
+`read_sf()` function from **sf** package can read files and databases in various formats. We will use `read_sf()` to read the LA County boundary file.
 
 ```{r, get_LA_County_boundaries}
-la_county_boundary <- st_read('data/raw/LA_County_Boundary/LA_County_Boundary.shp')
+la_county_boundary <- read_sf('data/raw/LA_County_Boundary/LA_County_Boundary.shp')
 ```
 
 We can use `glimpse()` to examine the LA County boundary file.
@@ -154,7 +154,7 @@ We can use `glimpse()` to examine the LA County boundary file.
 glimpse(la_county_boundary)
 ```
 
-Shapefiles include a CRS and `geometry` column.
+Shapefiles includes a `geometry` column.
 
 When working with multiple geospatial files, it's important that all the data uses the same [coordinate reference system (CRS)](intro-science-coding.qmd#coordinate-reference-systems). Let’s use `st_crs()` to check if the CRS for the iNaturalist data and the LA County boundary are the same. `==` checks if two things are equal.
 
@@ -222,7 +222,7 @@ ggplot() +
 
 **ggplot2** will assign a different color to each value, and add a legend.
 
-We can add a title to the map using `ggtitle()`, and change the legend title using `labs()`. We can add `theme_void()` to get rid of the grey background and axis labels.
+We can set the map title and legend title using `labs()`. We can add `theme_void()` to get rid of the grey background and axis labels.
 
 ```{r add_title_to_static_map}
 ggplot() +
@@ -332,10 +332,10 @@ Let's look for all iNaturalist observations made in Exposition Park.
 
 Sometimes we won't be able to find a pre-existing file that has boundaries for an area that we want to analyze. In these cases, we need to create our own boundaries. I used this [Draw map boundaries](https://wykhuh.github.io/draw-map-boundaries/) webpage to draw and download the boundaries of Exposition Park. The file is in GeoJSON format.
 
-Let's use `st_read`() to read a geojson file.
+Let's use `read_sf()` to read a geojson file.
 
 ```{r, get_Expo_park_boundaries}
-expo_park_boundary <- st_read('data/raw/boundaries_expo_park_area.geojson')  
+expo_park_boundary <- read_sf('data/raw/boundaries_expo_park_area.geojson')  
 ```
 
 We can use `glimpse()` to examine the file.
@@ -344,7 +344,7 @@ We can use `glimpse()` to examine the file.
 glimpse(expo_park_boundary)
 ```
 
-The Expo Park boundary file has a CRS and `geometry` column.
+The GeoJSON file has a `geometry` column.
 
 Let's use `st_crs()` to check if the CRS for the iNaturalist data and Expo Park are the same.
 
@@ -374,7 +374,7 @@ inat_expo <- inat_map[lengths(st_intersects(inat_map, expo_park_boundary)) > 0, 
 inat_expo
 ```
 
-::: callout-info
+::: callout-note
 For those who want to understand that chunk of code, here's a explanation.
 
 `st_intersects()` from **sf** tells us the number of items in one spatial object touch, cross, or is within items in a second spatial object.
@@ -388,8 +388,8 @@ st_intersects(inat_map, expo_park_boundary)
 We use `lengths(st_intersects(inat_map, expo_park_boundary)) > 0` to create a vector that has TRUE or FALSE. A vector with TRUE/FALSE is called logical vector. If a row for `inat_map` has 1 item inside `expo_park_boundary`, return TRUE. Otherwise return FALSE.
 
 ```{r, get_true_false}
-#| eval: false
-lengths(st_intersects(inat_map, expo_park_boundary)) > 0
+# we are limited the output to the first 50 rows for this explation
+(lengths(st_intersects(inat_map, expo_park_boundary)) > 0)[1:50]
 ```
 
 We can use a logical vectors to filter rows in data frame by using `dataframe[logical_vector, ]`. If the logical vector is true, return the row. Otherwise ignore the row.
@@ -433,14 +433,14 @@ Create a map for all CNC observations that are inside of a specific area
 
 -   Used [Draw map boundaries](https://wykhuh.github.io/draw-map-boundaries/) to draw and download an area that you are interested in.
 -   Save the file to the `data/raw` directory.
--   use `st_read` to read your boundary data.
+-   use `read_sf` to read your boundary data.
 -   use `inat_map[lengths(st_intersects(inat_map, your_boundary)) > 0, ]` to get observations inside a boundary
 
 ::: answer
 ```{r,exercise_create_map_of_observations_inside_boundary}
 #| eval: false
 
-usc_boundary <- st_read('data/raw/boundaries_usc.geojson')  %>% 
+usc_boundary <- read_sf('data/raw/boundaries_usc.geojson')  %>% 
   st_transform(4326)
 
 inat_usc <- inat_map[st_intersects(inat_map, usc_boundary) %>% lengths > 0, ]
@@ -460,7 +460,7 @@ Let's create a choropleth map to show the number of CNC observations in L.A. Cou
 Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <https://maps.latimes.com/about/index.html> We'll use the L.A. Times neighborhood boundaries for our map.
 
 ```{r read_neighborhood_file}
-la_neighborhoods <- st_read('data/raw/la_times_la_county_neighborhoods.json')
+la_neighborhoods <- read_sf('data/raw/la_times_la_county_neighborhoods.json')
 ```
 
 Use `glimpse()` to examine the file data.
@@ -469,7 +469,9 @@ Use `glimpse()` to examine the file data.
 glimpse(la_neighborhoods)
 ```
 
-Use `select()` to pick the name amd geometry columns.
+The file has a `geometry` column.
+
+Use `select()` to pick the `name` and `geometry` columns.
 
 ```{r select_columns_in_neighborhood}
 la_neighborhoods_edit <- la_neighborhoods %>%
@@ -483,7 +485,7 @@ Check if the neighborhood maps have the same CRS as the iNaturalist data.
 st_crs(la_neighborhoods_edit) == st_crs(inat_map)
 ```
 
-Ther is a bug with **sf** <https://github.com/r-spatial/sf/issues/1762>. This bit a code is fix for the bug.
+Ther is a bug with **sf** <https://github.com/r-spatial/sf/issues/1762>. This bit of code is fix for the bug.
 
 ```{r fix_sf_bug}
 sf_use_s2(FALSE)
@@ -500,7 +502,7 @@ inat_neigborhoods <- st_join(inat_map, la_neighborhoods_edit) %>%
 glimpse(inat_neigborhoods)
 ```
 
-181K out of the 191K CNC observations are intersect one of the neigborhood boundaries.
+181K out of the 191K CNC observations intersect one of the neigborhood boundaries.
 
 Next we use `count()` to get the number of observations per neighborhood. We also use `st_drop_geometry()` from **sf** to remove the `geometry` column. We want to remove the `geometry` column because we don't need the location of each observation for the final map.
 
@@ -525,18 +527,23 @@ head(la_counts_map)
 
 We can now create maps showing the number of observations per neighborhood.
 
-`aes(fill=xxx)` sets which column to use determine the color of each neighborhood. `labs(fill='xxx')` sets the title show in the legend.
+`aes(fill=<column_name>)` sets which column is used to determine the color of each neighborhood. `labs(fill='<title>')` sets the title show in the legend.
 
 ```{r, create_static_map_with_observations_by_neighborhood}
 
 ggplot() +
   geom_sf(data = la_counts_map, 
           mapping=aes(fill=obs_count)) +
-  labs(fill='Observations') 
+  labs(title = 'CNC Observations by neighborhood', 
+       subtitle = '2016-2024',
+       fill='Observations') +
+  theme_void()
+
+
 
 ```
 
-`zcol` sets which column to use determine the color of each neighborhood. `layer.name` sets the title show in the legend.
+`zcol` sets which column to is used to determine the color of each neighborhood. `layer.name` sets the title shown in the legend. mapview does not have the ability to add a map title.
 
 ```{r create_interactive_map_with_observations_by_neighborhood}
 #| eval: false

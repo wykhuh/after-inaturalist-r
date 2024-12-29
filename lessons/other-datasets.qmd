@@ -11,7 +11,7 @@ include-in-header: "components/add-answer-button.html"
 
 ## objectives
 
--   Combine other datasets with iNaturalist data
+-   Leran about pre-selected data sets.
 :::
 
 Load packages
@@ -31,11 +31,11 @@ library(mapview)
 
 There are various geospatial datasets that you can use while analyzing iNaturalist data. Some datasets are free to use, some require crediting the original datasource.
 
+We got data from [LA City Geohub](https://geohub.lacity.org), [Data.gov](https://catalog.data.gov), [California State Parks](https://www.parks.ca.gov), and [County of Los Angeles Open Data](https://data.lacounty.gov).
+
 We've provided a variety of geospatial data that workshop attendees can use for their analysis.
 
 ## Demographics data
-
-Let's compare CNC iNaturalist data with demographics data about the people who live in L.A.
 
 L.A. County completed Comprehensive Countywide Park Needs Assessment in 2016. As part of that study, they looked at demographics data throughout the county. For more information: <https://geohub.lacity.org/datasets/lacounty::l-a-county-park-needs-assessment-demographics/about>
 
@@ -43,10 +43,10 @@ L.A. County completed Comprehensive Countywide Park Needs Assessment in 2016. As
 A lot of demographics data from the Park Needs Assessment comes from the U.S. Census. The reason we're using the parks data instead directly using Census data is because the Census data is more difficult to use. If you want to learn how to use U.S. Census data in R, check out the book [Analyzing US Census Data: Methods, Maps, and Models in R](https://walker-data.com/census-r/index.html)
 :::
 
-We load Park Needs Assessment data using `st_read()` to read geojson file. Click `la_county_pna` in the **Enviroment** pane to browse the data frame.
+We load Park Needs Assessment data using `read_sf()` to read geojson file. Click `la_county_pna` in the **Enviroment** pane to browse the data frame.
 
 ```{r, get_pna_data}
-la_county_pna <- st_read('data/raw/PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907.geojson')
+la_county_pna <- read_sf('data/raw/PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907.geojson')
 ```
 
 The last row has data for the entire LA County. Let's remove that last row.
@@ -181,8 +181,6 @@ mapview(la_county_pna[c('STUD_AR_NM', 'householdincome_medhinc_cy')],
 
 ## Parks in LA County
 
-Let's compare iNaturalist data with the location of national, state, county, and city parks.
-
 National Park Boundaries: <https://catalog.data.gov/dataset/national-park-boundaries>
 
 California State Parks: <https://www.parks.ca.gov/?page_id=29682>
@@ -194,13 +192,13 @@ City of Los Angeles parks: <https://geohub.lacity.org/datasets/lahub::los-angele
 Load all the parks data.
 
 ```{r, get_parks_data}
-parks_national <- st_read('data/cleaned/nps_la_county.geojson')
+parks_national <- read_sf('data/cleaned/nps_la_county.geojson')
 
-parks_state <- st_read('data/cleaned/state_parks_los_angeles_county/state_parks_los_angeles_county.shp')
+parks_state <- read_sf('data/cleaned/state_parks_los_angeles_county/state_parks_los_angeles_county.shp')
 
-parks_county <- st_read('data/raw/DPR_Park_Facilities_View_(Accessible_Parks)/DPR_Park_Facilities_View_(Accessible_Parks).shp')
+parks_county <- read_sf('data/raw/DPR_Park_Facilities_View_(Accessible_Parks)/DPR_Park_Facilities_View_(Accessible_Parks).shp')
 
-parks_city <- st_read('data/raw/Los_Angeles_Recreation_and_Parks_Boundaries/Los_Angeles_Recreation_and_Parks_Boundaries.shp')
+parks_city <- read_sf('data/raw/Los_Angeles_Recreation_and_Parks_Boundaries/Los_Angeles_Recreation_and_Parks_Boundaries.shp')
 ```
 
 We want to convert the CRS of the parks data to match the CRS of the iNaturalist data.
@@ -241,13 +239,12 @@ mapview(parks_national, col.region='orange') +
 LA City Neighborhood Councils boundaries <https://geohub.lacity.org/datasets/lahub::neighborhood-council-boundaries-2018/about>
 
 ```{r}
-nc_boundaries <- st_read('data/raw/Neighborhood_Councils_(Certified)/Neighborhood_Councils_(Certified).shp')
+nc_boundaries <- read_sf('data/raw/Neighborhood_Councils_(Certified)/Neighborhood_Councils_(Certified).shp')
 ```
-
 
 ```{r}
 ggplot() +
-  geom_sf(data=nc_boundaries)
+  geom_sf(data=nc_boundaries) +
   theme_minimal()
 ```
 
@@ -256,9 +253,8 @@ ggplot() +
 City and Unincorporated Community Boundary (LA County Planning) <https://geohub.lacity.org/datasets/lacounty::city-and-unincorporated-community-boundary-la-county-planning/about> This layer shows all incorporated and unincorporated areas of Los Angeles County
 
 ```{r}
-admin_boundaries <- st_read('data/raw/admin_dist_SDE_DIST_DRP_CITY_COMM_BDY_-2349953032962506288/admin_dist_SDE_DIST_DRP_CITY_COMM_BDY.shp')
+admin_boundaries <- read_sf('data/raw/admin_dist_SDE_DIST_DRP_CITY_COMM_BDY_-2349953032962506288/admin_dist_SDE_DIST_DRP_CITY_COMM_BDY.shp')
 ```
-
 
 ```{r}
 ggplot() +
@@ -270,7 +266,7 @@ ggplot() +
 The Environmental Justice Screening Method (EJSM) was developed for Los Angeles County by USC PERE / Occidental College for LA County's Green Zones Program. This tool can be used to identify stationary sources of pollution and analyze cumulative environmental impacts. The overall score show the pollution impacts for each census tract. <https://egis-lacounty.hub.arcgis.com/datasets/lacounty::ejsm-scores/about>
 
 ```{r}
-ejsm <- st_read('data/raw/EJSM_Scores-shp/6cbc6914-690f-48ec-a54f-2649a8ddb321202041-1-139ir98.m1ys.shp')
+ejsm <- read_sf('data/raw/EJSM_Scores-shp/6cbc6914-690f-48ec-a54f-2649a8ddb321202041-1-139ir98.m1ys.shp')
 ```
 
 ```{r}

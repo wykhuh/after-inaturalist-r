@@ -17,7 +17,6 @@ To install these packages, use `install.packages()` function from R. We pass in 
 
 ```{r, install_packages}
 #| eval: false
-# install one package
 install.packages("readr")
 ```
 
@@ -27,7 +26,7 @@ To save time, we have already installed all the packages we need for the worksho
 
 In order to use a package, use `library()` function from R to load the package. We pass in the name of the package as an argument. Do not use quotes around the package name when using `library()`.
 
-These are R packages we will use in this workshop.
+These are the R packages we will use in this workshop.
 
 ```{r load_all_libraries}
 #| eval: false

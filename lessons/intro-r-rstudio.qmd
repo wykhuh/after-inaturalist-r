@@ -31,10 +31,10 @@ We will use the RStudio integrated development environment (IDE) to write code i
 
 In the above screenshot, we can see 4 panes. If you only have 3 panes, and the Console pane is in the top left, press <kbd>Shift+Cmd+N</kbd> (Mac) or <kbd>Shift+Ctrl+N</kbd> (Windows) to open a blank R script, which should make the Source pane appear.
 
--   Top-Left: the **Source** pane that displays scripts and other files.
--   Top-Right: the **Environment** pane, which shows all the objects in your current R session.
--   Bottom-Left: the **Console** pane, where you can interact directly with an R console, which interprets R commands and prints the results
--   Bottom-Right: the **Files** pane displays directories and files on your computer. **Plot** and **Viewer** displays plots and other types of output. **Help** display help pages.
+-   Top-Left: **Source** pane that displays scripts and other files.
+-   Top-Right: **Environment** pane which shows all the objects in your current R session.
+-   Bottom-Left: **Console** pane where you can interact directly with an R console, which interprets R commands and prints the results
+-   Bottom-Right: **Files** pane displays directories and files on your computer. **Plot** and **Viewer** displays plots and other types of output. **Help** display help pages.
 
 ## Overview of workshop files
 
@@ -123,7 +123,7 @@ price_1 + price_2
 We can reassign new values to an existing object
 
 ```{r}
-price_1 <- 50
+price_1 <- 10
 
 price_1 + price_2
 ```
@@ -151,9 +151,23 @@ price_1 != price_2
 price_1 > price_2
 ```
 
-R has other comparison such as `>` greater than, `>=` greater or equal than, `<` less than, `<=` less or equal than.
+R comparison operators:
 
-Save the script <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a name such as 'first_script.R'. Save it in the `scripts` folder.
+`==` equal
+
+`!=` not equal
+
+`>` greater than
+
+`>=` greater or equal than
+
+`<` less than
+
+`<=` less or equal than
+
+### Save scripts
+
+Save script files by using <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a descriptive name such as 'first_script.R'. Save it in the `scripts` folder.
 
 :::: exercise
 ### Exercise
