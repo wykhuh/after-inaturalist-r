@@ -24,6 +24,7 @@ website:
       - section: "Extra"
         contents:
           - lessons/understanding-data.qmd
+          - lessons/additional-analysis.qmd
           - lessons/cleaning-data.qmd
           - lessons/editing-geo-files.qmd
           - lessons/setup-local.qmd
