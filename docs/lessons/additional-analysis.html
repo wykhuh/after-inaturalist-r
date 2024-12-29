@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Data Analysis – After iNaturalist</title>
+<title>Additional Analysis – After iNaturalist</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -114,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/intro-data-analysis.html">Introduction to Data Analysis</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/understanding-data.html">Extra</a></li><li class="breadcrumb-item"><a href="../lessons/additional-analysis.html">Additional Analysis</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -147,7 +147,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/intro-data-analysis.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lessons/intro-data-analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to Data Analysis</span></a>
   </div>
 </li>
@@ -216,7 +216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/additional-analysis.html" class="sidebar-item-text sidebar-link">
+  <a href="../lessons/additional-analysis.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Additional Analysis</span></a>
   </div>
 </li>
@@ -250,18 +250,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#inaturalist-data" id="toc-inaturalist-data" class="nav-link active" data-scroll-target="#inaturalist-data">iNaturalist data</a></li>
-  <li><a href="#downloading-inaturalist-data" id="toc-downloading-inaturalist-data" class="nav-link" data-scroll-target="#downloading-inaturalist-data">Downloading iNaturalist data</a></li>
-  <li><a href="#analyzing-data-using-r" id="toc-analyzing-data-using-r" class="nav-link" data-scroll-target="#analyzing-data-using-r">Analyzing data using R</a></li>
+  <li><a href="#choropleth-maps" id="toc-choropleth-maps" class="nav-link active" data-scroll-target="#choropleth-maps">Choropleth maps</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/understanding-data.html">Extra</a></li><li class="breadcrumb-item"><a href="../lessons/additional-analysis.html">Additional Analysis</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Introduction to Data Analysis</h1>
+<h1 class="title">Additional Analysis</h1>
 </div>
 
 
@@ -282,125 +280,182 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="questions" class="level2">
 <h2 class="anchored" data-anchor-id="questions">Questions</h2>
 <ul>
-<li>How do we begin to analyze iNaturalist data?</li>
+<li>I’ve done the other lessons, now what?</li>
 </ul>
 </section>
 <section id="objectives" class="level2">
 <h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
 <ul>
-<li>Learn how to download data from iNaturalist</li>
-<li>Get an overview of the workshop</li>
+<li>See examples of maps and charts that take a bit more coding</li>
 </ul>
 </section>
 </div>
-<section id="inaturalist-data" class="level2">
-<h2 class="anchored" data-anchor-id="inaturalist-data">iNaturalist data</h2>
-<p>When iNaturalist users add an observation through the iNaturalist app, that data is saved to the iNaturalist database. People can download the iNaturalist data as CSVs.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>CSV comma-separated values</strong></p>
-<p>CSV is a text file format for tabular data. Each line represents one record. Each column represents a field. The fields are separated by commas. CSVs can be opened in text editors or spreadsheet programs.</p>
-<p>CSV as plain text file.</p>
-<p><img src="images/csv_text.png" class="img-fluid" alt="screenshot of a CSV plain text file."></p>
-<p>CSV in CSV or spreadsheet application.</p>
-<p><img src="images/csv_software.png" class="img-fluid" alt="screenshot of a CSV in a CSV program."></p>
-</div>
-</div>
-<p>The iNaturalist CSV has information about:</p>
-<ul>
-<li>the user who made observation</li>
-<li>the location of the observation</li>
-<li>the observed species</li>
-<li>links for photos, videos, sounds</li>
-</ul>
-<p>Here’s a rough draft that lists <a href="https://docs.google.com/spreadsheets/d/1mrRY_sy8MmGmwzoNSexahHC54e3q-ZAy1vJl_FIsKrY/edit?gid=0#gid=0">descriptions for each field</a>.</p>
-</section>
-<section id="downloading-inaturalist-data" class="level2">
-<h2 class="anchored" data-anchor-id="downloading-inaturalist-data">Downloading iNaturalist data</h2>
-<p>If you would like to download iNaturalist data, here’s some info.</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/wBH7RZAklYU?si=ggo4eHQGKHcq9D1G&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
-</iframe>
-<p><a href="https://help.inaturalist.org/en/support/solutions/articles/151000169670">How to Search iNaturalist Observations</a></p>
-<p><a href="https://gsmit.org/wp-content/uploads/2021/04/inaturalist_data_walkthrough.pdf">step-by-step to download iNaturalist data</a></p>
-<p>To save time and ensure everyone at the workshop has the same data, we provide a CSV with data from iNaturalist City Nature Challenge Los Angeles from 2013 to 2024. We made some changes to the CSVs we downloaded from iNaturalist, and the code we used edit the CSV is available <a href="../lessons/cleaning-data.html">here</a></p>
-</section>
-<section id="analyzing-data-using-r" class="level2">
-<h2 class="anchored" data-anchor-id="analyzing-data-using-r">Analyzing data using R</h2>
-<p>It is difficult for people to see any patterns when reading rows after row of text. To make it easier to see patterns, we can use software to analyze tabular data.</p>
-<p>In this workshop we will use R programming language to analyze iNaturalist data. Programming languages allow people to write instructions to tell a computer to do stuff. The reason we are using R is because R is a popular language in ecology research.</p>
-<p>Here’s an overview of what we learn in this workshop.</p>
-<p>Load software that will will need.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) <span class="co"># read and write tabular data</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># manipulate data</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># create data visualizations</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="co"># handle geospatial data</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># manipulate dates</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># create data visualizations</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="co"># handle geospatial data</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapview) <span class="co"># create interactive maps</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Load iNaturalist data from City Nature Challenge Los Angeles 2013-2024. There are over 191,000 observations.</p>
+<p>First, we need to read data from the CNC iNaturalist observation file.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/cleaned/cnc-los-angeles-observations.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'data/cleaned/cnc-los-angeles-observations.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Create summaries of the data. For instance, get the 10 most commonly observed ‘species’.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>top_10 <span class="ot">&lt;-</span> inat <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(common_name, scientific_name) <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(common_name, scientific_name, <span class="at">name=</span><span class="st">'count'</span>)  <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(count)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>top_10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>inat_map <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>),   <span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on,  url, geometry, quality_grade)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s get the observations for ‘Quercus agrifolia’ aka Coast Live Oak.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>inat_oak_map <span class="ot">&lt;-</span> inat_map <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientific_name <span class="sc">==</span> <span class="st">'Quercus agrifolia'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Use <code>dim()</code> to get number of observations. There is 711 rows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(inat_oak_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 3
-   common_name            scientific_name          count
-   &lt;chr&gt;                  &lt;chr&gt;                    &lt;int&gt;
- 1 Western Fence Lizard   Sceloporus occidentalis   3339
- 2 Western Honey Bee      Apis mellifera            2060
- 3 dicots                 Magnoliopsida             2013
- 4 plants                 Plantae                   1712
- 5 Eastern Fox Squirrel   Sciurus niger             1475
- 6 House Finch            Haemorhous mexicanus      1263
- 7 Mourning Dove          Zenaida macroura          1205
- 8 flowering plants       Angiospermae              1161
- 9 California poppy       Eschscholzia californica   934
-10 Convergent Lady Beetle Hippodamia convergens      929</code></pre>
+<pre><code>[1] 711   7</code></pre>
 </div>
 </div>
-<p>Create maps. For example, create a map showing all the observations for Western Fence Lizard</p>
+<section id="choropleth-maps" class="level2">
+<h2 class="anchored" data-anchor-id="choropleth-maps">Choropleth maps</h2>
+<p>Choropleth maps use colors or shades to show how data changes from place to place.</p>
+<p>Let’s create a choropleth map to show the number of CNC observations in L.A. County neighborhoods.</p>
+<p>Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <a href="https://maps.latimes.com/about/index.html" class="uri">https://maps.latimes.com/about/index.html</a> We’ll use the L.A. Times neighborhood boundaries for our map.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lizard <span class="ot">&lt;-</span> inat <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>),   <span class="at">crs =</span> <span class="dv">4326</span>, <span class="at">remove=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, user_login, common_name, scientific_name, observed_on,  url, longitude, latitude, geometry) <span class="sc">%&gt;%</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(lizard)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>la_neighborhoods <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/la_times_la_county_neighborhoods.json'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><img src="images/mapview/intro-data-analysis/map_of_western_fence_lizard.png" class="img-fluid" alt="map of western fence lizard"></p>
-<p>Create charts. For example, create a bar chart showing the number of observations per year.</p>
+<p>Use <code>glimpse()</code> to examine the file data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>inat <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on))  <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year)) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(la_neighborhoods)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 272
+Columns: 3
+$ name     &lt;chr&gt; "Acton", "Adams-Normandie", "Agoura Hills", "Agua Dulce", "Al…
+$ slug     &lt;chr&gt; "acton", "adams-normandie", "agoura-hills", "agua-dulce", "al…
+$ geometry &lt;MULTIPOLYGON [°]&gt; MULTIPOLYGON (((-118.2026 3..., MULTIPOLYGON (((…</code></pre>
+</div>
+</div>
+<p>The file has a <code>geometry</code> column.</p>
+<p>Use <code>select()</code> to pick the <code>name</code> and <code>geometry</code> columns.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>la_neighborhoods_edit <span class="ot">&lt;-</span> la_neighborhoods <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, geometry)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Check if the neighborhood maps have the same CRS as the iNaturalist data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(la_neighborhoods_edit) <span class="sc">==</span> <span class="fu">st_crs</span>(inat_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>Ther is a bug with <strong>sf</strong> <a href="https://github.com/r-spatial/sf/issues/1762" class="uri">https://github.com/r-spatial/sf/issues/1762</a>. This bit of code is fix for the bug.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Spherical geometry (s2) switched off</code></pre>
+</div>
+</div>
+<p>We want to figure out how many observations are in each neighborhood. <code>st_join()</code> from <strong>sf</strong> figures out if items in one spatial object touch, cross, or is within items in a second spatial object. If an item intersects the second item, then the columns from the second item are added to the first item.</p>
+<p>The following code will figure out if an observation in <code>inat_map</code> intersects the boundaries of <code>la_neighborhoods_edit</code>. If the observation intersects a neighborhood, the neighborhood <code>name</code> is added the observation. If the observation is not inside a neighborhood, <code>name</code> is set to <code>NA</code>. <code>NA</code> is a special value in R that means not applicable. <code>filter(!is.na(name))</code> selects observations where <code>name</code> is not <code>NA</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>inat_neigborhoods <span class="ot">&lt;-</span> <span class="fu">st_join</span>(inat_map, la_neighborhoods_edit) <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(name)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>although coordinates are longitude/latitude, st_intersects assumes that they
+are planar
+although coordinates are longitude/latitude, st_intersects assumes that they
+are planar</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(inat_neigborhoods)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 181,741
+Columns: 8
+$ user_login      &lt;chr&gt; "msmorales", "smartrf", "cdegroof", "cdegroof", "cdegr…
+$ common_name     &lt;chr&gt; "Garden Snail", "Bot Flies, Blow Flies, and Allies", "…
+$ scientific_name &lt;chr&gt; "Cornu aspersum", "Oestroidea", "Arphia ramona", "Uta …
+$ observed_on     &lt;date&gt; 2016-04-14, 2016-04-14, 2016-04-14, 2016-04-14, 2016-…
+$ url             &lt;chr&gt; "http://www.inaturalist.org/observations/2931940", "ht…
+$ geometry        &lt;POINT [°]&gt; POINT (-117.8219 34.05829), POINT (-118.2892 34.…
+$ quality_grade   &lt;chr&gt; "research", "needs_id", "research", "research", "resea…
+$ name            &lt;chr&gt; "Ramona", "Exposition Park", "Westlake Village", "West…</code></pre>
+</div>
+</div>
+<p>181K out of the 191K CNC observations intersect one of the neigborhood boundaries.</p>
+<p>Next we use <code>count()</code> to get the number of observations per neighborhood. We also use <code>st_drop_geometry()</code> from <strong>sf</strong> to remove the <code>geometry</code> column. We want to remove the <code>geometry</code> column because we don’t need the location of each observation for the final map.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>inat_neigborhoods_counts <span class="ot">&lt;-</span> inat_neigborhoods <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(name, <span class="at">name=</span><span class="st">'obs_count'</span>)  <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>although coordinates are longitude/latitude, st_union assumes that they are
+planar</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(inat_neigborhoods_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  name            obs_count
+  &lt;chr&gt;               &lt;int&gt;
+1 Acton                 331
+2 Adams-Normandie       132
+3 Agoura Hills          814
+4 Agua Dulce            994
+5 Alhambra              786
+6 Alondra Park          266</code></pre>
+</div>
+</div>
+<p>Next use <code>left_join()</code> from <strong>dplyr</strong> to add <code>obs_count</code> from <code>inat_neigborhoods_counts</code> to neighborhood boundaries from <code>la_neighborhoods_edit</code>. <code>left_join()</code> will use the <code>name</code> column present in both data frames to combine the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>la_counts_map <span class="ot">&lt;-</span> <span class="fu">left_join</span>(la_neighborhoods_edit, inat_neigborhoods_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(name)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(la_counts_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 6 features and 2 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -118.8004 ymin: 33.8773 xmax: -118.0797 ymax: 34.5583
+Geodetic CRS:  WGS 84
+# A tibble: 6 × 3
+  name                                                        geometry obs_count
+  &lt;chr&gt;                                             &lt;MULTIPOLYGON [°]&gt;     &lt;int&gt;
+1 Acton           (((-118.2026 34.53899, -118.1982 34.53885, -118.193…       331
+2 Adams-Normandie (((-118.309 34.03741, -118.3057 34.03731, -118.3015…       132
+3 Agoura Hills    (((-118.7619 34.1682, -118.7619 34.1682, -118.7618 …       814
+4 Agua Dulce      (((-118.2547 34.5583, -118.2549 34.55373, -118.2549…       994
+5 Alhambra        (((-118.1217 34.10504, -118.1217 34.10498, -118.121…       786
+6 Alondra Park    (((-118.3265 33.89757, -118.3265 33.89705, -118.326…       266</code></pre>
+</div>
+</div>
+<p><code>la_counts_map</code> has three columns: name of the neighborhood, the number of observations, and geometry.</p>
+<p>We can now create maps showing the number of observations per neighborhood.</p>
+<p><code>aes(fill=&lt;column_name&gt;)</code> sets which column is used to determine the color of each neighborhood. <code>labs(fill='&lt;title&gt;')</code> sets the title show in the legend.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> la_counts_map, </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">fill=</span>obs_count)) <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'CNC Observations by neighborhood'</span>, </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">'2016-2024'</span>,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill=</span><span class="st">'Observations'</span>) <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="intro-data-analysis_files/figure-html/chart_observations_per_year-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="additional-analysis_files/figure-html/create_static_map_with_observations_by_neighborhood-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+<p><code>zcol</code> sets which column to is used to determine the color of each neighborhood. <code>layer.name</code> sets the title shown in the legend. mapview does not have the ability to add a map title.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_counts_map,  </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">zcol =</span> <span class="st">'obs_count'</span>, </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">layer.name=</span> <span class="st">'Observations'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/mapview/creating_maps/create_interactive_map_with_observations_by_neighborhood.png" class="img-fluid" alt="create interactive map with observations by neighborhood"></p>
 
 
 </section>

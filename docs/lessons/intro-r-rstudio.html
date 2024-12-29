@@ -263,6 +263,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../lessons/additional-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Additional Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../lessons/cleaning-data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cleaning data</span></a>
   </div>
@@ -303,6 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#r-as-calculator" id="toc-r-as-calculator" class="nav-link" data-scroll-target="#r-as-calculator">R as Calculator</a></li>
   <li><a href="#objects-and-assignment" id="toc-objects-and-assignment" class="nav-link" data-scroll-target="#objects-and-assignment">Objects and Assignment</a></li>
   <li><a href="#comparing-values" id="toc-comparing-values" class="nav-link" data-scroll-target="#comparing-values">Comparing values</a></li>
+  <li><a href="#save-scripts" id="toc-save-scripts" class="nav-link" data-scroll-target="#save-scripts">Save scripts</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -357,10 +364,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="images/rstudio_screenshot.png" class="img-fluid" alt="Screenshot of RStudio showing the 4 &quot;panes&quot;."></p>
 <p>In the above screenshot, we can see 4 panes. If you only have 3 panes, and the Console pane is in the top left, press <kbd>Shift+Cmd+N</kbd> (Mac) or <kbd>Shift+Ctrl+N</kbd> (Windows) to open a blank R script, which should make the Source pane appear.</p>
 <ul>
-<li>Top-Left: the&nbsp;<strong>Source</strong>&nbsp;pane that displays scripts and other files.</li>
-<li>Top-Right: the <strong>Environment</strong> pane, which shows all the objects in your current R session.</li>
-<li>Bottom-Left: the <strong>Console</strong>&nbsp;pane, where you can interact directly with an R console, which interprets R commands and prints the results</li>
-<li>Bottom-Right: the <strong>Files</strong> pane displays directories and files on your computer. <strong>Plot</strong> and <strong>Viewer</strong> displays plots and other types of output. <strong>Help</strong> display help pages.</li>
+<li>Top-Left: <strong>Source</strong>&nbsp;pane that displays scripts and other files.</li>
+<li>Top-Right: <strong>Environment</strong> pane which shows all the objects in your current R session.</li>
+<li>Bottom-Left: <strong>Console</strong> pane where you can interact directly with an R console, which interprets R commands and prints the results</li>
+<li>Bottom-Right: <strong>Files</strong> pane displays directories and files on your computer. <strong>Plot</strong> and <strong>Viewer</strong> displays plots and other types of output. <strong>Help</strong> display help pages.</li>
 </ul>
 </section>
 <section id="overview-of-workshop-files" class="level2">
@@ -441,11 +448,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We can reassign new values to an existing object</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>price_1 <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>price_1 <span class="ot">&lt;-</span> <span class="dv">10</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">+</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 53</code></pre>
+<pre><code>[1] 13</code></pre>
 </div>
 </div>
 <p>Object names can contain letters, numbers, underscores and periods. They cannot start with a number nor contain spaces. If you want object names with multiple words use underscores, capital letters or periods</p>
@@ -475,8 +482,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
-<p>R has other comparison such as <code>&gt;</code> greater than, <code>&gt;=</code> greater or equal than, <code>&lt;</code> less than, <code>&lt;=</code> less or equal than.</p>
-<p>Save the script <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a name such as ‘first_script.R’. Save it in the <code>scripts</code> folder.</p>
+<p>R comparison operators:</p>
+<p><code>==</code> equal</p>
+<p><code>!=</code> not equal</p>
+<p><code>&gt;</code> greater than</p>
+<p><code>&gt;=</code> greater or equal than</p>
+<p><code>&lt;</code> less than</p>
+<p><code>&lt;=</code> less or equal than</p>
+</section>
+<section id="save-scripts" class="level3">
+<h3 class="anchored" data-anchor-id="save-scripts">Save scripts</h3>
+<p>Save script files by using <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a descriptive name such as ‘first_script.R’. Save it in the <code>scripts</code> folder.</p>
 </section>
 <div class="exercise">
 <section id="exercise" class="level3">
@@ -489,7 +505,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">-</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 47</code></pre>
+<pre><code>[1] 7</code></pre>
 </div>
 </div>
 </div>
