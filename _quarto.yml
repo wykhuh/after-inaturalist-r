@@ -1,18 +1,5 @@
 project:
   type: website
-  render:
-    - index.qmd
-    - lessons/intro-data-analysis.qmd
-    - lessons/intro-r-rstudio.qmd
-    - lessons/intro-science-coding.qmd
-    - lessons/setup.qmd
-    - lessons/importing-csv.qmd
-    - lessons/working-with-data.qmd
-    - lessons/creating-maps.qmd
-    - lessons/creating-charts.qmd
-    - lessons/other_datasets.qmd
-    - lessons/next-steps.qmd
-    - lessons/cleaning-data.qmd
 
   output-dir: docs
   preview:
@@ -23,17 +10,23 @@ website:
   sidebar:
     style: "docked"
     contents:
-      - index.qmd
+      - text: "Home"
+        href: index.qmd
       - lessons/intro-data-analysis.qmd
       - lessons/setup.qmd
       - lessons/intro-r-rstudio.qmd
       - lessons/intro-science-coding.qmd
-      - lessons/importing-csv.qmd
       - lessons/working-with-data.qmd
       - lessons/creating-maps.qmd
       - lessons/creating-charts.qmd
-      - lessons/other_datasets.qmd
+      - lessons/other-datasets.qmd
       - lessons/next-steps.qmd
+      - section: "Extra"
+        contents:
+          - lessons/understanding-data.qmd
+          - lessons/cleaning-data.qmd
+          - lessons/editing-geo-files.qmd
+          - lessons/setup-local.qmd
 
 
 format:
