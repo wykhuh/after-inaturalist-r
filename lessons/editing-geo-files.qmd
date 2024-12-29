@@ -1,0 +1,150 @@
+---
+title: "Editing geospatial files"
+format: html
+---
+
+Load packages
+
+```{r,load_packages}
+#| warning: false
+#| message: false
+
+library(dplyr)
+library(sf)
+library(ggplot2)
+```
+
+Sometimes we find a geospatial file that has more than we need. We only want some data in the files.
+
+## State parks in LA County
+
+Let's get the California state park within Los Angeles county.
+
+California State Parks has file that lists all the state parks in California. <https://www.parks.ca.gov/?page_id=29682>
+
+California state has a file that lists all the counties in California. <https://gis.data.ca.gov/datasets/California::california-county-boundaries-and-identifiers/explore>
+
+First we read the file with all state parks in California.
+
+```{r, get_state_parks}
+state_parks <- st_read('data/raw/Park_Boundaries/ParkBoundaries.shp')
+```
+
+The we read the file with all the counties in California.
+
+```{r, get_ca_counties}
+ca_counties <- st_read('data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp')
+
+
+```
+
+Compare CRS for the state parks map and the county map.
+
+```{r, compare_crs}
+st_crs(state_parks) == st_crs(ca_counties)
+
+```
+
+Use `st_transform()` to change the CRS of counties map to match the parks map.
+
+```{r, change_counties_crs}
+
+ca_counties <- st_transform(ca_counties, crs = st_crs(state_parks))
+
+st_crs(state_parks) == st_crs(ca_counties)
+```
+
+Let's use `filter()` to get Los Angeles County from the counties data.
+
+```{r, extract_la_county}
+LA_county <-  ca_counties %>%
+   filter(COUNTY == 'Los Angeles County')
+
+```
+
+```{r LA_county_map}
+
+ggplot() +
+  geom_sf(data=LA_county)
+```
+
+Use `st_intersects()` to find the state parks within LA county. This is similar to how we got all the observations in Expo park in an earlier lesson.
+
+```{r, get_parks_inside_la_county}
+
+LA_parks <- state_parks[st_intersects(state_parks, LA_county ) %>% lengths > 0,]
+```
+
+Create a map showing LA County and state parks within LA County.
+
+```{r, parks_inside_la_county_map}
+
+ggplot() +
+  geom_sf(data=LA_county) + 
+  geom_sf(data=LA_parks, fill='yellow') 
+
+```
+
+Use `st_write()` to save the state parks within LA County as a Shape file. The first argument is the map data we want to save, and the second argument is the file path.
+
+```{r, save_file}
+#| eval: false
+
+st_write(LA_parks, 'data/cleaned/state_parks_los_angeles_county/state_parks_los_angeles_county.shp')
+```
+
+## National parks in LA County
+
+Let's get the National Parks within Los Angeles county.
+
+National Park Boundaries https://catalog.data.gov/dataset/national-park-boundaries
+
+Read files
+
+```{r}
+parks_nps <- st_read('data/raw/nps_boundary/nps_boundary.shp')
+
+ca_counties <- st_read('data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp')
+
+
+```
+
+get LA County
+
+```{r}
+la_county <-  ca_counties %>%
+   filter( COUNTY == 'Los Angeles County')
+```
+
+check CRS
+
+```{r}
+st_crs(parks_nps) == st_crs(la_county)
+```
+
+set crs
+
+```{r}
+parks_nps <- st_transform(parks_nps, crs = st_crs(la_county) )
+st_crs(parks_nps) == st_crs(la_county)
+```
+
+get national parks within LA county
+
+```{r}
+
+nps_parks <- parks_nps[st_intersects(parks_nps, la_county ) %>% lengths > 0,]
+
+ggplot() +
+  geom_sf(data=LA_county) + 
+  geom_sf(data=nps_parks, fill='yellow') 
+
+```
+
+write file
+
+```{r}
+#| eval: false
+
+st_write(nps_parks, 'data/cleaned/nps_la_county.geojson')
+```
