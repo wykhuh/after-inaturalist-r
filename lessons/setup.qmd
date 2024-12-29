@@ -5,9 +5,11 @@ format: html
 
 This workshop use Github Codespaces to host the software, data, and code needed for the workshop. This way attendees won't need to install stuff on their own computer.
 
-## R packages
+## Functions
 
-Functions are predefined bits of code that automate more complicated actions. Arguments are values that we pass into a function. A function takes the arguments and something to the values.
+Functions are predefined bits of code that do a specific task. Arguments are values that we pass into a function. A function takes the arguments and something to the values.
+
+## R packages
 
 R itself has many built-in functions, but we can access many more by installing and loading other **packages** of functions and data into R. We will use several R packages for the workshop.
 
@@ -22,15 +24,6 @@ install.packages("readr")
 R will connect to the internet and download packages from servers that have R packages. R will then install the packages on your computer. The console window will show you the progress of the installation process.
 
 To save time, we have already installed all the packages we need for the workshop.
-
-```{r, install_multiple_packages}
-#| eval: false
-
-# install multiple packages
-install.packages(c("readr", "dplyr", "ggplot2", 
-                   "sf", "lubridate", "mapview"))
-
-```
 
 In order to use a package, use `library()` function from R to load the package. We pass in the name of the package as an argument. Do not use quotes around the package name when using `library()`.
 

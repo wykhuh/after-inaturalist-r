@@ -50,12 +50,7 @@ First, read data from the iNaturalist observation file.
 #| message: true
 inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 
-
 ```
-
-## Bar chart
-
-Let's create a bar chart that shows the number of observations per year.
 
 We need to add a year column to iNaturalist data.
 
@@ -64,7 +59,11 @@ inat_year <- inat_data %>%
   mutate(year = year(observed_on)) 
 ```
 
-Then we pass the data frame `inat_year` to `ggplot()` function as the first argument.
+## Bar chart
+
+Let's create a bar chart that shows the number of observations per year.
+
+First, pass the data frame `inat_year` to `ggplot()` function as the first argument.
 
 ```{r, pass_data_to_ggplot}
 ggplot(inat_year)
@@ -171,8 +170,7 @@ ggplot(inat_year, aes(x = year, fill = quality_grade)) +
 
 The height of each bar represents the number of observations per year. The height of the 3 rectangles in each bar represents the number of observations that are labeled casual, needs_id, and research.
 
-**ggplot2** assigns each quality grade a different color, and creates a legend that tells you which values goes with which color. 
-
+**ggplot2** assigns each quality grade a different color, and creates a legend that tells you which values goes with which color.
 
 ## Dodged bar charts
 
@@ -216,16 +214,16 @@ ggplot(inat_year, aes(x = year)) +
   geom_bar(fill='aquamarine', color='black')
 ```
 
-We can also use 6 digit hex color. You can use online tools to get [hex colors](https://html-color.codes). 
+We can also use 6 digit hex color. You can use online tools to get [hex colors](https://html-color.codes).
 
 ```{r, set_bar_color_using_hex_code}
 ggplot(inat_year,  aes(x = year)) +
   geom_bar(fill='#75cd5e')
 ```
 
-## Color scales 
+## Color scales
 
-In the previous bar chart, we made all the bars the same green color.  If we want the chart colors to vary based on the data values, we need to put that information inside `aes()`, such as `aes(fill=field_name)`. 
+In the previous bar chart, we made all the bars the same green color. If we want the chart colors to vary based on the data values, we need to put that information inside `aes()`, such as `aes(fill=field_name)`.
 
 Let's update the previous bar chart to give each year a different color
 
@@ -292,8 +290,6 @@ ggplot(inat_year,  aes(x = year, fill= factor(year))) +
   scale_x_continuous(n.breaks=8) +
   scale_y_continuous(n.breaks=7)
 ```
-
-
 
 ## Changing themes
 
@@ -365,15 +361,18 @@ We can customize the axis labels and add a chart title using `labs()`.
 
 ```{r changing_labels, warning=FALSE}
 myplot +
-  theme_bw() +
-  theme(axis.title = element_text(size = 14), 
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        plot.title = element_text(face = "bold", size = 20)) +
   labs(title = "CNC Los Angeles",
        subtitle="Observations per year",
        x = "Year",
        y = "Observations")
+```
+
+We can also change the labels in the legend using `labs()`
+
+```{r}
+ggplot(inat_year,  aes(x = year, fill= factor(year))) +
+  geom_bar() +
+  labs(fill = "Year")
 ```
 
 :::: exercise

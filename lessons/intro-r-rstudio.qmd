@@ -40,7 +40,7 @@ In the above screenshot, we can see 4 panes. If you only have 3 panes, and the C
 
 Let's examine the project files using the **Files** pane.
 
-It is a good practice to organize your projects into self-contained folders right from the start, so we will start building that habit now. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into sub-folders.
+It is a good practice to organize your projects into self-contained folders. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into sub-folders.
 
 ```         
 project_folder
@@ -58,7 +58,7 @@ project_folder
 
 Within our project folder, we have a `data` folder containing `cleaned` and `raw` subfolders. In general, you want to keep your `raw` data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the `cleaned` folder. We also have a `results` folder for any other documents you might produce. We also have a `scripts` folder to hold any scripts we write.
 
-RStudio provides a “Projects” feature that can make it easier to work on individual projects in R.When you need to work on the project, click on the .Rproj file to start RStudio.
+RStudio provides a “Projects” feature that can make it easier to work on individual projects in R. RStudio projects have a `xxx.Rproj` file.
 
 One of the benefits to using RStudio Projects is that they automatically set the **working directory** to the top-level folder for the project. The working directory is the folder where R is working, so it views the location of all files (including data and scripts) as being relative to the working directory.
 
@@ -77,12 +77,12 @@ You can run commands directly in the R console, or you can write them into an R 
 
 Let's try running some code in the console.
 
-First, click down in the Console pane, and type out `1+2`. Hit <kbd>Enter</kbd> to run the code. You should see your code echoed, and then the value of `3` returned.
+First, click down in the Console pane, and type out `1+2`. Hit <kbd>Return</kbd> or <kbd>Enter</kbd> to run the code. You should see your code echoed, and then the value of `3` returned.
 
 #### Script
 
 -   A script is a record of commands to send to R, preserved in a plain text file with a `.R` extension
--   If you type out lines of R code in a script, you can send them to the R console to be evaluated. There are 3 ways to run the code
+-   You type out lines of R code in a script, then send them to the R console to be evaluated. There are 3 ways to run the code
     1.  <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) will run the line of code that your cursor is on. If you highlight multiple lines of code, you can run all of them by pressing <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows)
     2.  click on the `Run` button above the editor panel
     3.  select “Run Lines” from the “Code” menu
@@ -97,32 +97,30 @@ You can make a new R script by clicking `File → New File → R Script`, clicki
 
 ### R as Calculator
 
-Now click into your blank script, and type out `1+2`. With your cursor on that line, hit <kbd>Cmd+Enter</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) to run the code.  You will see that your code was sent from the script to the console, where it returned a value of `2`, just like when you ran your code directly in the console.
+Now click into your blank script, and type out `1 + 2`. With your cursor on that line, hit <kbd>Cmd+Enter</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) to run the code. You will see that your code was sent from the script to the console, where it returned a value of `3`.
 
 ### Objects and Assignment
 
-Sometimes we want to store a value in memory so we can use it later. We can store values in objects using the assignment operator `<-`, like this:
+Sometimes we want to store values in memory so we can use it later. We can save values by assigning values to objects using the assignment operator `<-` (`<` less than and `-` hyphen).
 
-object_name \<- value
+`object_name <- value`
 
-`<-` tells R to assign the value on the right to the object on the left. We refer to the value using the object name.
+R creates an object, names the object `object_name,` and assigns `value` to the object. We use the `object_name` to access the value. Objects are shown in the **Environment** pane.
 
-Let's create a price_1 and price_2 objects, and assign them a value.
+Let's create `price_1` and `price_2` objects and assign them some values.
 
-```{r, assignment}
-price_1 <- 20
-price_2 <- 30
+```{r assignment}
+price_1 <- 2
+price_2 <- 3
 ```
 
-Objects `price_1` and `price_2` are created, and stored in memory. The objects are show in the **Enviroment** panel.
-
-We can refer to the object names and do something with those values. Let's add the two prices
+Now that we have the two objects saved in memory, we can do things with those objects. We can add the two prices.
 
 ```{r, adding_objects}
 price_1 + price_2
 ```
 
-We can reassign object to new values
+We can reassign new values to an existing object
 
 ```{r}
 price_1 <- 50
@@ -130,7 +128,13 @@ price_1 <- 50
 price_1 + price_2
 ```
 
-Object names can contain letters, numbers, underscores and periods. They cannot start with a number nor contain spaces at all.
+Object names can contain letters, numbers, underscores and periods. They cannot start with a number nor contain spaces. If you want object names with multiple words use underscores, capital letters or periods
+
+```{r}
+first_name <- 'Jane'
+firstName <- 'Jane'
+first.name <- 'Jane'
+```
 
 ### Comparing values
 
@@ -164,45 +168,3 @@ price_1 - price_2
 ```
 :::
 ::::
-
-## Creating your own project folder from scratch
-
-If you want to create your own project folder in R Studio, follow these steps.
-
-1.  Start RStudio (you should see a view similar to the screenshot above).
-2.  In the top right, you will see a blue 3D cube and the words "Project: (None)". Click on this icon.
-3.  Click **New Project** from the dropdown menu.
-4.  Click **New Directory**, then **New Project**.
-5.  Type out a name for the project.
-6.  Put it in a convenient location using the "Create project as a subdirectory of:" section. We recommend your `Desktop`. You can always move the project somewhere else later, because it will be self-contained.
-7.  Click **Create Project** and your new project will open.
-
-When you need to work on the project, click on the Rproj icon to start RStudio.
-
-There are a few settings we will need to adjust to improve the reproducibility of our work. Go to your menu bar, then click Tools → Global Options to open up the Options window.
-
-![](images/rstudio_settings.png){alt="Screenshot of the RStudio Global Options, with \"Restore .RData into workspace at startup\" unchecked, and \"Save workspace to .RData on exit\" set to \"Never\"."}
-
-Make sure your settings match those highlighted in yellow. We don't want RStudio to store the current status of our R session and reload it the next time we start R. We want to start with a clean, empty R session every time we work.
-
-We will use a basic structure for this workshop.
-
-```         
-project_name
-│
-└── data
-│    └── cleaned
-│    └── raw
-│
-└─── results
-│
-└── scripts
-│
-└── project_name.Rproj
-```
-
-Let's start making our new folders. Go to the **Files** pane (bottom right), and check the current directory, highlighted in yellow below. You should be in the directory for the project you just made. You shouldn't see any folders in here yet.
-
-![](images/files_pane.png){alt="RStudio Files pane with current directory path highlighted."}
-
-Next, click the **New Folder** button, and type in `scripts` to generate your `scripts` folder. It should appear in the Files list now. Repeat the process to make your `data`, and `results` folders. Then, click on the `data` folder in the Files pane. This will take you into the `data` folder, which will be empty. Use the **New Folder** button to create `raw` and `cleaned` folders. To return to the project folder, click on it in the file path, which is highlighted in yellow in the previous image. It's worth noting that the **Files** pane helps you create, find, and open files, but moving through your files won't change where the **working directory** of your project is.

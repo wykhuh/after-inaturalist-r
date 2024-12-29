@@ -43,35 +43,23 @@ Here's a rough draft that lists [descriptions for each field](https://docs.googl
 
 ## Downloading iNaturalist data
 
-Here's a video showing how to download iNaturalist data.
+If you would like to download iNaturalist data, here's some info.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/wBH7RZAklYU?si=ggo4eHQGKHcq9D1G&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
 
 </iframe>
 
-To save time and ensure everyone at the workshop has the same data, we provide a CSV with data from iNaturalist City Nature Challenge Los Angeles from 2013 to 2024. We made some changes to the CSVs we downloaded from iNaturalist, and the code we used edit the CSV is available [here](cleaning-data.qmd)
-
-If you would like to download iNaturalist data for your own project, here's more info.
-
 [How to Search iNaturalist Observations](https://help.inaturalist.org/en/support/solutions/articles/151000169670)
-
-[How can I download data from iNaturalist?](https://help.inaturalist.org/en/support/solutions/articles/151000170342-how-can-i-download-data-from-inaturalist)
 
 [step-by-step to download iNaturalist data](https://gsmit.org/wp-content/uploads/2021/04/inaturalist_data_walkthrough.pdf)
 
-## Analyzing data
+To save time and ensure everyone at the workshop has the same data, we provide a CSV with data from iNaturalist City Nature Challenge Los Angeles from 2013 to 2024. We made some changes to the CSVs we downloaded from iNaturalist, and the code we used edit the CSV is available [here](cleaning-data.qmd)
+
+## Analyzing data using R
 
 It is difficult for people to see any patterns when reading rows after row of text. To make it easier to see patterns, we can use software to analyze tabular data.
 
-1)  Spreadsheet programs are computer application that people can use to view, edit, and analyze tabular data. The programs can do calculations and create charts. Examples include Excel and Google Sheets
-
-2)  Geographic information system (GIS) are computer application that people can use to view, edit and analyze geographic data. The programs can do calculations and create maps. Examples include ArcGIS and QGIS.
-
-3)  Programming languages allow people to write instructions to tell a computer to do stuff. We can write code to do calculations, create charts, and create maps. Example programming languages include R, Python, and JavaScript.
-
-This class uses R because it is a popular language in ecology research and other types of scientific research.
-
-## Example of analyzing iNaturalist data using R
+In this workshop we will use R programming language to analyze iNaturalist data. Programming languages allow people to write instructions to tell a computer to do stuff. The reason we are using R is because R is a popular language in ecology research.
 
 Here's an overview of what we learn in this workshop.
 
@@ -114,18 +102,6 @@ top_10 <- inat %>%
 top_10
 ```
 
-Create charts. For example, create a bar chart showing the number of observations per year.
-
-```{r, chart_observations_per_year}
-
-inat %>%
-  mutate(year = year(observed_on))  %>%
-  group_by(year) %>%
-  ggplot(aes(x = year)) +
-  geom_bar()
-
-```
-
 Create maps. For example, create a map showing all the observations for Western Fence Lizard
 
 ```{r, map_of_western_fence_lizard}
@@ -141,3 +117,15 @@ mapview(lizard)
 ```
 
 ![](images/mapview/intro-data-analysis/map_of_western_fence_lizard.png){alt="map of western fence lizard"}
+
+Create charts. For example, create a bar chart showing the number of observations per year.
+
+```{r, chart_observations_per_year}
+
+inat %>%
+  mutate(year = year(observed_on))  %>%
+  group_by(year) %>%
+  ggplot(aes(x = year)) +
+  geom_bar()
+
+```

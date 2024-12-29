@@ -20,6 +20,16 @@ include-in-header: "components/add-answer-button.html"
 
 ## Exploring iNaturalist data
 
+A CSV of iNaturalist observations for City Nature Challenge Los Angeles from 2015 to 2024 is located at "data/cleaned/cnc-los-angeles-observations.csv". We are going to read that CSV using R.
+
+### File paths
+
+When we reference other files from an R script, we need to give R precise instructions on where those files are. We do that using something called a file path.
+
+There are two kinds of paths: absolute and relative. Absolute paths are specific to a particular computer, whereas relative paths are relative to a certain folder. Because we are using RStudio "project" feature, all of our paths is relative to the project folder. For instance an absolute path is "/Users/username/Documents/CNC-coding-workshop/data/cleaned/cnc-los-angeles-observations.csv", and relative path is "data/cleaned/cnc-los-angeles-observations.csv".
+
+### Reading a CSV file
+
 In order to analyze the iNaturalist csv, we need to load **readr**, **lubridate** and **dplyr** packages.
 
 ```{r, loading_packages}
@@ -32,11 +42,17 @@ library(lubridate) # manipulate dates
 
 We call `read_csv()` function from **readr**, and pass in a relative path to a CSV file in order to load the CSV.
 
+`read_csv()` will read the file and return the content of the file. In order for us access the content later on, we will assign the content to an object called `inat_data`.  
+
 ```{r, assign_read_csv_to_object}
 inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 ```
 
-We can use `glimpse()` function from **dplyr** to show information about a data.frame. 
+::: callout-tip
+Typing out paths can be error prone, so we can utilize a keyboard shortcut. Inside the parentheses of `read_csv()`, type out a pair of quotes and put your cursor between them. Then hit <kbd>Tab</kbd>. A small menu showing your folders and files should show up. You can use the <kbd>↑</kbd> and <kbd>↓</kbd> keys to move through the options, or start typing to narrow them down. You can hit <kbd>Enter</kbd> to select a file or folder, and hit <kbd>Tab</kbd> again to continue building the file path. This might take a bit of getting used to, but once you get the hang of it, it will speed up writing file paths and reduce the number of mistakes you make.
+:::
+
+We can use the `glimpse()` function from **dplyr** get a summary about the contents of `inat_data`. It shows the number of rows and columns. For each column, it shows the name, data type (dbl, chr, lgl, date), and the first few values.
 
 ```{r, call_glimpse}
 glimpse(inat_data)
@@ -146,6 +162,8 @@ We use the pipe operator (`%>%`) to call multiple functions.
 You can insert `%>%` by using the keyboard shortcut <kbd>Shift+Cmd+M</kbd> (Mac) or <kbd>Shift+Ctrl+M</kbd> (Windows).
 :::
 
+#### select observations by common_name
+
 Let's get all observations for 'Western Fence Lizard', and we only want columns `user_login`, `common_name`, `scientific_name`, `observed_on`.
 
 ```{r, pipe_filter_select}
@@ -156,7 +174,9 @@ inat_data %>%
 
 The new data frame has over 3000 rows and 4 columns.
 
-Pipe operator take the thing on the lefthand side and insert it as the first argument of the function on the righthand side.`inat_data` gets piped into a `filter()` function, where it is modified. The output from `filter()` is then gets sent into the `select()` function, where it is further modified. It can also be helpful to think of `%>%` as meaning "and then".
+Pipe operator take the thing on the lefthand side and insert it as the first argument of the function on the righthand side.`inat_data` gets piped into a `filter()` function, where the rows with 'Western Fence Lizard' are selected.  The output from `filter()` is then gets sent into the `select()` function, where 4 columns are selected. It can also be helpful to think of `%>%` as meaning "and then".
+
+#### select observations by coordinates_obscured
 
 Sometimes the coordinates for iNaturalist observations are obscured. For instance, when the observation involves an endangered species, iNaturalist will automatically obscure the coordinates in order to protect the animal, plant, fungi. Sometimes people choose to obscure their location when they are making observations so that other people will not know their exact location. iNaturalist information about [obscured coordinates](https://help.inaturalist.org/en/support/solutions/articles/151000169938-what-is-geoprivacy-what-does-it-mean-for-an-observation-to-be-obscured-).
 
@@ -189,16 +209,10 @@ inat_data %>%
   filter(coordinates_obscured == FALSE)
 ```
 
-`select()` creates a data frame with four fields.
-
-```{r show_4_columns_from_select}
-inat_data %>%
-  select(user_login, common_name, scientific_name, observed_on) %>%
-  names
-```
-
-When we try to `filter()` using `coordinates_obscured`, we get an error because the 4-field data frame we pass to `filter()` does not have the field `coordinates_obscured`.
+`select()` creates a data frame with four fields. When we try to `filter()` using `coordinates_obscured`, we get an error because the 4-field data frame we pass to `filter()` does not have the field `coordinates_obscured`.
 :::
+
+#### select observations by quality_grade
 
 iNaturalist gives a quality grade to each observation.
 
@@ -271,11 +285,15 @@ my_obs <- inat_data %>%
 :::
 ::::
 
+
+
 ## and operator: &
 
 When we want to get rows that match multiple criteria, we use the and operator `&` in between the criteria.
 
 `condtion_1 & condition_2`
+
+#### select observations by common_name and quality_grade
 
 Let's get all 'Western Fence Lizard' observations that are research grade.
 
@@ -296,6 +314,8 @@ unique(my_data$common_name)
 unique(my_data$quality_grade)
 ```
 
+#### select observations by common_name and user_login
+
 Let's get 'Western Fence Lizard' observations made by 'natureinla'.
 
 ```{r, filter_with_and_2_conditions}
@@ -313,11 +333,28 @@ unique(my_data$user_login)
 unique(my_data$common_name)
 ```
 
+#### select observations by coordinates_obscured and positional_accuracy
+
+In addition to coordinates being intentionally obscured, another thing that can affect the coordinates for an observation is the accuracy of the coordinates. The `positional_accuracy` from iNaturalist measures the coordinates error in meters. The accuracy of GPS on smart phones can depend on the hardware, software, physcial environment, etc.
+
+Let's get observations with unobscured locations that have position accuracy less than 5 meters.
+
+```{r}
+inat_data %>%
+  filter(coordinates_obscured == FALSE & 
+           positional_accuracy < 5) %>%
+  select(user_login, common_name, scientific_name, positional_accuracy)
+
+```
+
 ## or operator: \|
 
 When we want to get rows that match one or more criteria, we can use the or operator `|` in between the conditions
 
 `condition_1 | condition_2`
+
+#### select observations by multiple common_name 
+
 
 Let's get observations where `common_name` is 'Western Fence Lizard' or 'Western Honey Bee'.
 
@@ -339,21 +376,9 @@ If you need to examine multiple values for a field, you can use `field_name %in%
 
 A vector is how R stores a list of items. `c()` is a function from R that creates a vector with the passed in arguments. `%in%` operator from R checks if a vector is contained in another vector.
 
-Let's rewrite the the code for `common_name` is 'Western Fence Lizard' or 'Western Honey Bee' using `%in% c()`. This codes will find observations where `common_names` is in the vector: 'Western Honey Bee', 'Western Fence Lizard'
+#### select observations by multiple license 
 
-```{r, in_c_with_2_species}
-my_data <- inat_data %>%
-  filter(common_name %in% c('Western Honey Bee', 'Western Fence Lizard'))  %>%
-  select(user_login, observed_on, common_name)
-
-dim(my_data)
-```
-
-```{r, in_c_common_name}
-unique(my_data$common_name)
-```
-
-iNaturalist observations, photos, and sounds are covered by licenses. The default license is **CC BY-NC** (Creative Commons: Attribution-NonCommercial) so other people can use the content if they give attribution to you and use it for non-commercial purposes. More info about [iNaturalist licenses](https://help.inaturalist.org/en/support/solutions/articles/151000175695-what-are-licenses-how-can-i-update-the-licenses-on-my-content-).
+iNaturalist observations, photos, and sounds are covered by licenses. The license determines how your data is used. The default license is **CC BY-NC** (Creative Commons: Attribution-NonCommercial) so other people can use the content if they give attribution to you and use it for non-commercial purposes. iNaturalist only exports observations  with  No Copyright (CC0), Attribution (CC BY), and Attribution-NonCommercial (CC BY-NC) license to [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org), an international organization that provides access to biodiversity information. Many researchers who use iNaturalist data get their data from GBIF because GBIF provides [DOI](https://www.doi.org) that researchers can cite in their papers.  More info about [iNaturalist licenses](https://help.inaturalist.org/en/support/solutions/articles/151000175695-what-are-licenses-how-can-i-update-the-licenses-on-my-content-).
 
 We can use `table()` to see the license types and count.
 
@@ -361,7 +386,7 @@ We can use `table()` to see the license types and count.
 table(inat_data$license)
 ```
 
-Let's get observations with CC0, CC-BY, or CC BY-NC license.
+ Let's get observations with CC0, CC-BY, or CC BY-NC license. This codes will find observations where `license` is in the vector with these values: 'CC0', 'CC-BY', 'CC BY-NC'
 
 ```{r filter_by_license}
 my_data <- inat_data %>%
@@ -435,6 +460,8 @@ inat_data %>%
 ## More complex queries
 
 Sometimes we want to use both `&` `|` to select the rows. You can use multiple filter statememts.
+
+#### select observations by multiple user_login and  common_name
 
 Let's get observations where user is 'cdegroof' or 'deedeeflower5', and species is 'Western Fence Lizard'.
 
@@ -666,21 +693,21 @@ letters <- c('a','b','c', 'd')
 # get first item 
 letters[1]
 
-# get second and thrid item
+# get second and third item
 letters[2:3]
 ```
 :::
 
-Let's get `observed_on` for rows 10315 to 10325.
+Let's get `observed_on` for rows 10317 to 10320.
 
 ```{r show_observed_on}
-(inat_data$observed_on)[10315:10325]
+inat_data$observed_on[10317:10320]
 ```
 
-Let's get use `year()` to get the year from `observed_on` for rows 10315 to 10325
+Let's get use `year()` to get the year from `observed_on` for rows 10317 to 10320
 
 ```{r get_years_from_observed_on}
-year(inat_data$observed_on)[10315:10325]
+year(inat_data$observed_on)[10317:10320]
 ```
 
 This code will add `year` column using the `year(observed_on)`
@@ -697,6 +724,7 @@ We can also use `table()` to get the number of observations per year.
 ```{r, counts_per_year}
 table(temp$year)
 ```
+#### select observations by year
 
 Let's get all observations for 2020. We use mutate to add year column, and use filter to select rows where year is 2020.
 
@@ -729,6 +757,8 @@ inat_data %>%
 
 Use `count()` from **dplyr** to count the number of values for one or more columns. We pass in the column names as arguments to `count()`
 
+#### get observations per year
+
 Let's try counting of all observations by year. Use `mutate()` to add a year column. Use `count()` to count the number of observations for each year. By default, count will add a new column caled `n`.
 
 ```{r, count_year}
@@ -744,6 +774,7 @@ inat_data %>%
   mutate(year = year(observed_on)) %>%
   count(year, name='obs_count')
 ```
+#### get top ten most observed species 
 
 Let's count the number of observations for each species. We will pass in both 'common_name' and 'scientific_name' because some species don't have a common_name.
 
@@ -808,16 +839,20 @@ inat_data %>%
 
 ## Save data
 
-If you want to save your results, you can save the data frames as CSVs. First, assign the data frame to an object.
+If you want to save your results, you can save the data frames as CSVs. 
 
-```{r, top_ten_save}
+For instance, a user might only want to analyze their observations that are research grade and unobscured location. Instead of writing that filter command every time, they can save that data.frame to `data/cleaned` directory, and use that saved data set for all their analysis.
 
-top_ten <- inat_data %>%
-  count(common_name, scientific_name, name='obs_count') %>%
-  arrange(desc(obs_count))  %>%
-  slice(1:10)
+First, assign the data frame to an object.
 
-top_ten
+```{r, 3_condition_my_observation}
+
+my_obs <- my_data <- inat_data %>%
+  filter(user_login == 'natureinla' & 
+           quality_grade == 'research' & 
+           coordinates_obscured == FALSE) 
+
+my_obs
 
 ```
 
@@ -831,5 +866,5 @@ Then use `write_csv()` from **dplyr** to create a CSV.
 
 ```{r, save_file}
 #| eval: false
-write_csv(top_ten, 'results/top_ten_observations.csv', na='')
+write_csv(my_obs, 'data/cleaned/my_observations.csv', na='')
 ```
