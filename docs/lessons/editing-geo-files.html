@@ -114,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/understanding-data.html">Extra</a></li><li class="breadcrumb-item"><a href="../lessons/editing-geo-files.html">Editing geospatial files</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/additional-analysis.html">Extra</a></li><li class="breadcrumb-item"><a href="../lessons/editing-geo-files.html">Editing geospatial files</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -153,6 +153,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../lessons/intro-science-coding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Science and Coding concepts</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../lessons/setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setup</span></a>
   </div>
@@ -165,14 +171,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/intro-science-coding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Science and Coding concepts</span></a>
+  <a href="../lessons/working-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/working-with-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exploring iNaturalist data</span></a>
+  <a href="../lessons/understanding-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Understanding data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -210,26 +216,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/understanding-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Understanding data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../lessons/additional-analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Additional Analysis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/cleaning-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleaning data</span></a>
+  <a href="../lessons/editing-geo-files.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Editing geospatial files</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/editing-geo-files.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Editing geospatial files</span></a>
+  <a href="../lessons/cleaning-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cleaning data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -250,15 +250,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#state-parks-in-la-county" id="toc-state-parks-in-la-county" class="nav-link active" data-scroll-target="#state-parks-in-la-county">State parks in LA County</a></li>
-  <li><a href="#national-parks-in-la-county" id="toc-national-parks-in-la-county" class="nav-link" data-scroll-target="#national-parks-in-la-county">National parks in LA County</a></li>
+  <li><a href="#find-selected-california-counties" id="toc-find-selected-california-counties" class="nav-link active" data-scroll-target="#find-selected-california-counties">Find selected California counties</a></li>
+  <li><a href="#find-waterways-in-los-angeles-county" id="toc-find-waterways-in-los-angeles-county" class="nav-link" data-scroll-target="#find-waterways-in-los-angeles-county">Find waterways in Los Angeles County</a></li>
+  <li><a href="#find-state-parks-in-la-county" id="toc-find-state-parks-in-la-county" class="nav-link" data-scroll-target="#find-state-parks-in-la-county">Find state parks in LA County</a></li>
+  <li><a href="#find-national-parks-in-la-county" id="toc-find-national-parks-in-la-county" class="nav-link" data-scroll-target="#find-national-parks-in-la-county">Find national parks in LA County</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/understanding-data.html">Extra</a></li><li class="breadcrumb-item"><a href="../lessons/editing-geo-files.html">Editing geospatial files</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/additional-analysis.html">Extra</a></li><li class="breadcrumb-item"><a href="../lessons/editing-geo-files.html">Editing geospatial files</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Editing geospatial files</h1>
 </div>
@@ -277,50 +279,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Load packages</p>
+<p>Sometimes we find a geospatial file that has more than we need. For instance, I downloaded a file that has all the state parks in California, but I only want the state parks in LA County. In this section we’ll cover how to extract data from existing files.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapview)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tigris)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Sometimes we find a geospatial file that has more than we need. We only want some data in the files.</p>
-<section id="state-parks-in-la-county" class="level2">
-<h2 class="anchored" data-anchor-id="state-parks-in-la-county">State parks in LA County</h2>
-<p>Let’s get the California state park within Los Angeles county.</p>
-<p>California State Parks has file that lists all the state parks in California. <a href="https://www.parks.ca.gov/?page_id=29682" class="uri">https://www.parks.ca.gov/?page_id=29682</a></p>
+<section id="find-selected-california-counties" class="level2">
+<h2 class="anchored" data-anchor-id="find-selected-california-counties">Find selected California counties</h2>
 <p>California state has a file that lists all the counties in California. <a href="https://gis.data.ca.gov/datasets/California::california-county-boundaries-and-identifiers/explore" class="uri">https://gis.data.ca.gov/datasets/California::california-county-boundaries-and-identifiers/explore</a></p>
-<p>First we read the file with all state parks in California.</p>
+<p>Let’s get the boundaries for Los Angeles County.</p>
+<p>Read the file with all the counties in California.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>state_parks <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/Park_Boundaries/ParkBoundaries.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ca_counties <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The we read the file with all the counties in California.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ca_counties <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Compare CRS for the state parks map and the county map.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(state_parks) <span class="sc">==</span> <span class="fu">st_crs</span>(ca_counties)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ca_counties)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] FALSE</code></pre>
+<pre><code>Rows: 73
+Columns: 13
+$ COUNTY     &lt;chr&gt; "Alameda County", "Alpine County", "Amador County", "Butte …
+$ COPRI      &lt;chr&gt; "01000", "02000", "03000", "04000", "05000", "06000", "0700…
+$ PLACE_NAME &lt;chr&gt; "Alameda County", "Alpine County", "Amador County", "Butte …
+$ GEOID      &lt;chr&gt; "06001", "06003", "06005", "06007", "06009", "06011", "0601…
+$ PLACE_TYPE &lt;chr&gt; "County", "County", "County", "County", "County", "County",…
+$ GNIS_ID    &lt;dbl&gt; 1675839, 1675840, 1675841, 1675842, 1675885, 1675902, 16759…
+$ LEGAL_PLAC &lt;chr&gt; "Alameda County", "Alpine County", "Amador County", "Butte …
+$ PLACE_ABBR &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ CNTY_ABBR  &lt;chr&gt; "ALA", "ALP", "AMA", "BUT", "CAL", "COL", "CCA", "DNE", "ED…
+$ AREA_SqMi  &lt;dbl&gt; 820.7918, 741.0404, 606.0190, 1677.8158, 1035.7786, 1156.65…
+$ COASTAL    &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ GlobalID   &lt;chr&gt; "1ef554be-bce2-4a37-b205-c10f99330cb3", "8f6df77e-8ec0-4cda…
+$ geometry   &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-136862.7 -..., MULTIPOLYGON (…</code></pre>
 </div>
 </div>
-<p>Use <code>st_transform()</code> to change the CRS of counties map to match the parks map.</p>
+<p>We see the name of the county is in <code>COUNTY</code> column. Use <code>filter()</code> to select the rows for ‘Los Angeles County’.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ca_counties <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(ca_counties, <span class="at">crs =</span> <span class="fu">st_crs</span>(state_parks))</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(state_parks) <span class="sc">==</span> <span class="fu">st_crs</span>(ca_counties)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>LA <span class="ot">&lt;-</span> ca_counties <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(COUNTY <span class="sc">==</span> <span class="st">'Los Angeles County'</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>LA</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
+<pre><code>Simple feature collection with 2 features and 12 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: 96851.82 ymin: -583500.2 xmax: 216620.6 ymax: -352271.1
+Projected CRS: NAD83 / California Albers
+# A tibble: 2 × 13
+  COUNTY         COPRI PLACE_NAME GEOID PLACE_TYPE GNIS_ID LEGAL_PLAC PLACE_ABBR
+* &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     
+1 Los Angeles C… 19000 Los Angel… 06037 County      277283 Los Angel… &lt;NA&gt;      
+2 Los Angeles C… 19000 Los Angel… 06037 County      277283 Los Angel… &lt;NA&gt;      
+# ℹ 5 more variables: CNTY_ABBR &lt;chr&gt;, AREA_SqMi &lt;dbl&gt;, COASTAL &lt;chr&gt;,
+#   GlobalID &lt;chr&gt;, geometry &lt;MULTIPOLYGON [m]&gt;</code></pre>
 </div>
 </div>
-<p>Let’s use <code>filter()</code> to get Los Angeles County from the counties data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>LA_county <span class="ot">&lt;-</span>  ca_counties <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(COUNTY <span class="sc">==</span> <span class="st">'Los Angeles County'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_county)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -329,15 +348,134 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>Use <code>st_write()</code> to save the state parks within LA County as a Shape file. The first argument is the map data we want to save, and the second argument is the file path.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(LA, <span class="st">'data/cleaned/los_angeles_county/los_angeles_county.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="find-waterways-in-los-angeles-county" class="level2">
+<h2 class="anchored" data-anchor-id="find-waterways-in-los-angeles-county">Find waterways in Los Angeles County</h2>
+<p>The US Census produces geospatial data that are linked to the Census data. This data is called <a href="https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html">Topologically Integrated Geographic Encoding and Referencing (TIGER)</a>. We can use the <strong>tigris</strong> package to download TIGER/Line shapefiles.</p>
+<p><code>area_water()</code> from <strong>tigris</strong> returns: The area hydrography shapefile contains the geometry and attributes of both perennial and intermittent area hydrography features, including ponds, lakes, oceans, swamps, glaciers, and the area covered by large streams represented as double-line drainage.</p>
+<p>We can find waterways in LA County by passing the state and county to <code>area_water()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>area_water <span class="ot">&lt;-</span> <span class="fu">area_water</span>(<span class="at">state =</span> <span class="st">"CA"</span>, <span class="at">county=</span><span class="st">"Los Angeles"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> area_water)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="editing-geo-files_files/figure-html/map_la_county_water_areas-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let’s find the LA River</p>
+<p>Use <code>names()</code> to get the column names.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(area_water)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "ANSICODE" "HYDROID"  "FULLNAME" "MTFCC"    "ALAND"    "AWATER"   "INTPTLAT"
+[8] "INTPTLON" "geometry"</code></pre>
+</div>
+</div>
+<p>Let’s look for <code>FULLNAME</code> equals ‘Los Angeles River’</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>la_river <span class="ot">&lt;-</span> area_water <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(FULLNAME <span class="sc">==</span> <span class="st">'Los Angeles River'</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>la_river</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 0 features and 8 fields
+Bounding box:  xmin: NA ymin: NA xmax: NA ymax: NA
+Geodetic CRS:  NAD83
+[1] ANSICODE HYDROID  FULLNAME MTFCC    ALAND    AWATER   INTPTLAT INTPTLON
+[9] geometry
+&lt;0 rows&gt; (or 0-length row.names)</code></pre>
+</div>
+</div>
+<p>No records found.</p>
+<p>Let’s use <code>str_starts()</code> from <strong>stringr</strong> package to look for items that start with ‘Los Angeles’</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>la_river <span class="ot">&lt;-</span> area_water <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(FULLNAME, <span class="st">'Los Angeles'</span>))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>la_river</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 3 features and 8 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: -118.6292 ymin: 33.7672 xmax: -118.1685 ymax: 34.26373
+Geodetic CRS:  NAD83
+  ANSICODE       HYDROID        FULLNAME MTFCC  ALAND  AWATER    INTPTLAT
+1     &lt;NA&gt; 1104493447410 Los Angeles Riv H3010      0  420146 +34.1822808
+2     &lt;NA&gt; 1104493447488 Los Angeles Riv H3010 280531 4988447 +34.1531554
+3     &lt;NA&gt; 1102527993275 Los Angeles Riv H2030      0      58 +33.8743457
+      INTPTLON                       geometry
+1 -118.5074316 POLYGON ((-118.6291 34.1721...
+2 -118.2783531 POLYGON ((-118.4705 34.1634...
+3 -118.1906547 POLYGON ((-118.1907 33.8743...</code></pre>
+</div>
+</div>
+<p>We get three records. The river is called ‘Los Angeles Riv’</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> la_river) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="editing-geo-files_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Save the files</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(la_river, <span class="st">'data/cleaned/los_angeles_river.geojson'</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(la_river, <span class="st">'data/cleaned/la_county_waterareas.geojson'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="find-state-parks-in-la-county" class="level2">
+<h2 class="anchored" data-anchor-id="find-state-parks-in-la-county">Find state parks in LA County</h2>
+<p>Let’s get the all the California state parks within Los Angeles county.</p>
+<p>California State Parks has file that lists all the state parks in California. <a href="https://www.parks.ca.gov/?page_id=29682" class="uri">https://www.parks.ca.gov/?page_id=29682</a></p>
+<p>California state has a file that lists all the counties in California. <a href="https://gis.data.ca.gov/datasets/California::california-county-boundaries-and-identifiers/explore" class="uri">https://gis.data.ca.gov/datasets/California::california-county-boundaries-and-identifiers/explore</a></p>
+<p>First we read the file with all state parks in California.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>state_parks <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/Park_Boundaries/ParkBoundaries.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The we read the file with LA County</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>LA_county <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/cleaned/los_angeles_county/los_angeles_county.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Compare CRS for the state parks map and the county map.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(state_parks) <span class="sc">==</span> <span class="fu">st_crs</span>(LA_county)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>Use <code>st_transform()</code> to change the CRS of counties map to match the parks map.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>LA_county <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(LA_county, <span class="at">crs =</span> <span class="fu">st_crs</span>(state_parks))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(state_parks) <span class="sc">==</span> <span class="fu">st_crs</span>(LA_county)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
 <p>Use <code>st_intersects()</code> to find the state parks within LA county. This is similar to how we got all the observations in Expo park in an earlier lesson.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>LA_parks <span class="ot">&lt;-</span> state_parks[<span class="fu">st_intersects</span>(state_parks, LA_county ) <span class="sc">%&gt;%</span> lengths <span class="sc">&gt;</span> <span class="dv">0</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>LA_parks <span class="ot">&lt;-</span> state_parks[<span class="fu">st_intersects</span>(state_parks, LA_county ) <span class="sc">%&gt;%</span> lengths <span class="sc">&gt;</span> <span class="dv">0</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a map showing LA County and state parks within LA County.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_county) <span class="sc">+</span> </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_parks, <span class="at">fill=</span><span class="st">'yellow'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_county) <span class="sc">+</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_parks, <span class="at">fill=</span><span class="st">'yellow'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -346,59 +484,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Use <code>st_write()</code> to save the state parks within LA County as a Shape file. The first argument is the map data we want to save, and the second argument is the file path.</p>
+<p>Save the file.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(LA_parks, <span class="st">'data/cleaned/state_parks_los_angeles_county/state_parks_los_angeles_county.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(LA_parks, <span class="st">'data/cleaned/state_parks_los_angeles_county/state_parks_los_angeles_county.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="national-parks-in-la-county" class="level2">
-<h2 class="anchored" data-anchor-id="national-parks-in-la-county">National parks in LA County</h2>
+<section id="find-national-parks-in-la-county" class="level2">
+<h2 class="anchored" data-anchor-id="find-national-parks-in-la-county">Find national parks in LA County</h2>
 <p>Let’s get the National Parks within Los Angeles county.</p>
 <p>National Park Boundaries https://catalog.data.gov/dataset/national-park-boundaries</p>
-<p>Read files</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>parks_nps <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/nps_boundary/nps_boundary.shp'</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>ca_counties <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>parks_nps <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/nps_boundary/nps_boundary.shp'</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>la_county <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/cleaned/los_angeles_county/los_angeles_county.shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>get LA County</p>
+<p>check if CRS are the same</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>la_county <span class="ot">&lt;-</span>  ca_counties <span class="sc">%&gt;%</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>( COUNTY <span class="sc">==</span> <span class="st">'Los Angeles County'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>check CRS</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(parks_nps) <span class="sc">==</span> <span class="fu">st_crs</span>(la_county)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(parks_nps) <span class="sc">==</span> <span class="fu">st_crs</span>(la_county)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
 </div>
-<p>set crs</p>
+<p>Set CRS of the parks to match LA County.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>parks_nps <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(parks_nps, <span class="at">crs =</span> <span class="fu">st_crs</span>(la_county) )</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(parks_nps) <span class="sc">==</span> <span class="fu">st_crs</span>(la_county)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>parks_nps <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(parks_nps, <span class="at">crs =</span> <span class="fu">st_crs</span>(la_county) )</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(parks_nps) <span class="sc">==</span> <span class="fu">st_crs</span>(la_county)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
 <p>get national parks within LA county</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>nps_parks <span class="ot">&lt;-</span> parks_nps[<span class="fu">st_intersects</span>(parks_nps, la_county ) <span class="sc">%&gt;%</span> lengths <span class="sc">&gt;</span> <span class="dv">0</span>,]</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_county) <span class="sc">+</span> </span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>nps_parks, <span class="at">fill=</span><span class="st">'yellow'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ca_nps_parks <span class="ot">&lt;-</span> parks_nps[<span class="fu">st_intersects</span>(parks_nps, la_county ) <span class="sc">%&gt;%</span> lengths <span class="sc">&gt;</span> <span class="dv">0</span>,]</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>la_county) <span class="sc">+</span> </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>ca_nps_parks, <span class="at">fill=</span><span class="st">'yellow'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="editing-geo-files_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="editing-geo-files_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>write file</p>
+<p>Save the file.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(nps_parks, <span class="st">'data/cleaned/nps_la_county.geojson'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(ca_nps_parks, <span class="st">'data/cleaned/nps_la_county.geojson'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

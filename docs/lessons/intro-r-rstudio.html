@@ -200,6 +200,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../lessons/intro-science-coding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Science and Coding concepts</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../lessons/setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setup</span></a>
   </div>
@@ -212,14 +218,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/intro-science-coding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Science and Coding concepts</span></a>
+  <a href="../lessons/working-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/working-with-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exploring iNaturalist data</span></a>
+  <a href="../lessons/understanding-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Understanding data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -257,26 +263,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/understanding-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Understanding data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../lessons/additional-analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Additional Analysis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/cleaning-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleaning data</span></a>
+  <a href="../lessons/editing-geo-files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Editing geospatial files</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/editing-geo-files.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Editing geospatial files</span></a>
+  <a href="../lessons/cleaning-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cleaning data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -347,9 +347,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="objectives" class="level2">
 <h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
 <ul>
-<li>Understand the difference between R and RStudio</li>
-<li>Describe the purpose of the different RStudio panes</li>
-<li>Organize files and directories into R Projects</li>
+<li>Understand the difference between R and RStudio.</li>
+<li>Describe the purpose of the different RStudio panes.</li>
+<li>Organize files and directories into R Projects.</li>
 </ul>
 </section>
 </div>
@@ -373,7 +373,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="overview-of-workshop-files" class="level2">
 <h2 class="anchored" data-anchor-id="overview-of-workshop-files">Overview of workshop files</h2>
 <p>Let’s examine the project files using the <strong>Files</strong> pane.</p>
-<p>It is a good practice to organize your projects into self-contained folders. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into sub-folders.</p>
+<p>It is a good practice to organize your projects into self-contained folders. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into subfolders.</p>
 <pre><code>project_folder
 │
 └── data
@@ -385,7 +385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 └── scripts
 │
 └── CNC-coding-workshop.Rproj</code></pre>
-<p>Within our project folder, we have a <code>data</code> folder containing <code>cleaned</code> and <code>raw</code> subfolders. In general, you want to keep your <code>raw</code> data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the <code>cleaned</code> folder. We also have a <code>results</code> folder for any other documents you might produce. We also have a <code>scripts</code> folder to hold any scripts we write.</p>
+<p>Within our project folder, we have a <code>data</code> folder containing <code>cleaned</code> and <code>raw</code> sub-folders. In general, you want to keep your <code>raw</code> data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the <code>cleaned</code> folder. We also have a <code>results</code> folder for any other documents you might produce. We also have a <code>scripts</code> folder to hold any scripts we write.</p>
 <p>RStudio provides a “Projects” feature that can make it easier to work on individual projects in R. RStudio projects have a <code>xxx.Rproj</code> file.</p>
 <p>One of the benefits to using RStudio Projects is that they automatically set the <strong>working directory</strong> to the top-level folder for the project. The working directory is the folder where R is working, so it views the location of all files (including data and scripts) as being relative to the working directory.</p>
 </section>
@@ -493,26 +493,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="save-scripts" class="level3">
 <h3 class="anchored" data-anchor-id="save-scripts">Save scripts</h3>
 <p>Save script files by using <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a descriptive name such as ‘first_script.R’. Save it in the <code>scripts</code> folder.</p>
-</section>
-<div class="exercise">
-<section id="exercise" class="level3">
-<h3 class="anchored" data-anchor-id="exercise">Exercise</h3>
-<p>Add a line to the script to substract price_1 and price_2. Run the new code. Save the file.</p>
-</section>
-<section id="solution" class="level3">
-<h3 class="anchored" data-anchor-id="solution">Solution</h3>
-<div class="answer">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">-</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 7</code></pre>
-</div>
-</div>
-</div>
-</section>
-</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

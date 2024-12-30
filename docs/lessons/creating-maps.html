@@ -200,6 +200,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../lessons/intro-science-coding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Science and Coding concepts</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../lessons/setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setup</span></a>
   </div>
@@ -212,14 +218,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/intro-science-coding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Science and Coding concepts</span></a>
+  <a href="../lessons/working-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/working-with-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exploring iNaturalist data</span></a>
+  <a href="../lessons/understanding-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Understanding data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -257,26 +263,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/understanding-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Understanding data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../lessons/additional-analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Additional Analysis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/cleaning-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleaning data</span></a>
+  <a href="../lessons/editing-geo-files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Editing geospatial files</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/editing-geo-files.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Editing geospatial files</span></a>
+  <a href="../lessons/cleaning-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cleaning data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -348,9 +348,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="objectives" class="level2">
 <h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
 <ul>
-<li>Learn how to plot iNaturalist observations on a map</li>
-<li>Learn how to create static maps with ggplot2</li>
-<li>Learn how to create interactive maps with mapview</li>
+<li>Learn how to plot iNaturalist observations on a map.</li>
+<li>Learn how to create static maps with ggplot2.</li>
+<li>Learn how to create interactive maps with mapview.</li>
 </ul>
 </section>
 </div>
@@ -544,7 +544,7 @@ $ geometry   &lt;MULTIPOLYGON [US_survey_foot]&gt; MULTIPOLYGON (((6430642 138..
 <pre><code>[1] FALSE</code></pre>
 </div>
 </div>
-<p>Since the CRS are different, we need to use <code>st_transform()</code> to change the CRS of the LA County boundary.</p>
+<p>Since the CRS are different, we need to use <code>st_transform()</code> to change the CRS of the LA County boundary. First argument is the data frame. <code>crs</code> is the new CRS value.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>la_county_boundary <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(la_county_boundary,  <span class="at">crs =</span> <span class="dv">4326</span>)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -555,7 +555,7 @@ $ geometry   &lt;MULTIPOLYGON [US_survey_foot]&gt; MULTIPOLYGON (((6430642 138..
 </div>
 <section id="static-maps" class="level3">
 <h3 class="anchored" data-anchor-id="static-maps">Static maps</h3>
-<p>Let’s create a static map with LA County and oak observations. Create a new layer for each dataset using <code>+</code>.</p>
+<p>Let’s create a static map with LA County and oak observations. Create a new layer for each data set using two <code>geom_sf()</code> and <code>+</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> la_county_boundary)  <span class="sc">+</span></span>
@@ -569,7 +569,6 @@ $ geometry   &lt;MULTIPOLYGON [US_survey_foot]&gt; MULTIPOLYGON (((6430642 138..
 </div>
 </div>
 <p>When <strong>ggplot2</strong> draws the iNaturalist observations, it draws a round circle. When it draws the LA County boundary, it draws a polygon (closed shape with many sides). The data in the <code>geometry</code> column determines how <strong>ggplot2</strong> draws things.</p>
-<p>The Geometry type for the LA County boundary is a MULTIPOLYGON, and for iNaturalist is a POINT.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>la_county_boundary<span class="sc">$</span>geometry[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -596,6 +595,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <pre><code>POINT (-118.0178 34.21069)</code></pre>
 </div>
 </div>
+<p>The Geometry type for the LA County boundary is a MULTIPOLYGON, and for iNaturalist is a POINT.</p>
 <p>For points, use the <code>color</code> argument to set the color. For polygons, use <code>color</code> to set the border color and <code>fill</code> to set the fill color.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -637,14 +637,14 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 <p><strong>ggplot2</strong> will assign a different color to each value, and add a legend.</p>
-<p>We can set the map title and legend title using <code>labs()</code>. We can add <code>theme_void()</code> to get rid of the grey background and axis labels.</p>
+<p>We can set the map title and legend title using <code>labs(title='', subtitle='', color='')</code>. We can add <code>theme_void()</code> to get rid of the grey background and axis labels.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> la_county_boundary, <span class="at">color=</span><span class="st">"black"</span>, <span class="at">fill=</span><span class="st">'beige'</span>)  <span class="sc">+</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> inat_oak_map, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">color=</span>quality_grade)) <span class="sc">+</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'CNC observations for Live Coast Oaks in LA County'</span>,</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle=</span><span class="st">'2016-2024'</span>) <span class="sc">+</span></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color=</span><span class="st">'Quality Grade'</span>) <span class="sc">+</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'CNC observations for Live Coast Oaks in LA County'</span>,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span><span class="st">'2016-2024'</span>,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">color=</span><span class="st">'Quality Grade'</span>) <span class="sc">+</span></span>
 <span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>

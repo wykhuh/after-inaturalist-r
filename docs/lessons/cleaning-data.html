@@ -114,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/understanding-data.html">Extra</a></li><li class="breadcrumb-item"><a href="../lessons/cleaning-data.html">Cleaning data</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/additional-analysis.html">Extra</a></li><li class="breadcrumb-item"><a href="../lessons/cleaning-data.html">Cleaning data</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -153,6 +153,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../lessons/intro-science-coding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Science and Coding concepts</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../lessons/setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setup</span></a>
   </div>
@@ -165,14 +171,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/intro-science-coding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Science and Coding concepts</span></a>
+  <a href="../lessons/working-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/working-with-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exploring iNaturalist data</span></a>
+  <a href="../lessons/understanding-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Understanding data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -210,26 +216,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/understanding-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Understanding data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../lessons/additional-analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Additional Analysis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/cleaning-data.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Cleaning data</span></a>
+  <a href="../lessons/editing-geo-files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Editing geospatial files</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/editing-geo-files.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Editing geospatial files</span></a>
+  <a href="../lessons/cleaning-data.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Cleaning data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -258,7 +258,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/understanding-data.html">Extra</a></li><li class="breadcrumb-item"><a href="../lessons/cleaning-data.html">Cleaning data</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/additional-analysis.html">Extra</a></li><li class="breadcrumb-item"><a href="../lessons/cleaning-data.html">Cleaning data</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Cleaning data</h1>
 </div>
@@ -277,10 +277,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>A common step during data analysis is to clean up the raw data. We fix any obvious errors, edit column names, exclude rows we do not want, and save the cleaned up data set. We do the analysis on the cleaned data set.</p>
+<section id="cleaning-up-inaturalist-file" class="level2">
+<h2 class="anchored" data-anchor-id="cleaning-up-inaturalist-file">Cleaning up iNaturalist file</h2>
+<p>Load libraries</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Save the file paths as objects.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>observations_raw_path <span class="ot">&lt;-</span> <span class="st">'data/raw/observations-513664.csv'</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>observations_cleaned_path <span class="ot">&lt;-</span> <span class="st">'data/cleaned/cnc-los-angeles-observations.csv'</span></span>
@@ -288,7 +293,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>introduced_raw_path <span class="ot">&lt;-</span> <span class="st">'data/raw/observations-514069_introduced.csv'</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>native_raw_path <span class="ot">&lt;-</span> <span class="st">'data/raw/observations-514076_native.csv'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>A common step during data analysis is to clean up the raw data. We fix any obvious errors, edit column names, exclude rows we do not want, and save the cleaned up data set. We do the analysis on the cleaned data set.</p>
 <p>The CSV we downloaded from iNaturalist had several problems.</p>
 <ul>
 <li>some observation did not have a species</li>
@@ -298,8 +302,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>information about observations with threatened, native, and introduced species had to be downloaded separately</li>
 </ul>
 <p>In order to simplify things for the workshop attendees, we fixed the various issues and created a cleaned up CSV.</p>
-<section id="cleaning-up-inaturalist-file" class="level2">
-<h2 class="anchored" data-anchor-id="cleaning-up-inaturalist-file">Cleaning up iNaturalist file</h2>
 <p>These are the steps we took to produced the cleaned up file. The raw file is at ‘data/raw/observations-513664.csv’, the cleaned file is at ‘data/cleaned/cnc-los-angeles-observations.csv’</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>inat_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(observations_raw_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
