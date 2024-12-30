@@ -3,7 +3,7 @@ title: "Editing geospatial files"
 format: html
 ---
 
-Load packages
+Sometimes we find a geospatial file that has more than we need. For instance, I downloaded a file that has all the state parks in California, but I only want the state parks in LA County. In this section we'll cover how to extract data from existing files.
 
 ```{r,load_packages}
 #| warning: false
@@ -12,13 +12,118 @@ Load packages
 library(dplyr)
 library(sf)
 library(ggplot2)
+library(mapview)
+library(tigris)
+library(stringr)
+
 ```
 
-Sometimes we find a geospatial file that has more than we need. We only want some data in the files.
+## Find selected California counties
 
-## State parks in LA County
+California state has a file that lists all the counties in California. <https://gis.data.ca.gov/datasets/California::california-county-boundaries-and-identifiers/explore>
 
-Let's get the California state park within Los Angeles county.
+Let's get the boundaries for Los Angeles County.
+
+Read the file with all the counties in California.
+
+```{r, get_all_california_counties}
+ca_counties <- read_sf('data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp')
+
+```
+
+```{r preview_ca_counties}
+glimpse(ca_counties)
+```
+
+We see the name of the county is in `COUNTY` column. Use `filter()` to select the rows for 'Los Angeles County'.
+
+```{r select_LA_county}
+LA <- ca_counties %>%
+  filter(COUNTY == 'Los Angeles County')
+
+LA
+```
+
+```{r, LA_county_map}
+
+ggplot() +
+  geom_sf(data=LA) 
+
+```
+
+Use `st_write()` to save the state parks within LA County as a Shape file. The first argument is the map data we want to save, and the second argument is the file path.
+
+```{r save_LA_county}
+#| eval: false
+st_write(LA, 'data/cleaned/los_angeles_county/los_angeles_county.shp')
+```
+
+## Find waterways in Los Angeles County
+
+The US Census produces geospatial data that are linked to the Census data. This data is called [Topologically Integrated Geographic Encoding and Referencing (TIGER)](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html). We can use the **tigris** package to download TIGER/Line shapefiles.
+
+`area_water()` from **tigris** returns: The area hydrography shapefile contains the geometry and attributes of both perennial and intermittent area hydrography features, including ponds, lakes, oceans, swamps, glaciers, and the area covered by large streams represented as double-line drainage.
+
+We can find waterways in LA County by passing the state and county to `area_water()`.
+
+```{r get_la_count_water_areas}
+#| output: false
+
+area_water <- area_water(state = "CA", county="Los Angeles") 
+```
+
+```{r map_la_county_water_areas}
+ggplot() +
+  geom_sf(data = area_water)
+```
+
+Let's find the LA River
+
+Use `names()` to get the column names.
+
+```{r}
+names(area_water)
+```
+
+Let's look for `FULLNAME` equals 'Los Angeles River'
+
+```{r}
+la_river <- area_water %>% 
+  filter(FULLNAME == 'Los Angeles River')
+
+la_river
+```
+
+No records found.
+
+Let's use `str_starts()` from **stringr** package to look for items that start with 'Los Angeles'
+
+```{r}
+la_river <- area_water %>% 
+  filter(str_starts(FULLNAME, 'Los Angeles'))
+
+la_river
+```
+
+We get three records. The river is called 'Los Angeles Riv'
+
+```{r}
+ggplot(data = la_river) +
+   geom_sf()
+```
+
+Save the files
+
+```{r}
+#| eval: false
+st_write(la_river, 'data/cleaned/los_angeles_river.geojson')
+
+st_write(la_river, 'data/cleaned/la_county_waterareas.geojson')
+```
+
+## Find state parks in LA County
+
+Let's get the all the California state parks within Los Angeles county.
 
 California State Parks has file that lists all the state parks in California. <https://www.parks.ca.gov/?page_id=29682>
 
@@ -30,10 +135,10 @@ First we read the file with all state parks in California.
 state_parks <- read_sf('data/raw/Park_Boundaries/ParkBoundaries.shp')
 ```
 
-The we read the file with all the counties in California.
+The we read the file with LA County
 
-```{r, get_ca_counties}
-ca_counties <- read_sf('data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp')
+```{r, get_LA_county}
+LA_county <- read_sf('data/cleaned/los_angeles_county/los_angeles_county.shp')
 
 
 ```
@@ -41,7 +146,7 @@ ca_counties <- read_sf('data/raw/California_County_Boundaries_and_Identifiers_Bl
 Compare CRS for the state parks map and the county map.
 
 ```{r, compare_crs}
-st_crs(state_parks) == st_crs(ca_counties)
+st_crs(state_parks) == st_crs(LA_county)
 
 ```
 
@@ -49,23 +154,9 @@ Use `st_transform()` to change the CRS of counties map to match the parks map.
 
 ```{r, change_counties_crs}
 
-ca_counties <- st_transform(ca_counties, crs = st_crs(state_parks))
+LA_county <- st_transform(LA_county, crs = st_crs(state_parks))
 
-st_crs(state_parks) == st_crs(ca_counties)
-```
-
-Let's use `filter()` to get Los Angeles County from the counties data.
-
-```{r, extract_la_county}
-LA_county <-  ca_counties %>%
-   filter(COUNTY == 'Los Angeles County')
-
-```
-
-```{r LA_county_map}
-
-ggplot() +
-  geom_sf(data=LA_county)
+st_crs(state_parks) == st_crs(LA_county)
 ```
 
 Use `st_intersects()` to find the state parks within LA county. This is similar to how we got all the observations in Expo park in an earlier lesson.
@@ -85,7 +176,7 @@ ggplot() +
 
 ```
 
-Use `st_write()` to save the state parks within LA County as a Shape file. The first argument is the map data we want to save, and the second argument is the file path.
+Save the file.
 
 ```{r, save_file}
 #| eval: false
@@ -93,36 +184,27 @@ Use `st_write()` to save the state parks within LA County as a Shape file. The f
 st_write(LA_parks, 'data/cleaned/state_parks_los_angeles_county/state_parks_los_angeles_county.shp')
 ```
 
-## National parks in LA County
+## Find national parks in LA County
 
 Let's get the National Parks within Los Angeles county.
 
 National Park Boundaries https://catalog.data.gov/dataset/national-park-boundaries
 
-Read files
-
 ```{r}
 parks_nps <- read_sf('data/raw/nps_boundary/nps_boundary.shp')
 
-ca_counties <- read_sf('data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp')
+la_county <- read_sf('data/cleaned/los_angeles_county/los_angeles_county.shp')
 
 
 ```
 
-get LA County
-
-```{r}
-la_county <-  ca_counties %>%
-   filter( COUNTY == 'Los Angeles County')
-```
-
-check CRS
+check if CRS are the same
 
 ```{r}
 st_crs(parks_nps) == st_crs(la_county)
 ```
 
-set crs
+Set CRS of the parks to match LA County.
 
 ```{r}
 parks_nps <- st_transform(parks_nps, crs = st_crs(la_county) )
@@ -133,18 +215,18 @@ get national parks within LA county
 
 ```{r}
 
-nps_parks <- parks_nps[st_intersects(parks_nps, la_county ) %>% lengths > 0,]
+ca_nps_parks <- parks_nps[st_intersects(parks_nps, la_county ) %>% lengths > 0,]
 
 ggplot() +
-  geom_sf(data=LA_county) + 
-  geom_sf(data=nps_parks, fill='yellow') 
+  geom_sf(data=la_county) + 
+  geom_sf(data=ca_nps_parks, fill='yellow') 
 
 ```
 
-write file
+Save the file.
 
 ```{r}
 #| eval: false
 
-st_write(nps_parks, 'data/cleaned/nps_la_county.geojson')
+st_write(ca_nps_parks, 'data/cleaned/nps_la_county.geojson')
 ```
