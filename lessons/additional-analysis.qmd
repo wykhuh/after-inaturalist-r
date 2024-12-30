@@ -3,15 +3,9 @@ title: "Additional Analysis"
 format: html
 ---
 
-::: summary
-## Questions
+In this section, we will show a few more examples of maps and charts.
 
--   I've done the other lessons, now what?
-
-## Objectives
-
--   See examples of maps and charts that take a bit more coding
-:::
+For more examples of charts and graphs visit [R Graph Gallery](https://r-graph-gallery.com).
 
 ```{r, load_packages}
 #| error: false
@@ -20,7 +14,7 @@ format: html
 
 library(readr) # read and write tabular data
 library(dplyr) # manipulate data
-
+library(lubridate) # manipulate dates
 library(ggplot2) # create data visualizations
 library(sf) # handle geospatial data
 library(mapview) # create interactive maps
@@ -35,6 +29,8 @@ inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 
 ```
 
+Let's add a `geometry` column
+
 ```{r, select_columns}
 inat_map <- inat_data %>% 
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326) %>% 
@@ -48,10 +44,87 @@ inat_oak_map <- inat_map %>%
   filter(scientific_name == 'Quercus agrifolia')
 ```
 
-Use `dim()` to get number of observations. There is 711 rows.
+Let's add a year column to iNaturalist data.
 
-```{r, get_size_of_oak_dataframe}
-dim(inat_oak_map)
+```{r, add_year_column}
+inat_year <- inat_data %>% 
+  mutate(year = year(observed_on)) 
+```
+
+## Stacked bar charts
+
+We can create stacked bar charts by adding a column from the data frame to `aes()` function `fill` argument. Let's create a stacked bar chart using `quality_grade`.
+
+```{r, create_stacked_bar_chart}
+ggplot(data = inat_year, 
+       mapping = aes(x = year, fill = quality_grade)) +
+  geom_bar()   
+```
+
+The height of each bar represents the number of observations per year. The height of the 3 rectangles in each bar represents the number of observations that are labeled casual, needs_id, and research.
+
+**ggplot2** assigns each quality grade a different color, and creates a legend that tells you which values goes with which color.
+
+## Dodged bar charts
+
+To create side-by-side dodged bar charts, use `position=position_dodge()`
+
+```{r create_dodged_bar_chart}
+ggplot(data = inat_year , 
+       mapping = aes(x = year, fill = quality_grade))  +
+  geom_bar(position = position_dodge(preserve = 'single'))  
+```
+
+## Multiple line charts
+
+If we want a chart with multiple lines, we need to create a data frame with three columns: one column x axis, one column for y axis, and one column for color.
+
+```{r create_dataframe_for_multi_line_chart}
+year_quality_count <- inat_data %>% 
+  mutate(year = year(observed_on))  %>%
+  count(year, quality_grade,  name='count') 
+
+year_quality_count
+```
+
+```{r create_multi_line_chart}
+ggplot(data = year_quality_count, 
+       mapping = aes(x = year, y = count, color = quality_grade)) +
+  geom_line()
+```
+
+## Multiple charts
+
+Each `geom_` adds a layer to the chart. We can have multiple chart layers in one chart by having multiple `geom_`.
+
+Let's create a bar and line chart that uses the same data and mapping.
+
+```{r, create_dataframe_with_year_count}
+inat_year_count <- inat_data %>% 
+  mutate(year = year(observed_on)) %>%
+  count(year, name='count')  
+
+inat_year_count
+```
+
+```{r}
+ggplot(data = inat_year_count,
+       mapping = aes(x = year, y = count)) +
+  geom_col() +
+  geom_line()
+ 
+```
+
+Let's create a dodged bar and line chart that uses the different data and different mapping. Instead of putting the information inside `ggplot()`, we put information in each `geom_`.
+
+```{r, bar_and_line_chart}
+ggplot() +
+  geom_bar(data = inat_year , 
+       mapping = aes(x = year, fill = quality_grade),
+       position = position_dodge(preserve = 'single')) +
+  geom_line(data = inat_year_count, 
+       mapping = aes(x = year, y = count))
+ 
 ```
 
 ## Choropleth maps

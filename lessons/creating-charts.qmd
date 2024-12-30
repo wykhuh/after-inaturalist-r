@@ -11,9 +11,9 @@ include-in-header: "components/add-answer-button.html"
 
 ## Objectives
 
--   Create bar and line charts using ggplot2
--   Customize the appearance of the charts
--   Save charts as image files
+-   Create bar and line charts using ggplot2.
+-   Customize the appearance of the charts.
+-   Save charts as image files.
 :::
 
 ```{r, load_packages}
@@ -51,7 +51,7 @@ inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 
 ```
 
-We need to add a year column to iNaturalist data.
+Let's add a year column to iNaturalist data.
 
 ```{r, add_year_column}
 inat_year <- inat_data %>% 
@@ -157,48 +157,6 @@ ggplot(data = my_obs_by_year, mapping = aes(x = year)) +
 ```
 :::
 ::::
-
-## Stacked bar charts
-
-We can create stacked bar charts by adding a column from the data frame to `aes()` function `fill` argument. Let's create a stacked bar chart using `quality_grade`.
-
-```{r, create_stacked_bar_chart}
-ggplot(data = inat_year, 
-       mapping = aes(x = year, fill = quality_grade)) +
-  geom_bar()   
-```
-
-The height of each bar represents the number of observations per year. The height of the 3 rectangles in each bar represents the number of observations that are labeled casual, needs_id, and research.
-
-**ggplot2** assigns each quality grade a different color, and creates a legend that tells you which values goes with which color.
-
-## Dodged bar charts
-
-To create side-by-side dodged bar charts, use `position=position_dodge()`
-
-```{r create_dodged_bar_chart}
-ggplot(data = inat_year , 
-       mapping = aes(x = year, fill = quality_grade))  +
-  geom_bar(position = position_dodge(preserve = 'single'))  
-```
-
-## Multiple line charts
-
-If we want a chart with multiple lines, we need to create a data frame with three columns: one column x axis, one column for y axis, and one column for color.
-
-```{r create_dataframe_for_multi_line_chart}
-year_quality_count <- inat_data %>% 
-  mutate(year = year(observed_on))  %>%
-  count(year, quality_grade,  name='count') 
-
-year_quality_count
-```
-
-```{r create_multi_line_chart}
-ggplot(data = year_quality_count, 
-       mapping = aes(x = year, y = count, color = quality_grade)) +
-  geom_line()
-```
 
 ## Changing colors
 
