@@ -12,12 +12,11 @@ include-in-header: "components/add-answer-button.html"
 
 ## Objectives
 
--   To be aware of the different data types and data structures.
+- Learn about data types and data structures.
 :::
 
-## Reading CSV files
+We've started the previous lessons with `read_csv()`. To better understand the data returned by `read_csv()`, we will learn how R represents and  stores data.
 
-In order to analyze the iNaturalist csv, we need to load **readr** and **dplyr** packages.
 
 ```{r, loading_packages}
 #| message: false
@@ -27,20 +26,26 @@ library(dplyr) # manipulate data
 ```
 
 ```{r, assign_read_csv_to_object}
+#| message: false
+#| warning: false
+
 inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+
 ```
 
-We can use the `glimpse()` function from **dplyr** get a summary about the contents of `inat_data` .
+Let's look at the data information returned by `glimpse()`.
 
 ```{r, call_glimpse}
 glimpse(inat_data)
 ```
 
-To understand the data produced by `read_csv()`, we will learn how R deals with with data.
-
 ## Data Types
 
-Every value in R has a data type. There are 4 main types: **numeric**, **integer**, **logical**, and **character**.
+`glimpse()` shows `<dbl> <date> <chr> <lgl>`. Those data types.
+
+In computer programming, **data type** is a way to group data values. Every value has a data type. A value's data type will determine what the programming language can do with the value. For instance, in R we can add numbers but we can't add strings.
+
+There are 4 main types in R: **numeric**, **integer**, **logical**, and **character**.
 
 -   **numeric** are numbers that contain a decimal (e.g. 1.2, 10.5). By default, R also treats whole numbers as decimals (e.g. 1, 10).
 
@@ -50,24 +55,23 @@ Every value in R has a data type. There are 4 main types: **numeric**, **integer
 
 -   **character** represent string values (e.g. "abc", 'dog'). The strings must be surrounded by quotes, either single quotes or double quotes.
 
-A value's data type will determine what R can do with the value. For instance, in R we can add numbers but we can't add strings.
 
 ## Vectors
 
-A data structure is a way to organize and store a collection of values. A vector is data structure in R that has series of values. All the value in the vector must be the same data type.
+A **data structure** is a way to organize and store a collection of values. 
+
+A **vector** is data structure in R that has series of values. All the value in the vector must be the same data type.
 
 To create a vector we use the `c()` combine function, and pass in the values as arguments.
+
+We can use `class()` function to find the type or class of any object.
+
 
 numeric vector
 
 ```{r numeric_vector}
 num <- c(1, 2, 5)
 num
-```
-
-We can use `class()` function to find the type or class of any object.
-
-```{r class_numeric}
 class(num)
 ```
 

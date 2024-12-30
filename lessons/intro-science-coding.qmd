@@ -35,7 +35,7 @@ Here's iNaturalist taxonomy for Western Fence Lizard, the most common species in
 
 -   **Species**: Sceloporus occidentalis (Western Fence Lizard)
 
-In theory, every iNaturalist observation represents a species. In practice, an iNaturalist observation will be assigned to a particular taxa name and taxon rank based on the qualitity of the recorded data, the expertise of the observer, the suggestion algorithms of iNaturalist, and the expertise of people who help identify observations.
+In theory, every iNaturalist observation represents a species. In practice, an iNaturalist observation will be assigned to a particular taxa name and taxon rank based on the quality of the recorded data, the expertise of the observer, the suggestion algorithms of iNaturalist, and the expertise of people who help identify observations.
 
 ## Coding Concepts
 
@@ -49,7 +49,7 @@ Geospatial data is data that has a particular location. There are different soft
 
 Earth is a 3D sphere. Maps are 2D representation of a 3D sphere. Map projections are ways to flatten a spherical Earth to a flat surface.
 
-In order for software to correctly display and manipulate geospatial data, the data must include coordinate reference system (CRS) information. The CRS associated with a dataset tells your mapping software where the data is located in geographic space. It also tells the mapping software what method should be used to flatten or project the data in geographic space.
+In order for software to correctly display and manipulate geospatial data, the data must include coordinate reference system (CRS) information. The CRS tells the mapping software which map projection to use and where the data is located.
 
 ![Source: opennews.org, from: https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg](images/crs.jpg)
 

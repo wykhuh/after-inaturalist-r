@@ -5,6 +5,8 @@ format: html
 
 This workshop use Github Codespaces to host the software, data, and code needed for the workshop. This way attendees won't need to install stuff on their own computer.
 
+If you are interested in install all the software, data, and code on your computer, visit the [Setup - local page](setup-local.qmd)
+
 ## Functions
 
 Functions are predefined bits of code that do a specific task. Arguments are values that we pass into a function. A function takes the arguments and something to the values.

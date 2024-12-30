@@ -13,20 +13,20 @@ website:
       - text: "Home"
         href: index.qmd
       - lessons/intro-data-analysis.qmd
+      - lessons/intro-science-coding.qmd
       - lessons/setup.qmd
       - lessons/intro-r-rstudio.qmd
-      - lessons/intro-science-coding.qmd
       - lessons/working-with-data.qmd
+      - lessons/understanding-data.qmd
       - lessons/creating-maps.qmd
       - lessons/creating-charts.qmd
       - lessons/other-datasets.qmd
       - lessons/next-steps.qmd
       - section: "Extra"
         contents:
-          - lessons/understanding-data.qmd
           - lessons/additional-analysis.qmd
-          - lessons/cleaning-data.qmd
           - lessons/editing-geo-files.qmd
+          - lessons/cleaning-data.qmd
           - lessons/setup-local.qmd
 
 

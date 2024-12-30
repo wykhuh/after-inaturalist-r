@@ -10,8 +10,9 @@ format: html
 
 ## Objectives
 
--   Learn how to download data from iNaturalist
--   Get an overview of the workshop
+-   Learn how to download data from iNaturalist.
+-   Learn about the different ways to analyze tabular data.
+-   Get an overview of the workshop.
 :::
 
 ## iNaturalist data
@@ -58,6 +59,8 @@ To save time and ensure everyone at the workshop has the same data, we provide a
 ## Analyzing data using R
 
 It is difficult for people to see any patterns when reading rows after row of text. To make it easier to see patterns, we can use software to analyze tabular data.
+
+There are various tools to analyze tabular data including spreadsheets applications like Excel and Google Sheets, and programming languages such as R and Python. If the data has location information, Geographic Information Systems (GIS) such ArcGIS and QGIS can be used.
 
 In this workshop we will use R programming language to analyze iNaturalist data. Programming languages allow people to write instructions to tell a computer to do stuff. The reason we are using R is because R is a popular language in ecology research.
 

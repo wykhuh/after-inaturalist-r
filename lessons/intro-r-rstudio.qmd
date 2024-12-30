@@ -12,9 +12,9 @@ include-in-header: "components/add-answer-button.html"
 
 ## Objectives
 
--   Understand the difference between R and RStudio
--   Describe the purpose of the different RStudio panes
--   Organize files and directories into R Projects
+-   Understand the difference between R and RStudio.
+-   Describe the purpose of the different RStudio panes.
+-   Organize files and directories into R Projects.
 :::
 
 ## What are R and RStudio?
@@ -40,7 +40,7 @@ In the above screenshot, we can see 4 panes. If you only have 3 panes, and the C
 
 Let's examine the project files using the **Files** pane.
 
-It is a good practice to organize your projects into self-contained folders. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into sub-folders.
+It is a good practice to organize your projects into self-contained folders. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into subfolders.
 
 ```         
 project_folder
@@ -56,7 +56,7 @@ project_folder
 └── CNC-coding-workshop.Rproj
 ```
 
-Within our project folder, we have a `data` folder containing `cleaned` and `raw` subfolders. In general, you want to keep your `raw` data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the `cleaned` folder. We also have a `results` folder for any other documents you might produce. We also have a `scripts` folder to hold any scripts we write.
+Within our project folder, we have a `data` folder containing `cleaned` and `raw` sub-folders. In general, you want to keep your `raw` data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the `cleaned` folder. We also have a `results` folder for any other documents you might produce. We also have a `scripts` folder to hold any scripts we write.
 
 RStudio provides a “Projects” feature that can make it easier to work on individual projects in R. RStudio projects have a `xxx.Rproj` file.
 
@@ -168,17 +168,3 @@ R comparison operators:
 ### Save scripts
 
 Save script files by using <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a descriptive name such as 'first_script.R'. Save it in the `scripts` folder.
-
-:::: exercise
-### Exercise
-
-Add a line to the script to substract price_1 and price_2. Run the new code. Save the file.
-
-### Solution
-
-::: answer
-```{r, subtracting_objects}
-price_1 - price_2
-```
-:::
-::::

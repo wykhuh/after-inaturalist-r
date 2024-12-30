@@ -11,9 +11,9 @@ include-in-header: "components/add-answer-button.html"
 
 ## Objectives
 
--   Learn how to plot iNaturalist observations on a map
--   Learn how to create static maps with ggplot2
--   Learn how to create interactive maps with mapview
+-   Learn how to plot iNaturalist observations on a map.
+-   Learn how to create static maps with ggplot2.
+-   Learn how to create interactive maps with mapview.
 :::
 
 ## Mapping iNaturalist data
@@ -110,7 +110,7 @@ dim(inat_oak_map)
 
 ## static map
 
-**ggplot2** is a powerful package that allows you to create complex plots from tabular data (data in a table format with rows and columns). The **gg** in **ggplot2** stands for “grammar of graphics”, and the package uses consistent vocabulary to create plots step by step by adding new layers, which allows for extensive flexibility and customization of plots.  **ggplot2** is most commonly used for charts, but it can also be used to create static maps.
+**ggplot2** is a powerful package that allows you to create complex plots from tabular data (data in a table format with rows and columns). The **gg** in **ggplot2** stands for “grammar of graphics”, and the package uses consistent vocabulary to create plots step by step by adding new layers, which allows for extensive flexibility and customization of plots. **ggplot2** is most commonly used for charts, but it can also be used to create static maps.
 
 Let's create a map for Coast Live Oak observations.
 
@@ -162,7 +162,7 @@ When working with multiple geospatial files, it's important that all the data us
 st_crs(la_county_boundary) == st_crs(inat_oak_map)
 ```
 
-Since the CRS are different, we need to use `st_transform()` to change the CRS of the LA County boundary.
+Since the CRS are different, we need to use `st_transform()` to change the CRS of the LA County boundary. First argument is the data frame. `crs` is the new CRS value.
 
 ```{r update_la_county_crs}
 la_county_boundary <- st_transform(la_county_boundary,  crs = 4326)
@@ -172,7 +172,7 @@ st_crs(la_county_boundary) == st_crs(inat_oak_map)
 
 ### Static maps
 
-Let's create a static map with LA County and oak observations. Create a new layer for each dataset using `+`.
+Let's create a static map with LA County and oak observations. Create a new layer for each data set using two `geom_sf()` and `+`.
 
 ```{r, add_LA_County_to_static_map}
 ggplot() +
@@ -182,8 +182,6 @@ ggplot() +
 
 When **ggplot2** draws the iNaturalist observations, it draws a round circle. When it draws the LA County boundary, it draws a polygon (closed shape with many sides). The data in the `geometry` column determines how **ggplot2** draws things.
 
-The Geometry type for the LA County boundary is a MULTIPOLYGON, and for iNaturalist is a POINT.
-
 ```{r check_la_county_geometry}
 la_county_boundary$geometry[1]
 ```
@@ -191,6 +189,8 @@ la_county_boundary$geometry[1]
 ```{r check_inat_geometry}
 inat_oak_map$geometry[1]
 ```
+
+The Geometry type for the LA County boundary is a MULTIPOLYGON, and for iNaturalist is a POINT.
 
 For points, use the `color` argument to set the color. For polygons, use `color` to set the border color and `fill` to set the fill color.
 
@@ -222,15 +222,15 @@ ggplot() +
 
 **ggplot2** will assign a different color to each value, and add a legend.
 
-We can set the map title and legend title using `labs()`. We can add `theme_void()` to get rid of the grey background and axis labels.
+We can set the map title and legend title using `labs(title='', subtitle='', color='')`. We can add `theme_void()` to get rid of the grey background and axis labels.
 
 ```{r add_title_to_static_map}
 ggplot() +
   geom_sf(data = la_county_boundary, color="black", fill='beige')  +
   geom_sf(data = inat_oak_map, mapping=aes(color=quality_grade)) +
-  ggtitle('CNC observations for Live Coast Oaks in LA County',
-          subtitle='2016-2024') +
-  labs(color='Quality Grade') +
+  labs(title = 'CNC observations for Live Coast Oaks in LA County',
+       subtitle='2016-2024',
+       color='Quality Grade') +
   theme_void()
 
 ```

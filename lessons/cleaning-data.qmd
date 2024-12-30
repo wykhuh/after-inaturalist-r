@@ -3,13 +3,20 @@ title: "Cleaning data"
 format: html
 ---
 
+A common step during data analysis is to clean up the raw data. We fix any obvious errors, edit column names, exclude rows we do not want, and save the cleaned up data set. We do the analysis on the cleaned data set.
+
+
+## Cleaning up iNaturalist file
+
+Load libraries
 ```{r}
 #| message: false
 
 library(readr)
 library(dplyr)
-
 ```
+
+Save the file paths as objects.
 
 ```{r}
 observations_raw_path <- 'data/raw/observations-513664.csv'
@@ -20,7 +27,6 @@ native_raw_path <- 'data/raw/observations-514076_native.csv'
 
 ```
 
-A common step during data analysis is to clean up the raw data. We fix any obvious errors, edit column names, exclude rows we do not want, and save the cleaned up data set. We do the analysis on the cleaned data set.
 
 The CSV we downloaded from iNaturalist had several problems.
 
@@ -31,8 +37,6 @@ The CSV we downloaded from iNaturalist had several problems.
 -   information about observations with threatened, native, and introduced species had to be downloaded separately
 
 In order to simplify things for the workshop attendees, we fixed the various issues and created a cleaned up CSV.
-
-## Cleaning up iNaturalist file
 
 These are the steps we took to produced the cleaned up file. The raw file is at '`{r} observations_raw_path`', the cleaned file is at '`{r} observations_cleaned_path`'
 

@@ -11,7 +11,7 @@ include-in-header: "components/add-answer-button.html"
 
 ## objectives
 
--   Leran about pre-selected data sets.
+-   Learn about pre-selected data sets provided in this workshop.
 :::
 
 Load packages
@@ -37,6 +37,8 @@ We've provided a variety of geospatial data that workshop attendees can use for 
 
 ## Demographics data
 
+Some people might be interested in comparing iNaturalist data with demographics data about people in LA County.
+
 L.A. County completed Comprehensive Countywide Park Needs Assessment in 2016. As part of that study, they looked at demographics data throughout the county. For more information: <https://geohub.lacity.org/datasets/lacounty::l-a-county-park-needs-assessment-demographics/about>
 
 ::: callout-note
@@ -60,7 +62,7 @@ dim(la_county_pna)
 There are 96 fields in the dataset. Here's a short description of the fields.
 
 | field | description |
-|----|----|
+|------------------------------------|------------------------------------|
 | STUD_AR_ID | Study Area ID |
 | STUD_AR_NM | Study Area Name |
 | STUD_AR_LBL | Label |
@@ -181,6 +183,8 @@ mapview(la_county_pna[c('STUD_AR_NM', 'householdincome_medhinc_cy')],
 
 ## Parks in LA County
 
+Some people might be interested in comparing iNaturalist data with the location of parks.
+
 National Park Boundaries: <https://catalog.data.gov/dataset/national-park-boundaries>
 
 California State Parks: <https://www.parks.ca.gov/?page_id=29682>
@@ -236,6 +240,8 @@ mapview(parks_national, col.region='orange') +
 
 ## LA City Neighborhood Councils boundaries
 
+Some people might be interested in comparing iNaturalist data within different LA city neigbhorhoods.
+
 LA City Neighborhood Councils boundaries <https://geohub.lacity.org/datasets/lahub::neighborhood-council-boundaries-2018/about>
 
 ```{r}
@@ -247,8 +253,25 @@ ggplot() +
   geom_sf(data=nc_boundaries) +
   theme_minimal()
 ```
+## Los Angeles Times - LA neighborhoods
+
+Some people might be insterested in comparing iNaturalist data with different neighborhoods in LA county.
+
+Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <https://maps.latimes.com/about/index.html> 
+
+```{r read_neighborhood_file}
+la_neighborhoods <- read_sf('data/raw/la_times_la_county_neighborhoods.json')
+```
+
+```{r}
+ggplot() +
+  geom_sf(data=la_neighborhoods) 
+```
+
 
 ## LA County incorporated and unincorporated boundaries
+
+Some people might be interested in comparing iNaturalist data in the cities and unincorporated areas of Los Angeles County.
 
 City and Unincorporated Community Boundary (LA County Planning) <https://geohub.lacity.org/datasets/lacounty::city-and-unincorporated-community-boundary-la-county-planning/about> This layer shows all incorporated and unincorporated areas of Los Angeles County
 
