@@ -288,15 +288,14 @@ ul.task-list li input[type="checkbox"] {
 <section id="coordinate-reference-systems" class="level3">
 <h3 class="anchored" data-anchor-id="coordinate-reference-systems"><strong>Coordinate Reference Systems</strong></h3>
 <p>Earth is a 3D sphere. Maps are 2D representation of a 3D sphere. Map projections are ways to flatten a spherical Earth to a flat surface.</p>
-<p>In order for software to correctly display and manipulate geospatial data, the data must include coordinate reference system (CRS) information. The CRS tells the mapping software which map projection to use and where the data is located.</p>
+<p>The image belows shows maps of the United States in different projections. The differences in shape are a direct result of the calculations used to flatten the data onto a 2-dimensional map.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/crs.jpg" class="img-fluid figure-img"></p>
 <figcaption>Source: opennews.org, from: https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg</figcaption>
 </figure>
 </div>
-<p>The above image shows maps of the United States in different projections. The differences in shape are a direct result of the calculations used to flatten the data onto a 2-dimensional map.</p>
-<p>Data from the same location but saved in different projections will not line up in any geospatial software. Thus, it’s important when working with multiple geospatial data sets to use the same coordinate reference system for data processing and analysis.</p>
+<p>In order for software to correctly display and manipulate geospatial data, the data must include coordinate reference system (CRS) information. The CRS tells the mapping software which map projection to use and where the data is located. To make sure things line up when working with multiple geospatial data sets, it’s important to use the same CRS during data processing and analysis.</p>
 
 
 </section>
