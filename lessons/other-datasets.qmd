@@ -29,7 +29,7 @@ library(mapview)
 
 ## Other datasets
 
-There are various geospatial datasets that you can use while analyzing iNaturalist data. Some datasets are free to use, some require crediting the original datasource.
+There are various geospatial datasets that you can use while analyzing iNaturalist data. Some datasets are free to use, some require crediting the original data source.
 
 We got data from [LA City Geohub](https://geohub.lacity.org), [Data.gov](https://catalog.data.gov), [California State Parks](https://www.parks.ca.gov), and [County of Los Angeles Open Data](https://data.lacounty.gov).
 
@@ -45,7 +45,7 @@ L.A. County completed Comprehensive Countywide Park Needs Assessment in 2016. As
 A lot of demographics data from the Park Needs Assessment comes from the U.S. Census. The reason we're using the parks data instead directly using Census data is because the Census data is more difficult to use. If you want to learn how to use U.S. Census data in R, check out the book [Analyzing US Census Data: Methods, Maps, and Models in R](https://walker-data.com/census-r/index.html)
 :::
 
-We load Park Needs Assessment data using `read_sf()` to read geojson file. Click `la_county_pna` in the **Enviroment** pane to browse the data frame.
+We load Park Needs Assessment data using `read_sf()` to read GeoJSON file. Click `la_county_pna` in the Environment pane to browse the data frame.
 
 ```{r, get_pna_data}
 la_county_pna <- read_sf('data/raw/PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907.geojson')
@@ -59,7 +59,7 @@ la_county_pna <- la_county_pna[-c(189), ]
 dim(la_county_pna)
 ```
 
-There are 96 fields in the dataset. Here's a short description of the fields.
+There are 96 fields in the data set. Here's a short description of the fields.
 
 | field | description |
 |------------------------------------|------------------------------------|
@@ -207,7 +207,6 @@ parks_city <- read_sf('data/raw/Los_Angeles_Recreation_and_Parks_Boundaries/Los_
 
 We want to convert the CRS of the parks data be the same
 
-
 ```{r, update_county_crs}
 parks_county <- st_transform(parks_county, crs = st_crs(parks_national))
 ```
@@ -236,7 +235,7 @@ mapview(parks_national, col.region='orange') +
 
 ## LA City Neighborhood Councils boundaries
 
-Some people might be interested in comparing iNaturalist data within different LA city neigbhorhoods.
+Some people might be interested in comparing iNaturalist data within different LA city neighborhoods.
 
 LA City Neighborhood Councils boundaries <https://geohub.lacity.org/datasets/lahub::neighborhood-council-boundaries-2018/about>
 
@@ -252,7 +251,7 @@ ggplot() +
 
 ## Los Angeles Times - LA neighborhoods
 
-Some people might be insterested in comparing iNaturalist data with different neighborhoods in LA county.
+Some people might be interested in comparing iNaturalist data with different neighborhoods in LA county.
 
 Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <https://maps.latimes.com/about/index.html>
 
@@ -295,7 +294,7 @@ ejsm_edit <- ejsm %>%
   select(CIscore, HazScore, HealthScor, SVscore, CCVscore)
 ```
 
-There are 5 fields in the dataset.
+There are 5 fields in the data set.
 
 |            |                                    |
 |------------|------------------------------------|
@@ -317,7 +316,7 @@ mapview(ejsm_edit, zcol='CIscore',
 
 Some people might be interested in comparing iNaturalist data with streams, rivers, lakes, ponds in LA County.
 
-US Census TIGER/Line data provides information about water areas. 
+US Census TIGER/Line data provides information about water areas.
 
 ```{r}
 water_areas <- read_sf('data/cleaned/la_county_waterareas.geojson')
@@ -333,6 +332,7 @@ We also have a file for the LA River.
 ```{r}
 la_river <- read_sf('data/cleaned/los_angeles_river.geojson')
 ```
+
 ```{r}
 ggplot() +
   geom_sf(data=la_river)

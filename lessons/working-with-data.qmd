@@ -131,7 +131,7 @@ The `select()` function is used to select certain columns of a data frame.
 
 To use the `select()` function, the first argument is the name of the data frame, and the rest of the arguments are unquoted names of the columns you want.
 
-Our `inat_data` dataframe has 37 columns. We want three columns: `user_login`, `common_name`, `scientific_name`, `observed_on`.
+Our `inat_data` data frame has 37 columns. We want three columns: `user_login`, `common_name`, `scientific_name`, `observed_on`.
 
 ```{r, select_columns}
 select(inat_data, user_login, common_name, scientific_name, observed_on)
@@ -176,7 +176,7 @@ inat_data %>%
 
 The new data frame has over 3000 rows and 4 columns.
 
-Pipe operator take the thing on the lefthand side and insert it as the first argument of the function on the righthand side. `inat_data` gets piped into a `filter()` function, where the rows with 'Western Fence Lizard' are selected. The output from `filter()` is then gets sent into the `select()` function, where 4 columns are selected. It can also be helpful to think of `%>%` as meaning "and then".
+Pipe operator take the thing on the left hand side and insert it as the first argument of the function on the right hand side. `inat_data` gets piped into a `filter()` function, where the rows with 'Western Fence Lizard' are selected. The output from `filter()` is then gets sent into the `select()` function, where 4 columns are selected. It can also be helpful to think of `%>%` as meaning "and then".
 
 #### select observations by coordinates_obscured
 
@@ -234,7 +234,7 @@ inat_data %>%
 
 ## Errors in code
 
-We are writing instructions for the computer. If there is a typo, mispelling, wrong function arguments, etc, the code will not work and we will see errors. R will display the errors in red. You need to fix the errors in order for the code to work. Here are some example errors.
+We are writing instructions for the computer. If there is a typo, misspelling, wrong function arguments, etc, the code will not work and we will see errors. R will display the errors in red. You need to fix the errors in order for the code to work. Here are some example errors.
 
 typo: we used `%>`, when it should be `%>%`
 
@@ -320,7 +320,7 @@ unique(my_data$quality_grade)
 
 #### select observations by coordinates_obscured and positional_accuracy
 
-In addition to coordinates being intentionally obscured, another thing that can affect the coordinates for an observation is the accuracy of the coordinates. The accuracy of GPS on smart phones depends on the hardware, software, physcial environment, etc. The `positional_accuracy` from iNaturalist measures the coordinates error in meters.
+In addition to coordinates being intentionally obscured, another thing that can affect the coordinates for an observation is the accuracy of the coordinates. The accuracy of GPS on smart phones depends on the hardware, software, physical environment, etc. The `positional_accuracy` from iNaturalist measures the coordinates error in meters.
 
 Let's get observations with unobscured locations that have position accuracy less than 5 meters.
 
@@ -676,7 +676,7 @@ If we look up ['tree' in Wikipedia](https://en.wikipedia.org/wiki/Tree):
 
 > Trees are not a monophyletic taxonomic group but consist of a wide variety of plant species that have independently evolved a trunk and branches as a way to tower above other plants to compete for sunlight. The majority of tree species are angiosperms or hardwoods; of the rest, many are gymnosperms or softwoods.
 
-> Although "tree" is a common word, there is no universally recognised precise definition of what a tree is, either botanically or in common language.
+> Although "tree" is a common word, there is no universally recognized precise definition of what a tree is, either botanically or in common language.
 
 In other words, there is no one word we can use to find all trees. The fact that iNaturalist shows Tracheophyta as the first search result for 'trees' is a little quirk with the iNaturalist search algorithm. To find all trees, we would need to get a list of trees names, and create a filter command with all the tree names.
 
@@ -828,7 +828,7 @@ Use `count()` from **dplyr** to count the number of values for one or more colum
 
 #### get observations per year
 
-Let's try counting of all observations by year. Use `mutate()` to add a year column. Use `count()` to count the number of observations for each year. By default, count will add a new column caled `n`.
+Let's try counting of all observations by year. Use `mutate()` to add a year column. Use `count()` to count the number of observations for each year. By default, count will add a new column called `n`.
 
 ```{r, count_year}
 inat_data %>%

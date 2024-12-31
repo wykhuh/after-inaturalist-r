@@ -5,10 +5,10 @@ format: html
 
 A common step during data analysis is to clean up the raw data. We fix any obvious errors, edit column names, exclude rows we do not want, and save the cleaned up data set. We do the analysis on the cleaned data set.
 
-
 ## Cleaning up iNaturalist file
 
 Load libraries
+
 ```{r}
 #| message: false
 
@@ -26,7 +26,6 @@ introduced_raw_path <- 'data/raw/observations-514069_introduced.csv'
 native_raw_path <- 'data/raw/observations-514076_native.csv'
 
 ```
-
 
 The CSV we downloaded from iNaturalist had several problems.
 
@@ -60,7 +59,7 @@ some rows don't have scientific_name, latitude or longitude.
 
 Use `filter` to select the observations we want.
 
-`!is.na` will select rows that have are not NA, meaning rows that have a value. We select observations that have latitude, langitude, and scientific_name. We also ignored observations outside of LA
+`!is.na` will select rows that have are not NA, meaning rows that have a value. We select observations that have latitude, longitude, and scientific_name. We also ignored observations outside of LA
 
 We save the cleaned up data in a new object `inat`.
 
@@ -74,7 +73,7 @@ inat <- inat_raw %>%
 
 ```
 
-The original data frame 'inat_raw' had 193K rows, the cleaned dataframe 'inat' has 191K rows.
+The original data frame 'inat_raw' had 193K rows, the cleaned data frame 'inat' has 191K rows.
 
 We can double check our work.
 
@@ -230,7 +229,7 @@ native_data <- native_data[!duplicated(native_data), ]
 native_data
 ```
 
-Get combine introduced and native dataframes
+Get combine introduced and native data frames
 
 ```{r}
 establishment_means <- rbind(introduced_data, native_data)
@@ -256,13 +255,13 @@ dedup_establishment_means <- establishment_means %>%
   filter(taxon_id %in% keep_ids)
 ```
 
-add threatened info to the main inat dataframe.
+add threatened info to the main inat data frame.
 
 ```{r}
 combined_data <- left_join(inat_data, threatened_data)
 ```
 
-add native, introduced info to main inat dataframe
+add native, introduced info to main inat data frame
 
 ```{r}
 combined_data <- left_join(combined_data, dedup_establishment_means)

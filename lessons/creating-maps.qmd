@@ -134,7 +134,7 @@ mapview(inat_oak_map)
 
 ![](images/mapview/creating_maps/create_interactive_map.png){fig-alt="create interactive map"}
 
-You can zoom in and out. When you click on layer button on the left, you can change basemap and turn on/off layers. When you click on a map marker, all the fields that were passed into `select()` will be displayed in a popup. Clicking on the layer names in the lower right will zoom the map to show all objects in the layer.
+You can zoom in and out. When you click on layer button on the left, you can change base map and turn on/off layers. When you click on a map marker, all the fields that were passed into `select()` will be displayed in a popup. Clicking on the layer names in the lower right will zoom the map to show all objects in the layer.
 
 ## Using other geospatial files
 
@@ -237,7 +237,7 @@ ggplot() +
 
 ### Interactive maps
 
-Let's create an interactive map with LA County and oak observations. Create a new layer for each dataset using `+`.
+Let's create an interactive map with LA County and oak observations. Create a new layer for each data set using `+`.
 
 ```{r, add_LA_County_to_interactive_map}
 #| eval: false
@@ -281,9 +281,9 @@ mapview(la_county_boundary, legend=FALSE,
 ![](images/mapview/creating_maps/create_interactive_map_use_color.png){fig-alt="create interactive map and set colors"}
 
 ::: callout-note
-By default, mapview will draw purple layers and use CartoDB Positron basemap.
+By default, mapview will draw purple layers and use CartoDB Positron base map.
 
-If we use custom colors, mapview will pick a basemap based on the custom colors. If we want mapview to always use CartoDB Positron basemap, we need to turn off color shuffle.
+If we use custom colors, mapview will pick a base map based on the custom colors. If we want mapview to always use CartoDB Positron base map, we need to turn off color shuffle.
 
 ```         
 mapviewOptions(basemaps.color.shuffle = FALSE)
@@ -364,7 +364,7 @@ Let's look for all iNaturalist observations made in Exposition Park.
 
 Sometimes we won't be able to find a pre-existing file that has boundaries for an area that we want to analyze. In these cases, we need to create our own boundaries. I used this [Draw map boundaries](https://wykhuh.github.io/draw-map-boundaries/) webpage to draw and download the boundaries of Exposition Park. The file is in GeoJSON format.
 
-Let's use `read_sf()` to read a geojson file.
+Let's use `read_sf()` to read a GeoJSON file.
 
 ```{r, get_Expo_park_boundaries}
 expo_park_boundary <- read_sf('data/raw/boundaries_expo_park_area.geojson')  

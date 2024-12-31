@@ -161,7 +161,7 @@ Check if the neighborhood maps have the same CRS as the iNaturalist data.
 st_crs(la_neighborhoods_edit) == st_crs(inat_map)
 ```
 
-Ther is a bug with **sf** <https://github.com/r-spatial/sf/issues/1762>. This bit of code is fix for the bug.
+There is a bug with **sf** <https://github.com/r-spatial/sf/issues/1762>. This bit of code is fix for the bug.
 
 ```{r fix_sf_bug}
 sf_use_s2(FALSE)
@@ -178,7 +178,7 @@ inat_neigborhoods <- st_join(inat_map, la_neighborhoods_edit) %>%
 glimpse(inat_neigborhoods)
 ```
 
-181K out of the 191K CNC observations intersect one of the neigborhood boundaries.
+181K out of the 191K CNC observations intersect one of the neighborhood boundaries.
 
 Next we use `count()` to get the number of observations per neighborhood. We also use `st_drop_geometry()` from **sf** to remove the `geometry` column. We want to remove the `geometry` column because we don't need the location of each observation for the final map.
 

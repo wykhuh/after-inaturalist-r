@@ -7,13 +7,12 @@ The workshop used Github Codespaces to host the code, data, and software. If you
 
 ## Install packages
 
-Copy an paste the following `install.packages(...)` command into the R console. 
+Copy an paste the following `install.packages(...)` command into the R console.
 
 ```{r}
 #| eval: false
 install.packages(c("readr", "dplyr", "ggplot2", "sf", "lubridate", "mapview"))
 ```
-
 
 ## Creating your own project folder from scratch
 
