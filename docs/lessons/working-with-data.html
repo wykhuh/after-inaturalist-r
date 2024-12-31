@@ -570,7 +570,7 @@ $ establishment_means        &lt;chr&gt; "introduced", NA, "native", "native", "
 <h3 class="anchored" data-anchor-id="select">select()</h3>
 <p>The <code>select()</code> function is used to select certain columns of a data frame.</p>
 <p>To use the <code>select()</code> function, the first argument is the name of the data frame, and the rest of the arguments are unquoted names of the columns you want.</p>
-<p>Our <code>inat_data</code> dataframe has 37 columns. We want three columns: <code>user_login</code>, <code>common_name</code>, <code>scientific_name</code>, <code>observed_on</code>.</p>
+<p>Our <code>inat_data</code> data frame has 37 columns. We want four columns: <code>user_login</code>, <code>common_name</code>, <code>scientific_name</code>, <code>observed_on</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(inat_data, user_login, common_name, scientific_name, observed_on)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -666,7 +666,7 @@ Tip
 </div>
 </div>
 <p>The new data frame has over 3000 rows and 4 columns.</p>
-<p>Pipe operator take the thing on the lefthand side and insert it as the first argument of the function on the righthand side. <code>inat_data</code> gets piped into a <code>filter()</code> function, where the rows with ‘Western Fence Lizard’ are selected. The output from <code>filter()</code> is then gets sent into the <code>select()</code> function, where 4 columns are selected. It can also be helpful to think of <code>%&gt;%</code> as meaning “and then”.</p>
+<p>Pipe operator take the thing on the left hand side and insert it as the first argument of the function on the right hand side. <code>inat_data</code> gets piped into a <code>filter()</code> function, where the rows with ‘Western Fence Lizard’ are selected. The output from <code>filter()</code> is then gets sent into the <code>select()</code> function, where 4 columns are selected. It can also be helpful to think of <code>%&gt;%</code> as meaning “and then”.</p>
 </section>
 <section id="select-observations-by-coordinates_obscured" class="level4">
 <h4 class="anchored" data-anchor-id="select-observations-by-coordinates_obscured">select observations by coordinates_obscured</h4>
@@ -761,7 +761,7 @@ Tip
 </section>
 <section id="errors-in-code" class="level2">
 <h2 class="anchored" data-anchor-id="errors-in-code">Errors in code</h2>
-<p>We are writing instructions for the computer. If there is a typo, mispelling, wrong function arguments, etc, the code will not work and we will see errors. R will display the errors in red. You need to fix the errors in order for the code to work. Here are some example errors.</p>
+<p>We are writing instructions for the computer. If there is a typo, misspelling, wrong function arguments, etc, the code will not work and we will see errors. R will display the errors in red. You need to fix the errors in order for the code to work. Here are some example errors.</p>
 <p>typo: we used <code>%&gt;</code>, when it should be <code>%&gt;%</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>inat_data %<span class="sc">&gt;</span></span>
@@ -832,7 +832,7 @@ Tip
 </section>
 <section id="select-observations-by-coordinates_obscured-and-positional_accuracy" class="level4">
 <h4 class="anchored" data-anchor-id="select-observations-by-coordinates_obscured-and-positional_accuracy">select observations by coordinates_obscured and positional_accuracy</h4>
-<p>In addition to coordinates being intentionally obscured, another thing that can affect the coordinates for an observation is the accuracy of the coordinates. The accuracy of GPS on smart phones depends on the hardware, software, physcial environment, etc. The <code>positional_accuracy</code> from iNaturalist measures the coordinates error in meters.</p>
+<p>In addition to coordinates being intentionally obscured, another thing that can affect the coordinates for an observation is the accuracy of the coordinates. The accuracy of GPS on smart phones depends on the hardware, software, physical environment, etc. The <code>positional_accuracy</code> from iNaturalist measures the coordinates error in meters.</p>
 <p>Let’s get observations with unobscured locations that have position accuracy less than 5 meters.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
@@ -1360,7 +1360,7 @@ Note
 <p>Trees are not a monophyletic taxonomic group but consist of a wide variety of plant species that have independently evolved a trunk and branches as a way to tower above other plants to compete for sunlight. The majority of tree species are angiosperms or hardwoods; of the rest, many are gymnosperms or softwoods.</p>
 </blockquote>
 <blockquote class="blockquote">
-<p>Although “tree” is a common word, there is no universally recognised precise definition of what a tree is, either botanically or in common language.</p>
+<p>Although “tree” is a common word, there is no universally recognized precise definition of what a tree is, either botanically or in common language.</p>
 </blockquote>
 <p>In other words, there is no one word we can use to find all trees. The fact that iNaturalist shows Tracheophyta as the first search result for ‘trees’ is a little quirk with the iNaturalist search algorithm. To find all trees, we would need to get a list of trees names, and create a filter command with all the tree names.</p>
 <p>A quick internet search came up with <a href="https://lacountycfmp.org/resources/">LA County recommended trees</a> and <a href="https://en.wikipedia.org/wiki/List_of_trees_and_shrubs_by_taxonomic_family">Wikipedia list of trees and shrubs</a>. You can use lists like these as the basis of creating a list of trees. Your search might look something like this.</p>
@@ -1564,7 +1564,7 @@ Tip
 <p>Use <code>count()</code> from <strong>dplyr</strong> to count the number of values for one or more columns. We pass in the column names as arguments to <code>count()</code></p>
 <section id="get-observations-per-year" class="level4">
 <h4 class="anchored" data-anchor-id="get-observations-per-year">get observations per year</h4>
-<p>Let’s try counting of all observations by year. Use <code>mutate()</code> to add a year column. Use <code>count()</code> to count the number of observations for each year. By default, count will add a new column caled <code>n</code>.</p>
+<p>Let’s try counting of all observations by year. Use <code>mutate()</code> to add a year column. Use <code>count()</code> to count the number of observations for each year. By default, count will add a new column called <code>n</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb140"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
 <span id="cb140-2"><a href="#cb140-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on)) <span class="sc">%&gt;%</span></span>

@@ -513,7 +513,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(inat_oak_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/mapview/creating_maps/create_interactive_map.png" class="img-fluid" alt="create interactive map"></p>
-<p>You can zoom in and out. When you click on layer button on the left, you can change basemap and turn on/off layers. When you click on a map marker, all the fields that were passed into <code>select()</code> will be displayed in a popup. Clicking on the layer names in the lower right will zoom the map to show all objects in the layer.</p>
+<p>You can zoom in and out. When you click on layer button on the left, you can change base map and turn on/off layers. When you click on a map marker, all the fields that were passed into <code>select()</code> will be displayed in a popup. Clicking on the layer names in the lower right will zoom the map to show all objects in the layer.</p>
 </section>
 <section id="using-other-geospatial-files" class="level2">
 <h2 class="anchored" data-anchor-id="using-other-geospatial-files">Using other geospatial files</h2>
@@ -658,7 +658,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </section>
 <section id="interactive-maps" class="level3">
 <h3 class="anchored" data-anchor-id="interactive-maps">Interactive maps</h3>
-<p>Let’s create an interactive map with LA County and oak observations. Create a new layer for each dataset using <code>+</code>.</p>
+<p>Let’s create an interactive map with LA County and oak observations. Create a new layer for each data set using <code>+</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_boundary) <span class="sc">+</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_oak_map) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -695,8 +695,8 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>By default, mapview will draw purple layers and use CartoDB Positron basemap.</p>
-<p>If we use custom colors, mapview will pick a basemap based on the custom colors. If we want mapview to always use CartoDB Positron basemap, we need to turn off color shuffle.</p>
+<p>By default, mapview will draw purple layers and use CartoDB Positron base map.</p>
+<p>If we use custom colors, mapview will pick a base map based on the custom colors. If we want mapview to always use CartoDB Positron base map, we need to turn off color shuffle.</p>
 <pre><code>mapviewOptions(basemaps.color.shuffle = FALSE)</code></pre>
 </div>
 </div>
@@ -755,7 +755,7 @@ Note
 <h2 class="anchored" data-anchor-id="observations-in-a-specific-area">Observations in a specific area</h2>
 <p>Let’s look for all iNaturalist observations made in Exposition Park.</p>
 <p>Sometimes we won’t be able to find a pre-existing file that has boundaries for an area that we want to analyze. In these cases, we need to create our own boundaries. I used this <a href="https://wykhuh.github.io/draw-map-boundaries/">Draw map boundaries</a> webpage to draw and download the boundaries of Exposition Park. The file is in GeoJSON format.</p>
-<p>Let’s use <code>read_sf()</code> to read a geojson file.</p>
+<p>Let’s use <code>read_sf()</code> to read a GeoJSON file.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>expo_park_boundary <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/boundaries_expo_park_area.geojson'</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>

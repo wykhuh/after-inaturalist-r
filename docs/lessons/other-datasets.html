@@ -357,7 +357,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="other-datasets" class="level2">
 <h2 class="anchored" data-anchor-id="other-datasets">Other datasets</h2>
-<p>There are various geospatial datasets that you can use while analyzing iNaturalist data. Some datasets are free to use, some require crediting the original datasource.</p>
+<p>There are various geospatial datasets that you can use while analyzing iNaturalist data. Some datasets are free to use, some require crediting the original data source.</p>
 <p>We got data from <a href="https://geohub.lacity.org">LA City Geohub</a>, <a href="https://catalog.data.gov">Data.gov</a>, <a href="https://www.parks.ca.gov">California State Parks</a>, and <a href="https://data.lacounty.gov">County of Los Angeles Open Data</a>.</p>
 <p>We’ve provided a variety of geospatial data that workshop attendees can use for their analysis. Some the data we directly downloaded from other sources. Some of the data we downloaded from other sources and then modified. See <a href="../lessons/editing-geo-files.html">Editing geospatial files</a> to see the code we used to modified the files.</p>
 </section>
@@ -378,7 +378,7 @@ Note
 <p>A lot of demographics data from the Park Needs Assessment comes from the U.S. Census. The reason we’re using the parks data instead directly using Census data is because the Census data is more difficult to use. If you want to learn how to use U.S. Census data in R, check out the book <a href="https://walker-data.com/census-r/index.html">Analyzing US Census Data: Methods, Maps, and Models in R</a></p>
 </div>
 </div>
-<p>We load Park Needs Assessment data using <code>read_sf()</code> to read geojson file. Click <code>la_county_pna</code> in the <strong>Enviroment</strong> pane to browse the data frame.</p>
+<p>We load Park Needs Assessment data using <code>read_sf()</code> to read GeoJSON file. Click <code>la_county_pna</code> in the Environment pane to browse the data frame.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>la_county_pna <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907.geojson'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -391,7 +391,7 @@ Note
 <pre><code>[1] 188  96</code></pre>
 </div>
 </div>
-<p>There are 96 fields in the dataset. Here’s a short description of the fields.</p>
+<p>There are 96 fields in the data set. Here’s a short description of the fields.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -811,7 +811,7 @@ Note
 </section>
 <section id="la-city-neighborhood-councils-boundaries" class="level2">
 <h2 class="anchored" data-anchor-id="la-city-neighborhood-councils-boundaries">LA City Neighborhood Councils boundaries</h2>
-<p>Some people might be interested in comparing iNaturalist data within different LA city neigbhorhoods.</p>
+<p>Some people might be interested in comparing iNaturalist data within different LA city neighborhoods.</p>
 <p>LA City Neighborhood Councils boundaries <a href="https://geohub.lacity.org/datasets/lahub::neighborhood-council-boundaries-2018/about" class="uri">https://geohub.lacity.org/datasets/lahub::neighborhood-council-boundaries-2018/about</a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>nc_boundaries <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/Neighborhood_Councils_(Certified)/Neighborhood_Councils_(Certified).shp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -831,7 +831,7 @@ Note
 </section>
 <section id="los-angeles-times---la-neighborhoods" class="level2">
 <h2 class="anchored" data-anchor-id="los-angeles-times---la-neighborhoods">Los Angeles Times - LA neighborhoods</h2>
-<p>Some people might be insterested in comparing iNaturalist data with different neighborhoods in LA county.</p>
+<p>Some people might be interested in comparing iNaturalist data with different neighborhoods in LA county.</p>
 <p>Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <a href="https://maps.latimes.com/about/index.html" class="uri">https://maps.latimes.com/about/index.html</a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>la_neighborhoods <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/la_times_la_county_neighborhoods.json'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -878,7 +878,7 @@ Note
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ejsm_edit <span class="ot">&lt;-</span> ejsm <span class="sc">%&gt;%</span> </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CIscore, HazScore, HealthScor, SVscore, CCVscore)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>There are 5 fields in the dataset.</p>
+<p>There are 5 fields in the data set.</p>
 <table class="caption-top table">
 <tbody>
 <tr class="odd">

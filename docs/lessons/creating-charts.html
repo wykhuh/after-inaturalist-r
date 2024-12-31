@@ -873,7 +873,7 @@ Note
 </div>
 </div>
 </div>
-<p>&nbsp;If you try to use viridis continuous funtion, you will get an error: “Discrete values supplied to continuous scale.”</p>
+<p>&nbsp;If you try to use viridis continuous function, you will get an error: “Discrete values supplied to continuous scale.”</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> inat_year, </span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">fill=</span> <span class="fu">factor</span>(year))) <span class="sc">+</span></span>
@@ -1069,8 +1069,8 @@ Tip
 </section>
 <section id="saving-plots" class="level2">
 <h2 class="anchored" data-anchor-id="saving-plots">Saving plots</h2>
-<p>Once we are happy with ourplot, we can save the plot.</p>
-<p>Assign the plot to an object. Then run <code>ggsave()</code> to save our plot. The first argument we give is the path to the file we want to save, including the correct file extension. You can save as jpb, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.</p>
+<p>Once we are happy with our plot, we can save the plot.</p>
+<p>Assign the plot to an object. Then run <code>ggsave()</code> to save our plot. The first argument we give is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create plot</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>finalplot <span class="ot">&lt;-</span> myplot <span class="sc">+</span></span>

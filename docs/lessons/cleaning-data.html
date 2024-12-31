@@ -377,7 +377,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>All rows have id, observed_on, and user_id.</p>
 <p>some rows don’t have scientific_name, latitude or longitude.</p>
 <p>Use <code>filter</code> to select the observations we want.</p>
-<p><code>!is.na</code> will select rows that have are not NA, meaning rows that have a value. We select observations that have latitude, langitude, and scientific_name. We also ignored observations outside of LA</p>
+<p><code>!is.na</code> will select rows that have are not NA, meaning rows that have a value. We select observations that have latitude, longitude, and scientific_name. We also ignored observations outside of LA</p>
 <p>We save the cleaned up data in a new object <code>inat</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>inat <span class="ot">&lt;-</span> inat_raw <span class="sc">%&gt;%</span> </span>
@@ -386,7 +386,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>           <span class="sc">!</span><span class="fu">is.na</span>(scientific_name)) <span class="sc">%&gt;%</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(latitude <span class="sc">&lt;</span> <span class="dv">40</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The original data frame ‘inat_raw’ had 193K rows, the cleaned dataframe ‘inat’ has 191K rows.</p>
+<p>The original data frame ‘inat_raw’ had 193K rows, the cleaned data frame ‘inat’ has 191K rows.</p>
 <p>We can double check our work.</p>
 <p>latitude, longitude, scientific_name have zero NA.</p>
 <div class="cell">
@@ -721,7 +721,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 3,048 more rows</code></pre>
 </div>
 </div>
-<p>Get combine introduced and native dataframes</p>
+<p>Get combine introduced and native data frames</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>establishment_means <span class="ot">&lt;-</span> <span class="fu">rbind</span>(introduced_data, native_data)</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -761,14 +761,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>dedup_establishment_means <span class="ot">&lt;-</span> establishment_means <span class="sc">%&gt;%</span></span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_id <span class="sc">%in%</span> keep_ids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>add threatened info to the main inat dataframe.</p>
+<p>add threatened info to the main inat data frame.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(inat_data, threatened_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(taxon_id, threatened)`</code></pre>
 </div>
 </div>
-<p>add native, introduced info to main inat dataframe</p>
+<p>add native, introduced info to main inat data frame</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(combined_data, dedup_establishment_means)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">

@@ -441,6 +441,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="choropleth-maps" class="level2">
 <h2 class="anchored" data-anchor-id="choropleth-maps">Choropleth maps</h2>
 <p>Choropleth maps use colors or shades to show how data changes from place to place.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Australian_Census_2011_demographic_map_-_Australia_by_SLA_-_BCP_field_2715_Christianity_Anglican_Persons.svg/305px-Australian_Census_2011_demographic_map_-_Australia_by_SLA_-_BCP_field_2715_Christianity_Anglican_Persons.svg.png" class="img-fluid figure-img" alt="example of choropleth map"></p>
+<figcaption>Toby Hudson based on data from the Australian Bureau of Statistics, CC BY-SA 3.0 AU &lt;https://creativecommons.org/licenses/by-sa/3.0/au/deed.en&gt;, via Wikimedia Commons</figcaption>
+</figure>
+</div>
 <p>Let’s create a choropleth map to show the number of CNC observations in L.A. County neighborhoods.</p>
 <p>Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <a href="https://maps.latimes.com/about/index.html" class="uri">https://maps.latimes.com/about/index.html</a> We’ll use the L.A. Times neighborhood boundaries for our map.</p>
 <div class="cell">
@@ -470,7 +476,7 @@ $ geometry &lt;MULTIPOLYGON [°]&gt; MULTIPOLYGON (((-118.2026 3..., MULTIPOLYGO
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
-<p>Ther is a bug with <strong>sf</strong> <a href="https://github.com/r-spatial/sf/issues/1762" class="uri">https://github.com/r-spatial/sf/issues/1762</a>. This bit of code is fix for the bug.</p>
+<p>There is a bug with <strong>sf</strong> <a href="https://github.com/r-spatial/sf/issues/1762" class="uri">https://github.com/r-spatial/sf/issues/1762</a>. This bit of code is fix for the bug.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -502,7 +508,7 @@ $ quality_grade   &lt;chr&gt; "research", "needs_id", "research", "research", "r
 $ name            &lt;chr&gt; "Ramona", "Exposition Park", "Westlake Village", "West…</code></pre>
 </div>
 </div>
-<p>181K out of the 191K CNC observations intersect one of the neigborhood boundaries.</p>
+<p>181K out of the 191K CNC observations intersect one of the neighborhood boundaries.</p>
 <p>Next we use <code>count()</code> to get the number of observations per neighborhood. We also use <code>st_drop_geometry()</code> from <strong>sf</strong> to remove the <code>geometry</code> column. We want to remove the <code>geometry</code> column because we don’t need the location of each observation for the final map.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>inat_neigborhoods_counts <span class="ot">&lt;-</span> inat_neigborhoods <span class="sc">%&gt;%</span></span>
