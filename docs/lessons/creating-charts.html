@@ -359,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="creating-charts" class="level2">
 <h2 class="anchored" data-anchor-id="creating-charts">Creating charts</h2>
-<p><strong><code>ggplot2</code></strong> is a powerful package that allows you to create complex plots from tabular data (data in a table format with rows and columns). In the previous lesson we used it for maps, in this lesson we will use it for charts.</p>
+<p><strong>ggplot2</strong> is a package that allows you to create complex plots from tabular data. In the previous lesson we used it for maps, in this lesson we will use it for charts.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -407,7 +407,7 @@ Note
 </div>
 </div>
 </div>
-<p>We need to tell <strong>ggplot</strong> how to use the data to create a chart. We can specify the mapping of data frame fields to elements in the chart, such as x/y coordinates, size, or shape, by using the <code>aes()</code>&nbsp;function. <code>aes</code> is short for aesthetic mappings.</p>
+<p>We need to tell <strong>ggplot</strong> how to use the data to create a chart. We can specify the mapping of data frame fields to elements in the chart, such as x/y coordinates, size, or shape, by using the <code>aes()</code> function. <code>aes</code> is short for aesthetic mappings.</p>
 <p>For bar charts, we need to tell what field to use for the x axis. We want to create a plot with <code>year</code> on the x axis so we set the <code>aes()</code> function <code>x</code> argument to <code>year</code>. <strong>ggplot</strong> will count the number of rows for each year, and use the number of rows for the y axis.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> inat_year, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -817,7 +817,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Factor is a R data structure used to represent categorical data, which only accepts a finite number of pre-defined values. To create a factor use <code>factor()</code>. The distinct values in a factor are called levels.</p>
+<p>Factor is a R data structure used to represent categorical data. To create a factor use <code>factor()</code>. The distinct values in a factor are called levels.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(<span class="fu">c</span>(<span class="dv">2020</span>, <span class="dv">2020</span>, <span class="dv">2021</span>, <span class="dv">2022</span>, <span class="dv">2022</span>, <span class="dv">2022</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">

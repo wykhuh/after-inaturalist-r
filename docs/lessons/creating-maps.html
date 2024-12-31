@@ -490,9 +490,9 @@ Geodetic CRS:  WGS 84</code></pre>
 </section>
 <section id="static-map" class="level2">
 <h2 class="anchored" data-anchor-id="static-map">static map</h2>
-<p><strong>ggplot2</strong> is a powerful package that allows you to create complex plots from tabular data (data in a table format with rows and columns). The <strong>gg</strong> in <strong>ggplot2</strong> stands for “grammar of graphics”, and the package uses consistent vocabulary to create plots step by step by adding new layers, which allows for extensive flexibility and customization of plots. <strong>ggplot2</strong> is most commonly used for charts, but it can also be used to create static maps.</p>
+<p><strong>ggplot2</strong> is a package that allows you to create data visualizations from tabular data. <strong>ggplot2</strong> is most commonly used to create charts, but it can also be used to create maps.</p>
 <p>Let’s create a map for Coast Live Oak observations.</p>
-<p>Call <code>ggplot()</code> to start a map. Then we use <code>+</code> to add a new layer to the map. We pass the iNaturalist data to <code>geom_sf()</code> using the <code>data</code> argument. <code>geom_sf()</code> uses the information in the <code>geometry</code> column to plot each row.</p>
+<p>Call <code>ggplot()</code> to start a map. Then we use <code>+</code> to add a new layer to the map. <strong>ggplot2</strong> has various <code>geom_</code> functions to display data. <code>geom_sf()</code> uses the information in the <code>geometry</code> column to plot each row. We pass the iNaturalist data to <code>geom_sf()</code> using the <code>data</code> argument.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> inat_oak_map)   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -623,7 +623,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 </div>
-<p>Instead of using one color for all the observations, we can also set the color to represent values in a particular column using <code>geom_sf(mapping=aes(color=&lt;column_name&gt;))</code>. <code>mapping</code> argument tells <strong>ggplot2</strong> how relate data values to elements in the plot. <code>aes()</code> function is short for aesthetic mappings, and it describes how data are mapped to visual properties. We set the <code>color</code> argument to the name of a column.</p>
+<p>Instead of using one color for all the observations, we can also set the color to represent values in a particular column. <code>aes()</code> is short for aesthetic mappings, and it specifies which columns in the data are used for features of the plot using the format <code>aes(plot_feature=column_name)</code>. We pass <code>aes()</code> to the <code>mapping</code> argument.</p>
 <p>Let’s use <code>quality_grade</code> to set the color of the map markers.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>

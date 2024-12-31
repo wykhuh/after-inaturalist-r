@@ -381,6 +381,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="reading-a-csv-file" class="level3">
 <h3 class="anchored" data-anchor-id="reading-a-csv-file">Reading a CSV file</h3>
 <p>In order to analyze the iNaturalist csv, we need to load <strong>readr</strong>, <strong>lubridate</strong> and <strong>dplyr</strong> packages.</p>
+<p>Generally it is a good idea to list all the libraries that you will use in the script at the beginning of the script. You want to install a package to your computer once, and then load it with <code>library()</code> in each script where you need to use it.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) <span class="co"># read and write tabular data</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># manipulate data</span></span>

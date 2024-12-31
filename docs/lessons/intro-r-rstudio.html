@@ -308,9 +308,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#r-as-calculator" id="toc-r-as-calculator" class="nav-link" data-scroll-target="#r-as-calculator">R as Calculator</a></li>
   <li><a href="#objects-and-assignment" id="toc-objects-and-assignment" class="nav-link" data-scroll-target="#objects-and-assignment">Objects and Assignment</a></li>
+  <li><a href="#comparing-values" id="toc-comparing-values" class="nav-link" data-scroll-target="#comparing-values">Comparing values</a></li>
   <li><a href="#saving-scripts" id="toc-saving-scripts" class="nav-link" data-scroll-target="#saving-scripts">Saving scripts</a></li>
   <li><a href="#naming-objects" id="toc-naming-objects" class="nav-link" data-scroll-target="#naming-objects">Naming objects</a></li>
-  <li><a href="#comparing-values" id="toc-comparing-values" class="nav-link" data-scroll-target="#comparing-values">Comparing values</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -432,9 +432,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="objects-and-assignment" class="level3">
 <h3 class="anchored" data-anchor-id="objects-and-assignment">Objects and Assignment</h3>
-<p>Sometimes we want to store values in memory so we can use it later. We can save values by assigning values to objects using the assignment operator <code>&lt;-</code> (<code>&lt;</code> less than and <code>-</code> hyphen).</p>
+<p>Sometimes we want to store values in memory so we can use it later. We can save values using the assignment operator <code>&lt;-</code> (<code>&lt;</code> less than and <code>-</code> hyphen).</p>
 <p><code>object_name &lt;- value</code></p>
-<p>R creates an object, names the object <code>object_name,</code> and assigns <code>value</code> to the object. We use the <code>object_name</code> to access the value. Objects are shown in the <strong>Environment</strong> pane.</p>
+<p>When there is <code>&lt;-</code>, R creates an object, names the object <code>object_name,</code> and assigns <code>value</code> to the object. We use the <code>object_name</code> to access the value. Objects are shown in the <strong>Environment</strong> pane.</p>
 <p>Let’s create <code>price_1</code> and <code>price_2</code> objects and assign them some values.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>price_1 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
@@ -457,30 +457,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="saving-scripts" class="level3">
-<h3 class="anchored" data-anchor-id="saving-scripts">Saving scripts</h3>
-<p>Save script files by using <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a descriptive name such as ‘first_script.R’. Save it in the <code>scripts</code> folder.</p>
-</section>
-<section id="naming-objects" class="level3">
-<h3 class="anchored" data-anchor-id="naming-objects">Naming objects</h3>
-<p>Object names can contain letters, numbers, underscores and periods. They cannot start with a number nor contain spaces. If you want object names with multiple words use underscores, capital letters or periods</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>first_name <span class="ot">&lt;-</span> <span class="st">'Jane'</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>firstName <span class="ot">&lt;-</span> <span class="st">'Jane'</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>first.name <span class="ot">&lt;-</span> <span class="st">'Jane'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
 <section id="comparing-values" class="level3">
 <h3 class="anchored" data-anchor-id="comparing-values">Comparing values</h3>
 <p>We can do comparison of price_1 and price_2. The comparisons return TRUE or FALSE.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># equal</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">==</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># equal</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">==</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># greater than</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">&gt;</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># greater than</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>price_1 <span class="sc">&gt;</span> price_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
@@ -492,6 +479,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>&gt;=</code> greater or equal than</p>
 <p><code>&lt;</code> less than</p>
 <p><code>&lt;=</code> less or equal than</p>
+</section>
+<section id="saving-scripts" class="level3">
+<h3 class="anchored" data-anchor-id="saving-scripts">Saving scripts</h3>
+<p>Save script files by using <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a descriptive name such as ‘first_script.R’. Save it in the <code>scripts</code> folder.</p>
+</section>
+<section id="naming-objects" class="level3">
+<h3 class="anchored" data-anchor-id="naming-objects">Naming objects</h3>
+<p>Object names can contain letters, numbers, underscores and periods. They cannot start with a number nor contain spaces. If you want object names with multiple words use underscores, capital letters or periods</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>first_name <span class="ot">&lt;-</span> <span class="st">'Jane'</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>firstName <span class="ot">&lt;-</span> <span class="st">'Jane'</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>first.name <span class="ot">&lt;-</span> <span class="st">'Jane'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You should try to use a descriptive name when naming objects to help you remember what information is contained in the object.</p>
 
 
 </section>
