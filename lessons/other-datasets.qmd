@@ -29,11 +29,9 @@ library(mapview)
 
 ## Other datasets
 
-There are various geospatial datasets that you can use while analyzing iNaturalist data. Some datasets are free to use, some require crediting the original data source.
+There are various geospatial datasets that are free to use. Some datasets require crediting the original data source. Data sources used for this course include [LA City Geohub](https://geohub.lacity.org), [Data.gov](https://catalog.data.gov), [California State Parks](https://www.parks.ca.gov), [County of Los Angeles Open Data](https://data.lacounty.gov), and [US Census TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html).
 
-We got data from [LA City Geohub](https://geohub.lacity.org), [Data.gov](https://catalog.data.gov), [California State Parks](https://www.parks.ca.gov), and [County of Los Angeles Open Data](https://data.lacounty.gov).
-
-We've provided a variety of geospatial data that workshop attendees can use for their analysis. Some the data we directly downloaded from other sources. Some of the data we downloaded from other sources and then modified. See [Editing geospatial files](editing-geo-files.qmd) to see the code we used to modified the files.
+We've pre-selected some geospatial data that workshop attendees might want to use to analyze iNaturalist data and provided a preview in the code below. These files are in the `data` directory. We modified some of the downloaded data to make things easier for the attendees; see [Editing geospatial files](editing-geo-files.qmd) for more details.
 
 ## Demographics data
 
@@ -62,7 +60,7 @@ dim(la_county_pna)
 There are 96 fields in the data set. Here's a short description of the fields.
 
 | field | description |
-|----|----|
+|------------------------------------|------------------------------------|
 | STUD_AR_ID | Study Area ID |
 | STUD_AR_NM | Study Area Name |
 | STUD_AR_LBL | Label |

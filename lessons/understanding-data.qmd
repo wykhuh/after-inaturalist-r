@@ -82,7 +82,7 @@ c(TRUE, FALSE, TRUE)
 
 If you try to put values of different data types into a vector, all the values are converted to the same data type. In the following example, everything is converted to character type.
 
-We can use \`class()\` function to find the type or class of any object.
+We can use `class()` function to find the type or class of any object.
 
 ```{r vector_conversion}
 mixed <- c(1, "apple", TRUE)
