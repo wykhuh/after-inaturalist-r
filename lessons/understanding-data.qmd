@@ -12,11 +12,10 @@ include-in-header: "components/add-answer-button.html"
 
 ## Objectives
 
-- Learn about data types and data structures.
+-   Learn about data types and data structures.
 :::
 
-We've started the previous lessons with `read_csv()`. To better understand the data returned by `read_csv()`, we will learn how R represents and  stores data.
-
+We started the previous lessons with `read_csv()`. To better understand the data returned by `read_csv()`, we will learn how R represents and stores data.
 
 ```{r, loading_packages}
 #| message: false
@@ -55,17 +54,15 @@ There are 4 main types in R: **numeric**, **integer**, **logical**, and **charac
 
 -   **character** represent string values (e.g. "abc", 'dog'). The strings must be surrounded by quotes, either single quotes or double quotes.
 
-
 ## Vectors
 
-A **data structure** is a way to organize and store a collection of values. 
+A **data structure** is a way to organize and store a collection of values.
 
 A **vector** is data structure in R that has series of values. All the value in the vector must be the same data type.
 
 To create a vector we use the `c()` combine function, and pass in the values as arguments.
 
 We can use `class()` function to find the type or class of any object.
-
 
 numeric vector
 

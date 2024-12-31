@@ -182,7 +182,7 @@ ggplot(data = inat_year,  mapping = aes(x = year)) +
 
 ## Color scales
 
-In the previous bar chart, we made all the bars the same green color. If we want the chart colors to vary based on the data values, we need to put that information inside `aes()`, such as `aes(fill=field_name)`.
+In the previous bar chart, we made all the bars the same green color. If we want the chart colors to vary based on the data values, we need to put that information inside `aes()`, such as `aes(fill=<field_name>)`.
 
 Let's update the previous bar chart to give each year a different color
 
@@ -254,6 +254,8 @@ ggplot(data = inat_year,
   scale_x_continuous(n.breaks=8) +
   scale_y_continuous(n.breaks=7)
 ```
+
+Now we have labels for every year and every 5000 observations.
 
 ## Changing themes
 
@@ -332,7 +334,7 @@ myplot +
        y = "Observations")
 ```
 
-We can also change the labels in the legend using `labs()`
+We can also change the title in the legend using `labs()`
 
 ```{r}
 ggplot(data = inat_year,  

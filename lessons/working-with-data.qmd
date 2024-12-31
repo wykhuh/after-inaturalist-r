@@ -394,8 +394,9 @@ dim(my_data)
 
 ```
 
-```{r, in_license}
+```{r unique_license}
 unique(my_data$license)
+
 ```
 
 ### & (and) versus \| (or)
@@ -460,7 +461,7 @@ inat_data %>%
 
 ## More complex queries
 
-Sometimes we want to use both `&` `|` to select the rows. You can use multiple `filter()` statememts. Multiple `filter()` is the equivalent of `&`.
+Sometimes we want to use both `&` `|` to select the rows. You can use multiple `filter()` statements. Multiple `filter()` is the equivalent of `&`.
 
 #### select observations by multiple user_login and common_name
 
@@ -504,7 +505,9 @@ unique(alt_1$user_login)
 unique(alt_1$common_name) %>% length
 ```
 
-In most programming languages, `and` is evaluated before `or`. Our query asked find all observations by 'deedeeflower5' for 'Western Fence Lizard', and find all observations by 'cdegroof'.
+We get 2 users but 137 common names.
+
+In most programming languages `and` is evaluated before `or`. Our query asked for all observations by 'deedeeflower5' for 'Western Fence Lizard', and all observations by 'cdegroof'.
 
 This query using `|` `&` `()` does give us what we want. We used parenthesis around the two `user_login`.
 
@@ -522,8 +525,10 @@ unique(alt_2$user_login)
 ```
 
 ```{r, alt_2_unique_common_name}
-unique(alt_2$common_name) %>% length
+unique(alt_2$common_name)
 ```
+
+We get 2 users and 1 common name.
 :::
 
 :::: exercise
@@ -579,7 +584,7 @@ Let's look at the scientific name when we use `common_name == 'oaks'`
 unique(oaks_obs$scientific_name)
 ```
 
-The scientific name for the 218 'oaks' observation is Quercus. This means we aren't including oak species. To match the iNaturalist search results, we need to look for all observations where the genus equals Quercus including oak species.
+We only get one scientific name Quercus for 218 'oaks' observations. This means we aren't including oak species. To match the iNaturalist search results, we need to look for all observations where the genus equals Quercus including oak species.
 
 We can use `names()` to get all the taxon name fields. There are several taxon\_\_xxx\_\_name fields.
 
@@ -759,8 +764,6 @@ This code will add `year` column using the `year(observed_on)`
 temp <- inat_data %>%
   mutate(year = year(observed_on))
 ```
-
-You can click on `temp` in **Environment** tab to see the data frame with `year` column.
 
 We can also use `table()` to get the number of observations per year.
 

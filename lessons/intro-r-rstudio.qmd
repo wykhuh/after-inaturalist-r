@@ -128,6 +128,12 @@ price_1 <- 10
 price_1 + price_2
 ```
 
+### Saving scripts
+
+Save script files by using <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a descriptive name such as 'first_script.R'. Save it in the `scripts` folder.
+
+### Naming objects
+
 Object names can contain letters, numbers, underscores and periods. They cannot start with a number nor contain spaces. If you want object names with multiple words use underscores, capital letters or periods
 
 ```{r}
@@ -143,9 +149,6 @@ We can do comparison of price_1 and price_2. The comparisons return TRUE or FALS
 ```{r equal_comparison}
 # equal
 price_1 == price_2
-
-# not equal
-price_1 != price_2
 
 # greater than
 price_1 > price_2
@@ -164,7 +167,3 @@ R comparison operators:
 `<` less than
 
 `<=` less or equal than
-
-### Save scripts
-
-Save script files by using <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a descriptive name such as 'first_script.R'. Save it in the `scripts` folder.

@@ -64,6 +64,8 @@ There are various tools to analyze tabular data including spreadsheets applicati
 
 In this workshop we will use R programming language to analyze iNaturalist data. Programming languages allow people to write instructions to tell a computer to do stuff. The reason we are using R is because R is a popular language in ecology research.
 
+## Workshop overview
+
 Here's an overview of what we learn in this workshop.
 
 Load software that will will need.
