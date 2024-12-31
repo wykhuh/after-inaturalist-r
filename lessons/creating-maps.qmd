@@ -64,20 +64,20 @@ names(inat_data)
 -   `st_as_sf()` removes the `longitude` and `latitude` columns and adds a `geometry` column.
 
 ```{r, select_columns}
-inat_map <- inat_data %>% 
+inat_map_base <- inat_data %>% 
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)
 ```
 
 `st_crs()` from **sf** returns the CRS for a data frame. Let's use `st_crs()` to look at the CRS.
 
 ```{r examine_inat_map_crs}
-st_crs(inat_map)
+st_crs(inat_map_base)
 ```
 
 Let's look at the `geometry` value for the first observation. `inat_map$geometry` returns all the values in `geometry` column as a vector. `[1]` returns the the geometry value in the first observation.
 
 ```{r examine_inat_map_geometry}
-inat_map$geometry[1]
+inat_map_base$geometry[1]
 ```
 
 For this workshop, we won't go into details about what all this information means. Just be aware that **sf** package needs certain information to process geospatial data.
@@ -85,7 +85,7 @@ For this workshop, we won't go into details about what all this information mean
 We use `select()` to pick which columns we want for the map.
 
 ```{r select_inat_map columns}
- inat_map <- inat_map %>% 
+ inat_map <- inat_map_base %>% 
   select(user_login, common_name, scientific_name, observed_on,  url, geometry, quality_grade) 
 ```
 
@@ -165,7 +165,7 @@ st_crs(la_county_boundary) == st_crs(inat_oak_map)
 Since the CRS are different, we need to use `st_transform()` to change the CRS of the LA County boundary. First argument is the data frame. `crs` is the new CRS value.
 
 ```{r update_la_county_crs}
-la_county_boundary <- st_transform(la_county_boundary,  crs = 4326)
+la_county_boundary <- st_transform(la_county_boundary,  crs = st_crs(inat_oak_map))
 
 st_crs(la_county_boundary) == st_crs(inat_oak_map)
 ```
@@ -257,11 +257,22 @@ mapview(la_county_boundary, legend=FALSE) +
 
 ![](images/mapview/creating_maps/add_LA_County_to_interactive_map_remove_legend.png){fig-alt="add LA County to interactive map and remove legend"}
 
+When you hover over an item on the map, a small popup will be shown. When you click on an item, a popup with the fields from the `select()` will be shown.
+
+We can turn off the small popup with `label=FALSE`, and turn off the large popup with `popup=FALSE`
+
+```{r add_LA_County_to_interactive_map_remove_popup}
+#| eval: false
+mapview(la_county_boundary, legend=FALSE, popup=FALSE, label=FALSE) +
+  mapview(inat_oak_map, legend=FALSE) 
+```
+
 Use `color` to set the border color, and `col.regions` to set the color of the fill.
 
 ```{r, create_interactive_map_use_color}
 #| eval: false
 mapview(la_county_boundary, legend=FALSE,
+        popup=FALSE, label=FALSE,
         color='black', col.regions='beige') +
   mapview(inat_oak_map, legend=FALSE,
           color='black', col.regions='green') 
@@ -279,6 +290,25 @@ mapviewOptions(basemaps.color.shuffle = FALSE)
 ```
 :::
 
+```{r}
+mapviewOptions(basemaps.color.shuffle = FALSE)
+```
+
+We can also use `alpha.region` to set the opacity. 0 is transparent, 1 is solid.
+
+```{r, create_interactive_map_set_opacity}
+#| eval: false
+mapview(la_county_boundary, legend=FALSE,
+        popup=FALSE, label=FALSE,
+        color='black', col.regions='beige',
+         alpha.region=1) +
+  mapview(inat_oak_map, legend=FALSE,
+          color='black', col.regions='green',
+          alpha.region=1) 
+```
+
+![](images/mapview/creating_maps/create_interactive_map_set_opacity){fig-alt="create interactive map and set opacity"}
+
 We can also set the color of the observation to represent values in a particular column using `zcol=<column_name>`.
 
 Let's use `quality_grade` to set the color of the map markers.
@@ -287,6 +317,7 @@ Let's use `quality_grade` to set the color of the map markers.
 #| eval: false
 
 mapview(la_county_boundary, legend=FALSE,
+        popup=FALSE, label=FALSE,
         color='black', col.regions='beige') +
   mapview(inat_oak_map, zcol='quality_grade')
 ```
@@ -298,6 +329,7 @@ We can set the legend title using `layer.name`. mapview does not have the abilit
 ```{r create_interactive_map_and_rename_legend_title}
 #| eval: false
 mapview(la_county_boundary, legend=FALSE,
+        popup=FALSE, label=FALSE,
         color='black', col.regions='beige') +
   mapview(inat_oak_map, zcol='quality_grade',
           layer.name='Quality Grade')
@@ -326,7 +358,7 @@ mapview(la_county_boundary) +
 :::
 ::::
 
-## Map observations for a specific area
+## Observations in a specific area
 
 Let's look for all iNaturalist observations made in Exposition Park.
 
@@ -379,20 +411,20 @@ For those who want to understand that chunk of code, here's a explanation.
 
 `st_intersects()` from **sf** tells us the number of items in one spatial object touch, cross, or is within items in a second spatial object.
 
-The following code returns the number of items in each row in `inat_map` that is within `expo_park_boundary`. Since each row only contains one location, we will either get 1 or empty.
+The following code returns the number of items in each row of `inat_map` that is within `expo_park_boundary`. Since each row only contains one location, we will either get 1 or empty.
 
 ```{r, st_intersects}
 st_intersects(inat_map, expo_park_boundary)
 ```
 
-We use `lengths(st_intersects(inat_map, expo_park_boundary)) > 0` to create a vector that has TRUE or FALSE. A vector with TRUE/FALSE is called logical vector. If a row for `inat_map` has 1 item inside `expo_park_boundary`, return TRUE. Otherwise return FALSE.
+We use `lengths(st_intersects(inat_map, expo_park_boundary)) > 0` to check it the row has items within Exposition Park. If a row has 1 item inside `expo_park_boundary`, return TRUE. Otherwise return FALSE. This will create a vector of with TRUE and FALSE values, also known as logical vector.
 
 ```{r, get_true_false}
 # we are limited the output to the first 50 rows for this explation
 (lengths(st_intersects(inat_map, expo_park_boundary)) > 0)[1:50]
 ```
 
-We can use a logical vectors to filter rows in data frame by using `dataframe[logical_vector, ]`. If the logical vector is true, return the row. Otherwise ignore the row.
+We can use a logical vectors to filter rows in data frame by using `dataframe[logical_vector, ]`. If the logical vector is TRUE, return the row. Otherwise ignore the row.
 
 This code selects all rows in `inat_map` where there is one or more items in the row that are inside `expo_park_boundary`
 
@@ -441,7 +473,7 @@ Create a map for all CNC observations that are inside of a specific area
 #| eval: false
 
 usc_boundary <- read_sf('data/raw/boundaries_usc.geojson')  %>% 
-  st_transform(4326)
+  st_transform(st_crs(inat_usc))
 
 inat_usc <- inat_map[st_intersects(inat_map, usc_boundary) %>% lengths > 0, ]
 
@@ -451,13 +483,97 @@ mapview(usc_boundary) +
 :::
 ::::
 
+## Observations near a specific region
+
+In geospatial analysis, buffer refers to the area within a certain distance of a specified feature. In the example below, the blue line is the specified feature, and the pinkish area is the buffer.
+
+![Bplewe, CC BY-SA 4.0 \<https://creativecommons.org/licenses/by-sa/4.0\>, via Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/GIS_Buffer.png/288px-GIS_Buffer.png)
+
+Let's find observations within 1/2 mile of the Los Angeles River. In other words, we want to create a 1/2 mile buffer around the LA River, and find the iNaturalist observations inside the buffer.
+
+Load the LA River boundary.
+
+```{r}
+la_river <- read_sf('data/cleaned/los_angeles_river.geojson')
+```
+
+Check CRS for LA River and iNaturalist are the same.
+
+```{r}
+st_crs(la_river) == st_crs(inat_map)
+```
+
+Change LA River CRS.
+
+```{r}
+la_river <- st_transform(la_river, crs = st_crs(inat_map))
+
+st_crs(la_river) == st_crs(inat_map)
+```
+
+`st_buffer()` function from **sf** computes a buffer around a feature. The first argument is a **sf** object. The second argument `dist` is the distance around the given object. The units for `dist` depend on the CRS.
+
+Some CRS use angle degrees for the units. EPSG:4326 is an example. Some CRS use meters for the units. EPSG:5070 is an example.
+
+The LA River uses EPSG:4326. We need to change the CRS to EPSG:5070, add a buffer of 805 meters (1/2 mile), and then covert the buffer back to EPSG:4326
+
+```{r}
+# change CRS to 5070
+river_5070 <- st_transform(la_river, crs=5070)
+
+# create 805 meter (1/2 mile) buffer
+buffer_river_5070 <- st_buffer(river_5070, 805)
+
+# change CRS to 4326
+buffer_river <- st_transform(buffer_river_5070, crs=st_crs(inat_map))
+```
+
+Add river and buffer to a map.
+
+```{r create_map_with_la_river_and_buffer}
+#| eval: false
+
+mapview(buffer_river) +
+  mapview(la_river)
+```
+
+![](images/mapview/creating_maps/create_map_with_la_river_and_buffer.png){fig-alt="create interactive map of LA River and buffer"}
+
+```{r, get_all_observations_near_la_river}
+
+inat_river <- inat_map_base %>% 
+  select(user_login, common_name, scientific_name, taxon_kingdom_name)
+  
+inat_river <- inat_river[lengths(st_intersects(inat_river, buffer_river)) > 0, ]
+
+```
+
+```{r}
+inat_river
+```
+
+We can add the iNaturalist observations to the map.
+
+```{r create_map_with_la_river_nearby_observations}
+#| eval: false
+
+mapview(buffer_river, legend=FALSE, col.region='white', 
+        popup=FALSE, label=FALSE) +
+  mapview(la_river, legend = FALSE) + 
+  mapview(inat_river, zcol='taxon_kingdom_name')
+```
+
+![](images/mapview/creating_maps/create_map_with_la_river_nearby_observations.png){fig-alt="create interactive map of LA River and nearby observations"}
+
+We can also save the `inat_river` as a CSV and do further analysis such as getting taxa counts and creating charts.
+
 ## Exporting maps
 
 We can export the maps created with **ggplot** and **mapview** as image files.
 
 ### static maps
 
-Assign the map created by ggplot to an object. Then run ggsave() to save our map. The first argument is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.
+Assign the map created by ggplot to an object. Then run \`ggsave() to save our map. The first argument is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.
 
 ```{r, save_static_map}
 #| eval: false
@@ -473,7 +589,7 @@ ggsave(filename = 'results/expo_park_observations.jpg', plot = my_map,  height =
 
 ### interactive map
 
-Assign the map created by mapview to an object. Then run mapshot() to save our map. The first argument is map you want to to save. The second argument is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, or png.
+Assign the map created by mapview to an object. Then run `mapshot()` to save our map. The first argument is map you want to to save. The second argument `file` is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, or png.
 
 ```{r, save_interactive_map}
 #| eval: false
@@ -484,4 +600,13 @@ my_map_2 <- mapview(expo_park_boundary) +
 
 # save map
 mapshot(my_map_2, file = 'results/expo_park_observations_2.jpg')
+```
+
+You can also save the map as an interactive webpage. The second argument `url` is the path to the file we want to save. Save the file as html.
+
+```{r, save_interactive_map_html}
+#| eval: false
+
+# save map
+mapshot(my_map_2, url = 'results/expo_park_observations_2.html')
 ```

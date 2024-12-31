@@ -33,7 +33,7 @@ There are various geospatial datasets that you can use while analyzing iNaturali
 
 We got data from [LA City Geohub](https://geohub.lacity.org), [Data.gov](https://catalog.data.gov), [California State Parks](https://www.parks.ca.gov), and [County of Los Angeles Open Data](https://data.lacounty.gov).
 
-We've provided a variety of geospatial data that workshop attendees can use for their analysis.
+We've provided a variety of geospatial data that workshop attendees can use for their analysis. Some the data we directly downloaded from other sources. Some of the data we downloaded from other sources and then modified. See [Editing geospatial files](editing-geo-files.qmd) to see the code we used to modified the files.
 
 ## Demographics data
 
@@ -205,23 +205,19 @@ parks_county <- read_sf('data/raw/DPR_Park_Facilities_View_(Accessible_Parks)/DP
 parks_city <- read_sf('data/raw/Los_Angeles_Recreation_and_Parks_Boundaries/Los_Angeles_Recreation_and_Parks_Boundaries.shp')
 ```
 
-We want to convert the CRS of the parks data to match the CRS of the iNaturalist data.
+We want to convert the CRS of the parks data be the same
 
-```{r, update_national_crs}
-parks_national <- st_transform(parks_national, crs = 4326)
-
-```
 
 ```{r, update_county_crs}
-parks_county <- st_transform(parks_county, crs = 4326)
+parks_county <- st_transform(parks_county, crs = st_crs(parks_national))
 ```
 
 ```{r, update_city_crs}
-parks_city <- st_transform(parks_city, crs = 4326)
+parks_city <- st_transform(parks_city, crs = st_crs(parks_national))
 ```
 
 ```{r, update_city_crs_2}
-parks_state <- st_transform(parks_state, crs = 4326)
+parks_state <- st_transform(parks_state, crs = st_crs(parks_national))
 
 ```
 
@@ -253,11 +249,12 @@ ggplot() +
   geom_sf(data=nc_boundaries) +
   theme_minimal()
 ```
+
 ## Los Angeles Times - LA neighborhoods
 
 Some people might be insterested in comparing iNaturalist data with different neighborhoods in LA county.
 
-Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <https://maps.latimes.com/about/index.html> 
+Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <https://maps.latimes.com/about/index.html>
 
 ```{r read_neighborhood_file}
 la_neighborhoods <- read_sf('data/raw/la_times_la_county_neighborhoods.json')
@@ -268,10 +265,9 @@ ggplot() +
   geom_sf(data=la_neighborhoods) 
 ```
 
-
 ## LA County incorporated and unincorporated boundaries
 
-Some people might be interested in comparing iNaturalist data in the cities and unincorporated areas of Los Angeles County.
+Some people might be interested in comparing iNaturalist data in the incorporated and unincorporated areas of Los Angeles County.
 
 City and Unincorporated Community Boundary (LA County Planning) <https://geohub.lacity.org/datasets/lacounty::city-and-unincorporated-community-boundary-la-county-planning/about> This layer shows all incorporated and unincorporated areas of Los Angeles County
 
@@ -285,6 +281,8 @@ ggplot() +
 ```
 
 ## LA County Environmental Justice Screening Method
+
+Some people might be interested in comparing iNaturalist data with environmental factors.
 
 The Environmental Justice Screening Method (EJSM) was developed for Los Angeles County by USC PERE / Occidental College for LA County's Green Zones Program. This tool can be used to identify stationary sources of pollution and analyze cumulative environmental impacts. The overall score show the pollution impacts for each census tract. <https://egis-lacounty.hub.arcgis.com/datasets/lacounty::ejsm-scores/about>
 
@@ -314,3 +312,28 @@ mapview(ejsm_edit, zcol='CIscore',
 ```
 
 ![](images/mapview/other-datasets/ejsm.png){fig-alt="create map with ejsm"}
+
+## LA County water areas
+
+Some people might be interested in comparing iNaturalist data with streams, rivers, lakes, ponds in LA County.
+
+US Census TIGER/Line data provides information about water areas. 
+
+```{r}
+water_areas <- read_sf('data/cleaned/la_county_waterareas.geojson')
+```
+
+```{r}
+ggplot() +
+  geom_sf(data=water_areas)
+```
+
+We also have a file for the LA River.
+
+```{r}
+la_river <- read_sf('data/cleaned/los_angeles_river.geojson')
+```
+```{r}
+ggplot() +
+  geom_sf(data=la_river)
+```
