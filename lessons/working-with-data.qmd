@@ -131,7 +131,7 @@ The `select()` function is used to select certain columns of a data frame.
 
 To use the `select()` function, the first argument is the name of the data frame, and the rest of the arguments are unquoted names of the columns you want.
 
-Our `inat_data` data frame has 37 columns. We want three columns: `user_login`, `common_name`, `scientific_name`, `observed_on`.
+Our `inat_data` data frame has 37 columns. We want four columns: `user_login`, `common_name`, `scientific_name`, `observed_on`.
 
 ```{r, select_columns}
 select(inat_data, user_login, common_name, scientific_name, observed_on)

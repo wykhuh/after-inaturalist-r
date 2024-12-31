@@ -131,6 +131,8 @@ ggplot() +
 
 Choropleth maps use colors or shades to show how data changes from place to place.
 
+![Toby Hudson based on data from the Australian Bureau of Statistics, CC BY-SA 3.0 AU \<https://creativecommons.org/licenses/by-sa/3.0/au/deed.en\>, via Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Australian_Census_2011_demographic_map_-_Australia_by_SLA_-_BCP_field_2715_Christianity_Anglican_Persons.svg/305px-Australian_Census_2011_demographic_map_-_Australia_by_SLA_-_BCP_field_2715_Christianity_Anglican_Persons.svg.png){fig-alt="example of choropleth map"}
+
 Let's create a choropleth map to show the number of CNC observations in L.A. County neighborhoods.
 
 Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <https://maps.latimes.com/about/index.html> We'll use the L.A. Times neighborhood boundaries for our map.
