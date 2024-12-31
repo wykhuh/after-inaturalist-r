@@ -107,18 +107,38 @@ la_river
 
 We get three records. The river is called 'Los Angeles Riv'
 
+We want row 1 and 2. row 3 is a weird triangle
+
 ```{r}
-ggplot(data = la_river) +
-   geom_sf()
+ggplot() +
+  geom_sf(data=la_river[1,]) +
+  geom_sf(data=la_river[2,]) 
+
+```
+
+```{r}
+ggplot() +
+  geom_sf(data=la_river[3,]) 
+
+```
+
+```{r}
+fixed_river <- la_river %>% 
+  filter(HYDROID %in% c(1104493447410, 1104493447488))
+```
+
+```{r}
+ggplot() +
+  geom_sf(data=fixed_river) 
 ```
 
 Save the files
 
 ```{r}
 #| eval: false
-st_write(la_river, 'data/cleaned/los_angeles_river.geojson')
+st_write(fixed_river, 'data/cleaned/los_angeles_river.geojson')
 
-st_write(la_river, 'data/cleaned/la_county_waterareas.geojson')
+st_write(area_water, 'data/cleaned/la_county_waterareas.geojson')
 ```
 
 ## Find state parks in LA County
