@@ -101,11 +101,11 @@ Now click into your blank script, and type out `1 + 2`. With your cursor on that
 
 ### Objects and Assignment
 
-Sometimes we want to store values in memory so we can use it later. We can save values by assigning values to objects using the assignment operator `<-` (`<` less than and `-` hyphen).
+Sometimes we want to store values in memory so we can use it later. We can save values using the assignment operator `<-` (`<` less than and `-` hyphen).
 
 `object_name <- value`
 
-R creates an object, names the object `object_name,` and assigns `value` to the object. We use the `object_name` to access the value. Objects are shown in the **Environment** pane.
+When there is `<-`, R creates an object, names the object `object_name,` and assigns `value` to the object. We use the `object_name` to access the value. Objects are shown in the **Environment** pane.
 
 Let's create `price_1` and `price_2` objects and assign them some values.
 
@@ -126,20 +126,6 @@ We can reassign new values to an existing object
 price_1 <- 10
 
 price_1 + price_2
-```
-
-### Saving scripts
-
-Save script files by using <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a descriptive name such as 'first_script.R'. Save it in the `scripts` folder.
-
-### Naming objects
-
-Object names can contain letters, numbers, underscores and periods. They cannot start with a number nor contain spaces. If you want object names with multiple words use underscores, capital letters or periods
-
-```{r}
-first_name <- 'Jane'
-firstName <- 'Jane'
-first.name <- 'Jane'
 ```
 
 ### Comparing values
@@ -167,3 +153,19 @@ R comparison operators:
 `<` less than
 
 `<=` less or equal than
+
+### Saving scripts
+
+Save script files by using <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a descriptive name such as 'first_script.R'. Save it in the `scripts` folder.
+
+### Naming objects
+
+Object names can contain letters, numbers, underscores and periods. They cannot start with a number nor contain spaces. If you want object names with multiple words use underscores, capital letters or periods
+
+```{r}
+first_name <- 'Jane'
+firstName <- 'Jane'
+first.name <- 'Jane'
+```
+
+You should try to use a descriptive name when naming objects to help you remember what information is contained in the object.

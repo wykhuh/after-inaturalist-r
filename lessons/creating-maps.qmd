@@ -110,11 +110,11 @@ dim(inat_oak_map)
 
 ## static map
 
-**ggplot2** is a powerful package that allows you to create complex plots from tabular data (data in a table format with rows and columns). The **gg** in **ggplot2** stands for “grammar of graphics”, and the package uses consistent vocabulary to create plots step by step by adding new layers, which allows for extensive flexibility and customization of plots. **ggplot2** is most commonly used for charts, but it can also be used to create static maps.
+**ggplot2** is a package that allows you to create data visualizations from tabular data. **ggplot2** is most commonly used to create charts, but it can also be used to create maps.
 
 Let's create a map for Coast Live Oak observations.
 
-Call `ggplot()` to start a map. Then we use `+` to add a new layer to the map. We pass the iNaturalist data to `geom_sf()` using the `data` argument. `geom_sf()` uses the information in the `geometry` column to plot each row.
+Call `ggplot()` to start a map. Then we use `+` to add a new layer to the map. **ggplot2** has various `geom_` functions to display data. `geom_sf()` uses the information in the `geometry` column to plot each row. We pass the iNaturalist data to `geom_sf()` using the `data` argument.
 
 ```{r, create_static_map_for_oak}
 ggplot() +
@@ -208,7 +208,7 @@ ggplot() +
   geom_sf(data = inat_oak_map, color=alpha('green', .3))  
 ```
 
-Instead of using one color for all the observations, we can also set the color to represent values in a particular column using `geom_sf(mapping=aes(color=<column_name>))`. `mapping` argument tells **ggplot2** how relate data values to elements in the plot. `aes()` function is short for aesthetic mappings, and it describes how data are mapped to visual properties. We set the `color` argument to the name of a column.
+Instead of using one color for all the observations, we can also set the color to represent values in a particular column. `aes()` is short for aesthetic mappings, and it specifies which columns in the data are used for features of the plot using the format `aes(plot_feature=column_name)`. We pass `aes()` to the `mapping` argument.
 
 Let's use `quality_grade` to set the color of the map markers.
 

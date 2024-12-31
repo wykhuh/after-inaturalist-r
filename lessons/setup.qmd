@@ -9,7 +9,7 @@ If you are interested in install all the software, data, and code on your comput
 
 ## Functions
 
-Functions are predefined bits of code that do a specific task. Arguments are values that we pass into a function. A function takes the arguments and something to the values.
+Functions are predefined bits of code that do a specific task. Arguments are values that we pass into a function. Function usually takes one or more arguments as input, does something to the values, and produces the ouput.
 
 ## R packages
 
@@ -28,6 +28,13 @@ To save time, we have already installed all the packages we need for the worksho
 
 In order to use a package, use `library()` function from R to load the package. We pass in the name of the package as an argument. Do not use quotes around the package name when using `library()`.
 
+```{r load_package}
+#| eval: false
+library(readr) 
+```
+
+## Workshop R packages
+
 These are the R packages we will use in this workshop.
 
 ```{r load_all_libraries}
@@ -40,5 +47,3 @@ library(lubridate) # manipulate dates
 library(mapview) # create interactive maps
 
 ```
-
-Generally it is a good idea to list all the libraries that you will use in the script at the beginning of the script. You want to install a package to your computer once, and then load it with `library()` in each script where you need to use it.

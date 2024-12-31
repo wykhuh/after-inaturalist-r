@@ -27,7 +27,7 @@ library(lubridate) # manipulate dates
 
 ## Creating charts
 
-**`ggplot2`** is a powerful package that allows you to create complex plots from tabular data (data in a table format with rows and columns). In the previous lesson we used it for maps, in this lesson we will use it for charts.
+**ggplot2** is a package that allows you to create complex plots from tabular data. In the previous lesson we used it for maps, in this lesson we will use it for charts.
 
 ::: callout-note
 Some people involved with visualizing data say charts, graphs, and plots are different things. This workshop will use charts, graphs, and plots interchangeably.
@@ -68,7 +68,7 @@ First, pass the data frame `inat_year` to `ggplot()` function as the first argum
 ggplot(data = inat_year)
 ```
 
-We need to tell **ggplot** how to use the data to create a chart. We can specify the mapping of data frame fields to elements in the chart, such as x/y coordinates, size, or shape, by using the `aes()` function. `aes` is short for aesthetic mappings.
+We need to tell **ggplot** how to use the data to create a chart. We can specify the mapping of data frame fields to elements in the chart, such as x/y coordinates, size, or shape, by using the `aes()` function. `aes` is short for aesthetic mappings.
 
 For bar charts, we need to tell what field to use for the x axis. We want to create a plot with `year` on the x axis so we set the `aes()` function `x` argument to `year`. **ggplot** will count the number of rows for each year, and use the number of rows for the y axis.
 
@@ -195,7 +195,7 @@ ggplot(data = inat_year,
 That didn't work. There is a warning: "Did you forget to specify a \`group\` aesthetic or to convert a numerical variable into a factor?"
 
 ::: callout-note
-Factor is a R data structure used to represent categorical data, which only accepts a finite number of pre-defined values. To create a factor use `factor()`. The distinct values in a factor are called levels.
+Factor is a R data structure used to represent categorical data.  To create a factor use `factor()`. The distinct values in a factor are called levels.
 
 ```{r creating_factor}
 factor(c(2020, 2020, 2021, 2022, 2022, 2022))

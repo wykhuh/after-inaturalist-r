@@ -32,6 +32,8 @@ There are two kinds of paths: absolute and relative. Absolute paths are specific
 
 In order to analyze the iNaturalist csv, we need to load **readr**, **lubridate** and **dplyr** packages.
 
+Generally it is a good idea to list all the libraries that you will use in the script at the beginning of the script. You want to install a package to your computer once, and then load it with `library()` in each script where you need to use it.
+
 ```{r, loading_packages}
 #| message: false
 
