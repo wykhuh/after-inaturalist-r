@@ -785,7 +785,7 @@ Note
 </section>
 <section id="color-scales" class="level2">
 <h2 class="anchored" data-anchor-id="color-scales">Color scales</h2>
-<p>In the previous bar chart, we made all the bars the same green color. If we want the chart colors to vary based on the data values, we need to put that information inside <code>aes()</code>, such as <code>aes(fill=field_name)</code>.</p>
+<p>In the previous bar chart, we made all the bars the same green color. If we want the chart colors to vary based on the data values, we need to put that information inside <code>aes()</code>, such as <code>aes(fill=&lt;field_name&gt;)</code>.</p>
 <p>Let’s update the previous bar chart to give each year a different color</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> inat_year, </span>
@@ -901,6 +901,7 @@ Note
 </div>
 </div>
 </div>
+<p>Now we have labels for every year and every 5000 observations.</p>
 </section>
 <section id="changing-themes" class="level2">
 <h2 class="anchored" data-anchor-id="changing-themes">Changing themes</h2>
@@ -1023,7 +1024,7 @@ Tip
 </div>
 </div>
 </div>
-<p>We can also change the labels in the legend using <code>labs()</code></p>
+<p>We can also change the title in the legend using <code>labs()</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> inat_year,  </span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">fill=</span> <span class="fu">factor</span>(year))) <span class="sc">+</span></span>

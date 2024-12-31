@@ -306,8 +306,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#interactive-maps" id="toc-interactive-maps" class="nav-link" data-scroll-target="#interactive-maps">Interactive maps</a></li>
   </ul></li>
   <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise 1</a></li>
-  <li><a href="#map-observations-for-a-specific-area" id="toc-map-observations-for-a-specific-area" class="nav-link" data-scroll-target="#map-observations-for-a-specific-area">Map observations for a specific area</a></li>
+  <li><a href="#observations-in-a-specific-area" id="toc-observations-in-a-specific-area" class="nav-link" data-scroll-target="#observations-in-a-specific-area">Observations in a specific area</a></li>
   <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2">Exercise 2</a></li>
+  <li><a href="#observations-near-a-specific-region" id="toc-observations-near-a-specific-region" class="nav-link" data-scroll-target="#observations-near-a-specific-region">Observations near a specific region</a></li>
   <li><a href="#exporting-maps" id="toc-exporting-maps" class="nav-link" data-scroll-target="#exporting-maps">Exporting maps</a>
   <ul class="collapse">
   <li><a href="#static-maps-1" id="toc-static-maps-1" class="nav-link" data-scroll-target="#static-maps-1">static maps</a></li>
@@ -409,12 +410,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>st_as_sf()</code> removes the <code>longitude</code> and <code>latitude</code> columns and adds a <code>geometry</code> column.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>inat_map <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>inat_map_base <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>),   <span class="at">crs =</span> <span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>st_crs()</code> from <strong>sf</strong> returns the CRS for a data frame. Let’s use <code>st_crs()</code> to look at the CRS.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(inat_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(inat_map_base)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Coordinate Reference System:
   User input: EPSG:4326 
@@ -449,7 +450,7 @@ GEOGCRS["WGS 84",
 </div>
 <p>Let’s look at the <code>geometry</code> value for the first observation. <code>inat_map$geometry</code> returns all the values in <code>geometry</code> column as a vector. <code>[1]</code> returns the the geometry value in the first observation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>inat_map<span class="sc">$</span>geometry[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>inat_map_base<span class="sc">$</span>geometry[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Geometry set for 1 feature 
 Geometry type: POINT
@@ -464,7 +465,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <p>For this workshop, we won’t go into details about what all this information means. Just be aware that <strong>sf</strong> package needs certain information to process geospatial data.</p>
 <p>We use <code>select()</code> to pick which columns we want for the map.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a> inat_map <span class="ot">&lt;-</span> inat_map <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a> inat_map <span class="ot">&lt;-</span> inat_map_base <span class="sc">%&gt;%</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, observed_on,  url, geometry, quality_grade) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Use <code>dim()</code> to show the number of rows and columns. There are over 191K rows.</p>
@@ -546,7 +547,7 @@ $ geometry   &lt;MULTIPOLYGON [US_survey_foot]&gt; MULTIPOLYGON (((6430642 138..
 </div>
 <p>Since the CRS are different, we need to use <code>st_transform()</code> to change the CRS of the LA County boundary. First argument is the data frame. <code>crs</code> is the new CRS value.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>la_county_boundary <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(la_county_boundary,  <span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>la_county_boundary <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(la_county_boundary,  <span class="at">crs =</span> <span class="fu">st_crs</span>(inat_oak_map))</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(la_county_boundary) <span class="sc">==</span> <span class="fu">st_crs</span>(inat_oak_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -669,12 +670,19 @@ Geodetic CRS:  WGS 84</code></pre>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_oak_map, <span class="at">legend=</span><span class="cn">FALSE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/mapview/creating_maps/add_LA_County_to_interactive_map_remove_legend.png" class="img-fluid" alt="add LA County to interactive map and remove legend"></p>
+<p>When you hover over an item on the map, a small popup will be shown. When you click on an item, a popup with the fields from the <code>select()</code> will be shown.</p>
+<p>We can turn off the small popup with <code>label=FALSE</code>, and turn off the large popup with <code>popup=FALSE</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_boundary, <span class="at">legend=</span><span class="cn">FALSE</span>, <span class="at">popup=</span><span class="cn">FALSE</span>, <span class="at">label=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_oak_map, <span class="at">legend=</span><span class="cn">FALSE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Use <code>color</code> to set the border color, and <code>col.regions</code> to set the color of the fill.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_boundary, <span class="at">legend=</span><span class="cn">FALSE</span>,</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'black'</span>, <span class="at">col.regions=</span><span class="st">'beige'</span>) <span class="sc">+</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_oak_map, <span class="at">legend=</span><span class="cn">FALSE</span>,</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">color=</span><span class="st">'black'</span>, <span class="at">col.regions=</span><span class="st">'green'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_boundary, <span class="at">legend=</span><span class="cn">FALSE</span>,</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">popup=</span><span class="cn">FALSE</span>, <span class="at">label=</span><span class="cn">FALSE</span>,</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'black'</span>, <span class="at">col.regions=</span><span class="st">'beige'</span>) <span class="sc">+</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_oak_map, <span class="at">legend=</span><span class="cn">FALSE</span>,</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">color=</span><span class="st">'black'</span>, <span class="at">col.regions=</span><span class="st">'green'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/mapview/creating_maps/create_interactive_map_use_color.png" class="img-fluid" alt="create interactive map and set colors"></p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -692,20 +700,36 @@ Note
 <pre><code>mapviewOptions(basemaps.color.shuffle = FALSE)</code></pre>
 </div>
 </div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapviewOptions</span>(<span class="at">basemaps.color.shuffle =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can also use <code>alpha.region</code> to set the opacity. 0 is transparent, 1 is solid.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_boundary, <span class="at">legend=</span><span class="cn">FALSE</span>,</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">popup=</span><span class="cn">FALSE</span>, <span class="at">label=</span><span class="cn">FALSE</span>,</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'black'</span>, <span class="at">col.regions=</span><span class="st">'beige'</span>,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">alpha.region=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_oak_map, <span class="at">legend=</span><span class="cn">FALSE</span>,</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">color=</span><span class="st">'black'</span>, <span class="at">col.regions=</span><span class="st">'green'</span>,</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">alpha.region=</span><span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/mapview/creating_maps/create_interactive_map_set_opacity.png" class="img-fluid" alt="create interactive map and set opacity"></p>
 <p>We can also set the color of the observation to represent values in a particular column using <code>zcol=&lt;column_name&gt;</code>.</p>
 <p>Let’s use <code>quality_grade</code> to set the color of the map markers.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_boundary, <span class="at">legend=</span><span class="cn">FALSE</span>,</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'black'</span>, <span class="at">col.regions=</span><span class="st">'beige'</span>) <span class="sc">+</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_oak_map, <span class="at">zcol=</span><span class="st">'quality_grade'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_boundary, <span class="at">legend=</span><span class="cn">FALSE</span>,</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">popup=</span><span class="cn">FALSE</span>, <span class="at">label=</span><span class="cn">FALSE</span>,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'black'</span>, <span class="at">col.regions=</span><span class="st">'beige'</span>) <span class="sc">+</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_oak_map, <span class="at">zcol=</span><span class="st">'quality_grade'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/mapview/creating_maps/create_interactive_map_for_oak_use_quality_grade.png" class="img-fluid" alt="create interactive map and add quality grade"></p>
 <p>We can set the legend title using <code>layer.name</code>. mapview does not have the ability to add a title.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_boundary, <span class="at">legend=</span><span class="cn">FALSE</span>,</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'black'</span>, <span class="at">col.regions=</span><span class="st">'beige'</span>) <span class="sc">+</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_oak_map, <span class="at">zcol=</span><span class="st">'quality_grade'</span>,</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">layer.name=</span><span class="st">'Quality Grade'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_boundary, <span class="at">legend=</span><span class="cn">FALSE</span>,</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">popup=</span><span class="cn">FALSE</span>, <span class="at">label=</span><span class="cn">FALSE</span>,</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'black'</span>, <span class="at">col.regions=</span><span class="st">'beige'</span>) <span class="sc">+</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_oak_map, <span class="at">zcol=</span><span class="st">'quality_grade'</span>,</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">layer.name=</span><span class="st">'Quality Grade'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/mapview/creating_maps/create_interactive_map_and_rename_legend_title.png" class="img-fluid" alt="create interactive map and rename legend title"></p>
 </section>
@@ -719,25 +743,25 @@ Note
 </ul>
 <div class="answer">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>inat_finch <span class="ot">&lt;-</span> inat_map <span class="sc">%&gt;%</span> </span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'House Finch'</span>)</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_boundary) <span class="sc">+</span> </span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_finch)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>inat_finch <span class="ot">&lt;-</span> inat_map <span class="sc">%&gt;%</span> </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'House Finch'</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_boundary) <span class="sc">+</span> </span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_finch)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
-<section id="map-observations-for-a-specific-area" class="level2">
-<h2 class="anchored" data-anchor-id="map-observations-for-a-specific-area">Map observations for a specific area</h2>
+<section id="observations-in-a-specific-area" class="level2">
+<h2 class="anchored" data-anchor-id="observations-in-a-specific-area">Observations in a specific area</h2>
 <p>Let’s look for all iNaturalist observations made in Exposition Park.</p>
 <p>Sometimes we won’t be able to find a pre-existing file that has boundaries for an area that we want to analyze. In these cases, we need to create our own boundaries. I used this <a href="https://wykhuh.github.io/draw-map-boundaries/">Draw map boundaries</a> webpage to draw and download the boundaries of Exposition Park. The file is in GeoJSON format.</p>
 <p>Let’s use <code>read_sf()</code> to read a geojson file.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>expo_park_boundary <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/boundaries_expo_park_area.geojson'</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>expo_park_boundary <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/boundaries_expo_park_area.geojson'</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can use <code>glimpse()</code> to examine the file.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(expo_park_boundary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(expo_park_boundary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 1
 Columns: 3
@@ -749,15 +773,15 @@ $ geometry &lt;POLYGON [°]&gt; POLYGON ((-118.2915 34.0180...</code></pre>
 <p>The GeoJSON file has a <code>geometry</code> column.</p>
 <p>Let’s use <code>st_crs()</code> to check if the CRS for the iNaturalist data and Expo Park are the same.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(expo_park_boundary) <span class="sc">==</span> <span class="fu">st_crs</span>(inat_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(expo_park_boundary) <span class="sc">==</span> <span class="fu">st_crs</span>(inat_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
 <p>Let’s create static and interactive maps of Expo Park.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> expo_park_boundary) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> expo_park_boundary) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -767,14 +791,14 @@ $ geometry &lt;POLYGON [°]&gt; POLYGON ((-118.2915 34.0180...</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(expo_park_boundary) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(expo_park_boundary) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/mapview/creating_maps/create_interactive_map_expo_park.png" class="img-fluid" alt="create interactive map for exposition park"></p>
 <p>The following code will get the observations that are inside Exposition Park. We will save the observations to <code>inat_expo</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>inat_expo <span class="ot">&lt;-</span> inat_map[<span class="fu">lengths</span>(<span class="fu">st_intersects</span>(inat_map, expo_park_boundary)) <span class="sc">&gt;</span> <span class="dv">0</span>, ]</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>inat_expo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>inat_expo <span class="ot">&lt;-</span> inat_map[<span class="fu">lengths</span>(<span class="fu">st_intersects</span>(inat_map, expo_park_boundary)) <span class="sc">&gt;</span> <span class="dv">0</span>, ]</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>inat_expo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Simple feature collection with 2964 features and 6 fields
 Geometry type: POINT
@@ -810,9 +834,9 @@ Note
 <div class="callout-body-container callout-body">
 <p>For those who want to understand that chunk of code, here’s a explanation.</p>
 <p><code>st_intersects()</code> from <strong>sf</strong> tells us the number of items in one spatial object touch, cross, or is within items in a second spatial object.</p>
-<p>The following code returns the number of items in each row in <code>inat_map</code> that is within <code>expo_park_boundary</code>. Since each row only contains one location, we will either get 1 or empty.</p>
+<p>The following code returns the number of items in each row of <code>inat_map</code> that is within <code>expo_park_boundary</code>. Since each row only contains one location, we will either get 1 or empty.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(inat_map, expo_park_boundary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(inat_map, expo_park_boundary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sparse geometry binary predicate list of length 191638, where the
 predicate was `intersects'
@@ -829,10 +853,10 @@ first 10 elements:
  10: (empty)</code></pre>
 </div>
 </div>
-<p>We use <code>lengths(st_intersects(inat_map, expo_park_boundary)) &gt; 0</code> to create a vector that has TRUE or FALSE. A vector with TRUE/FALSE is called logical vector. If a row for <code>inat_map</code> has 1 item inside <code>expo_park_boundary</code>, return TRUE. Otherwise return FALSE.</p>
+<p>We use <code>lengths(st_intersects(inat_map, expo_park_boundary)) &gt; 0</code> to check it the row has items within Exposition Park. If a row has 1 item inside <code>expo_park_boundary</code>, return TRUE. Otherwise return FALSE. This will create a vector of with TRUE and FALSE values, also known as logical vector.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we are limited the output to the first 50 rows for this explation</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">lengths</span>(<span class="fu">st_intersects</span>(inat_map, expo_park_boundary)) <span class="sc">&gt;</span> <span class="dv">0</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we are limited the output to the first 50 rows for this explation</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">lengths</span>(<span class="fu">st_intersects</span>(inat_map, expo_park_boundary)) <span class="sc">&gt;</span> <span class="dv">0</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
@@ -841,29 +865,29 @@ first 10 elements:
 [49] FALSE FALSE</code></pre>
 </div>
 </div>
-<p>We can use a logical vectors to filter rows in data frame by using <code>dataframe[logical_vector, ]</code>. If the logical vector is true, return the row. Otherwise ignore the row.</p>
+<p>We can use a logical vectors to filter rows in data frame by using <code>dataframe[logical_vector, ]</code>. If the logical vector is TRUE, return the row. Otherwise ignore the row.</p>
 <p>This code selects all rows in <code>inat_map</code> where there is one or more items in the row that are inside <code>expo_park_boundary</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>inat_expo_2 <span class="ot">&lt;-</span> inat_map[<span class="fu">lengths</span>(<span class="fu">st_intersects</span>(inat_map, expo_park_boundary)) <span class="sc">&gt;</span> <span class="dv">0</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>inat_expo_2 <span class="ot">&lt;-</span> inat_map[<span class="fu">lengths</span>(<span class="fu">st_intersects</span>(inat_map, expo_park_boundary)) <span class="sc">&gt;</span> <span class="dv">0</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 <p>Use <code>dim()</code> to get row and column count. 191K observations in LA county, 2964 observation in Expo Park.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(inat_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(inat_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 191638      7</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(inat_expo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(inat_expo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2964    7</code></pre>
 </div>
 </div>
 <p>Let’s create map of all observations in Expo Park.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> expo_park_boundary)  <span class="sc">+</span></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> inat_expo) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> expo_park_boundary)  <span class="sc">+</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> inat_expo) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -873,8 +897,8 @@ first 10 elements:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(expo_park_boundary) <span class="sc">+</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_expo) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(expo_park_boundary) <span class="sc">+</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_expo) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/mapview/creating_maps/create_interactive_map_of_observations_in_expo_park.png" class="img-fluid" alt="create interactive map of observations in exposition park"></p>
 </section>
@@ -889,42 +913,137 @@ first 10 elements:
 </ul>
 <div class="answer">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>usc_boundary <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/boundaries_usc.geojson'</span>)  <span class="sc">%&gt;%</span> </span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="dv">4326</span>)</span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>inat_usc <span class="ot">&lt;-</span> inat_map[<span class="fu">st_intersects</span>(inat_map, usc_boundary) <span class="sc">%&gt;%</span> lengths <span class="sc">&gt;</span> <span class="dv">0</span>, ]</span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(usc_boundary) <span class="sc">+</span> </span>
-<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_usc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>usc_boundary <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/boundaries_usc.geojson'</span>)  <span class="sc">%&gt;%</span> </span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">st_crs</span>(inat_usc))</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>inat_usc <span class="ot">&lt;-</span> inat_map[<span class="fu">st_intersects</span>(inat_map, usc_boundary) <span class="sc">%&gt;%</span> lengths <span class="sc">&gt;</span> <span class="dv">0</span>, ]</span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(usc_boundary) <span class="sc">+</span> </span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_usc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
+</section>
+<section id="observations-near-a-specific-region" class="level2">
+<h2 class="anchored" data-anchor-id="observations-near-a-specific-region">Observations near a specific region</h2>
+<p>In geospatial analysis, buffer refers to the area within a certain distance of a specified feature. In the example below, the blue line is the specified feature, and the pinkish area is the buffer.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/GIS_Buffer.png/288px-GIS_Buffer.png" class="img-fluid figure-img"></p>
+<figcaption>Bplewe, CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons</figcaption>
+</figure>
+</div>
+<p>Let’s find observations within 1/2 mile of the Los Angeles River. In other words, we want to create a 1/2 mile buffer around the LA River, and find the iNaturalist observations inside the buffer.</p>
+<p>Load the LA River boundary.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>la_river <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/cleaned/los_angeles_river.geojson'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Check CRS for LA River and iNaturalist are the same.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(la_river) <span class="sc">==</span> <span class="fu">st_crs</span>(inat_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>Change LA River CRS.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>la_river <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(la_river, <span class="at">crs =</span> <span class="fu">st_crs</span>(inat_map))</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(la_river) <span class="sc">==</span> <span class="fu">st_crs</span>(inat_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p><code>st_buffer()</code> function from <strong>sf</strong> computes a buffer around a feature. The first argument is a <strong>sf</strong> object. The second argument <code>dist</code> is the distance around the given object. The units for <code>dist</code> depend on the CRS.</p>
+<p>Some CRS use angle degrees for the units. EPSG:4326 is an example. Some CRS use meters for the units. EPSG:5070 is an example.</p>
+<p>The LA River uses EPSG:4326. We need to change the CRS to EPSG:5070, add a buffer of 805 meters (1/2 mile), and then covert the buffer back to EPSG:4326</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># change CRS to 5070</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>river_5070 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(la_river, <span class="at">crs=</span><span class="dv">5070</span>)</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create 805 meter (1/2 mile) buffer</span></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>buffer_river_5070 <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(river_5070, <span class="dv">805</span>)</span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a><span class="co"># change CRS to 4326</span></span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>buffer_river <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(buffer_river_5070, <span class="at">crs=</span><span class="fu">st_crs</span>(inat_map))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Add river and buffer to a map.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(buffer_river) <span class="sc">+</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(la_river)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/mapview/creating_maps/create_map_with_la_river_and_buffer.png" class="img-fluid" alt="create interactive map of LA River and buffer"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>inat_river <span class="ot">&lt;-</span> inat_map_base <span class="sc">%&gt;%</span> </span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, taxon_kingdom_name)</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>inat_river <span class="ot">&lt;-</span> inat_river[<span class="fu">lengths</span>(<span class="fu">st_intersects</span>(inat_river, buffer_river)) <span class="sc">&gt;</span> <span class="dv">0</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>inat_river</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 14930 features and 4 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: -118.6363 ymin: 33.76147 xmax: -118.1609 ymax: 34.26866
+Geodetic CRS:  WGS 84
+# A tibble: 14,930 × 5
+   user_login common_name              scientific_name       taxon_kingdom_name
+   &lt;chr&gt;      &lt;chr&gt;                    &lt;chr&gt;                 &lt;chr&gt;             
+ 1 bradrumble Black-necked Stilt       Himantopus mexicanus  Animalia          
+ 2 bradrumble Great Blue Heron         Ardea herodias        Animalia          
+ 3 cpekarek   Common Pill Woodlouse    Armadillidium vulgare Animalia          
+ 4 bradrumble Spotted Sandpiper        Actitis macularius    Animalia          
+ 5 bradrumble Double-crested Cormorant Nannopterum auritum   Animalia          
+ 6 bradrumble Cedar Waxwing            Bombycilla cedrorum   Animalia          
+ 7 bradrumble Double-crested Cormorant Nannopterum auritum   Animalia          
+ 8 bradrumble Spotted Sandpiper        Actitis macularius    Animalia          
+ 9 bradrumble giant reed               Arundo donax          Plantae           
+10 bradrumble castor bean              Ricinus communis      Plantae           
+# ℹ 14,920 more rows
+# ℹ 1 more variable: geometry &lt;POINT [°]&gt;</code></pre>
+</div>
+</div>
+<p>We can add the iNaturalist observations to the map.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(buffer_river, <span class="at">legend=</span><span class="cn">FALSE</span>, <span class="at">col.region=</span><span class="st">'white'</span>, </span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">popup=</span><span class="cn">FALSE</span>, <span class="at">label=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(la_river, <span class="at">legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_river, <span class="at">zcol=</span><span class="st">'taxon_kingdom_name'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/mapview/creating_maps/create_map_with_la_river_nearby_observations.png" class="img-fluid" alt="create interactive map of LA River and nearby observations"></p>
+<p>We can also save the <code>inat_river</code> as a CSV and do further analysis such as getting taxa counts and creating charts.</p>
 </section>
 <section id="exporting-maps" class="level2">
 <h2 class="anchored" data-anchor-id="exporting-maps">Exporting maps</h2>
 <p>We can export the maps created with <strong>ggplot</strong> and <strong>mapview</strong> as image files.</p>
 <section id="static-maps-1" class="level3">
 <h3 class="anchored" data-anchor-id="static-maps-1">static maps</h3>
-<p>Assign the map created by ggplot to an object. Then run ggsave() to save our map. The first argument is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.</p>
+<p>Assign the map created by ggplot to an object. Then run `ggsave() to save our map. The first argument is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create map</span></span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>my_map <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> expo_park_boundary)  <span class="sc">+</span></span>
-<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> inat_expo) </span>
-<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a><span class="co"># save map</span></span>
-<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">'results/expo_park_observations.jpg'</span>, <span class="at">plot =</span> my_map,  <span class="at">height =</span> <span class="dv">6</span>, <span class="at">width =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create map</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>my_map <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> expo_park_boundary)  <span class="sc">+</span></span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> inat_expo) </span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a><span class="co"># save map</span></span>
+<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">'results/expo_park_observations.jpg'</span>, <span class="at">plot =</span> my_map,  <span class="at">height =</span> <span class="dv">6</span>, <span class="at">width =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="interactive-map-1" class="level3">
 <h3 class="anchored" data-anchor-id="interactive-map-1">interactive map</h3>
-<p>Assign the map created by mapview to an object. Then run mapshot() to save our map. The first argument is map you want to to save. The second argument is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, or png.</p>
+<p>Assign the map created by mapview to an object. Then run <code>mapshot()</code> to save our map. The first argument is map you want to to save. The second argument <code>file</code> is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, or png.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create map</span></span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>my_map_2 <span class="ot">&lt;-</span> <span class="fu">mapview</span>(expo_park_boundary) <span class="sc">+</span> </span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_expo)</span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="co"># save map</span></span>
-<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mapshot</span>(my_map_2, <span class="at">file =</span> <span class="st">'results/expo_park_observations_2.jpg'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create map</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>my_map_2 <span class="ot">&lt;-</span> <span class="fu">mapview</span>(expo_park_boundary) <span class="sc">+</span> </span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_expo)</span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a><span class="co"># save map</span></span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mapshot</span>(my_map_2, <span class="at">file =</span> <span class="st">'results/expo_park_observations_2.jpg'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can also save the map as an interactive webpage. The second argument <code>url</code> is the path to the file we want to save. Save the file as html.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># save map</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mapshot</span>(my_map_2, <span class="at">url =</span> <span class="st">'results/expo_park_observations_2.html'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
