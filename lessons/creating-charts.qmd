@@ -95,7 +95,7 @@ ggplot(data = inat_year, mapping = aes(y = year)) +
 
 ## Line chart
 
-Create a line chart that shows the number of observations per year.
+Let's create a line chart that shows the number of observations per year.
 
 For line charts, we need to specify which columns to use for the x and y axis.
 
@@ -114,20 +114,46 @@ For `aes`, use `year` on the `x` axis and `count` on the `y` axis. Use `geom_lin
 ```{r, create_line_chart}
 ggplot(data = inat_year_count, 
        mapping = aes(x = year, y=count)) +
-  geom_line()
+  geom_line() 
+```
+
+To mark each value on the line chart, we can use `geom_point()` to add points to the chart.
+
+```{r, create_line_point_chart}
+ggplot(data = inat_year_count, 
+       mapping = aes(x = year, y=count)) +
+  geom_line() +
+  geom_point()
+
 ```
 
 ## More bar charts
 
 In the previous example we created a data frame `inat_year_count` that has observations per year. To create bar chart when the data has values for x axis and y axis, use `geom_col()`
 
-We want `year` on the `x` axis, and `obs_count` on the y axis.
+We want `year` on the `x` axis, and `count` on the y axis.
 
 ```{r, create_column_chart}
 ggplot(data = inat_year_count, 
        mapping = aes(x = year, y = count)) +
   geom_col()
 ```
+
+## Stacked bar charts
+
+In the map lesson we created maps with markers that had different colors based on data in the data frame. We can do something similar with bar charts. We can create stacked bar charts by adding a column from the data frame to `aes()` function `fill` argument.
+
+Let's create a stacked bar chart using `quality_grade`.
+
+```{r, create_stacked_bar_chart}
+ggplot(data = inat_year, 
+       mapping = aes(x = year, fill = quality_grade)) +
+  geom_bar()   
+```
+
+The height of each bar represents the number of observations per year. The height of the 3 rectangles in each bar represents the number of observations that are labeled casual, needs_id, and research.
+
+**ggplot2** assigns each quality grade a different color, and creates a legend that tells you which values goes with which color.
 
 :::: exercise
 ## Exercise 1
@@ -180,39 +206,26 @@ ggplot(data = inat_year,  mapping = aes(x = year)) +
   geom_bar(fill='#75cd5e')
 ```
 
+We can change the color of the lines and points using `color`.
+
+```{r}
+ggplot(data = inat_year_count, 
+       mapping = aes(x = year, y=count)) +
+  geom_line(color='#75cd5e') +
+  geom_point(color='blue')
+```
+
 ## Color scales
 
-In the previous bar chart, we made all the bars the same green color. If we want the chart colors to vary based on the data values, we need to put that information inside `aes()`, such as `aes(fill=<field_name>)`.
+For the stacked bar chart example, **ggplot2** selected colors for the field values.
 
-Let's update the previous bar chart to give each year a different color
-
-```{r fill_warining_numerical_value}
+```{r, stacked_bar_chart_default_colors}
 ggplot(data = inat_year, 
-       mapping = aes(x = year, fill = year)) +
-  geom_bar()  
+       mapping = aes(x = year, fill = quality_grade)) +
+  geom_bar() 
 ```
 
-That didn't work. There is a warning: "Did you forget to specify a \`group\` aesthetic or to convert a numerical variable into a factor?"
-
-::: callout-note
-Factor is a R data structure used to represent categorical data.  To create a factor use `factor()`. The distinct values in a factor are called levels.
-
-```{r creating_factor}
-factor(c(2020, 2020, 2021, 2022, 2022, 2022))
-
-factor(c('apple', 'grape', 'apple', 'pear'))
-```
-:::
-
-Let's convert year into a factor using `factor(year)`.
-
-```{r create_chart_with_fill_color_year}
-ggplot(data = inat_year, 
-       mapping = aes(x = year, fill= factor(year))) +
-  geom_bar()  
-```
-
-**ggplot2** assigns each year a different color. **ggplot2** has color scale function that produces a predefined list of colors. The default color scale isn’t always ideal: it isn’t friendly to viewers with colorblindness and it doesn’t translate well to grayscale. However, **`ggplot2`** comes with quite a few other color scales, including the `viridis` scales, which are designed to be colorblind and grayscale friendly. We can change color scales by adding `scale_color_`  and `scale_fill_` functions to our plots. Since we are dealing with bar charts, we want `scale_fill_.`
+**ggplot2** has color scale function that produces a predefined list of colors. The default color scale isn’t always ideal: it isn’t friendly to viewers with colorblindness and it doesn’t translate well to grayscale. However, **`ggplot2`** comes with quite a few other color scales, including the `viridis` scales, which are designed to be colorblind and grayscale friendly. We can change color scales by adding `scale_color_`  and `scale_fill_` functions to our plots. Since we are dealing with bar charts, we want `scale_fill_.`
 
 ::: callout-note
 In mathematics and statistics, values can be discrete or continuous. Discrete value have distinct values such as whole numbers (1, 2, 3) or categories (states: California, Oregon). Continuous values represent an infinite number of possible values such as fractions and decimals (1.1, 2-1/2, 2-3/4, 3.9).
@@ -220,22 +233,41 @@ In mathematics and statistics, values can be discrete or continuous. Discrete va
 
 Color scale functions can be discrete or continuous. Let's add viridis scale to the previous bar chart. We want to use `scale_fill_viridis_d()` since year has discrete values.
 
-```{r create_chart_with_fill_viridis_year}
-ggplot(data = inat_year,  
-       mapping = aes(x = year, fill= factor(year))) +
-  geom_bar()  +
+```{r stacked_bar_chart_viridis}
+ggplot(data = inat_year, 
+       mapping = aes(x = year, fill = quality_grade)) +
+  geom_bar() +
   scale_fill_viridis_d()
 ```
 
  If you try to use viridis continuous function, you will get an error: "Discrete values supplied to continuous scale."
 
-```{r create_chart_with_fill_viridis_year_error}
+```{r stacked_bar_chart_viridis_error}
 #| eval: false 
 #| 
 ggplot(data = inat_year, 
-       mapping = aes(x = year, fill= factor(year))) +
-  geom_bar()  +
+       mapping = aes(x = year, fill = quality_grade)) +
+  geom_bar() +
   scale_fill_viridis_c()
+```
+
+`scale_fill_brewer()` is another color scale.
+
+```{r stacked_bar_chart_brewer}
+ggplot(data = inat_year, 
+       mapping = aes(x = year, fill = quality_grade)) +
+  geom_bar() +
+  scale_fill_brewer()
+```
+
+We can also use a custom set of colors with `scale_fill_manual()` , and passing in a vector of colors,
+
+```{r stacked_bar_chart_manual}
+ggplot(data = inat_year, 
+       mapping = aes(x = year, fill = quality_grade)) +
+  geom_bar() +
+  scale_fill_manual(values=c("#DADAEB", "#9E9AC8", "#6A51A3"))
+
 ```
 
 For more information about color scales, visit [Introverse color scales](https://sjspielman.github.io/introverse/articles/color_fill_scales.html) page.
@@ -248,7 +280,7 @@ Let's add more breaks along the year x axis and count y axis.
 
 ```{r create_chart_with_custom_breaks}
 ggplot(data = inat_year,  
-       mapping = aes(x = year, fill= factor(year))) +
+       mapping = aes(x = year)) +
   geom_bar()  +
   scale_fill_viridis_d() +
   scale_x_continuous(n.breaks=8) +
@@ -337,10 +369,10 @@ myplot +
 We can also change the title in the legend using `labs()`
 
 ```{r}
-ggplot(data = inat_year,  
-       mapping = aes(x = year, fill= factor(year))) +
+ggplot(data = inat_year, 
+       mapping = aes(x = year, fill = quality_grade)) +
   geom_bar() +
-  labs(fill = "Year")
+  labs(fill = "Quality Grade")
 ```
 
 :::: exercise
@@ -368,6 +400,28 @@ my_chart +
 ```
 :::
 ::::
+
+## Faceting
+
+One of the most powerful features of **`ggplot`** is the ability to quickly split a plot into multiple smaller plots based on one or more columns in the data frame, which is called **faceting**. Use the `facet_wrap()` function to generate a series of smaller plots, and pass in the selected column using `vars(<column>)`.
+
+Let's facet the iNaturalist observations by `quality_grade` .
+
+```{r}
+ggplot(data = inat_year, 
+       mapping = aes(x = year)) +
+  geom_bar() +                                                          
+  facet_wrap(vars(quality_grade))
+```
+
+We can also put the charts in a single column using `ncol = 1`.
+
+```{r}
+ggplot(data = inat_year, 
+       mapping = aes(x = year)) +
+  geom_bar() +                                                          
+  facet_wrap(vars(quality_grade), ncol = 1)
+```
 
 ## Saving plots
 

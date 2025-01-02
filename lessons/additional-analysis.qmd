@@ -51,20 +51,6 @@ inat_year <- inat_data %>%
   mutate(year = year(observed_on)) 
 ```
 
-## Stacked bar charts
-
-We can create stacked bar charts by adding a column from the data frame to `aes()` function `fill` argument. Let's create a stacked bar chart using `quality_grade`.
-
-```{r, create_stacked_bar_chart}
-ggplot(data = inat_year, 
-       mapping = aes(x = year, fill = quality_grade)) +
-  geom_bar()   
-```
-
-The height of each bar represents the number of observations per year. The height of the 3 rectangles in each bar represents the number of observations that are labeled casual, needs_id, and research.
-
-**ggplot2** assigns each quality grade a different color, and creates a legend that tells you which values goes with which color.
-
 ## Dodged bar charts
 
 To create side-by-side dodged bar charts, use `position=position_dodge()`
