@@ -7,12 +7,12 @@ include-in-header: "components/add-answer-button.html"
 ::: summary
 ## Questions
 
--   What are the basic data types in R?
--   What are some basic data structures in R?
+-   How does R store and represent data?
 
 ## Objectives
 
--   Learn about data types and data structures.
+-   Understand data types and missing values
+-   Learn about data structures vectors and data.frame
 :::
 
 We started the previous lessons with `read_csv()`. To better understand the data returned by `read_csv()`, we will learn how R represents and stores data.
@@ -50,9 +50,9 @@ There are 4 main types in R: **numeric**, **integer**, **logical**, and **charac
 
 -   **integer** are whole numbers that do not have a decimal point. (e.g. 1L, 10L). In R, the `L` suffix forces the number to be an integer, since by default R uses decimal numbers.
 
--   **logical** have values of `TRUE` or `FALSE`. There is a special type of logical called `NA` that represents missing values. `NA` is short for not applicable.
+-   **logical** have values of `TRUE` or `FALSE`.
 
--   **character** represent string values (e.g. "abc", 'dog'). The strings must be surrounded by quotes, either single quotes or double quotes.
+-   **character** are strings of characters (e.g. "abc", 'dog'). The strings must be surrounded by quotes, either single quotes or double quotes.
 
 ## Vectors
 
@@ -60,29 +60,36 @@ A **data structure** is a way to organize and store a collection of values.
 
 A **vector** is data structure in R that has series of values. All the value in the vector must be the same data type.
 
-To create a vector we use the `c()` combine function, and pass in the values as arguments.
+To create a vector we use the `c()` combine function, and pass in the values as arguments. We can use `class()` function to find the type or class of any object.
 
 numeric vector
 
 ```{r numeric_vector}
-c(1, 2, 5)
+numbers <- c(1, 2, 5)
+numbers
+
+class(numbers)
 ```
 
 character vector
 
 ```{r character_vector}
-c("apple", "pear", "grape")
+characters <- c("apple", 'pear', "grape")
+characters
+
+class(characters)
 ```
 
 logical vector
 
 ```{r logical_vector}
-c(TRUE, FALSE, TRUE)
+logicals <- c(TRUE, FALSE, TRUE)
+logicals
+
+class(logicals)
 ```
 
 If you try to put values of different data types into a vector, all the values are converted to the same data type. In the following example, everything is converted to character type.
-
-We can use `class()` function to find the type or class of any object.
 
 ```{r vector_conversion}
 mixed <- c(1, "apple", TRUE)
@@ -91,12 +98,29 @@ mixed
 class(mixed)
 ```
 
-`NA` is a special type of value, and is allowed in vectors of any data type.
+## Missing data
+
+R represents missing data as `NA`, without quotes. `NA` stands for not applicable.
+
+`NA` is allowed in vectors of any data type.
 
 ```{r c-vector-na}
-# character vector
-char <- c("apple", "pear", NA)
-class(char)
+numbers <- c(1, 2, NA)
+numbers
+
+class(numbers)
+```
+
+When you pass number vectors with `NA` to a math function like `min()` (returns minimal value in a vector), the function returns `NA`.
+
+```{r}
+min(numbers)
+```
+
+Many math functions have an argument `na.rm` to remove `NA` values for its calculations.
+
+```{r}
+min(numbers,  na.rm = TRUE)
 ```
 
 ## data.frame

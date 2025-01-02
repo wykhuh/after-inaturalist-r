@@ -129,9 +129,7 @@ One of the most important skills for working with data in R is the ability to ma
 
 ### select()
 
-The `select()` function is used to select certain columns of a data frame.
-
-To use the `select()` function, the first argument is the name of the data frame, and the rest of the arguments are unquoted names of the columns you want.
+The `select()` function is used to select certain columns of a data frame. The first argument is the data frame, and the rest of the arguments are unquoted names of the columns you want.
 
 Our `inat_data` data frame has 37 columns. We want four columns: `user_login`, `common_name`, `scientific_name`, `observed_on`.
 
@@ -143,9 +141,9 @@ select(inat_data, user_login, common_name, scientific_name, observed_on)
 
 ### filter()
 
-The `filter()` function is used to select rows that meet certain criteria.
+The `filter()` function is used to select rows that match certain criteria. The first argument is the name of the data frame, and the second argument is the selection criteria.
 
-To use the `filter()` function, the first argument is the name of the data frame, and the second argument is the selection criteria.
+#### select observations by common_name
 
 Let's find all the observations for 'Western Fence Lizard', the most popular species in CNC Los Angeles. We want all the rows where `common_name` is equal to 'Western Fence Lizard'. Use `==` to test for equality.
 
@@ -166,19 +164,17 @@ We use the pipe operator `%>%` to call multiple functions.
 You can insert `%>%` by using the keyboard shortcut <kbd>Shift+Cmd+M</kbd> (Mac) or <kbd>Shift+Ctrl+M</kbd> (Windows).
 :::
 
-#### select observations by common_name
+#### select observations by user_login
 
-Let's get all observations for 'Western Fence Lizard', and we only want columns `user_login`, `common_name`, `scientific_name`, `observed_on`.
+Let's get all observations for iNaturalist user 'natureinla', and we only want columns `user_login`, `common_name`, `scientific_name`, `observed_on`.
 
 ```{r, pipe_filter_select}
 inat_data %>%
-  filter(common_name == 'Western Fence Lizard') %>%
+  filter(user_login == 'natureinla') %>%
   select(user_login, common_name, scientific_name, observed_on)
 ```
 
-The new data frame has over 3000 rows and 4 columns.
-
-Pipe operator take the thing on the left hand side and insert it as the first argument of the function on the right hand side. `inat_data` gets piped into a `filter()` function, where the rows with 'Western Fence Lizard' are selected. The output from `filter()` is then gets sent into the `select()` function, where 4 columns are selected. It can also be helpful to think of `%>%` as meaning "and then".
+Pipe operator take the thing on the left hand side and insert it as the first argument of the function on the right hand side. It can be helpful to think of `%>%` as meaning "and then". `inat_data` gets is sent to `filter()` function. `filter()` selects rows with 'natureinla'. Then output from `filter()` is sent into the `select()` function. `select()` selects 4 columns.
 
 #### select observations by coordinates_obscured
 
@@ -186,7 +182,7 @@ Sometimes the coordinates for iNaturalist observations are obscured. For instanc
 
 To access one column in a data frame, use `dataframe$column_name`. When we pass in a data frame column to `table()` function from R, it will return the unique values in a column, and the number of rows that contain each value.
 
-Let's find out how many observations have obscured locations.
+Let's get a count of how many observations have obscured locations.
 
 ```{r, call_table}
 table(inat_data$coordinates_obscured)
@@ -295,7 +291,7 @@ In previous examples used one criteria in `filter()` to select some rows. Often 
 
 ### and operator: &
 
-When we want to get rows that match multiple criteria, we use the and operator `&` in between the criteria.
+If there are multiple criteria, and we want to get rows that match all of the criteria, we use and operator `&` in between the criteria.
 
 `condtion_1 & condition_2`
 
@@ -322,17 +318,44 @@ unique(my_data$quality_grade)
 
 #### select observations by coordinates_obscured and positional_accuracy
 
-In addition to coordinates being intentionally obscured, another thing that can affect the coordinates for an observation is the accuracy of the coordinates. The accuracy of GPS on smart phones depends on the hardware, software, physical environment, etc. The `positional_accuracy` from iNaturalist measures the coordinates error in meters.
+Previously we looked at `coordinates_obscured`. In addition to coordinates being intentionally obscured, another thing that can affect the coordinates for an observation is the accuracy of the coordinates. The accuracy of GPS on smart phones depends on the hardware, software, physical environment, etc. The `positional_accuracy` from iNaturalist measures the coordinates error in meters. For example if an observation has a positional accuracy of 65 meters, this means the measured coordinates is within 65 meters from the actual coordinates.
 
-Let's get observations with unobscured locations that have position accuracy less than 5 meters.
+When given a vector of numbers, `summary()` displays statistics about the values. Let's use `summary()` to look at the positional accuracy of observations where the coordinates are not obscured.
+
+```{r}
+not_obscured <- inat_data %>%
+  filter(coordinates_obscured == FALSE)  
+
+ 
+summary(not_obscured$positional_accuracy)
+```
+
+Min. means the minimal value is 0.
+
+1st Qu. means 25% of the values are less than 5, and 75% are greater than 5.
+
+Median means 50% of the values are less than 12, 50% are greater than 12.
+
+Mean is the sum of the values divided by number of items.
+
+3rd Qu. means 75% of the values are less than 65, and 25% are greater than 65.
+
+Max. means the maximum value is 13,227,987.
+
+In other words, even though we selected unobscured locations, 25% of the observations are 65 or more meters away the actual location due to the accuracy of GPS device.
+
+If location accuracy is important to your analysis, you can select a small number for position accuracy. Let's get observations with unobscured locations that have position accuracy less than 5 meters.
 
 ```{r filter_with_coordinates_obscured_and_positional_accuracy}
 my_data <- inat_data %>%
   filter(coordinates_obscured == FALSE & 
-           positional_accuracy < 5) %>%
+           positional_accuracy <= 5) %>%
   select(user_login, common_name, scientific_name, positional_accuracy, coordinates_obscured)
 
+my_data
 ```
+
+We have 41K observations with position accuracy less than 5 meters.
 
 ```{r, and_unique_coordinates_obscured}
 unique(my_data$coordinates_obscured)
@@ -344,7 +367,7 @@ unique(my_data$positional_accuracy)
 
 ### or operator: \|
 
-When we want to get rows that match one or more criteria, we can use the or operator `|` in between the conditions
+If there are multiple criteria, and we want to get rows that match one or more of the criteria, we use or operator `|` in between the criteria.
 
 `condition_1 | condition_2`
 
@@ -366,14 +389,22 @@ unique(my_data$common_name)
 
 ### %in% c()
 
-If you need to examine multiple values for a field, you can use `field_name %in% c(value1, value2)` instead of `|` (or).
+Another way to get rows that match one or more of the criteria is with the in operator `%in%.`
 
-A vector is how R stores a list of items. `c()` combine function from R creates a vector with the passed in arguments. `%in%` operator from R checks if a vector is contained in another vector.
+::: callout-note
+A vector is way R stores a collection of values. `c()` combine function from R creates a vector with the passed in arguments.
 
 ```{r}
-1 %in% c(1, 2)
-c(1, 3) %in% c(1, 2)
+c(1, 2, 5)
 ```
+
+`%in%` operator from R returns true if an item matches values in a given vector.
+
+```{r}
+1 %in% c(1, 2, 5)
+3 %in% c(1, 2, 5)
+```
+:::
 
 #### select observations by multiple license
 
@@ -385,7 +416,7 @@ We can use `table()` to see the license types and count.
 table(inat_data$license)
 ```
 
-Let's get observations with CC0, CC-BY, or CC-BY-NC license.
+Let's get observations with CC0, CC-BY, or CC-BY-NC license. `filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC'))` will return rows where the `license` field is in the vector ('CC0', 'CC-BY', 'CC-BY-NC')
 
 ```{r filter_by_license}
 my_data <- inat_data %>%
