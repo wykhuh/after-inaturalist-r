@@ -576,6 +576,21 @@ mapview(buffer_river, legend=FALSE, col.region='white',
 
 We can also save the `inat_river` as a CSV and do further analysis such as getting taxa counts and creating charts.
 
+## Observations in multiple areas
+
+Sometimes we want to compare data in different areas of location. For instance, let's compare the number of iNaturalist observations in LA County neighborhoods.
+
+Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <https://maps.latimes.com/about/index.html> We’ll use the L.A. Times neighborhood boundaries for our map.
+
+```{r read_neighborhood_file}
+la_neighborhoods <- read_sf('data/raw/la_times_la_county_neighborhoods.json')
+```
+
+```{r}
+glimpse(la_neighborhoods)
+
+```
+
 ## Exporting maps
 
 We can export the maps created with **ggplot** and **mapview** as image files.
