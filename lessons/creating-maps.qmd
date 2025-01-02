@@ -27,7 +27,7 @@ Main steps:
 3.  Use `filter()`, `select(),` `mutate()`, and `count()` to get the rows and columns we want
 4.  Create map
 
-Loading R packages. We will use **ggplot, sf** and **mapview** packages to create maps.
+Loading R packages. **sf** handles geospatial files with vector data. **mapview** creates interactive maps.
 
 ```{r, load_packages}
 #| error: false
@@ -73,14 +73,6 @@ inat_map_base <- inat_data %>%
 ```{r examine_inat_map_crs}
 st_crs(inat_map_base)
 ```
-
-Let's look at the `geometry` value for the first observation. `inat_map$geometry` returns all the values in `geometry` column as a vector. `[1]` returns the the geometry value in the first observation.
-
-```{r examine_inat_map_geometry}
-inat_map_base$geometry[1]
-```
-
-For this workshop, we won't go into details about what all this information means. Just be aware that **sf** package needs certain information to process geospatial data.
 
 We use `select()` to pick which columns we want for the map.
 
@@ -140,13 +132,21 @@ You can zoom in and out. When you click on layer button on the left, you can cha
 
 Let's add the boundaries for LA County to the map.
 
-There are various places where you can download geospatial files for free. We downloaded the LA County boundaries from [LA City Geohub](https://geohub.lacity.org/datasets/lacounty::la-county-boundary-7/about). Geohub offers files in various formats including CSV, Shapefile, GeoJSON, and KML. We are using a Shapefile.
+There are various places where you can download geospatial files for free. We downloaded the LA County boundaries from [LA City Geohub](https://geohub.lacity.org/datasets/lacounty::la-county-boundary-7/about). Geohub offers files in various formats including CSV, Shapefile, GeoJSON, and KML.
 
-`read_sf()` function from **sf** package can read files and databases in various formats. We will use `read_sf()` to read the LA County boundary file.
+`read_sf()` function from **sf** package can read files and databases in various formats. We will use `read_sf()` to read the LA County boundary Shapefile.
 
 ```{r, get_LA_County_boundaries}
 la_county_boundary <- read_sf('data/raw/LA_County_Boundary/LA_County_Boundary.shp')
 ```
+
+We can use `class()` to examine the data returned by `read_sf()`.
+
+```{r class_la_county_boundary.}
+class(la_county_boundary)
+```
+
+We have 'data.frame' and 'tbl' like with `read_csv()`. We also have an additional `sf` object. The **sf** package uses a special type of data frame called `sf` (special features) to store vector data. Because `sf` is based on data frames, we can use the same types of commands on `sf` objects that we used for tibbles and data frames.
 
 We can use `glimpse()` to examine the LA County boundary file.
 
@@ -154,7 +154,7 @@ We can use `glimpse()` to examine the LA County boundary file.
 glimpse(la_county_boundary)
 ```
 
-Shapefiles includes a `geometry` column.
+This data includes a `geometry` column.
 
 When working with multiple geospatial files, it's important that all the data uses the same [coordinate reference system (CRS)](intro-science-coding.qmd#coordinate-reference-systems). Let’s use `st_crs()` to check if the CRS for the iNaturalist data and the LA County boundary are the same. `==` checks if two things are equal.
 
@@ -290,7 +290,7 @@ mapviewOptions(basemaps.color.shuffle = FALSE)
 ```
 :::
 
-```{r}
+```{r turn_off_color_shuffle}
 mapviewOptions(basemaps.color.shuffle = FALSE)
 ```
 
@@ -307,7 +307,7 @@ mapview(la_county_boundary, legend=FALSE,
           alpha.region=1) 
 ```
 
-![](images/mapview/creating_maps/create_interactive_map_set_opacity){fig-alt="create interactive map and set opacity"}
+![](images/mapview/creating_maps/create_interactive_map_set_opacity.png){fig-alt="create interactive map and set opacity"}
 
 We can also set the color of the observation to represent values in a particular column using `zcol=<column_name>`.
 
@@ -322,7 +322,7 @@ mapview(la_county_boundary, legend=FALSE,
   mapview(inat_oak_map, zcol='quality_grade')
 ```
 
-![](images/mapview/creating_maps/create_interactive_map_for_oak_use_quality_grade.png){fig-alt="create interactive map and add quality grade"}
+![](images/mapview/creating_maps/create_interactive_map_and_show_quality_grade.png){fig-alt="create interactive map and add quality grade"}
 
 We can set the legend title using `layer.name`. mapview does not have the ability to add a title.
 
@@ -372,7 +372,7 @@ expo_park_boundary <- read_sf('data/raw/boundaries_expo_park_area.geojson')
 
 We can use `glimpse()` to examine the file.
 
-```{r}
+```{r glimpse_expo_park_boundary}
 glimpse(expo_park_boundary)
 ```
 
@@ -458,6 +458,19 @@ mapview(expo_park_boundary) +
 
 ![](images/mapview/creating_maps/create_interactive_map_of_observations_in_expo_park.png){fig-alt="create interactive map of observations in exposition park"}
 
+Now that we have the observations, we can examine the data using methods we learned in the previous lesson.
+
+Let's get the top ten species for Exposition Park. We need to use `st_drop_geometry()` to remove the `geometry()` column since we are no longer putting the observations on a map.
+
+```{r top_ten_species_expo_park}
+
+inat_expo %>%
+  st_drop_geometry() %>%
+  count(common_name, scientific_name) %>%
+  arrange(desc(n)) %>%
+  slice(1:10)
+```
+
 :::: exercise
 ## Exercise 2
 
@@ -493,19 +506,19 @@ Let's find observations within 1/2 mile of the Los Angeles River. In other words
 
 Load the LA River boundary.
 
-```{r}
+```{r read_la_river_file}
 la_river <- read_sf('data/cleaned/los_angeles_river.geojson')
 ```
 
 Check CRS for LA River and iNaturalist are the same.
 
-```{r}
+```{r check_la_river_crs}
 st_crs(la_river) == st_crs(inat_map)
 ```
 
 Change LA River CRS.
 
-```{r}
+```{r change_la_river_crs}
 la_river <- st_transform(la_river, crs = st_crs(inat_map))
 
 st_crs(la_river) == st_crs(inat_map)
@@ -517,7 +530,7 @@ Some CRS use angle degrees for the units. EPSG:4326 is an example. Some CRS use 
 
 The LA River uses EPSG:4326. We need to change the CRS to EPSG:5070, add a buffer of 805 meters (1/2 mile), and then covert the buffer back to EPSG:4326
 
-```{r}
+```{r create_buffer}
 # change CRS to 5070
 river_5070 <- st_transform(la_river, crs=5070)
 
@@ -546,10 +559,6 @@ inat_river <- inat_map_base %>%
   
 inat_river <- inat_river[lengths(st_intersects(inat_river, buffer_river)) > 0, ]
 
-```
-
-```{r}
-inat_river
 ```
 
 We can add the iNaturalist observations to the map.
