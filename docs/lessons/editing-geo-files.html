@@ -254,6 +254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#find-waterways-in-los-angeles-county" id="toc-find-waterways-in-los-angeles-county" class="nav-link" data-scroll-target="#find-waterways-in-los-angeles-county">Find waterways in Los Angeles County</a></li>
   <li><a href="#find-state-parks-in-la-county" id="toc-find-state-parks-in-la-county" class="nav-link" data-scroll-target="#find-state-parks-in-la-county">Find state parks in LA County</a></li>
   <li><a href="#find-national-parks-in-la-county" id="toc-find-national-parks-in-la-county" class="nav-link" data-scroll-target="#find-national-parks-in-la-county">Find national parks in LA County</a></li>
+  <li><a href="#la-county-park-needs-assessment" id="toc-la-county-park-needs-assessment" class="nav-link" data-scroll-target="#la-county-park-needs-assessment">LA County Park Needs Assessment</a></li>
   </ul>
 </nav>
     </div>
@@ -559,6 +560,40 @@ Geodetic CRS:  NAD83
 <p>Save the file.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(ca_nps_parks, <span class="st">'data/cleaned/nps_la_county.geojson'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="la-county-park-needs-assessment" class="level2">
+<h2 class="anchored" data-anchor-id="la-county-park-needs-assessment">LA County Park Needs Assessment</h2>
+<p>The LA County Park Needs Assessment has layer for the entire county wide. We want to remove the county wide layer.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>la_county_pna <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">'data/raw/PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907.geojson'</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(la_county_pna)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 189  96</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>la_county_pna_edit <span class="ot">&lt;-</span> la_county_pna[<span class="sc">-</span><span class="dv">189</span>, ]</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(la_county_pna_edit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 188  96</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(la_county_pna_edit) <span class="sc">+</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="editing-geo-files_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(la_county_pna_edit, <span class="st">'data/cleaned/LA_County_PNA_Demographics.geojson'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
