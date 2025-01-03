@@ -108,3 +108,75 @@ ggplot() +
        mapping = aes(x = year, y = count))
  
 ```
+
+## Adding labels and basemaps to ggplot map
+
+Let's get the observation counts for neighborhoods around Exposition Park
+
+```{r}
+la_neighborhoods_sf <- st_read('data/raw/la_times_la_county_neighborhoods.json')
+
+```
+
+Get Exposition Park neighborhood
+
+```{r}
+expo_park_sf <- la_neighborhoods_sf %>% 
+  filter(name=='Exposition Park')
+
+expo_park_sf
+```
+
+There is a bug with **sf** <https://github.com/r-spatial/sf/issues/1762>. This bit of code is fix for the bug.
+
+```{r fix_sf_bug}
+sf_use_s2(FALSE)
+```
+
+Get neighborhoods surrounding Exposition Park
+
+```{r}
+expo_area_sf <- la_neighborhoods_sf[lengths(st_intersects(la_neighborhoods_sf, expo_park_sf)) > 0, ]
+
+expo_area_sf <-  expo_area_sf %>%
+  select(name)
+
+expo_area_sf
+```
+
+Use custom function `add_inat_count_to_boundary_sf()` to count the number of iNaturalist observations per neighborhood.
+
+```{r}
+expo_area_count_sf <- add_inat_count_to_boundary_sf(inat_sf, expo_area_sf, 'name')
+
+expo_area_count_sf
+```
+
+Create map with labels that show counts
+
+```{r}
+
+ggplot(expo_area_count_sf, aes(label=paste0(name,': ', observations_count))) +
+  geom_sf() +
+  geom_sf_label(fill = "white" )  
+
+```
+
+Change crs to since basemaps package uses 3857
+
+```{r}
+expo_area_count_sf <- st_transform(expo_area_count_sf,  crs = st_crs(3857))
+
+```
+
+Create map with labels that show counts and basemap
+
+```{r}
+
+ggplot(expo_area_count_sf) +
+  basemap_gglayer(expo_area_count_sf) + 
+  scale_fill_identity() +
+  geom_sf( mapping=aes(fill=alpha("yellow", .05))) +
+  geom_sf_label( mapping=aes(label = paste0(name, ': ',observations_count)) )  +
+  theme_void()
+```
