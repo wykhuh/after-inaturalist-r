@@ -45,5 +45,6 @@ library(ggplot2) # create data visualizations
 library(sf) # handle geospatial data
 library(lubridate) # manipulate dates
 library(mapview) # create interactive maps
+library(basemaps) # access open source basemaps
 
 ```
