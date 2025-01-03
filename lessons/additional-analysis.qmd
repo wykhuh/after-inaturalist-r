@@ -18,6 +18,9 @@ library(lubridate) # manipulate dates
 library(ggplot2) # create data visualizations
 library(sf) # handle geospatial data
 library(mapview) # create interactive maps
+library(basemaps) # add basemap
+
+source('../scripts/map_utils.R')
 ```
 
 First, we need to read data from the CNC iNaturalist observation file.
@@ -29,26 +32,19 @@ inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 
 ```
 
-Let's add a `geometry` column
-
-```{r, select_columns}
-inat_map <- inat_data %>% 
-  st_as_sf(coords = c("longitude", "latitude"),   crs = 4326) %>% 
-  select(user_login, common_name, scientific_name, observed_on,  url, geometry, quality_grade)
-```
-
-Let's get the observations for 'Quercus agrifolia' aka Coast Live Oak.
-
-```{r, get_oak_data}
-inat_oak_map <- inat_map %>% 
-  filter(scientific_name == 'Quercus agrifolia')
-```
-
 Let's add a year column to iNaturalist data.
 
 ```{r, add_year_column}
 inat_year <- inat_data %>% 
   mutate(year = year(observed_on)) 
+```
+
+Let's add a `geometry` column
+
+```{r, select_columns}
+inat_sf <- inat_data %>% 
+  st_as_sf(coords = c("longitude", "latitude"),   crs = 4326) %>% 
+  select(user_login, common_name, scientific_name, observed_on,  url, quality_grade)
 ```
 
 ## Dodged bar charts
@@ -112,108 +108,3 @@ ggplot() +
        mapping = aes(x = year, y = count))
  
 ```
-
-## Choropleth maps
-
-Choropleth maps use colors or shades to show how data changes from place to place.
-
-![Toby Hudson based on data from the Australian Bureau of Statistics, CC BY-SA 3.0 AU \<https://creativecommons.org/licenses/by-sa/3.0/au/deed.en\>, via Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Australian_Census_2011_demographic_map_-_Australia_by_SLA_-_BCP_field_2715_Christianity_Anglican_Persons.svg/305px-Australian_Census_2011_demographic_map_-_Australia_by_SLA_-_BCP_field_2715_Christianity_Anglican_Persons.svg.png){fig-alt="example of choropleth map"}
-
-Let's create a choropleth map to show the number of CNC observations in L.A. County neighborhoods.
-
-Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <https://maps.latimes.com/about/index.html> We'll use the L.A. Times neighborhood boundaries for our map.
-
-```{r read_neighborhood_file}
-la_neighborhoods <- read_sf('data/raw/la_times_la_county_neighborhoods.json')
-```
-
-Use `glimpse()` to examine the file data.
-
-```{r glimpse_neighborhood}
-glimpse(la_neighborhoods)
-```
-
-The file has a `geometry` column.
-
-Use `select()` to pick the `name` and `geometry` columns.
-
-```{r select_columns_in_neighborhood}
-la_neighborhoods_edit <- la_neighborhoods %>%
-  select(name, geometry)
-
-```
-
-Check if the neighborhood maps have the same CRS as the iNaturalist data.
-
-```{r check_neighborhood_inat_crs}
-st_crs(la_neighborhoods_edit) == st_crs(inat_map)
-```
-
-There is a bug with **sf** <https://github.com/r-spatial/sf/issues/1762>. This bit of code is fix for the bug.
-
-```{r fix_sf_bug}
-sf_use_s2(FALSE)
-```
-
-We want to figure out how many observations are in each neighborhood. `st_join()` from **sf** figures out if items in one spatial object touch, cross, or is within items in a second spatial object. If an item intersects the second item, then the columns from the second item are added to the first item.
-
-The following code will figure out if an observation in `inat_map` intersects the boundaries of `la_neighborhoods_edit`. If the observation intersects a neighborhood, the neighborhood `name` is added the observation. If the observation is not inside a neighborhood, `name` is set to `NA`. `NA` is a special value in R that means not applicable. `filter(!is.na(name))` selects observations where `name` is not `NA`.
-
-```{r get_observations_within_neighborhoods}
-inat_neigborhoods <- st_join(inat_map, la_neighborhoods_edit) %>%
-  filter(!is.na(name)) 
-
-glimpse(inat_neigborhoods)
-```
-
-181K out of the 191K CNC observations intersect one of the neighborhood boundaries.
-
-Next we use `count()` to get the number of observations per neighborhood. We also use `st_drop_geometry()` from **sf** to remove the `geometry` column. We want to remove the `geometry` column because we don't need the location of each observation for the final map.
-
-```{r count_observations_per_neigbhorhood}
-
-inat_neigborhoods_counts <- inat_neigborhoods %>%
-  count(name, name='obs_count')  %>%
-  st_drop_geometry()
-
-head(inat_neigborhoods_counts)
-```
-
-Next use `left_join()` from **dplyr** to add `obs_count` from `inat_neigborhoods_counts` to neighborhood boundaries from `la_neighborhoods_edit`. `left_join()` will use the `name` column present in both data frames to combine the data.
-
-```{r create_dataframe_with_neighborhood_counts_geometry}
-la_counts_map <- left_join(la_neighborhoods_edit, inat_neigborhoods_counts)
-
-head(la_counts_map)
-```
-
-`la_counts_map` has three columns: name of the neighborhood, the number of observations, and geometry.
-
-We can now create maps showing the number of observations per neighborhood.
-
-`aes(fill=<column_name>)` sets which column is used to determine the color of each neighborhood. `labs(fill='<title>')` sets the title show in the legend.
-
-```{r, create_static_map_with_observations_by_neighborhood}
-
-ggplot() +
-  geom_sf(data = la_counts_map, 
-          mapping=aes(fill=obs_count)) +
-  labs(title = 'CNC Observations by neighborhood', 
-       subtitle = '2016-2024',
-       fill='Observations') +
-  theme_void()
-
-
-
-```
-
-`zcol` sets which column to is used to determine the color of each neighborhood. `layer.name` sets the title shown in the legend. mapview does not have the ability to add a map title.
-
-```{r create_interactive_map_with_observations_by_neighborhood}
-#| eval: false
-mapview(la_counts_map,  
-        zcol = 'obs_count', 
-        layer.name= 'Observations')
-```
-
-![](images/mapview/creating_maps/create_interactive_map_with_observations_by_neighborhood.png){fig-alt="create interactive map with observations by neighborhood"}
