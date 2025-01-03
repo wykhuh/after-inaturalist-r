@@ -46,21 +46,13 @@ A lot of demographics data from the Park Needs Assessment comes from the U.S. Ce
 We load Park Needs Assessment data using `read_sf()` to read GeoJSON file. Click `la_county_pna` in the Environment pane to browse the data frame.
 
 ```{r, get_pna_data}
-la_county_pna <- read_sf('data/raw/PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907.geojson')
-```
-
-The last row has data for the entire LA County. Let's remove that last row.
-
-```{r, remove_row_for_entire_county}
-la_county_pna <- la_county_pna[-c(189), ]
-
-dim(la_county_pna)
+la_county_pna <- read_sf('data/cleaned/LA_County_PNA_Demographics.geojson')
 ```
 
 There are 96 fields in the data set. Here's a short description of the fields.
 
 | field | description |
-|----|----|
+|------------------------------------|------------------------------------|
 | STUD_AR_ID | Study Area ID |
 | STUD_AR_NM | Study Area Name |
 | STUD_AR_LBL | Label |

@@ -250,3 +250,28 @@ Save the file.
 
 st_write(ca_nps_parks, 'data/cleaned/nps_la_county.geojson')
 ```
+
+## LA County Park Needs Assessment
+
+The LA County Park Needs Assessment has layer for the entire county wide. We want to remove the county wide layer.
+
+```{r}
+la_county_pna <- read_sf('data/raw/PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907.geojson')
+
+dim(la_county_pna)
+```
+
+```{r}
+la_county_pna_edit <- la_county_pna[-189, ]
+
+dim(la_county_pna_edit)
+```
+
+```{r}
+ggplot(la_county_pna_edit) +
+  geom_sf()
+```
+
+```{r}
+st_write(la_county_pna_edit, 'data/cleaned/LA_County_PNA_Demographics.geojson')
+```
