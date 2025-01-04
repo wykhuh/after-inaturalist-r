@@ -40,9 +40,9 @@ glimpse(inat_data)
 
 ## Data Types
 
-`glimpse()` shows `<dbl> <date> <chr> <lgl>`. Those data types.
+`glimpse()` shows `<dbl> <date> <chr> <lgl>`. Those are data types.
 
-In computer programming, **data type** is a way to group data values. Every value has a data type. A value's data type will determine what the programming language can do with the value. For instance, in R we can add numbers but we can't add strings.
+In computer programming, **data type** is a way to group data values. Every value has a data type. A value's data type will determine what the programming language can do with the value. For instance, in R we can add numbers but we can't add character strings.
 
 There are 4 main types in R: **numeric**, **integer**, **logical**, and **character**.
 
@@ -52,15 +52,19 @@ There are 4 main types in R: **numeric**, **integer**, **logical**, and **charac
 
 -   **logical** have values of `TRUE` or `FALSE`.
 
--   **character** are strings of characters (e.g. "abc", 'dog'). The strings must be surrounded by quotes, either single quotes or double quotes.
+-   **character** are strings of characters (e.g. "abc", 'dog'). Characters are mainly letters and punctuation. Numbers combined with letters are treated as characters such as '1apple'. Strings must be surrounded by quotes, either single quotes or double quotes.
 
-## Vectors
+## Data Structures
 
 A **data structure** is a way to organize and store a collection of values.
 
+### Vectors
+
 A **vector** is data structure in R that has series of values. All the value in the vector must be the same data type.
 
-To create a vector we use the `c()` combine function, and pass in the values as arguments. We can use `class()` function to find the type or class of any object.
+To create a vector we use the `c()` combine function, and pass in the values as arguments.
+
+We can use `class()` function to find the type or class of any object.
 
 numeric vector
 
@@ -98,32 +102,7 @@ mixed
 class(mixed)
 ```
 
-## Missing data
-
-R represents missing data as `NA`, without quotes. `NA` stands for not applicable.
-
-`NA` is allowed in vectors of any data type.
-
-```{r c-vector-na}
-numbers <- c(1, 2, NA)
-numbers
-
-class(numbers)
-```
-
-When you pass number vectors with `NA` to a math function like `min()` (returns minimal value in a vector), the function returns `NA`.
-
-```{r}
-min(numbers)
-```
-
-Many math functions have an argument `na.rm` to remove `NA` values for its calculations.
-
-```{r}
-min(numbers,  na.rm = TRUE)
-```
-
-## data.frame
+### data.frame
 
 When we call `class()` with `inat_data`, it returns "tbl" and "data.frame".
 
@@ -138,3 +117,30 @@ When `readr` loads a CSV, it tries to figure the data type for each column. Each
 For `inat_data`, `id` is **numeric**, `captive_cultivated` is **logical**, `user_login` is **character**. Multiple columns have `NA` such as `license` and `sound_url`.
 
 `readr` has a special data type `date` that is used to represent dates. Column `observed_on` is **date**. Other columns are such as `time_observed_at` are treated as **character** because those strings have extra information that `readr` does not recognize as a **date**.
+
+## Missing data
+
+R represents missing data as `NA`, without quotes. `NA` stands for not applicable.
+
+`NA` is allowed in vectors of any data type.
+
+```{r c-vector-na}
+numbers <- c(1, 2, NA)
+numbers
+
+class(numbers)
+```
+
+When you pass number vectors with `NA` to a math function like `min()` , the function returns `NA`. `min()` returns the smallest number in a vector.
+
+```{r}
+min(numbers)
+```
+
+Many math functions have an argument `na.rm` to remove `NA` values for its calculations.
+
+```{r}
+min(numbers,  na.rm = TRUE)
+```
+
+## 

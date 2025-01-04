@@ -42,7 +42,7 @@ These are the R packages we will use in this workshop.
 library(readr) # read and write tabular data
 library(dplyr) # manipulate data
 library(ggplot2) # create data visualizations
-library(sf) # handle geospatial data
+library(sf) # handle vector geospatial data
 library(lubridate) # manipulate dates
 library(mapview) # create interactive maps
 library(basemaps) # access open source basemaps

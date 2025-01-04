@@ -174,7 +174,7 @@ inat_data %>%
   select(user_login, common_name, scientific_name, observed_on)
 ```
 
-Pipe operator take the thing on the left hand side and insert it as the first argument of the function on the right hand side. It can be helpful to think of `%>%` as meaning "and then". `inat_data` gets is sent to `filter()` function. `filter()` selects rows with 'natureinla'. Then output from `filter()` is sent into the `select()` function. `select()` selects 4 columns.
+Pipe operator take the thing on the left hand side and insert it as the first argument of the function on the right hand side. It can be helpful to think of `%>%` as meaning "and then". `inat_data` is sent to `filter()` function. `filter()` selects rows with 'natureinla'. Then output from `filter()` is sent into the `select()` function. `select()` selects 4 columns.
 
 #### select observations by coordinates_obscured
 
@@ -182,7 +182,7 @@ Sometimes the coordinates for iNaturalist observations are obscured. For instanc
 
 To access one column in a data frame, use `dataframe$column_name`. When we pass in a data frame column to `table()` function from R, it will return the unique values in a column, and the number of rows that contain each value.
 
-Let's get a count of how many observations have obscured locations.
+Use `table()` to get a count of how many observations have obscured locations by passing in the data frame column.
 
 ```{r, call_table}
 table(inat_data$coordinates_obscured)
@@ -216,7 +216,7 @@ inat_data %>%
 
 iNaturalist gives a quality grade to each observation.
 
-To see all the unique values for a column, use `unique()` function from R and pass in the column name.
+To see all the unique values for a column, use `unique()` function from R and pass in the data frame column.
 
 ```{r, quality_grade_values}
 unique(inat_data$quality_grade)
@@ -271,14 +271,17 @@ inat_data %>%
 
 Get all your City Nature Challenge observations.
 
--   Use `filter()` to select observations. with your iNaturalist username
+-   Use `read_csv()` to load the CNC CSV.
+-   Use `filter()` to select observations with your iNaturalist username
 -   Use `select()` to select 4 columns. One of the columns should be `common_name`
 -   assign the results to `my_obs` object
 -   click on `my_obs` in the Environment tab to see the results
 
 ::: answer
 ```{r, exercise_your_observations}
-my_obs <- inat_data %>%
+my_inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+
+my_obs <- my_inat_data %>%
   filter(user_login == 'natureinla') %>%
   select(user_login, observed_on, common_name, scientific_name)
 ```
@@ -287,7 +290,7 @@ my_obs <- inat_data %>%
 
 ## Logical operators
 
-In previous examples used one criteria in `filter()` to select some rows. Often times we want to use multiple criteria to select some rows. Logical operators allow you to do multiple comparisons at once.
+In previous examples we used one criteria in `filter()` to select some rows. Often times we want to use multiple criteria to select some rows. Logical operators allow you to do multiple comparisons at once.
 
 ### and operator: &
 
@@ -323,11 +326,11 @@ Previously we looked at `coordinates_obscured`. In addition to coordinates being
 When given a vector of numbers, `summary()` displays statistics about the values. Let's use `summary()` to look at the positional accuracy of observations where the coordinates are not obscured.
 
 ```{r}
-not_obscured <- inat_data %>%
+my_data <- inat_data %>%
   filter(coordinates_obscured == FALSE)  
 
  
-summary(not_obscured$positional_accuracy)
+summary(my_data$positional_accuracy)
 ```
 
 Min. means the minimal value is 0.
@@ -341,6 +344,8 @@ Mean is the sum of the values divided by number of items.
 3rd Qu. means 75% of the values are less than 65, and 25% are greater than 65.
 
 Max. means the maximum value is 13,227,987.
+
+NA's means there are 36,601 rows without positional_accuracy.
 
 In other words, even though we selected unobscured locations, 25% of the observations are 65 or more meters away the actual location due to the accuracy of GPS device.
 
@@ -479,12 +484,13 @@ We get 6,216 rows with 1052 user_login and 1031 common_name
 
 Get all your observations that are research grade
 
+-   use my_inat_data to access CNC observations
 -   Use `&` with `filter()` since we want to pick observations by both username and quality grade
 -   Use `select()` to pick 4 columns
 
 ::: answer
 ```{r, exercise_your_research_grade}
-inat_data %>%
+my_inat_data %>%
   filter(user_login == 'natureinla' & 
            quality_grade == 'research') %>%
   select(user_login, observed_on, common_name, scientific_name)
@@ -569,9 +575,9 @@ We get 2 users and 1 common name.
 
 Get all your observations for two species
 
+-   Use `my_inat_data` to access CNC observations
 -   Use `unique(my_obs$common_names)` from Exercise 1 to find two species name.
--   Use `filter()` to pick two species and your username.\
--   Use `|` or `%in% c()%` to handle multiple species.
+-   Use `filter()` to pick two species and your username.
 -   Use `select()` to pick four columns.
 
 ::: answer
@@ -580,7 +586,7 @@ unique(my_obs$common_name)[0:10]
 ```
 
 ```{r, exercise_two_species}
-inat_data %>%
+my_inat_data %>%
   filter(user_login == 'natureinla') %>%
   filter(common_name == 'Red-eared Slider' | common_name=='Monarch') %>%
   select(user_login, observed_on, common_name, scientific_name)
@@ -839,15 +845,14 @@ unique(temp$year)
 
 Get all of your observations from 2024.
 
+-   Use `my_inat_data` to access CNC observations
 -   Use `mutate()` and `year()` to add year column
-
 -   Use `filter()` to pick observations with your username and year is 2024
-
 -   Use select() to pick 4 columns
 
 ::: answer
 ```{r, exercise_last_year}
-inat_data %>%
+my_inat_data %>%
    mutate(year = year(observed_on)) %>%
   filter(user_login == 'natureinla' & year == 2024) %>%
   select(user_login, observed_on, common_name, scientific_name)
@@ -857,7 +862,7 @@ inat_data %>%
 
 ## Count the number of rows with count()
 
-Use `count()` from **dplyr** to count the number of values for one or more columns. We pass in the column names as arguments to `count()`
+We can use `count()` from **dplyr** to count the number of values for one or more columns. We pass in the column names as arguments to `count()`
 
 #### get observations per year
 
@@ -921,18 +926,43 @@ counts <- inat_data %>%
 counts
 ```
 
+#### Count higher taxa
+
+Let's count the observations by kingdom.
+
+```{r, top_ten}
+counts <- inat_data %>%
+  count(taxon_kingdom_name, name='obs_count') %>%
+  arrange(desc(obs_count)) 
+
+counts
+```
+
+Let's count observations for phylums in the Animal kingdom. Use `filter()` to select 'Animalia' kingdom. Then count the `taxon_phylum_name`.
+
+```{r, top_ten}
+counts <- inat_data %>%
+  filter(taxon_kingdom_name == 'Animalia') %>%
+  count(taxon_phylum_name, name='obs_count') %>%
+  arrange(desc(obs_count)) 
+
+counts
+```
+
+
 :::: exercise
 ## Exercise 5
 
 Get the number of observation you made per year
 
+-   Use `my_inat_data` to access CNC observations
 -   Use `mutate()` and `year()` to add year column
 -   Use `count()` to count the number of observations per year
 -   Use `filter()` to select observations with your username
 
 ::: answer
 ```{r, exercise_observations_per_year}
-inat_data %>%
+my_inat_data %>%
   mutate(year = year(observed_on)) %>%
   filter(user_login == 'natureinla') %>%
   count(year, name='obs_count')

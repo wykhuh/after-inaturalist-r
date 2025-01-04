@@ -16,7 +16,7 @@ library(readr) # read and write tabular data
 library(dplyr) # manipulate data
 library(lubridate) # manipulate dates
 library(ggplot2) # create data visualizations
-library(sf) # handle geospatial data
+library(sf) # handle vector geospatial data
 library(mapview) # create interactive maps
 library(basemaps) # add basemap
 
