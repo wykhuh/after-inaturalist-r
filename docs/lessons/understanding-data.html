@@ -298,9 +298,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#data-types" id="toc-data-types" class="nav-link active" data-scroll-target="#data-types">Data Types</a></li>
+  <li><a href="#data-structures" id="toc-data-structures" class="nav-link" data-scroll-target="#data-structures">Data Structures</a>
+  <ul class="collapse">
   <li><a href="#vectors" id="toc-vectors" class="nav-link" data-scroll-target="#vectors">Vectors</a></li>
-  <li><a href="#missing-data" id="toc-missing-data" class="nav-link" data-scroll-target="#missing-data">Missing data</a></li>
   <li><a href="#data.frame" id="toc-data.frame" class="nav-link" data-scroll-target="#data.frame">data.frame</a></li>
+  </ul></li>
+  <li><a href="#missing-data" id="toc-missing-data" class="nav-link" data-scroll-target="#missing-data">Missing data</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   </ul>
 </nav>
     </div>
@@ -396,21 +400,24 @@ $ establishment_means        &lt;chr&gt; "introduced", NA, "native", "native", "
 </div>
 <section id="data-types" class="level2">
 <h2 class="anchored" data-anchor-id="data-types">Data Types</h2>
-<p><code>glimpse()</code> shows <code>&lt;dbl&gt; &lt;date&gt; &lt;chr&gt; &lt;lgl&gt;</code>. Those data types.</p>
-<p>In computer programming, <strong>data type</strong> is a way to group data values. Every value has a data type. A value’s data type will determine what the programming language can do with the value. For instance, in R we can add numbers but we can’t add strings.</p>
+<p><code>glimpse()</code> shows <code>&lt;dbl&gt; &lt;date&gt; &lt;chr&gt; &lt;lgl&gt;</code>. Those are data types.</p>
+<p>In computer programming, <strong>data type</strong> is a way to group data values. Every value has a data type. A value’s data type will determine what the programming language can do with the value. For instance, in R we can add numbers but we can’t add character strings.</p>
 <p>There are 4 main types in R: <strong>numeric</strong>, <strong>integer</strong>, <strong>logical</strong>, and <strong>character</strong>.</p>
 <ul>
 <li><p><strong>numeric</strong> are numbers that contain a decimal (e.g.&nbsp;1.2, 10.5). By default, R also treats whole numbers as decimals (e.g.&nbsp;1, 10).</p></li>
 <li><p><strong>integer</strong> are whole numbers that do not have a decimal point. (e.g.&nbsp;1L, 10L). In R, the <code>L</code> suffix forces the number to be an integer, since by default R uses decimal numbers.</p></li>
 <li><p><strong>logical</strong> have values of <code>TRUE</code> or <code>FALSE</code>.</p></li>
-<li><p><strong>character</strong> are strings of characters (e.g.&nbsp;“abc”, ‘dog’). The strings must be surrounded by quotes, either single quotes or double quotes.</p></li>
+<li><p><strong>character</strong> are strings of characters (e.g.&nbsp;“abc”, ‘dog’). Characters are mainly letters and punctuation. Numbers combined with letters are treated as characters such as ‘1apple’. Strings must be surrounded by quotes, either single quotes or double quotes.</p></li>
 </ul>
 </section>
-<section id="vectors" class="level2">
-<h2 class="anchored" data-anchor-id="vectors">Vectors</h2>
+<section id="data-structures" class="level2">
+<h2 class="anchored" data-anchor-id="data-structures">Data Structures</h2>
 <p>A <strong>data structure</strong> is a way to organize and store a collection of values.</p>
+<section id="vectors" class="level3">
+<h3 class="anchored" data-anchor-id="vectors">Vectors</h3>
 <p>A <strong>vector</strong> is data structure in R that has series of values. All the value in the vector must be the same data type.</p>
-<p>To create a vector we use the <code>c()</code> combine function, and pass in the values as arguments. We can use <code>class()</code> function to find the type or class of any object.</p>
+<p>To create a vector we use the <code>c()</code> combine function, and pass in the values as arguments.</p>
+<p>We can use <code>class()</code> function to find the type or class of any object.</p>
 <p>numeric vector</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>)</span>
@@ -460,41 +467,11 @@ $ establishment_means        &lt;chr&gt; "introduced", NA, "native", "native", "
 </div>
 </div>
 </section>
-<section id="missing-data" class="level2">
-<h2 class="anchored" data-anchor-id="missing-data">Missing data</h2>
-<p>R represents missing data as&nbsp;<code>NA</code>, without quotes. <code>NA</code> stands for not applicable.</p>
-<p><code>NA</code> is allowed in vectors of any data type.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>numbers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  1  2 NA</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "numeric"</code></pre>
-</div>
-</div>
-<p>When you pass number vectors with <code>NA</code> to a math function like <code>min()</code> (returns minimal value in a vector), the function returns <code>NA</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] NA</code></pre>
-</div>
-</div>
-<p>Many math functions have an argument <code>na.rm</code> to remove <code>NA</code> values for its calculations.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(numbers,  <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1</code></pre>
-</div>
-</div>
-</section>
-<section id="data.frame" class="level2">
-<h2 class="anchored" data-anchor-id="data.frame">data.frame</h2>
+<section id="data.frame" class="level3">
+<h3 class="anchored" data-anchor-id="data.frame">data.frame</h3>
 <p>When we call <code>class()</code> with <code>inat_data</code>, it returns “tbl” and “data.frame”.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(inat_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(inat_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame" </code></pre>
 </div>
@@ -503,6 +480,40 @@ $ establishment_means        &lt;chr&gt; "introduced", NA, "native", "native", "
 <p>When <code>readr</code> loads a CSV, it tries to figure the data type for each column. Each column in a data.frame or tibble is a vector. Because each column is a vector, all the values in a column must be of the same data type.</p>
 <p>For <code>inat_data</code>, <code>id</code> is <strong>numeric</strong>, <code>captive_cultivated</code> is <strong>logical</strong>, <code>user_login</code> is <strong>character</strong>. Multiple columns have <code>NA</code> such as <code>license</code> and <code>sound_url</code>.</p>
 <p><code>readr</code> has a special data type <code>date</code> that is used to represent dates. Column <code>observed_on</code> is <strong>date</strong>. Other columns are such as <code>time_observed_at</code> are treated as <strong>character</strong> because those strings have extra information that <code>readr</code> does not recognize as a <strong>date</strong>.</p>
+</section>
+</section>
+<section id="missing-data" class="level2">
+<h2 class="anchored" data-anchor-id="missing-data">Missing data</h2>
+<p>R represents missing data as <code>NA</code>, without quotes. <code>NA</code> stands for not applicable.</p>
+<p><code>NA</code> is allowed in vectors of any data type.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>numbers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  1  2 NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p>When you pass number vectors with <code>NA</code> to a math function like <code>min()</code> , the function returns <code>NA</code>. <code>min()</code> returns the smallest number in a vector.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<p>Many math functions have an argument <code>na.rm</code> to remove <code>NA</code> values for its calculations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(numbers,  <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
 
 
 </section>

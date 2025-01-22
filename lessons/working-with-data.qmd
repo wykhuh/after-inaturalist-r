@@ -930,7 +930,7 @@ counts
 
 Let's count the observations by kingdom.
 
-```{r, top_ten}
+```{r, kingdoms_count}
 counts <- inat_data %>%
   count(taxon_kingdom_name, name='obs_count') %>%
   arrange(desc(obs_count)) 
@@ -940,7 +940,7 @@ counts
 
 Let's count observations for phylums in the Animal kingdom. Use `filter()` to select 'Animalia' kingdom. Then count the `taxon_phylum_name`.
 
-```{r, top_ten}
+```{r, animal_phylums}
 counts <- inat_data %>%
   filter(taxon_kingdom_name == 'Animalia') %>%
   count(taxon_phylum_name, name='obs_count') %>%
@@ -948,7 +948,6 @@ counts <- inat_data %>%
 
 counts
 ```
-
 
 :::: exercise
 ## Exercise 5

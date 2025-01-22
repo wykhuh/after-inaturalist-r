@@ -358,7 +358,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="other-datasets" class="level2">
 <h2 class="anchored" data-anchor-id="other-datasets">Other datasets</h2>
 <p>There are various geospatial datasets that are free to use. Some datasets require crediting the original data source. Data sources used for this course include <a href="https://geohub.lacity.org">LA City Geohub</a>, <a href="https://catalog.data.gov">Data.gov</a>, <a href="https://www.parks.ca.gov">California State Parks</a>, <a href="https://data.lacounty.gov">County of Los Angeles Open Data</a>, and <a href="https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html">US Census TIGER</a>.</p>
-<p>We’ve pre-selected some geospatial data that workshop attendees might want to use to analyze iNaturalist data and provided a preview in the code below. These files are in the <code>data</code> directory. We modified some of the downloaded data to make things easier for the attendees; see <a href="../lessons/editing-geo-files.html">Editing geospatial files</a> for more details.</p>
+<p>We’ve pre-selected some geospatial data that workshop attendees might want to use to analyze iNaturalist data and provided a preview in the code below. These files are in the <code>data</code> directory. We modified some of the downloaded data to make things easier for workshop attendees; see <a href="../lessons/editing-geo-files.html">Editing geospatial files</a> for more details.</p>
 </section>
 <section id="demographics-data" class="level2">
 <h2 class="anchored" data-anchor-id="demographics-data">Demographics data</h2>
@@ -751,14 +751,16 @@ Note
 <p>There are two issues with the previous map.</p>
 <ol type="1">
 <li><p>The name of the layer is too long. We can rename the layer using <code>layer.name ='New Name'</code></p></li>
-<li><p>When you click on region, the popup shows too many fields. To select the columns displayed in popups, we can set the columns using <code>dataframe[c('col_1', 'col_2')]</code>.</p></li>
+<li><p>When you click on region, the popup shows too many fields. Use <code>select()</code> to pick the columns you need, and assign the new data frame to a new object.</p></li>
 </ol>
-<p><code>layer.name ='Avg income'</code> sets the layer name to ‘Avg income’.</p>
-<p><code>la_county_pna[c('STUD_AR_NM', 'householdincome_medhinc_cy')]</code> sets the columns show in the popup to householdincome_medhinc_cy and STUD_AR_NM</p>
+<p><code>layer.name ='Avg income'</code> sets the layer name to ‘Avg income’</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_pna[<span class="fu">c</span>(<span class="st">'STUD_AR_NM'</span>, <span class="st">'householdincome_medhinc_cy'</span>)], </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">zcol=</span><span class="st">'householdincome_medhinc_cy'</span>,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">layer.name =</span><span class="st">'Avg income'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>la_county_pna_map <span class="ot">&lt;-</span> la_county_pna <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUD_AR_NM, householdincome_medhinc_cy)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_pna_map, </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">zcol=</span><span class="st">'householdincome_medhinc_cy'</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">layer.name =</span><span class="st">'Avg income'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/mapview/other-datasets/fix_map.png" class="img-fluid" alt="interactive map of Household Median Income with fixed layer name and popups"></p>
 </section>

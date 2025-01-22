@@ -250,8 +250,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#cleaning-up-inaturalist-file" id="toc-cleaning-up-inaturalist-file" class="nav-link active" data-scroll-target="#cleaning-up-inaturalist-file">Cleaning up iNaturalist file</a></li>
+  <li><a href="#inaturalist" id="toc-inaturalist" class="nav-link active" data-scroll-target="#inaturalist">iNaturalist</a>
+  <ul class="collapse">
+  <li><a href="#cleaning-up-inaturalist-file" id="toc-cleaning-up-inaturalist-file" class="nav-link" data-scroll-target="#cleaning-up-inaturalist-file">Cleaning up iNaturalist file</a></li>
   <li><a href="#adding-more-information" id="toc-adding-more-information" class="nav-link" data-scroll-target="#adding-more-information">Adding more information</a></li>
+  </ul></li>
+  <li><a href="#lasan" id="toc-lasan" class="nav-link" data-scroll-target="#lasan">LASAN</a>
+  <ul class="collapse">
+  <li><a href="#indicator-species" id="toc-indicator-species" class="nav-link" data-scroll-target="#indicator-species">Indicator species</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -278,13 +285,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>A common step during data analysis is to clean up the raw data. We fix any obvious errors, edit column names, exclude rows we do not want, and save the cleaned up data set. We do the analysis on the cleaned data set.</p>
-<section id="cleaning-up-inaturalist-file" class="level2">
-<h2 class="anchored" data-anchor-id="cleaning-up-inaturalist-file">Cleaning up iNaturalist file</h2>
 <p>Load libraries</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pdftools)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="inaturalist" class="level2">
+<h2 class="anchored" data-anchor-id="inaturalist">iNaturalist</h2>
+<section id="cleaning-up-inaturalist-file" class="level3">
+<h3 class="anchored" data-anchor-id="cleaning-up-inaturalist-file">Cleaning up iNaturalist file</h3>
 <p>Save the file paths as objects.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>observations_raw_path <span class="ot">&lt;-</span> <span class="st">'data/raw/observations-513664.csv'</span></span>
@@ -635,8 +646,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(inat, <span class="at">file=</span> observations_cleaned_path, <span class="at">na =</span> <span class="st">""</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="adding-more-information" class="level2">
-<h2 class="anchored" data-anchor-id="adding-more-information">Adding more information</h2>
+<section id="adding-more-information" class="level3">
+<h3 class="anchored" data-anchor-id="adding-more-information">Adding more information</h3>
 <p>In order to get information about observations with threatened, introduced, and native species, we had to download a separate CSV for each option. We want to merge all these files into one cleaned observations file.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(observations_cleaned_path)</span>
@@ -779,8 +790,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(combined_data, observations_cleaned_path, <span class="at">na =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+</section>
+<section id="lasan" class="level2">
+<h2 class="anchored" data-anchor-id="lasan">LASAN</h2>
+<section id="indicator-species" class="level3">
+<h3 class="anchored" data-anchor-id="indicator-species">Indicator species</h3>
+<p>Convert pdf to CSV</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>pdf <span class="ot">&lt;-</span> <span class="fu">pdf_text</span>(<span class="st">"./data/raw/LASAN/cnt061142_indicator_species.pdf"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">read_lines</span>()  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">=</span> <span class="fu">list</span>()</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (line <span class="cf">in</span> pdf[<span class="dv">5</span><span class="sc">:</span><span class="dv">189</span>]) {</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (line <span class="sc">!=</span> <span class="st">''</span>) {</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>    matches <span class="ot">&lt;-</span> <span class="fu">str_match</span>(line, </span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"^([a-zA-Z]+)  +([a-zA-Z]+ [a-zA-Z.()]+ ([a-zA-Z.()]+ [a-zA-Z.()]+)?)  +([-'a-zA-Z ]+)  +"</span>  </span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>    row <span class="ot">&lt;-</span> <span class="fu">c</span>(matches[<span class="dv">1</span>,<span class="dv">2</span>], matches[<span class="dv">1</span>,<span class="dv">3</span>],  matches[<span class="dv">1</span>,<span class="dv">5</span>], <span class="st">'species'</span>) <span class="sc">%&gt;%</span> <span class="fu">str_squish</span>()</span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>    my_list[[<span class="fu">length</span>(my_list)<span class="sc">+</span><span class="dv">1</span>]] <span class="ot">&lt;-</span> row</span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>stats_df <span class="ot">&lt;-</span> plyr<span class="sc">::</span><span class="fu">ldply</span>(my_list) </span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(stats_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'group'</span>, <span class="st">'scientific name'</span>, <span class="st">'common name'</span>, <span class="st">'taxon rank'</span>)</span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>stats_df <span class="ot">&lt;-</span> stats_df <span class="sc">%&gt;%</span> <span class="fu">filter_all</span>(<span class="fu">any_vars</span>(<span class="sc">!</span><span class="fu">is.na</span>(.)))</span>
+<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a>stats_df <span class="ot">&lt;-</span> stats_df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group <span class="sc">!=</span> <span class="st">'Group'</span>)</span>
+<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-18"><a href="#cb64-18" aria-hidden="true" tabindex="-1"></a>stats_df[<span class="dv">2</span>,<span class="st">'common name'</span>] <span class="ot">&lt;-</span> <span class="fu">paste</span>(stats_df[<span class="dv">2</span>,<span class="st">'common name'</span>], <span class="st">'Salamander'</span>)</span>
+<span id="cb64-19"><a href="#cb64-19" aria-hidden="true" tabindex="-1"></a>stats_df[<span class="dv">18</span>,<span class="st">'common name'</span>] <span class="ot">&lt;-</span> <span class="fu">paste</span>(stats_df[<span class="dv">18</span>,<span class="st">'common name'</span>], <span class="st">'Jerusalem crickets'</span>)</span>
+<span id="cb64-20"><a href="#cb64-20" aria-hidden="true" tabindex="-1"></a>stats_df[<span class="dv">22</span>,<span class="st">'common name'</span>] <span class="ot">&lt;-</span> <span class="fu">paste</span>(stats_df[<span class="dv">22</span>,<span class="st">'common name'</span>], <span class="st">'hairstreak'</span>)</span>
+<span id="cb64-21"><a href="#cb64-21" aria-hidden="true" tabindex="-1"></a>stats_df[<span class="dv">23</span>,<span class="st">'common name'</span>] <span class="ot">&lt;-</span> <span class="fu">paste</span>(stats_df[<span class="dv">23</span>,<span class="st">'common name'</span>], <span class="st">'butterfly'</span>)</span>
+<span id="cb64-22"><a href="#cb64-22" aria-hidden="true" tabindex="-1"></a>stats_df[<span class="dv">23</span>,<span class="st">'taxon rank'</span>] <span class="ot">&lt;-</span> <span class="st">'subspecies'</span></span>
+<span id="cb64-23"><a href="#cb64-23" aria-hidden="true" tabindex="-1"></a>stats_df[<span class="dv">25</span>,<span class="st">'scientific name'</span>] <span class="ot">&lt;-</span> <span class="st">'Mutillidae'</span></span>
+<span id="cb64-24"><a href="#cb64-24" aria-hidden="true" tabindex="-1"></a>stats_df[<span class="dv">25</span>,<span class="st">'taxon rank'</span>] <span class="ot">&lt;-</span> <span class="st">'family'</span></span>
+<span id="cb64-25"><a href="#cb64-25" aria-hidden="true" tabindex="-1"></a>stats_df[<span class="dv">26</span>,<span class="st">'scientific name'</span>] <span class="ot">&lt;-</span> <span class="st">'Pogonomyrmex'</span></span>
+<span id="cb64-26"><a href="#cb64-26" aria-hidden="true" tabindex="-1"></a>stats_df[<span class="dv">26</span>,<span class="st">'taxon rank'</span>] <span class="ot">&lt;-</span> <span class="st">'genus'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(stats_df, <span class="st">'./data/cleaned/LA_city_indicator_species.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
