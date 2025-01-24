@@ -8,7 +8,7 @@
     },
     /* add additional r packages here */
     "ghcr.io/rocker-org/devcontainer-features/r-packages:1": {
-      "packages": "readr,dplyr,ggplot2,sf,lubridate,mapview"
+      "packages": "readr,dplyr,ggplot2,sf,lubridate,mapview,languageserver"
     },
     /* setup RStudio server */
     "ghcr.io/rocker-org/devcontainer-features/rstudio-server": {}
