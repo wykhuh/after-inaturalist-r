@@ -331,3 +331,20 @@ ggplot() +
   geom_sf(data=la_river)
 ```
 
+## Los Angeles Ecotopes
+
+LA Sanitation and Environment published [2020 Biodiversity Report](https://sanitation.lacity.gov/cs/groups/public/documents/document/y250/mduy/~edisp/cnt052553.pdf) that outlines how to measure the health of the urban ecosystem in Los Angeles. As part of that report, they identified 17 ecological regions in LA called ecotopes. "Ecotopes are also envisioned as future management units to address biodiversity and related urban ecosystem stewardship topics of ecosystem services, pollution, and ecological hazards."
+
+```{r}
+ecotopes <- read_sf('data/raw/LA_Area_Ecotopes/FINAL Ecotope_Boundaries.shp')
+
+names(ecotopes)
+```
+
+```{r}
+#| eval: false
+
+mapview(ecotopes, zcol='ET_LndsZon')
+```
+
+![](images/mapview/other-datasets/ecotopes.png){fig-alt="create map with ecotopes"}
