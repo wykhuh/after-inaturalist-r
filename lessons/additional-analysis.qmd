@@ -1,6 +1,7 @@
 ---
 title: "Additional Analysis"
 format: html
+editor: visual
 ---
 
 In this section, we will show a few more examples of maps and charts.
@@ -202,7 +203,7 @@ ggplot(ejsm_sf, aes(fill = CIscore)) +
 
 ```
 
-Check if the EJSM  has the same CRS as the iNaturalist data.
+Check if the EJSM has the same CRS as the iNaturalist data.
 
 ```{r check_regions_inat_crs}
 st_crs(ejsm_sf) == st_crs(inat_sf)
@@ -270,5 +271,6 @@ mapview(ejsm_inat_basic_sf,
   mapview(centroid_sf, cex="observations_count", 
           zcol="observations_count",legend=FALSE, col.regions='black')
 ```
+
 ![](images/mapview/creating_maps/create_interactive_centroid_map.png){fig-alt="create interactive centroid map"}
 

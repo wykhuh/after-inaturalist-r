@@ -1,6 +1,7 @@
 ---
 title: "Science and Coding concepts"
 format: html
+editor: visual
 ---
 
 ## Biology Concepts
@@ -56,3 +57,4 @@ The image belows shows maps of the United States in different projections. The d
 ![Source: opennews.org, from: https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg](images/crs.jpg)
 
 In order for software to correctly display and manipulate geospatial data, the data must include coordinate reference system (CRS) information. The CRS tells the mapping software which map projection to use and where the data is located. To make sure things line up when working with multiple geospatial data sets, it’s important to use the same CRS during data processing and analysis.
+

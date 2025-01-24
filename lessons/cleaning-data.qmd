@@ -1,6 +1,7 @@
 ---
 title: "Cleaning data"
 format: html
+editor: visual
 ---
 
 A common step during data analysis is to clean up the raw data. We fix any obvious errors, edit column names, exclude rows we do not want, and save the cleaned up data set. We do the analysis on the cleaned data set.
@@ -325,3 +326,4 @@ stats_df[26,'taxon rank'] <- 'genus'
 write_csv(stats_df, './data/cleaned/LA_city_indicator_species.csv')
 
 ```
+

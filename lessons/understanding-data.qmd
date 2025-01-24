@@ -2,6 +2,7 @@
 title: "Understanding data"
 format: html
 include-in-header: "components/add-answer-button.html"
+editor: visual
 ---
 
 ::: summary
@@ -144,3 +145,4 @@ min(numbers,  na.rm = TRUE)
 ```
 
 ## 
+

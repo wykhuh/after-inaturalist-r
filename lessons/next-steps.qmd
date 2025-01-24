@@ -1,6 +1,7 @@
 ---
 title: "Next steps"
 format: html
+editor: visual
 ---
 
 We have covered various ways to do basic analyze iNaturalist data.
@@ -18,3 +19,4 @@ Add comments to the code to remind yourself what the code does.
 As you are analyzing the data, think about how you want to present your results.
 
 Attend the office hours or email me if you have questions.
+

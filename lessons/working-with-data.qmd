@@ -2,6 +2,7 @@
 title: "Working with data"
 format: html
 include-in-header: "components/add-answer-button.html"
+editor: visual
 ---
 
 ::: summary

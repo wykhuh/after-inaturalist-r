@@ -2,6 +2,7 @@
 title: "Creating maps"
 format: html
 include-in-header: "components/add-answer-button.html"
+editor: visual
 ---
 
 ::: summary
@@ -432,6 +433,7 @@ We can use `glimpse()` to examine the file.
 ```{r glimpse_expo_park_boundary}
 glimpse(expo_park_boundary)
 ```
+
 The GeoJSON file has a `geometry` column.
 
 Let's use `st_crs()` to check if the CRS for the iNaturalist data and Expo Park are the same.
@@ -465,7 +467,7 @@ inat_expo
 ::: callout-note
 For those who want to understand that chunk of code, here's a explanation.
 
-`st_intersects()` from **sf** tells us if one spatial object touches, crosses, or is within in a second spatial object. It returns the number of  items in object one that intersects object two. If there are no items, it returns empty.
+`st_intersects()` from **sf** tells us if one spatial object touches, crosses, or is within in a second spatial object. It returns the number of items in object one that intersects object two. If there are no items, it returns empty.
 
 The following code returns the number of items in each row of `inat_sf` that intersects `expo_park_boundary`. Since each row only contains one location, we will either get 1 or empty.
 
@@ -473,7 +475,7 @@ The following code returns the number of items in each row of `inat_sf` that int
 st_intersects(inat_sf, expo_park_boundary)
 ```
 
-Instead of 1 or empty, want a vector with TRUE or FALSE values, also known as logical vector. We use `lengths(st_intersects(inat_sf, expo_park_boundary)) > 0` to check if a row has items within Exposition Park. If a row has 1 item inside `expo_park_boundary`, return TRUE. Otherwise return FALSE. 
+Instead of 1 or empty, want a vector with TRUE or FALSE values, also known as logical vector. We use `lengths(st_intersects(inat_sf, expo_park_boundary)) > 0` to check if a row has items within Exposition Park. If a row has 1 item inside `expo_park_boundary`, return TRUE. Otherwise return FALSE.
 
 ```{r, get_true_false}
 # we are limited the output to the first 50 rows for this explation
@@ -533,14 +535,21 @@ inat_expo %>%
 Create a map for all observations that are inside of a specific area
 
 -   use `read_csv()` to read iNaturalist file.
+
 -   use `st_as_sf()` to add `geometry` column to iNaturalist data.
+
 -   use `select()` to select 4 columns for iNaturalist data.
 
 -   Used [Draw map boundaries](https://wykhuh.github.io/draw-map-boundaries/) to draw and download an area that you are interested in.
+
 -   Save the file to the `data/raw` directory.
+
 -   use `read_sf()` to read your boundary data.
+
 -   check if iNaturalist observations and your boundary use the same CRS
+
 -   get observations inside a boundary
+
 -   create static or interactive map
 
 ::: answer
@@ -725,8 +734,8 @@ We can create interactive choropleth map by by using `zcol='observations_count'`
 mapview(count_sf,  
         zcol = 'observations_count')
 ```
-![](images/mapview/creating_maps/create_interactive_choropleth_map.png){fig-alt="create interactive choropleth map"}
 
+![](images/mapview/creating_maps/create_interactive_choropleth_map.png){fig-alt="create interactive choropleth map"}
 
 ## Exporting maps
 
@@ -771,3 +780,4 @@ You can also save the map as an interactive webpage. The second argument `url` i
 # save map
 mapshot(my_map_2, url = 'results/expo_park_observations_2.html')
 ```
+

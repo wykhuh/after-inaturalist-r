@@ -1,6 +1,7 @@
 ---
 title: "Setup - local computer"
 format: html
+editor: visual
 ---
 
 The workshop used Github Codespaces to host the code, data, and software. If you want to install stuff on your on own computer, follow these steps.
@@ -55,3 +56,4 @@ Let's start making our new folders. Go to the **Files** pane (bottom right), and
 ![](images/files_pane.png){alt="RStudio Files pane with current directory path highlighted."}
 
 Next, click the **New Folder** button, and type in `scripts` to generate your `scripts` folder. It should appear in the Files list now. Repeat the process to make your `data`, and `results` folders. Then, click on the `data` folder in the Files pane. This will take you into the `data` folder, which will be empty. Use the **New Folder** button to create `raw` and `cleaned` folders. To return to the project folder, click on it in the file path, which is highlighted in yellow in the previous image. It's worth noting that the **Files** pane helps you create, find, and open files, but moving through your files won't change where the **working directory** of your project is.
+

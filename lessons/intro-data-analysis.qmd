@@ -1,6 +1,7 @@
 ---
 title: "Introduction to Data Analysis"
 format: html
+editor: visual
 ---
 
 ::: summary
@@ -134,3 +135,4 @@ inat %>%
   geom_bar()
 
 ```
+

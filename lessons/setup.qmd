@@ -1,6 +1,7 @@
 ---
 title: "Setup"
 format: html
+editor: visual
 ---
 
 This workshop use Github Codespaces to host the software, data, and code needed for the workshop. This way attendees won't need to install stuff on their own computer.
@@ -48,3 +49,4 @@ library(mapview) # create interactive maps
 library(basemaps) # access open source basemaps
 
 ```
+
