@@ -46,8 +46,6 @@ The basis of programming is that we write down instructions for the computer to 
 
 Geospatial data is data that has a particular location. There are different software tools that can be used to display and analyze geospatial data.
 
-The two primary types of geospatial data are raster and vector data. Raster data is stored as a grid of values which are rendered on a map as pixels. Vector data structures represent specific features on the Earth’s surface, and assign attributes to those features.
-
 ### **Coordinate Reference Systems**
 
 Earth is a 3D sphere. Maps are 2D representation of a 3D sphere. Map projections are ways to flatten a spherical Earth to a flat surface.

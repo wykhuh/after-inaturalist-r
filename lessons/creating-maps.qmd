@@ -62,7 +62,7 @@ We can use `names()` to see all the column names. "latitude" and "longitude" are
 names(inat_data)
 ```
 
-**sf** packages handles geospatial files with vector data. **sf** package uses a special type of data frame called `sf` object (special features) to store vector data.
+**sf** packages handles geospatial data. **sf** package uses a special type of data frame called `sf` object (special features) to store geospatial data.
 
 `st_as_sf()` function from **sf** package will use the longitude and latitude values to add a `geometry` column, and convert a tibble or data.frame into `sf` object. **sf** will use the `geometry` column for geospatial data processing.
 
