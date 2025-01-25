@@ -170,4 +170,3 @@ first.name <- 'Jane'
 ```
 
 You should try to use a descriptive name when naming objects to help you remember what information is contained in the object.
-

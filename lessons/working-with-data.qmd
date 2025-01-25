@@ -29,6 +29,32 @@ When we reference other files from an R script, we need to give R precise instru
 
 There are two kinds of paths: absolute and relative. Absolute paths are specific to a particular computer, whereas relative paths are relative to a certain folder. Because we are using RStudio "project" feature, all of our paths is relative to the project folder. For instance an absolute path is "/Users/username/Documents/CNC-coding-workshop/data/cleaned/cnc-los-angeles-observations.csv", and relative path is "data/cleaned/cnc-los-angeles-observations.csv".
 
+### Functions
+
+Functions are predefined bits of code that do a specific task. Arguments are values that we pass into a function. Function usually takes one or more arguments as input, does something to the values, and produces the ouput.
+
+### R packages
+
+R itself has many built-in functions, but we can access many more by installing and loading other **packages** of functions and data into R. We will use several R packages for the workshop.
+
+To install these packages, use `install.packages()` function from R. We pass in the package names as arguments. The name of the packages must be in quotes.
+
+```{r, install_packages}
+#| eval: false
+install.packages("readr")
+```
+
+R will connect to the internet and download packages from servers that have R packages. R will then install the packages on your computer. The console window will show you the progress of the installation process.
+
+To save time, we have already installed all the packages we need for the workshop.
+
+In order to use a package, use `library()` function from R to load the package. We pass in the name of the package as an argument. Do not use quotes around the package name when using `library()`.
+
+```{r load_package}
+#| eval: false
+library(readr) 
+```
+
 ### Reading a CSV file
 
 In order to analyze the iNaturalist csv, we need to load **readr**, **lubridate** and **dplyr** packages.

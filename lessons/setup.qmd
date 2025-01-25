@@ -4,49 +4,73 @@ format: html
 editor: visual
 ---
 
-This workshop use Github Codespaces to host the software, data, and code needed for the workshop. This way attendees won't need to install stuff on their own computer.
+This workshop use GitHub to host and run the code, data, software, and infrastructure needed for the workshop. Attendees will not need to install stuff on their own computer; everything is available online using GitHub.
 
 If you are interested in install all the software, data, and code on your computer, visit the [Setup - local page](setup-local.qmd)
 
-## Functions
+## Intitial Setup
 
-Functions are predefined bits of code that do a specific task. Arguments are values that we pass into a function. Function usually takes one or more arguments as input, does something to the values, and produces the ouput.
+[GitHub](https://github.com) is an online platform that lets people store, manage, and share their code.
 
-## R packages
+Repository is folder that has code, data, etc for a coding project. The repository also uses software called [Git](https://git-scm.com/) to keep track of file changes.
 
-R itself has many built-in functions, but we can access many more by installing and loading other **packages** of functions and data into R. We will use several R packages for the workshop.
+[GitHub Codespaces](https://github.com/features/codespaces) provide an online development environment where people can run their code without installing stuff on their computer.
 
-To install these packages, use `install.packages()` function from R. We pass in the package names as arguments. The name of the packages must be in quotes.
+[GitHub Classroom](https://classroom.github.com) is a tool that teachers can use to share, manage, and grade coding assignments.
 
-```{r, install_packages}
-#| eval: false
-install.packages("readr")
-```
+[RStudio](https://posit.co/products/open-source/rstudio/) is software to write and run R code.
 
-R will connect to the internet and download packages from servers that have R packages. R will then install the packages on your computer. The console window will show you the progress of the installation process.
+### If you don't have a Github account, create an account.
 
-To save time, we have already installed all the packages we need for the workshop.
+1.  Sign up for a [GitHub](https://github.com) account.
+2.  After you login, update your settings.
+3.  Go to [Emails settings](https://github.com/settings/emails).
+    1.  Select 'Keep my email addresses private'. 'Block command line pushes that expose my email' should also be automatically selected.
+4.  Optional. Go to [Password and authentication settings](https://github.com/settings/security).
+    1.  If needed, setup Passkey or two-factor authentication.
 
-In order to use a package, use `library()` function from R to load the package. We pass in the name of the package as an argument. Do not use quotes around the package name when using `library()`.
+### Setup Github Classroom and Codespaces
 
-```{r load_package}
-#| eval: false
-library(readr) 
-```
+To access the files needed for the workshop, join the After iNaturalist Github Classroom.
 
-## Workshop R packages
+1.  Click on the invitation link for After iNaturalist classroom that we emailed to you.
 
-These are the R packages we will use in this workshop.
+2.  You will see a "Accept the assignment" page. Click "Accept this assignment" button.
 
-```{r load_all_libraries}
-#| eval: false
-library(readr) # read and write tabular data
-library(dplyr) # manipulate data
-library(ggplot2) # create data visualizations
-library(sf) # handle vector geospatial data
-library(lubridate) # manipulate dates
-library(mapview) # create interactive maps
-library(basemaps) # access open source basemaps
+    This will create a repository in GitHub with code and data for the workshop. You will save your code, notes, and data to this repository. Only you and the workshop organizers can access your repository.
 
-```
+    ![](images/setup/accept-assignment.png)
 
+3.  You will see a "You're ready to go!" page. Copy the link for your repository and save it somewhere on your computer. This is how you will access your repository on subsequent visits. Click "Open in GitHub Codespaces" button.
+
+    This will set up an online development environment where you can write and run code.
+
+    ![](images/setup/open-codespace.png)
+
+4.  You will see page with "Setting up remote connection: Building codespace..." message in the corner. The software for the workshop is being downloaded and installed. This will take about 5 minutes.
+
+    ![](images/setup/building-codespace.png)
+
+5.  Once the Codespace if finished building, click on the "PORTS" tab at the bottom.
+
+    ![](images/setup/finish-building.png)
+
+6.  In the PORTS tab, hover over the item named RStudio. Click on the middle globe icon to start RStudio in a new tab.
+
+    ![](images/setup/rstudio-port.png)
+
+7.  Now you are ready to start coding using RStudio.
+
+    ![](images/setup/rstudio.png)
+
+## Accessing your files
+
+After the initial setup of Codespaces, there are two ways to access the files in your repository.
+
+1.  To access your repository, use the link provided in the step 3 from 'Initial Setup'.
+
+Or
+
+1.  Go to <https://github.com/orgs/data-explorers-workshops/repositories>, and you should see your repository. Click on your repository.
+
+2.  Scroll to the bottom of the page, and click the "Open in GitHub Codespaces" button.

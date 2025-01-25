@@ -76,12 +76,14 @@ Load software that will will need.
 #| warning: false
 #| message: false
 
+#| eval: false
 library(readr) # read and write tabular data
 library(dplyr) # manipulate data
 library(ggplot2) # create data visualizations
 library(sf) # handle vector geospatial data
 library(lubridate) # manipulate dates
 library(mapview) # create interactive maps
+library(basemaps) # access open source basemaps
 
 ```
 
@@ -135,4 +137,3 @@ inat %>%
   geom_bar()
 
 ```
-
