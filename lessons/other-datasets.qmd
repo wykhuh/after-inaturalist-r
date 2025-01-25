@@ -30,9 +30,136 @@ library(mapview)
 
 ## Other datasets
 
-There are various geospatial datasets that are free to use. Some datasets require crediting the original data source. Data sources used for this course include [LA City Geohub](https://geohub.lacity.org), [Data.gov](https://catalog.data.gov), [California State Parks](https://www.parks.ca.gov), [County of Los Angeles Open Data](https://data.lacounty.gov), and [US Census TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html).
+There are various geospatial datasets that are free to use. Data sources used for this course include [LA City Geohub](https://geohub.lacity.org), [Data.gov](https://catalog.data.gov), [California State Parks](https://www.parks.ca.gov), [County of Los Angeles Open Data](https://data.lacounty.gov), and [US Census TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html). 
 
 We've pre-selected some geospatial data that workshop attendees might want to use to analyze iNaturalist data and provided a preview in the code below. These files are in the `data` directory. We modified some of the downloaded data to make things easier for workshop attendees; see [Editing geospatial files](editing-geo-files.qmd) for more details.
+
+When you use data from other sources, it's a good idea to tell people where you got the data. Some data sets require people to cite the original source. Plus, it helps people who are looking at your analysis to know where you got the data.
+
+## LA City Neighborhood Councils boundaries
+
+Some people might be interested in comparing iNaturalist data within different LA city neighborhoods.
+
+LA City Neighborhood Councils boundaries <https://geohub.lacity.org/datasets/lahub::neighborhood-council-boundaries-2018/about>
+
+```{r}
+nc_boundaries <- read_sf('data/raw/Neighborhood_Councils_(Certified)/Neighborhood_Councils_(Certified).shp')
+```
+
+```{r}
+ggplot() +
+  geom_sf(data=nc_boundaries) +
+  theme_minimal()
+```
+
+## Los Angeles Times - LA neighborhoods
+
+Some people might be interested in comparing iNaturalist data with different neighborhoods in LA county.
+
+Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <https://maps.latimes.com/about/index.html>
+
+```{r read_neighborhood_file}
+la_neighborhoods <- read_sf('data/raw/la_times_la_county_neighborhoods.json')
+```
+
+```{r}
+ggplot() +
+  geom_sf(data=la_neighborhoods) 
+```
+
+## LA County incorporated and unincorporated boundaries
+
+Some people might be interested in comparing iNaturalist data in the incorporated and unincorporated areas of Los Angeles County.
+
+City and Unincorporated Community Boundary (LA County Planning) <https://geohub.lacity.org/datasets/lacounty::city-and-unincorporated-community-boundary-la-county-planning/about> This layer shows all incorporated and unincorporated areas of Los Angeles County
+
+```{r}
+admin_boundaries <- read_sf('data/raw/admin_dist_SDE_DIST_DRP_CITY_COMM_BDY_-2349953032962506288/admin_dist_SDE_DIST_DRP_CITY_COMM_BDY.shp')
+```
+
+```{r}
+ggplot() +
+  geom_sf(data=admin_boundaries)
+```
+
+## Parks in LA County
+
+Some people might be interested in comparing iNaturalist data with the location of parks.
+
+National Park Boundaries: <https://catalog.data.gov/dataset/national-park-boundaries>
+
+California State Parks: <https://www.parks.ca.gov/?page_id=29682>
+
+County of Los Angeles parks: <https://geohub.lacity.org/datasets/lacounty::dpr-park-facilities-view-accessible-parks/explore>
+
+City of Los Angeles parks: <https://geohub.lacity.org/datasets/lahub::los-angeles-recreation-and-parks-boundaries/about>
+
+Load all the parks data.
+
+```{r, get_parks_data}
+parks_national <- read_sf('data/cleaned/nps_la_county.geojson')
+
+parks_state <- read_sf('data/cleaned/state_parks_los_angeles_county/state_parks_los_angeles_county.shp')
+
+parks_county <- read_sf('data/raw/DPR_Park_Facilities_View_(Accessible_Parks)/DPR_Park_Facilities_View_(Accessible_Parks).shp')
+
+parks_city <- read_sf('data/raw/Los_Angeles_Recreation_and_Parks_Boundaries/Los_Angeles_Recreation_and_Parks_Boundaries.shp')
+```
+
+We want to convert the CRS of the parks data be the same
+
+```{r, update_county_crs}
+parks_county <- st_transform(parks_county, crs = st_crs(parks_national))
+```
+
+```{r, update_city_crs}
+parks_city <- st_transform(parks_city, crs = st_crs(parks_national))
+```
+
+```{r, update_city_crs_2}
+parks_state <- st_transform(parks_state, crs = st_crs(parks_national))
+
+```
+
+Create map with parks and iNaturalist data. Use `col.region` to set the color of the parks.
+
+```{r, map_of_parks}
+#| eval: false
+
+mapview(parks_national, col.region='orange') + 
+  mapview(parks_county, col.region='red') + 
+  mapview(parks_city, col.region='yellow') +
+  mapview(parks_state, col.region='green') 
+```
+
+![](images/mapview/other-datasets/map_of_parks.png){fig-alt="map of parks"}
+
+## LA County water areas
+
+Some people might be interested in comparing iNaturalist data with streams, rivers, lakes, ponds in LA County.
+
+US Census TIGER/Line data provides information about water areas.
+
+```{r}
+water_areas <- read_sf('data/cleaned/la_county_waterareas.geojson')
+```
+
+```{r}
+ggplot() +
+  geom_sf(data=water_areas)
+```
+
+We also have a file for the LA River.
+
+```{r}
+la_river <- read_sf('data/cleaned/los_angeles_river.geojson')
+```
+
+```{r}
+ggplot() +
+  geom_sf(data=la_river)
+```
+
 
 ## Demographics data
 
@@ -174,103 +301,6 @@ mapview(la_county_pna_map,
 
 ![](images/mapview/other-datasets/fix_map.png){fig-alt="interactive map of Household Median Income with fixed layer name and popups"}
 
-## Parks in LA County
-
-Some people might be interested in comparing iNaturalist data with the location of parks.
-
-National Park Boundaries: <https://catalog.data.gov/dataset/national-park-boundaries>
-
-California State Parks: <https://www.parks.ca.gov/?page_id=29682>
-
-County of Los Angeles parks: <https://geohub.lacity.org/datasets/lacounty::dpr-park-facilities-view-accessible-parks/explore>
-
-City of Los Angeles parks: <https://geohub.lacity.org/datasets/lahub::los-angeles-recreation-and-parks-boundaries/about>
-
-Load all the parks data.
-
-```{r, get_parks_data}
-parks_national <- read_sf('data/cleaned/nps_la_county.geojson')
-
-parks_state <- read_sf('data/cleaned/state_parks_los_angeles_county/state_parks_los_angeles_county.shp')
-
-parks_county <- read_sf('data/raw/DPR_Park_Facilities_View_(Accessible_Parks)/DPR_Park_Facilities_View_(Accessible_Parks).shp')
-
-parks_city <- read_sf('data/raw/Los_Angeles_Recreation_and_Parks_Boundaries/Los_Angeles_Recreation_and_Parks_Boundaries.shp')
-```
-
-We want to convert the CRS of the parks data be the same
-
-```{r, update_county_crs}
-parks_county <- st_transform(parks_county, crs = st_crs(parks_national))
-```
-
-```{r, update_city_crs}
-parks_city <- st_transform(parks_city, crs = st_crs(parks_national))
-```
-
-```{r, update_city_crs_2}
-parks_state <- st_transform(parks_state, crs = st_crs(parks_national))
-
-```
-
-Create map with parks and iNaturalist data. Use `col.region` to set the color of the parks.
-
-```{r, map_of_parks}
-#| eval: false
-
-mapview(parks_national, col.region='orange') + 
-  mapview(parks_county, col.region='red') + 
-  mapview(parks_city, col.region='yellow') +
-  mapview(parks_state, col.region='green') 
-```
-
-![](images/mapview/other-datasets/map_of_parks.png){fig-alt="map of parks"}
-
-## LA City Neighborhood Councils boundaries
-
-Some people might be interested in comparing iNaturalist data within different LA city neighborhoods.
-
-LA City Neighborhood Councils boundaries <https://geohub.lacity.org/datasets/lahub::neighborhood-council-boundaries-2018/about>
-
-```{r}
-nc_boundaries <- read_sf('data/raw/Neighborhood_Councils_(Certified)/Neighborhood_Councils_(Certified).shp')
-```
-
-```{r}
-ggplot() +
-  geom_sf(data=nc_boundaries) +
-  theme_minimal()
-```
-
-## Los Angeles Times - LA neighborhoods
-
-Some people might be interested in comparing iNaturalist data with different neighborhoods in LA county.
-
-Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <https://maps.latimes.com/about/index.html>
-
-```{r read_neighborhood_file}
-la_neighborhoods <- read_sf('data/raw/la_times_la_county_neighborhoods.json')
-```
-
-```{r}
-ggplot() +
-  geom_sf(data=la_neighborhoods) 
-```
-
-## LA County incorporated and unincorporated boundaries
-
-Some people might be interested in comparing iNaturalist data in the incorporated and unincorporated areas of Los Angeles County.
-
-City and Unincorporated Community Boundary (LA County Planning) <https://geohub.lacity.org/datasets/lacounty::city-and-unincorporated-community-boundary-la-county-planning/about> This layer shows all incorporated and unincorporated areas of Los Angeles County
-
-```{r}
-admin_boundaries <- read_sf('data/raw/admin_dist_SDE_DIST_DRP_CITY_COMM_BDY_-2349953032962506288/admin_dist_SDE_DIST_DRP_CITY_COMM_BDY.shp')
-```
-
-```{r}
-ggplot() +
-  geom_sf(data=admin_boundaries)
-```
 
 ## LA County Environmental Justice Screening Method
 
@@ -305,35 +335,11 @@ mapview(ejsm_edit, zcol='CIscore',
 
 ![](images/mapview/other-datasets/ejsm.png){fig-alt="create map with ejsm"}
 
-## LA County water areas
 
-Some people might be interested in comparing iNaturalist data with streams, rivers, lakes, ponds in LA County.
-
-US Census TIGER/Line data provides information about water areas.
-
-```{r}
-water_areas <- read_sf('data/cleaned/la_county_waterareas.geojson')
-```
-
-```{r}
-ggplot() +
-  geom_sf(data=water_areas)
-```
-
-We also have a file for the LA River.
-
-```{r}
-la_river <- read_sf('data/cleaned/los_angeles_river.geojson')
-```
-
-```{r}
-ggplot() +
-  geom_sf(data=la_river)
-```
 
 ## Los Angeles Ecotopes
 
-LA Sanitation and Environment published [2020 Biodiversity Report](https://sanitation.lacity.gov/cs/groups/public/documents/document/y250/mduy/~edisp/cnt052553.pdf) that outlines how to measure the health of the urban ecosystem in Los Angeles. As part of that report, they identified 17 ecological regions in LA called ecotopes. "Ecotopes are also envisioned as future management units to address biodiversity and related urban ecosystem stewardship topics of ecosystem services, pollution, and ecological hazards."
+LA Sanitation and Environment (LASAN) oversees the City of Los Angeles [biodiversity initiative](http://lacitysan.org/biodiversity). LASAN published [2020 Biodiversity Report](https://sanitation.lacity.gov/cs/groups/public/documents/document/y250/mduy/~edisp/cnt052553.pdf) that outlines how to measure the health of the urban ecosystem in Los Angeles. As part of that report, they identified 17 ecological regions in LA called ecotopes. "Ecotopes are also envisioned as future management units to address biodiversity and related urban ecosystem stewardship topics of ecosystem services, pollution, and ecological hazards."
 
 ```{r}
 ecotopes <- read_sf('data/raw/LA_Area_Ecotopes/FINAL Ecotope_Boundaries.shp')
@@ -348,3 +354,60 @@ mapview(ecotopes, zcol='ET_LndsZon')
 ```
 
 ![](images/mapview/other-datasets/ecotopes.png){fig-alt="create map with ecotopes"}
+
+## LA city Indicator Species
+
+LASAN worked with the Biodiversity Expert Council to create a list of [37 biodiversity indicator species](https://sanitation.lacity.gov/san/faces/wcnav_externalId/s-lsh-es-si-bd-par?_adf.ctrl-state=61c3l34pj_78&_afrLoop=10147855306996952#!). When the species are present, it means the area has high quality habitat that can support biodiversity
+
+Let's create a map of showing the observations of indicator species.
+
+Get all iNaturalist observations
+```{r}
+inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+```
+
+Use `st_as_sf()` to add a geometry column so we can map the observations.
+
+```{r}
+inat_sf <- st_as_sf(inat_data, 
+                         coords = c("longitude", "latitude"),   crs = 4326)
+```
+
+Get list of indicator species.
+
+```{r}
+indicator_species <- read_csv('data/cleaned/LA_city_indicator_species.csv')
+```
+
+
+Get the column names for `indicator_species`.
+
+```{r}
+names(indicator_species)
+```
+Get the scientific names for all the indicator species.
+
+```{r}
+indicator_scientific_names <- indicator_species$'scientific name'
+
+indicator_scientific_names
+```
+Find observations for indicator species by looking for `scientific_name` that are in the `indicator_scientific_names`.
+
+```{r}
+indicator_obs <- inat_sf %>%
+  filter(scientific_name %in% indicator_scientific_names) %>%
+  select(scientific_name, common_name)
+
+dim(indicator_obs)
+```
+
+
+
+```{r}
+#| eval: false
+
+mapview(indicator_sf)
+```
+![](images/mapview/other-datasets/indicator_species.png){fig-alt="create map with indicator species"}
+
