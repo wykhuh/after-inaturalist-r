@@ -1,0 +1,1071 @@
+INVENTORY OF SPECIES OF CONSERVATION CONCERN
+          #
+Scientific Name
+Common Name
+Taxon Group
+Federal Endangered Species Act
+State Endangered Species Act
+Other Status
+Global Rank
+State Rank
+Rare Plant Rank
+1
+Spea hammondii
+western spadefoot
+Amphibians
+None
+None
+BLM_S-Sensitive | CDFW_SSC-Species of Special Concern | IUCN_NT-Near Threatened
+G2G3
+S3
+2
+Taricha torosa
+Coast Range newt
+Amphibians
+None
+None
+CDFW_SSC-Species of Special Concern
+G4
+S4
+3
+Accipiter cooperii
+Cooper's hawk
+Birds
+None
+None
+CDFW_WL-Watch List | IUCN_LC-Least Concern
+G5
+S4
+4
+Accipiter striatus
+sharp-shinned hawk
+Birds
+None
+None
+WL
+G5
+S4
+5
+Agelaius tricolor
+tricolored blackbird
+Birds
+None
+Threatened
+BLM_S-Sensitive | CDFW_SSC-Species of Special Concern | IUCN_EN-Endangered | NABCI_RWL-Red Watch List | USFWS_BCC- Birds of Conservation Concern
+G1G2
+S1S2
+6
+Aimophila ruficeps canescens
+southern California rufous-crowned sparrow
+Birds
+None
+None
+CDFW_WL-Watch List
+G5T3
+S3
+7
+Artemisiospiza belli belli
+Bell's sage sparrow
+Birds
+None
+None
+CDFW_WL-Watch List | USFWS_BCC-Birds of Conservation Concern
+G5T2T3
+S3
+8
+Asio flammeus
+short-eared owl
+Birds
+None
+None
+CDFW_SSC-Species of Special Concern | IUCN_LC-Least Concern
+G5
+S3
+9
+Asio otus
+long-eared owl
+Birds
+None
+SSC
+SSC
+G5
+S3?
+10
+Athene cunicularia
+burrowing owl
+Birds
+None
+None
+BLM_S-Sensitive | CDFW_SSC-Species of Special Concern | IUCN_LC-Least Concern | USFWS_BCC-Birds of Conservation Concern
+G4
+S3
+11
+Aythya americana
+redhead
+Birds
+None
+SSC
+SSC
+G5
+S3S4
+-
+12
+Branta bernicla
+brant
+Birds
+None
+SSC
+SSC
+G5
+S2?
+13
+Buteo regalis
+ferruginous hawk
+Birds
+None
+None
+CDFW_WL-Watch List | IUCN_LC-Least Concern | USFWS_BCC-Birds of Conservation Concern
+G4
+S3S4
+14
+Campylorhynchus brunneicapillus sandiegensis
+coastal cactus wren
+Birds
+None
+None
+CDFW_SSC-Species of Special Concern | USFS_S-Sensitive | USFWS_BCC-Birds of Conservation Concern
+G5T3Q
+S3
+15
+Charadrius nivosus nivosus
+western snowy plover
+Birds
+Threatened
+None
+CDFW_SSC-Species of Special Concern | NABCI_RWL-Red Watch List | USFWS_BCC- Birds of Conservation Concern
+G3T3
+S2
+16
+Circus hudsonius
+northern harrier
+Birds
+None
+None
+SSC
+G5
+S3
+17
+Cistothorus palustris clarkae
+Clark's marsh wren
+Birds
+None
+SSC
+SSC
+G5T2
+unranked
+18
+Elanus leucurus
+white-tailed kite
+Birds
+None
+None
+BLM_S-Sensitive | CDFW_FP-Fully Protected | IUCN_LC-Least Concern
+G5
+S3S4
+19
+Empidonax traillii
+willow flycatcher
+Birds
+None
+Endangered
+Endangered
+G5
+S1S2
+20
+Eremophila alpestris actia
+California horned lark
+Birds
+None
+None
+CDFW_WL-Watch List | IUCN_LC-Least Concern
+G5T4Q
+S4
+21
+Falco columbarius
+merlin
+Birds
+None
+None
+CDFW_WL-Watch List | IUCN_LC-Least Concern
+G5
+S3S4
+                          LA Sanitation & Environment 2022 1
+
+INVENTORY OF SPECIES OF CONSERVATION CONCERN
+ #
+  Scientific Name
+Common Name
+  Taxon Group
+ Federal Endangered Species Act
+ State Endangered Species Act
+Other Status
+  Global Rank
+ State Rank
+ Rare Plant Rank
+22
+Falco mexicanus
+prairie falcon
+Birds
+None
+None
+CDFW_WL-Watch List | IUCN_LC-Least Concern | USFWS_BCC-Birds of Conservation Concern
+G5
+S4
+23
+Falco peregrinus anatum
+American peregrine falcon
+Birds
+Delisted
+Delisted
+CDF_S-Sensitive | CDFW_FP-Fully Protected | USFWS_BCC-Birds of Conservation Concern
+G4T4
+S3S4
+24
+Gavia immer
+common loon
+Birds
+None
+SSC
+SSC
+G5
+S1
+25
+Haliaeetus leucocephalus
+bald eagle
+Birds
+Delisted
+Endangered
+BLM_S-Sensitive | CDF_S-Sensitive | CDFW_FP-Fully Protected | IUCN_LC-Least Concern | USFS_S-Sensitive | USFWS_BCC- Birds of Conservation Concern
+G5
+S3
+26
+Icteria virens
+yellow-breasted chat
+Birds
+None
+None
+CDFW_SSC-Species of Special Concern | IUCN_LC-Least Concern
+G5
+S3
+27
+Ixobrychus exilis
+least bittern
+Birds
+None
+SSC
+SSC
+G4
+S2
+28
+Lanius ludovicianus
+loggerhead shrike
+Birds
+None
+None
+CDFW_SSC-Species of Special Concern | IUCN_LC-Least Concern | USFWS_BCC-Birds of Conservation Concern
+G4
+S4
+29
+Larus californicus
+California gull
+Birds
+None
+None
+WL
+G5
+S4
+30
+Numenius americanus
+long-billed curlew
+Birds
+None
+None
+WL
+G5
+S2
+31
+Pandion haliaetus
+osprey
+Birds
+None
+None
+WL
+G5
+S4
+32
+Passerculus sandwichensis beldingi
+Belding's savannah sparrow
+Birds
+None
+Endangered
+G5T3
+S3
+33
+Passerculus sandwichensis rostratus
+large-billed savannah sparrow
+Birds
+None
+SSC
+SSC
+G5T2
+S2
+34
+Pelecanus erythrorhynchos
+American white pelican
+Birds
+None
+SSC
+SSC
+G4
+S1S2
+35
+Pelecanus occidentalis californicus
+California brown pelican
+Birds
+Delisted
+Delisted
+BLM_S-Sensitive | CDFW_FP-Fully Protected | USFS_S-Sensitive
+G4T3T4
+S3
+36
+Phalacrocorax auritus
+double-crested cormorant
+Birds
+None
+None
+WL
+G5
+S4
+37
+Plegadis chihi
+white-faced ibis
+Birds
+None
+None
+CDFW_WL-Watch List | IUCN_LC-Least Concern
+G5
+S3S4
+38
+Polioptila californica californica
+coastal California gnatcatcher
+Birds
+Threatened
+None
+CDFW_SSC-Species of Special Concern | NABCI_YWL-Yellow Watch List
+G4G5T3Q
+S2
+39
+Pyrocephalus rubinus
+vermilion flycatcher
+Birds
+None
+SSC
+SSC
+G5
+S2S3
+40
+Rallus obsoletus levipes
+light-footed Ridgway's rail
+Birds
+Endangered
+Endangered
+FP
+G3T1
+S1
+41
+Setophaga petechia
+yellow warbler
+Birds
+None
+None
+CDFW_SSC-Species of Special Concern | USFWS_BCC-Birds of Conservation Concern
+G5
+S3S4
+                                    LA Sanitation & Environment 2022 2
+
+INVENTORY OF SPECIES OF CONSERVATION CONCERN
+ #
+ Scientific Name
+Common Name
+  Taxon Group
+ Federal Endangered Species Act
+ State Endangered Species Act
+Other Status
+  Global Rank
+ State Rank
+ Rare Plant Rank
+ 42
+Sternula antillarum browni
+California least tern
+Birds
+Endangered
+Endangered
+CDFW_FP-Fully Protected | NABCI_RWL-Red Watch List
+G4T2T3Q
+S2
+43
+Thalasseus elegans
+elegant tern
+Birds
+None
+None
+WL
+G2
+S2
+44
+Vireo bellii pusillus
+least Bell's vireo
+Birds
+Endangered
+Endangered
+IUCN_NT-Near Threatened | NABCI_YWL- Yellow Watch List
+G5T2
+S2
+45
+Xanthocephalus xanthocephalus
+yellow-headed blackbird
+Birds
+None
+SSC
+SSC
+G5
+S3
+46
+Streptocephalus woottoni
+Riverside fairy shrimp
+Crustaceans
+Endangered
+None
+IUCN_EN-Endangered
+G1G2
+S1S2
+47
+Catostomus santaanae
+Santa Ana sucker
+Fish
+Threatened
+None
+AFS_TH-Threatened | IUCN_VU-Vulnerable
+G1
+S1
+48
+Gila orcuttii
+arroyo chub
+Fish
+None
+None
+AFS_VU-Vulnerable | CDFW_SSC-Species of Special Concern | USFS_S-Sensitive
+G2
+S2
+49
+Oncorhynchus mykiss irideus pop. 10
+steelhead - southern California DPS
+Fish
+Endangered
+None
+AFS_EN-Endangered
+G5T1Q
+S1
+50
+Rhinichthys osculus ssp. 3
+Santa Ana speckled dace
+Fish
+None
+None
+AFS_TH-Threatened | CDFW_SSC-Species of Special Concern | USFS_S-Sensitive
+G5T1
+S1
+51
+Aglaothorax longipennis
+Santa Monica shieldback katydid
+Insects
+None
+None
+IUCN_CR-Critically Endangered
+G1G2
+S1S2
+52
+Bombus crotchii
+Crotch bumble bee
+Insects
+None
+None
+G3G4
+S1S2
+53
+Coelus globosus
+globose dune beetle
+Insects
+None
+None
+IUCN_VU-Vulnerable
+G1G2
+S1S2
+54
+Danaus plexippus pop. 1
+monarch - California overwintering population
+Insects
+Candidate
+None
+USFS_S-Sensitive
+G4T2T3
+S2S3
+55
+Euphilotes battoides allyni
+El Segundo blue butterfly
+Insects
+Endangered
+None
+G5T1
+S1
+56
+Glaucopsyche lygdamus palosverdesensis
+Palos Verdes blue butterfly
+Insects
+Endangered
+None
+G5T1
+S1
+57
+Panoquina errans
+wandering (=saltmarsh) skipper
+Insects
+None
+None
+IUCN_NT-Near Threatened
+G4G5
+S2
+58
+Rhaphiomidas terminatus terminatus
+El Segundo flower-loving fly
+Insects
+None
+None
+G1T1
+S1
+59
+Trigonoscuta dorothea dorothea
+Dorothy's El Segundo Dune weevil
+Insects
+None
+None
+G1T1
+S1
+60
+Eumops perotis californicus
+western mastiff bat
+Mammals
+None
+None
+BLM_S-Sensitive | CDFW_SSC-Species of Special Concern | WBWG_H-High Priority
+G4G5T4
+S3S4
+61
+Lasiurus blossevillii
+western red bat
+Mammals
+None
+None
+CDFW_SSC-Species of Special Concern | IUCN_LC-Least Concern | WBWG_H-High Priority
+G4
+S3
+62
+Lasiurus cinereus
+hoary bat
+Mammals
+None
+None
+IUCN_LC-Least Concern | WBWG_M-Medium Priority
+G3G4
+S4
+                                     LA Sanitation & Environment 2022 3
+
+INVENTORY OF SPECIES OF CONSERVATION CONCERN
+ #
+  Scientific Name
+Common Name
+  Taxon Group
+ Federal Endangered Species Act
+ State Endangered Species Act
+Other Status
+  Global Rank
+ State Rank
+ Rare Plant Rank
+63
+Lasiurus xanthinus
+western yellow bat
+Mammals
+None
+None
+CDFW_SSC-Species of Special Concern | IUCN_LC-Least Concern | WBWG_H-High Priority
+G4G5
+S3
+64
+Lepus californicus bennettii
+San Diego black-tailed jackrabbit
+Mammals
+None
+None
+CDFW_SSC-Species of Special Concern
+G5T3T4
+S3S4
+65
+Microtus californicus stephensi
+south coast marsh vole
+Mammals
+None
+None
+CDFW_SSC-Species of Special Concern
+G5T2T3
+S1S2
+66
+Myotis yumanensis
+Yuma myotis
+Mammals
+None
+None
+BLM_S-Sensitive | IUCN_LC-Least Concern | WBWG_LM-Low-Medium Priority
+G5
+S4
+67
+Neotoma lepida intermedia
+San Diego desert woodrat
+Mammals
+None
+None
+CDFW_SSC-Species of Special Concern
+G5T3T4
+S3S4
+68
+Puma concolor
+Mountain lion
+Mammals
+None
+Candidate
+CDFW_SSC-Species of Special Concern, Candidate under CESA
+G5T1T2Q
+S1
+69
+Sorex ornatus salicornicus
+southern California saltmarsh shrew
+Mammals
+None
+None
+CDFW_SSC-Species of Special Concern
+G5T1?
+S1
+70
+Taxidea taxus
+American badger
+Mammals
+None
+None
+CDFW_SSC-Species of Special Concern | IUCN_LC-Least Concern
+G5
+S3
+77
+Abronia maritima
+red sand-verbena
+Plants
+None
+None
+None
+G4
+S3?
+4.2
+78
+Astragalus brauntonii
+Braunton's milk-vetch
+Plants
+Endangered
+None
+SB_CalBG/RSABG-California/Rancho Santa Ana Botanic Garden | SB_SBBG-Santa Barbara Botanic Garden
+G2
+S2
+1B.1
+79
+Baccharis plummerae ssp. plummerae
+Plummer's baccharis
+Plants
+None
+None
+None
+G3T3
+S3
+4.3
+80
+Berberis nevinii
+Nevin's barberry
+Plants
+Endangered
+Endangered
+SB_CalBG/RSABG-California/Rancho Santa Ana Botanic Garden | SB_SBBG-Santa Barbara Botanic Garden
+G1
+S1
+1B.1
+81
+Calandrinia breweri
+Brewer's calandrinia
+Plants
+None
+None
+None
+G4
+S4
+4.2
+71
+Calochortus catalinae
+Catalina mariposa-lily
+Plants
+None
+None
+None
+G4
+S3S4
+4.2
+72
+Calochortus clavatus var. clavatus
+club-haired mariposa-lily
+Plants
+None
+None
+None
+G4
+S3
+4.3
+73
+Calochortus clavatus var. gracilis
+slender mariposa-lily
+Plants
+None
+None
+SB_CalBG/RSABG-California/Rancho Santa Ana Botanic Garden | USFS_S-Sensitive
+G4T2T3
+S2S3
+1B.2
+74
+Calochortus plummerae
+Plummer's mariposa-lily
+Plants
+None
+None
+SB_CalBG/RSABG-California/Rancho Santa Ana Botanic Garden
+G4
+S4
+4.2
+82
+Camissoniopsis lewisii
+Lewis' evening-primrose
+Plants
+None
+None
+None
+G4
+S4
+3
+83
+Centromadia parryi ssp. australis
+southern tarplant
+Plants
+None
+None
+SB_CalBG/RSABG-California/Rancho Santa Ana Botanic Garden | SB_CRES-San Diego Zoo CRES Native Gene Seed Bank | SB_SBBG-
+Santa Barbara Botanic Garden
+G3T2
+S2
+1B.1
+                                   LA Sanitation & Environment 2022 4
+
+INVENTORY OF SPECIES OF CONSERVATION CONCERN
+ #
+  Scientific Name
+Common Name
+  Taxon Group
+ Federal Endangered Species Act
+ State Endangered Species Act
+Other Status
+  Global Rank
+ State Rank
+ Rare Plant Rank
+84
+Chaenactis glabriuscula var. orcuttiana
+Orcutt's pincushion
+Plants
+None
+None
+SB_CalBG/RSABG-California/Rancho Santa Ana Botanic Garden | SB_CRES-San Diego Zoo CRES Native Gene Seed Bank
+G5T1T2
+S1
+1B.1
+85
+Deinandra minthornii
+Santa Susana tarplant
+Plants
+None
+Rare
+SB_CalBG/RSABG-California/Rancho Santa Ana Botanic Garden
+G2
+S2
+1B.2
+86
+Dodecahema leptoceras
+slender-horned spineflower
+Plants
+Endangered
+Endangered
+SB_CalBG/RSABG-California/Rancho Santa Ana Botanic Garden
+G1
+S1
+1B.1
+87
+Dudleya virens ssp. virens
+bright green dudleya
+Plants
+None
+None
+G3?T2
+S2
+1B.2
+88
+Erysimum suffrutescens
+suffrutescent wallflower
+Plants
+None
+None
+None
+G3
+S3
+4.2
+89
+Juglans californica
+southern California black walnut
+Plants
+None
+None
+None
+G4
+S4
+4.2
+75
+Juncus acutus ssp. leopoldii
+southwestern spiny rush
+Plants
+None
+None
+None
+G5T5
+S4
+4.2
+76
+Lilium humboldtii ssp. ocellatum
+ocellated humboldt lily
+Plants
+None
+None
+None
+G5
+S4?
+4.2
+90
+Lycium brevipes var. hassei
+Santa Catalina Island desert-thorn
+Plants
+None
+None
+G5T1Q
+S1
+3.1
+91
+Lycium californicum
+California box-thorn
+Plants
+None
+None
+-
+G4
+S4
+4.2
+92
+Malacothamnus davidsonii
+Davidson's bush-mallow
+Plants
+None
+None
+SB_CalBG/RSABG-California/Rancho Santa Ana Botanic Garden
+G2
+S2
+1B.2
+93
+Monardella hypoleuca ssp. hypoleuca
+white-veined monardella
+Plants
+None
+None
+G4T3
+S3
+1B.3
+94
+Mucronea californica
+California spineflower
+Plants
+None
+None
+None
+G3
+S3
+4.2
+95
+Phacelia hubbyi
+Hubby's phacelia
+Plants
+None
+None
+None
+G4G5T4
+S4
+4.2
+96
+Phacelia stellaris
+Brand's star phacelia
+Plants
+None
+None
+SB_CalBG/RSABG-California/Rancho Santa Ana Botanic Garden
+G1
+S1
+1B.1
+97
+Polygala cornuta var. fishiae
+Fish's milkwort
+Plants
+None
+None
+None
+G5T4
+n/a
+4.3
+98
+Quercus dumosa
+Nuttall's scrub oak
+Plants
+None
+None
+BLM_S-Sensitive | SB_CRES-San Diego Zoo CRES Native Gene Seed Bank | USFS_S- Sensitive
+G3
+S3
+1B.1
+99
+Quercus durata var. gabrielensis
+San Gabriel oak
+Plants
+None
+None
+None
+G4T3
+S3
+4.2
+100
+Suaeda taxifolia
+woolly seablite
+Plants
+None
+None
+None
+G4
+S4
+4.2
+101
+Actinemys pallida
+southwestern pond turtle
+Reptiles
+None
+None
+BLM_S-Sensitive | CDFW_SSC-Species of Special Concern | IUCN_VU-Vulnerable | USFS_S-Sensitive
+G3G4
+S3
+102
+Anniella spp.
+California legless lizard
+Reptiles
+None
+None
+CDFW_SSC-Species of Special Concern
+G3G4
+S3S4
+103
+Arizona elegans occidentalis
+California glossy snake
+Reptiles
+None
+CDFW_SSC-Species of Special Concern
+G5T2
+S2
+                                      LA Sanitation & Environment 2022 5
+
+INVENTORY OF SPECIES OF CONSERVATION CONCERN
+ #
+ Scientific Name
+Common Name
+  Taxon Group
+ Federal Endangered Species Act
+ State Endangered Species Act
+Other Status
+  Global Rank
+ State Rank
+ Rare Plant Rank
+ 104
+Aspidoscelis tigris stejnegeri
+coastal whiptail
+Reptiles
+None
+None
+CDFW_SSC-Species of Special Concern
+G5T5
+S3
+105
+Diadophis punctatus modestus
+San Bernardino ringneck snake
+Reptiles
+None
+None
+USFS_S-Sensitive
+G5T2T3
+S2
+106
+Phrynosoma blainvillii
+coast horned lizard
+Reptiles
+None
+None
+BLM_S-Sensitive | CDFW_SSC-Species of Special Concern | IUCN_LC-Least Concern
+G3G4
+S3S4
+107
+Salvadora hexalepis virgultea
+coast patch-nosed snake
+Reptiles
+None
+None
+SSC
+G5T4
+S2S3
+108
+Thamnophis hammondii
+two-striped gartersnake
+Reptiles
+None
+None
+BLM_S-Sensitive | CDFW_SSC-Species of Special Concern | IUCN_LC-Least Concern | USFS_S-Sensitive
+G4
+S3S4
+                     LA Sanitation & Environment 2022 6
