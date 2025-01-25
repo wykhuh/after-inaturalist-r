@@ -273,4 +273,3 @@ mapview(ejsm_inat_basic_sf,
 ```
 
 ![](images/mapview/creating_maps/create_interactive_centroid_map.png){fig-alt="create interactive centroid map"}
-

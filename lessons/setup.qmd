@@ -12,7 +12,7 @@ If you are interested in install all the software, data, and code on your comput
 
 [GitHub](https://github.com) is an online platform that lets people store, manage, and share their code.
 
-Repository is folder that has code, data, etc for a coding project. The repository also uses software called [Git](https://git-scm.com/) to keep track of file changes.
+Repository is folder that has code, data, and files for a coding project. The repository also uses software called [Git](https://git-scm.com/) to keep track of file changes.
 
 [GitHub Codespaces](https://github.com/features/codespaces) provide an online development environment where people can run their code without installing stuff on their computer.
 
@@ -37,7 +37,7 @@ To access the files needed for the workshop, join the After iNaturalist Github C
 
 2.  You will see a "Accept the assignment" page. Click "Accept this assignment" button.
 
-    This will create a repository in GitHub with code and data for the workshop. You will save your code, notes, and data to this repository. Only you and the workshop organizers can access your repository.
+    This will create a repository in GitHub with code and data for the workshop. You will save your work this repository. Only you and the workshop organizers can access your repository.
 
     ![](images/setup/accept-assignment.png)
 

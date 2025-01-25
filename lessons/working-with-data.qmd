@@ -299,7 +299,7 @@ inat_data %>%
 Get all your City Nature Challenge observations.
 
 -   Use `read_csv()` to load the CNC CSV.
--   Use `filter()` to select observations with your iNaturalist username
+-   Use `filter()` to select observations with your iNaturalist username. If you don't have any CNC observations, use 'quantron' the most prolific community scientist for CNC Los Angeles.
 -   Use `select()` to select 4 columns. One of the columns should be `common_name`
 -   assign the results to `my_obs` object
 -   click on `my_obs` in the Environment tab to see the results
@@ -374,7 +374,7 @@ Max. means the maximum value is 13,227,987.
 
 NA's means there are 36,601 rows without positional_accuracy.
 
-In other words, even though we selected unobscured locations, 25% of the observations are 65 or more meters away the actual location due to the accuracy of GPS device.
+Even though we selected unobscured locations, 25% of the observations are 65 or more meters away the actual location due to the accuracy of GPS device.
 
 If location accuracy is important to your analysis, you can select a small number for position accuracy. Let's get observations with unobscured locations that have position accuracy less than 5 meters.
 
@@ -424,7 +424,7 @@ unique(my_data$common_name)
 Another way to get rows that match one or more of the criteria is with the in operator `%in%.`
 
 ::: callout-note
-A vector is way R stores a collection of values. `c()` combine function from R creates a vector with the passed in arguments.
+A vector is way R stores multiple values. `c()` combine function from R creates a vector with the passed in values.
 
 ```{r}
 c(1, 2, 5)
@@ -470,7 +470,8 @@ unique(my_data$license)
 
 ```{r, and_comparison}
 and_data <- inat_data %>%
-  filter(user_login == 'natureinla' & common_name == 'Western Fence Lizard')
+  filter(user_login == 'natureinla' & 
+           common_name == 'Western Fence Lizard')
 
 dim(and_data)
 ```
@@ -489,7 +490,8 @@ We get 79 rows with 1 `user_login` and 1 `common_name`
 
 ```{r, or_comparison}
 or_data <- inat_data %>%
-  filter(user_login == 'natureinla' | common_name == 'Western Fence Lizard')
+  filter(user_login == 'natureinla' | 
+           common_name == 'Western Fence Lizard')
 
 dim(or_data)
 ```
@@ -511,7 +513,7 @@ We get 6,216 rows with 1052 user_login and 1031 common_name
 
 Get all your observations that are research grade
 
--   use my_inat_data to access CNC observations
+-   use `my_inat_data` from Exercise 1 to access CNC observations
 -   Use `&` with `filter()` since we want to pick observations by both username and quality grade
 -   Use `select()` to pick 4 columns
 
@@ -552,11 +554,12 @@ unique(complex_query$user_login)
 ```
 
 ::: callout-note
-This query using just `|` `&` does not give us what we want.
+This query using just `|` `&` with one `filter()` does not give us what we want.
 
 ```{r}
 alt_1 <- inat_data %>%
-  filter(user_login == 'cdegroof' | user_login == 'deedeeflower5' & 
+  filter(user_login == 'cdegroof' | 
+           user_login == 'deedeeflower5' & 
            common_name == 'Western Fence Lizard')  %>%
   select(user_login, common_name, scientific_name, observed_on)
 
@@ -604,7 +607,7 @@ Get all your observations for two species
 
 -   Use `my_inat_data` to access CNC observations
 -   Use `unique(my_obs$common_names)` from Exercise 1 to find two species name.
--   Use `filter()` to pick two species and your username.
+-   Use `filter(), |` to pick two species and your username.
 -   Use `select()` to pick four columns.
 
 ::: answer

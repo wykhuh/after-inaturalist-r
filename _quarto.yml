@@ -12,9 +12,9 @@ website:
     contents:
       - text: "Home"
         href: index.qmd
+      - lessons/setup.qmd
       - lessons/intro-data-analysis.qmd
       - lessons/intro-science-coding.qmd
-      - lessons/setup.qmd
       - lessons/intro-r-rstudio.qmd
       - lessons/working-with-data.qmd
       - lessons/understanding-data.qmd

@@ -55,7 +55,10 @@ If you would like to download iNaturalist data, here's some info.
 
 [step-by-step to download iNaturalist data](https://gsmit.org/wp-content/uploads/2021/04/inaturalist_data_walkthrough.pdf)
 
-To save time and ensure everyone at the workshop has the same data, we provide a CSV with data from iNaturalist City Nature Challenge Los Angeles from 2013 to 2024. We made some changes to the CSVs we downloaded from iNaturalist, and the code we used edit the CSV is available [here](cleaning-data.qmd)
+To save time and ensure everyone at the workshop has the same data, we provide a CSV with data from iNaturalist City Nature Challenge Los Angeles from 2013 to 2024. We made some changes to the CSVs we downloaded from iNaturalist, and the code we used edit the CSV is available [here](cleaning-data.qmd).
+
+Note: Another place to download iNaturalist data is [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org). iNaturalist recommends using GBIF for large downloads. Many researchers use GBIF downloads because GBIF provides a [Digital Object Identifier (DOI)](https://www.doi.org) that people can cite in their publications.
+
 
 ## Analyzing data using R
 
@@ -95,6 +98,15 @@ Load iNaturalist data from City Nature Challenge Los Angeles 2013-2024. There ar
 #| message: false
 
 inat <- read_csv("data/cleaned/cnc-los-angeles-observations.csv")
+```
+
+Select the data you want. For instance, get all the research grade observations for one user.
+
+```{r}
+inat %>%
+  filter(user_login == 'natureinla' & 
+           quality_grade == 'research') %>%
+  select(user_login, common_name, scientific_name, observed_on)
 ```
 
 Create summaries of the data. For instance, get the 10 most commonly observed 'species'.

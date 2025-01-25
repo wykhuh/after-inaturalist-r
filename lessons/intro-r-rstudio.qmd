@@ -83,10 +83,9 @@ First, click down in the Console pane, and type out `1+2`. Hit <kbd>Return</kbd>
 #### Script
 
 -   A script is a record of commands to send to R, preserved in a plain text file with a `.R` extension
--   You type out lines of R code in a script, then send them to the R console to be evaluated. There are 3 ways to run the code
+-   You type out lines of R code in a script, then send them to the R console to be evaluated. There are a few ways to run the code
     1.  <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) will run the line of code that your cursor is on. If you highlight multiple lines of code, you can run all of them by pressing <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows)
     2.  click on the `Run` button above the editor panel
-    3.  select “Run Lines” from the “Code” menu
 -   By preserving commands in a script, you can edit and rerun them quickly, save them for later, and share them with others
 -   An additional benefit of scripts is that you can leave **comments** for yourself or others to read. Lines that start with `#` are considered comments and will not be interpreted as R code.
 
@@ -161,6 +160,8 @@ Save script files by using <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows)
 
 ### Naming objects
 
+You should try to use a descriptive name when naming objects to help you remember what information is contained in the object.
+
 Object names can contain letters, numbers, underscores and periods. They cannot start with a number nor contain spaces. If you want object names with multiple words use underscores, capital letters or periods
 
 ```{r}
@@ -168,5 +169,3 @@ first_name <- 'Jane'
 firstName <- 'Jane'
 first.name <- 'Jane'
 ```
-
-You should try to use a descriptive name when naming objects to help you remember what information is contained in the object.
