@@ -47,6 +47,12 @@ library(mapview) # create interactive maps
 source('../scripts/map_utils.R')
 ```
 
+There is a bug with **sf** <https://github.com/r-spatial/sf/issues/1762>. This bit of code is fix for the bug.
+
+```{r fix_sf_bug_1}
+sf_use_s2(FALSE)
+```
+
 First, we need to read data from the CNC iNaturalist observation file.
 
 ```{r, read_data_from_csv}
@@ -665,12 +671,23 @@ inat_river %>%
   arrange(desc(n)) %>%
   slice(1:10)
 ```
+## **Faceting**
+
+One of the most powerful features of **`ggplot`** is the ability to quickly split a plot into multiple smaller plots based on one or more columns in the data frame, which is called **faceting**. Use the `facet_wrap()` function to generate a series of smaller plots, and pass in the selected column using `vars(<column>)`.
+
+Let’s facet the iNaturalist observations for the LA River by `taxon_kingdom_name`. We will create a separate map for each kingdom.
+
+```{r}
+ggplot() +
+  geom_sf(data = inat_river ) +                                 
+  facet_wrap(vars(taxon_kingdom_name))
+```
 
 ## Compare observations by regions
 
 Sometimes we want to compare data in different areas. For instance, let's compare the number of iNaturalist observations in LA County neighborhoods.
 
-Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <https://maps.latimes.com/about/index.html> We’ll use the L.A. Times neighborhood boundaries for our map.
+Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <https://maps.latimes.com/about/index.html> We’ll use the L.A. Times neighborhood boundaries for our map.
 
 ```{r read_neighborhood_file}
 la_neighborhoods_sf <- read_sf('data/raw/la_times_la_county_neighborhoods.json')
@@ -693,6 +710,7 @@ Use `select()` to pick the `name` and `geometry` columns.
 la_neighborhoods_sf <- la_neighborhoods_sf %>%
   select(name, geometry)
 
+head(la_neighborhoods_sf)
 ```
 
 Check if the neighborhood maps have the same CRS as the iNaturalist data.
@@ -701,18 +719,16 @@ Check if the neighborhood maps have the same CRS as the iNaturalist data.
 st_crs(la_neighborhoods_sf) == st_crs(inat_sf)
 ```
 
-There is a bug with **sf** <https://github.com/r-spatial/sf/issues/1762>. This bit of code is fix for the bug.
-
-```{r fix_sf_bug_1}
-sf_use_s2(FALSE)
-```
-
 Use custom function `add_inat_count_to_boundary_sf()` to count the number of iNaturalist observations per neighborhood, and add the count column to `la_neighborhoods_sf`. The first argument is the iNaturalist data frame, the second argument is the data frame with the boundaries, the third argument is column in the boundaries data frame that has unique values.
 
 ```{r}
 count_sf <- add_inat_count_to_boundary_sf(inat_sf, la_neighborhoods_sf, 'name')
 
 glimpse(count_sf)
+```
+
+```{r}
+head(count_sf)
 ```
 
 `count_sf` has three columns: `name` of the neighborhood, `geometry`, and `observations_count`. We can now create maps showing the number of observations per neighborhood.
@@ -736,6 +752,7 @@ mapview(count_sf,
 ```
 
 ![](images/mapview/creating_maps/create_interactive_choropleth_map.png){fig-alt="create interactive choropleth map"}
+
 
 ## Exporting maps
 
@@ -780,4 +797,3 @@ You can also save the map as an interactive webpage. The second argument `url` i
 # save map
 mapshot(my_map_2, url = 'results/expo_park_observations_2.html')
 ```
-
