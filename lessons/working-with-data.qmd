@@ -1030,3 +1030,27 @@ Then use `write_csv()` from **dplyr** to create a CSV.
 #| eval: false
 write_csv(my_obs, 'data/cleaned/my_observations.csv', na='')
 ```
+
+## Save changes to your repository
+
+We are using Github, Github Classrooms and Github Codespaces to host and run our code.
+
+When you create or edit a file, the changes are saved to Codespaces. You also need to save the changes to your repository. By saving the changes to your repository, you will have access to your files after the workshop ends.
+
+Terminal is a program that allows you to write commands for the computer. To access the terminal, go to first the browser tab for Codespaces. Click the "TERMINAL" tab.
+
+![](images/terminal.png)
+
+Click on the \$. Then type the following command after the \$, and hit enter.
+
+```{bash}
+bash ./scripts/save_files.sh
+```
+
+![](images/terminal_save_files.png)
+
+This will run a script called "save_files.sh" to save any changes you made to the repository.
+
+::: callout-note
+This script uses Git to update your repository. The script creates a git commit and pushes the commit to your repository. If you want to learn more about Git, watch this 14 minute [Git tutorial](https://www.youtube.com/watch?v=BCQHnlnPusY).
+:::
