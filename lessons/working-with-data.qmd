@@ -1044,7 +1044,8 @@ Terminal is a program that allows you to write commands for the computer. To acc
 Click on the \$. Then type the following command after the \$, and hit enter.
 
 ```{bash}
-bash ./scripts/save_files.sh
+#| eval: false
+bash  ./scripts/save_files.sh
 ```
 
 ![](images/terminal_save_files.png)
