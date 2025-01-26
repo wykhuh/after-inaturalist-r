@@ -10,9 +10,7 @@ If you are interested in install all the software, data, and code on your comput
 
 ## Intitial Setup
 
-[GitHub](https://github.com) is an online platform that lets people store, manage, and share their code.
-
-Repository is folder that has code, data, and files for a coding project. The repository also uses software called [Git](https://git-scm.com/) to keep track of file changes.
+[GitHub](https://github.com) is an online platform that lets people store, manage, and share their code. Github uses version control software called [Git](https://git-scm.com/) that keeps track of changes for all files inside a folder. We call a folder that uses Git to track changes a repository.
 
 [GitHub Codespaces](https://github.com/features/codespaces) provide an online development environment where people can run their code without installing stuff on their computer.
 
@@ -37,7 +35,7 @@ To access the files needed for the workshop, join the After iNaturalist Github C
 
 2.  You will see a "Accept the assignment" page. Click "Accept this assignment" button.
 
-    This will create a repository in GitHub with code and data for the workshop. You will save your work this repository. Only you and the workshop organizers can access your repository.
+    This will create a repository in GitHub with code and data for the workshop. The repository will be created in the [{{<var classroom_organization >}}](https://github.com/orgs/{{<var classroom_organization >}}/repositories) Github account. You will save your work this repository. Only you and the workshop organizers can access your repository.
 
     ![](images/setup/accept-assignment.png)
 
@@ -71,6 +69,6 @@ After the initial setup of Codespaces, there are two ways to access the files in
 
 Or
 
-1.  Go to <https://github.com/orgs/data-explorers-workshops/repositories>, and you should see your repository. Click on your repository.
+1.  Go to [{{<var classroom_organization >}}](https://github.com/orgs/{{<var classroom_organization >}}/repositories) account page, and you should see your repository. Click on your repository.
 
 2.  Scroll to the bottom of the page, and click the "Open in GitHub Codespaces" button.
