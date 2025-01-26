@@ -22,11 +22,5 @@
     "8787": {
       "label": "RStudio IDE"
     }
-  },
-  "customizations": {
-    /* setup vscode https://jamesgoldie.dev/writing/dev-containers-in-r/ */
-    "vscode": {
-      "extensions": ["mechatroner.rainbow-csv"]
-    }
   }
 }
