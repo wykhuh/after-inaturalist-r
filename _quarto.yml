@@ -28,6 +28,7 @@ website:
           - lessons/editing-geo-files.qmd
           - lessons/cleaning-data.qmd
           - lessons/setup-local.qmd
+          - lessons/coding-after-workshop.qmd
 
 
 format:
