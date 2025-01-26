@@ -60,7 +60,7 @@ The changes introduced by new R versions are usually backwards-compatible. That 
 While this may sound scary, it is **far more common** to run into issues due to using out-of-date versions of R or R packages. Keeping up with the latest versions of R, RStudio, and any packages you regularly use is a good practice.
 :::
 
-## Install packages
+## Install R packages
 
 During the course we will need a number of R packages. Packages contain useful R code written by other people.
 
@@ -70,6 +70,10 @@ To try to install these packages, open RStudio and copy and paste the following 
 #| eval: false
 install.packages(c("readr", "dplyr", "ggplot2", "sf", "lubridate", "mapview", 'webshot', 'basemaps'))
 ```
+
+R will display a messag in the console: "Do you want to proceed? \[Y/n\]:"
+
+Type "Y", and hit enter / return.
 
 R tries to download and install the packages on your machine.
 
@@ -89,9 +93,9 @@ library(basemaps)
 
 If you do not see an error like `there is no package called ‘...’` you are good to go!
 
-## Creating your own project folder from scratch
+## **Organizing** your project folder
 
-If you want to create your own project folder in R Studio, follow these steps.
+It is a good practice to organize your projects into self-contained folders. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into subfolders.
 
 1.  Start RStudio (you should see a view similar to the screenshot above).
 2.  In the top right, you will see a blue 3D cube and the words "Project: (None)". Click on this icon.

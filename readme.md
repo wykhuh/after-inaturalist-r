@@ -1,4 +1,4 @@
-# **After iNaturalist - Learn How To Explore City Nature Challenge Data through R Coding**
+# After iNaturalist - Learn How To Explore City Nature Challenge Data through R Coding
 
 Lesson for Natural History Museum of Los Angeles County, After iNaturalist workshop.
 

@@ -6,15 +6,17 @@ editor: visual
 
 This workshop use GitHub to host and run the code, data, software, and infrastructure needed for the workshop. Attendees will not need to install stuff on their own computer; everything is available online using GitHub.
 
-If you are interested in install all the software, data, and code on your computer, visit the [Setup - local page](setup-local.qmd)
+If you are interested in installing all the software, data, and code on your computer, visit the [Setup - local page](setup-local.qmd)
 
-## Intitial Setup
+## Initial Setup
+
+It will take about ten minutes to set things up on Github.
 
 [GitHub](https://github.com) is an online platform that lets people store, manage, and share their code. Github uses version control software called [Git](https://git-scm.com/) that keeps track of changes for all files inside a folder. We call a folder that uses Git to track changes a repository.
 
 [GitHub Codespaces](https://github.com/features/codespaces) provide an online development environment where people can run their code without installing stuff on their computer.
 
-[GitHub Classroom](https://classroom.github.com) is a tool that teachers can use to share, manage, and grade coding assignments.
+[GitHub Classroom](https://classroom.github.com) is a tool that teachers can use to share, manage, and grade assignments.
 
 [RStudio](https://posit.co/products/open-source/rstudio/) is software to write and run R code.
 
@@ -35,7 +37,7 @@ To access the files needed for the workshop, join the After iNaturalist Github C
 
 2.  You will see a "Accept the assignment" page. Click "Accept this assignment" button.
 
-    This will create a repository in GitHub with code and data for the workshop. The repository will be created in the [{{<var classroom_organization >}}](https://github.com/orgs/{{<var classroom_organization >}}/repositories) Github account. You will save your work this repository. Only you and the workshop organizers can access your repository.
+    This will create a repository in GitHub with code and data for the workshop. The repository will be created in the [{{<var classroom_organization >}}](https://github.com/orgs/{{<var classroom_organization >}}/repositories) Github account. You will save your work to this repository. Only you and the workshop organizers can access your repository.
 
     ![](images/setup/accept-assignment.png)
 
@@ -47,19 +49,21 @@ To access the files needed for the workshop, join the After iNaturalist Github C
 
 4.  You will see page with "Setting up remote connection: Building codespace..." message in the corner. The software for the workshop is being downloaded and installed. This will take about 5 minutes.
 
-    ![](images/setup/building-codespace.png)
+![](images/setup/building-codespace.png)
 
 5.  Once the Codespace if finished building, click on the "PORTS" tab at the bottom.
 
     ![](images/setup/finish-building.png)
 
-6.  In the PORTS tab, hover over the item named RStudio. Click on the middle globe icon to start RStudio in a new tab.
+6.  In the PORTS tab, hover over the item named RStudio. Click on the middle globe icon to start RStudio in a new browser tab.
 
     ![](images/setup/rstudio-port.png)
 
-7.  Now you are ready to start coding using RStudio.
+7.  Now you are ready to write and run R code using RStudio.
 
     ![](images/setup/rstudio.png)
+
+You are done setting up Github. If you have problems, please email us.
 
 ## Accessing your files
 
@@ -71,4 +75,14 @@ Or
 
 1.  Go to [{{<var classroom_organization >}}](https://github.com/orgs/{{<var classroom_organization >}}/repositories) account page, and you should see your repository. Click on your repository.
 
-2.  Scroll to the bottom of the page, and click the "Open in GitHub Codespaces" button.
+2.  Scroll to the bottom of the page, and click the "Open in GitHub Codespaces" button. This will restart the Codespace created in the "Setup Github Classroom and Codespaces" section.
+
+    ![](images/setup/repo-open-codespace.png)
+
+3.  Once the Codespace has started, click on the "PORTS" tab at the bottom.
+
+    ![](images/setup/finish-building.png)
+
+4.  In the PORTS tab, hover over the item named RStudio. Click on the middle globe icon to start RStudio in a new browser tab.
+
+![](images/setup/rstudio-port.png)

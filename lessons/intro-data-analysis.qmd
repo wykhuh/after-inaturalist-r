@@ -59,7 +59,6 @@ To save time and ensure everyone at the workshop has the same data, we provide a
 
 Note: Another place to download iNaturalist data is [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org). iNaturalist recommends using GBIF for large downloads. Many researchers use GBIF downloads because GBIF provides a [Digital Object Identifier (DOI)](https://www.doi.org) that people can cite in their publications.
 
-
 ## Analyzing data using R
 
 It is difficult for people to see any patterns when reading rows after row of text. To make it easier to see patterns, we can use software to analyze tabular data.
