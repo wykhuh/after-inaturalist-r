@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Using to other datasets – After iNaturalist</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-2be10d9e998f81ff6e49e26833438aa5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+// https://stackoverflow.com/questions/76119872/quarto-website-make-template-for-javascript-button-show-answer
+
+  function addAnswerWithButton(answerClass, buttonText, answerText) {
+
+    const divElement = document.querySelector(`.${answerClass}`);
+    const randomId = "answer-" + Math.floor(Math.random() * 1000000);
+
+    // Create the new button element
+    const buttonElement = document.createElement("button");
+    buttonElement.className = "btn btn-primary show-answer";
+    buttonElement.textContent = 'Show solution';
+    buttonElement.onclick = function() {
+      showAnswer(randomId);
+    };
+
+    // Create the new answer element
+    const answerElement = document.createElement("div");
+    answerElement.id = randomId;
+    answerElement.style.display = "none";
+    answerElement.innerHTML = answerText;
+
+    // Replace the div element with the new button and answer elements
+    divElement.parentNode.replaceChild(buttonElement, divElement);
+    buttonElement.insertAdjacentElement("afterend", answerElement);
+  }
+
+  function showAnswer(answerId) {
+    var answer = document.getElementById(answerId);
+    if (answer.style.display === "none") {
+      answer.style.display = "block";
+    } else {
+      answer.style.display = "none";
+    }
+  }
+
+  function addAnswerButton() {
+    var answers = document.querySelectorAll(".answer")
+    answers.forEach(e => {
+      addAnswerWithButton("answer", " Show solution", e.innerHTML);
+    });
+  }
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    addAnswerButton();
+  });
+</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/other-datasets.html">Using to other datasets</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">After iNaturalist</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/intro-data-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Data Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/intro-science-coding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Science and Coding concepts</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/intro-r-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to R and RStudio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/working-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/understanding-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Understanding data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/creating-maps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Creating maps</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/creating-charts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Creating charts</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/other-datasets.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Using to other datasets</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/next-steps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Next steps</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extra</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/additional-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Additional Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/editing-geo-files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Editing geospatial files</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/cleaning-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cleaning data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/setup-local.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup - local computer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/coding-after-workshop.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Coding after the workshop</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#other-datasets" id="toc-other-datasets" class="nav-link active" data-scroll-target="#other-datasets">Other datasets</a></li>
+  <li><a href="#la-city-neighborhood-councils-boundaries" id="toc-la-city-neighborhood-councils-boundaries" class="nav-link" data-scroll-target="#la-city-neighborhood-councils-boundaries">LA City Neighborhood Councils boundaries</a></li>
+  <li><a href="#los-angeles-times---la-neighborhoods" id="toc-los-angeles-times---la-neighborhoods" class="nav-link" data-scroll-target="#los-angeles-times---la-neighborhoods">Los Angeles Times - LA neighborhoods</a></li>
+  <li><a href="#la-county-incorporated-and-unincorporated-boundaries" id="toc-la-county-incorporated-and-unincorporated-boundaries" class="nav-link" data-scroll-target="#la-county-incorporated-and-unincorporated-boundaries">LA County incorporated and unincorporated boundaries</a></li>
+  <li><a href="#parks-in-la-county" id="toc-parks-in-la-county" class="nav-link" data-scroll-target="#parks-in-la-county">Parks in LA County</a></li>
+  <li><a href="#la-county-water-areas" id="toc-la-county-water-areas" class="nav-link" data-scroll-target="#la-county-water-areas">LA County water areas</a></li>
+  <li><a href="#demographics-data" id="toc-demographics-data" class="nav-link" data-scroll-target="#demographics-data">Demographics data</a>
+  <ul class="collapse">
+  <li><a href="#household-median-income" id="toc-household-median-income" class="nav-link" data-scroll-target="#household-median-income">Household Median Income</a></li>
+  </ul></li>
+  <li><a href="#la-county-environmental-justice-screening-method" id="toc-la-county-environmental-justice-screening-method" class="nav-link" data-scroll-target="#la-county-environmental-justice-screening-method">LA County Environmental Justice Screening Method</a></li>
+  <li><a href="#los-angeles-ecotopes" id="toc-los-angeles-ecotopes" class="nav-link" data-scroll-target="#los-angeles-ecotopes">Los Angeles Ecotopes</a></li>
+  <li><a href="#la-city-indicator-species" id="toc-la-city-indicator-species" class="nav-link" data-scroll-target="#la-city-indicator-species">LA city Indicator Species</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Using to other datasets</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="summary">
+<section id="questions" class="level2">
+<h2 class="anchored" data-anchor-id="questions">Questions</h2>
+<ul>
+<li>How do we get other datasets?</li>
+</ul>
+</section>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">objectives</h2>
+<ul>
+<li>Learn about pre-selected data sets provided in this workshop.</li>
+</ul>
+</section>
+</div>
+<p>Load packages</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) <span class="co"># read and write tabular data</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># manipulate data</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># create data visualizations</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="co"># handle vector geospatial data</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapview) <span class="co"># create interactive maps</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here) <span class="co"># file paths</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="other-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="other-datasets">Other datasets</h2>
+<p>There are various geospatial datasets that are free to use. Data sources used for this course include <a href="https://geohub.lacity.org">LA City Geohub</a>, <a href="https://catalog.data.gov">Data.gov</a>, <a href="https://www.parks.ca.gov">California State Parks</a>, <a href="https://data.lacounty.gov">County of Los Angeles Open Data</a>, and <a href="https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html">US Census TIGER</a>.</p>
+<p>We’ve pre-selected some geospatial data that workshop attendees might want to use to analyze iNaturalist data and provided a preview in the code below. These files are in the <code>data</code> directory. We modified some of the downloaded data to make things easier for workshop attendees; see <a href="../lessons/editing-geo-files.html">Editing geospatial files</a> for more details.</p>
+<p>When you use data from other sources, it’s a good idea to tell people where you got the data. Some data sets require people to cite the original source. Plus, it helps people who are looking at your analysis to know where you got the data.</p>
+</section>
+<section id="la-city-neighborhood-councils-boundaries" class="level2">
+<h2 class="anchored" data-anchor-id="la-city-neighborhood-councils-boundaries">LA City Neighborhood Councils boundaries</h2>
+<p>Some people might be interested in comparing iNaturalist data within different LA city neighborhoods.</p>
+<p>LA City Neighborhood Councils boundaries <a href="https://geohub.lacity.org/datasets/lahub::neighborhood-council-boundaries-2018/about" class="uri">https://geohub.lacity.org/datasets/lahub::neighborhood-council-boundaries-2018/about</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nc_boundaries <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/raw/Neighborhood_Councils_(Certified)/Neighborhood_Councils_(Certified).shp'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>nc_boundaries) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="other-datasets_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="los-angeles-times---la-neighborhoods" class="level2">
+<h2 class="anchored" data-anchor-id="los-angeles-times---la-neighborhoods">Los Angeles Times - LA neighborhoods</h2>
+<p>Some people might be interested in comparing iNaturalist data with different neighborhoods in LA county.</p>
+<p>Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <a href="https://maps.latimes.com/about/index.html" class="uri">https://maps.latimes.com/about/index.html</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>la_neighborhoods <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/raw/la_times_la_county_neighborhoods.json'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>la_neighborhoods) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="other-datasets_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="la-county-incorporated-and-unincorporated-boundaries" class="level2">
+<h2 class="anchored" data-anchor-id="la-county-incorporated-and-unincorporated-boundaries">LA County incorporated and unincorporated boundaries</h2>
+<p>Some people might be interested in comparing iNaturalist data in the incorporated and unincorporated areas of Los Angeles County.</p>
+<p>City and Unincorporated Community Boundary (LA County Planning) <a href="https://geohub.lacity.org/datasets/lacounty::city-and-unincorporated-community-boundary-la-county-planning/about" class="uri">https://geohub.lacity.org/datasets/lacounty::city-and-unincorporated-community-boundary-la-county-planning/about</a> This layer shows all incorporated and unincorporated areas of Los Angeles County</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>admin_boundaries <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/raw/admin_dist_SDE_DIST_DRP_CITY_COMM_BDY_-2349953032962506288/admin_dist_SDE_DIST_DRP_CITY_COMM_BDY.shp'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>admin_boundaries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="other-datasets_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="parks-in-la-county" class="level2">
+<h2 class="anchored" data-anchor-id="parks-in-la-county">Parks in LA County</h2>
+<p>Some people might be interested in comparing iNaturalist data with the location of parks.</p>
+<p>National Park Boundaries: <a href="https://catalog.data.gov/dataset/national-park-boundaries" class="uri">https://catalog.data.gov/dataset/national-park-boundaries</a></p>
+<p>California State Parks: <a href="https://www.parks.ca.gov/?page_id=29682" class="uri">https://www.parks.ca.gov/?page_id=29682</a></p>
+<p>County of Los Angeles parks: <a href="https://geohub.lacity.org/datasets/lacounty::dpr-park-facilities-view-accessible-parks/explore" class="uri">https://geohub.lacity.org/datasets/lacounty::dpr-park-facilities-view-accessible-parks/explore</a></p>
+<p>City of Los Angeles parks: <a href="https://geohub.lacity.org/datasets/lahub::los-angeles-recreation-and-parks-boundaries/about" class="uri">https://geohub.lacity.org/datasets/lahub::los-angeles-recreation-and-parks-boundaries/about</a></p>
+<p>Load all the parks data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>parks_national <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/nps_la_county.geojson'</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>parks_state <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/state_parks_los_angeles_county/state_parks_los_angeles_county.shp'</span>))</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>parks_county <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/raw/DPR_Park_Facilities_View_(Accessible_Parks)/DPR_Park_Facilities_View_(Accessible_Parks).shp'</span>))</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>parks_city <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/raw/Los_Angeles_Recreation_and_Parks_Boundaries/Los_Angeles_Recreation_and_Parks_Boundaries.shp'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We want to convert the CRS of the parks data be the same</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>parks_county <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(parks_county, <span class="at">crs =</span> <span class="fu">st_crs</span>(parks_national))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>parks_city <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(parks_city, <span class="at">crs =</span> <span class="fu">st_crs</span>(parks_national))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>parks_state <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(parks_state, <span class="at">crs =</span> <span class="fu">st_crs</span>(parks_national))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Create map with parks and iNaturalist data. Use <code>col.region</code> to set the color of the parks.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(parks_national, <span class="at">col.region=</span><span class="st">'orange'</span>) <span class="sc">+</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(parks_county, <span class="at">col.region=</span><span class="st">'red'</span>) <span class="sc">+</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(parks_city, <span class="at">col.region=</span><span class="st">'yellow'</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(parks_state, <span class="at">col.region=</span><span class="st">'green'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/mapview/other-datasets/map_of_parks.png" class="img-fluid" alt="map of parks"></p>
+</section>
+<section id="la-county-water-areas" class="level2">
+<h2 class="anchored" data-anchor-id="la-county-water-areas">LA County water areas</h2>
+<p>Some people might be interested in comparing iNaturalist data with streams, rivers, lakes, ponds in LA County.</p>
+<p>US Census TIGER/Line data provides information about water areas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>water_areas <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/la_county_waterareas.geojson'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>water_areas)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="other-datasets_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We also have a file for the LA River.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>la_river <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/los_angeles_river.geojson'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>la_river)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="other-datasets_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="demographics-data" class="level2">
+<h2 class="anchored" data-anchor-id="demographics-data">Demographics data</h2>
+<p>Some people might be interested in comparing iNaturalist data with demographics data about people in LA County.</p>
+<p>L.A. County completed Comprehensive Countywide Park Needs Assessment in 2016. As part of that study, they looked at demographics data throughout the county. For more information: <a href="https://geohub.lacity.org/datasets/lacounty::l-a-county-park-needs-assessment-demographics/about" class="uri">https://geohub.lacity.org/datasets/lacounty::l-a-county-park-needs-assessment-demographics/about</a></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A lot of demographics data from the Park Needs Assessment comes from the U.S. Census. The reason we’re using the parks data instead directly using Census data is because the Census data is more difficult to use. If you want to learn how to use U.S. Census data in R, check out the book <a href="https://walker-data.com/census-r/index.html">Analyzing US Census Data: Methods, Maps, and Models in R</a></p>
+</div>
+</div>
+<p>We load Park Needs Assessment data using <code>read_sf()</code> to read GeoJSON file. Click <code>la_county_pna</code> in the Environment pane to browse the data frame.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>la_county_pna <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/LA_County_PNA_Demographics.geojson'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are 96 fields in the data set. Here’s a short description of the fields.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>field</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>STUD_AR_ID</td>
+<td>Study Area ID</td>
+</tr>
+<tr class="even">
+<td>STUD_AR_NM</td>
+<td>Study Area Name</td>
+</tr>
+<tr class="odd">
+<td>STUD_AR_LBL</td>
+<td>Label</td>
+</tr>
+<tr class="even">
+<td>TOOLKIT_ID</td>
+<td>Toolkit ID</td>
+</tr>
+<tr class="odd">
+<td>Acres</td>
+<td>Park Acres</td>
+</tr>
+<tr class="even">
+<td>AC_PER_1K</td>
+<td>Acres/1000</td>
+</tr>
+<tr class="odd">
+<td>RepPrkAc</td>
+<td>Accessible Park Acres</td>
+</tr>
+<tr class="even">
+<td>NEED_DESCP</td>
+<td>Need Description</td>
+</tr>
+<tr class="odd">
+<td>PCT_Walk</td>
+<td>Walkable Percentage</td>
+</tr>
+<tr class="even">
+<td>populationtotals_totpop_cy</td>
+<td>Total Population</td>
+</tr>
+<tr class="odd">
+<td>householdtotals_avghhsz_cy</td>
+<td>Average Household Size</td>
+</tr>
+<tr class="even">
+<td>householdincome_medhinc_cy</td>
+<td>Median Household Income</td>
+</tr>
+<tr class="odd">
+<td>educationalattainment_nohs_cy</td>
+<td>Pop Age 25+: &lt; 9th Grade</td>
+</tr>
+<tr class="even">
+<td>educationalattainment_somehs_cy</td>
+<td>Pop Age 25+: High School/No Diploma</td>
+</tr>
+<tr class="odd">
+<td>educationalattainment_hsgrad_cy</td>
+<td>Pop Age 25+: High School Diploma</td>
+</tr>
+<tr class="even">
+<td>educationalattainment_ged_cy</td>
+<td>Pop Age 25+: GED</td>
+</tr>
+<tr class="odd">
+<td>educationalattainment_smcoll_cy</td>
+<td>Pop Age 25+: Some College/No Degree</td>
+</tr>
+<tr class="even">
+<td>educationalattainment_asscdeg_c</td>
+<td>Pop Age 25+: Associate’s Degree</td>
+</tr>
+<tr class="odd">
+<td>educationalattainment_bachdeg_c</td>
+<td>Pop Age 25+: Bachelor’s Degree</td>
+</tr>
+<tr class="even">
+<td>educationalattainment_graddeg_c</td>
+<td>Pop Age 25+: Grad/Professional Degree</td>
+</tr>
+<tr class="odd">
+<td>educationalattainment_educbasec</td>
+<td>Educational Attainment Base</td>
+</tr>
+<tr class="even">
+<td>sports_mp33003a_b_i</td>
+<td>Participated in baseball in last 12 months: Index</td>
+</tr>
+<tr class="odd">
+<td>sports_mp33004a_b_i</td>
+<td>Participated in basketball in last 12 months: Index</td>
+</tr>
+<tr class="even">
+<td>sports_mp33005a_b_i</td>
+<td>Participated in bicycling (mountain) in last 12 mo: Index</td>
+</tr>
+<tr class="odd">
+<td>sports_mp33012a_b_i</td>
+<td>Participated in football in last 12 months: Index</td>
+</tr>
+<tr class="even">
+<td>sports_mp33014a_b_i</td>
+<td>Participated in golf in last 12 months: Index</td>
+</tr>
+<tr class="odd">
+<td>sports_mp33015a_b_i</td>
+<td>Participated in hiking in last 12 months: Index</td>
+</tr>
+<tr class="even">
+<td>sports_mp33016a_b_i</td>
+<td>Participated in horseback riding in last 12 months: Index</td>
+</tr>
+<tr class="odd">
+<td>sports_mp33020a_b_i</td>
+<td>Participated in jogging/running in last 12 months: Index</td>
+</tr>
+<tr class="even">
+<td>sports_mp33024a_b_i</td>
+<td>Participated in soccer in last 12 months: Index</td>
+</tr>
+<tr class="odd">
+<td>sports_mp33025a_b_i</td>
+<td>Participated in softball in last 12 months: Index</td>
+</tr>
+<tr class="even">
+<td>sports_mp33026a_b_i</td>
+<td>Participated in swimming in last 12 months: Index</td>
+</tr>
+<tr class="odd">
+<td>sports_mp33028a_b_i</td>
+<td>Participated in tennis in last 12 months: Index</td>
+</tr>
+<tr class="even">
+<td>sports_mp33029a_b_i</td>
+<td>Participated in volleyball in last 12 months: Index</td>
+</tr>
+<tr class="odd">
+<td>sports_mp33030a_b_i</td>
+<td>Participated in walking for exercise in last 12 mo: Index</td>
+</tr>
+<tr class="even">
+<td>F5yearincrements_pop0_cy</td>
+<td>Population Age 0-4</td>
+</tr>
+<tr class="odd">
+<td>F5yearincrements_pop5_cy</td>
+<td>Population Age 5-9</td>
+</tr>
+<tr class="even">
+<td>F5yearincrements_pop10_cy</td>
+<td>Population Age 10-14</td>
+</tr>
+<tr class="odd">
+<td>F5yearincrements_pop15_cy</td>
+<td>Population Age 15-19</td>
+</tr>
+<tr class="even">
+<td>F5yearincrements_pop20_cy</td>
+<td>Population Age 20-24</td>
+</tr>
+<tr class="odd">
+<td>F5yearincrements_pop25_cy</td>
+<td>Population Age 25-29</td>
+</tr>
+<tr class="even">
+<td>F5yearincrements_pop30_cy</td>
+<td>Population Age 30-34</td>
+</tr>
+<tr class="odd">
+<td>F5yearincrements_pop35_cy</td>
+<td>Population Age 35-39</td>
+</tr>
+<tr class="even">
+<td>F5yearincrements_pop40_cy</td>
+<td>Population Age 40-44</td>
+</tr>
+<tr class="odd">
+<td>F5yearincrements_pop45_cy</td>
+<td>Population Age 45-49</td>
+</tr>
+<tr class="even">
+<td>F5yearincrements_pop50_cy</td>
+<td>Population Age 50-54</td>
+</tr>
+<tr class="odd">
+<td>F5yearincrements_pop55_cy</td>
+<td>Population Age 55-59</td>
+</tr>
+<tr class="even">
+<td>F5yearincrements_pop60_cy</td>
+<td>Population Age 60-64</td>
+</tr>
+<tr class="odd">
+<td>F5yearincrements_pop65_cy</td>
+<td>Population Age 65-69</td>
+</tr>
+<tr class="even">
+<td>F5yearincrements_pop70_cy</td>
+<td>Population Age 70-74</td>
+</tr>
+<tr class="odd">
+<td>F5yearincrements_pop75_cy</td>
+<td>Population Age 75-79</td>
+</tr>
+<tr class="even">
+<td>F5yearincrements_pop80_cy</td>
+<td>Population Age 80-84</td>
+</tr>
+<tr class="odd">
+<td>F5yearincrements_pop85_cy</td>
+<td>Population Age 85+</td>
+</tr>
+<tr class="even">
+<td>F5yearincrements_pop18up_cy</td>
+<td>Population Age 18+</td>
+</tr>
+<tr class="odd">
+<td>F1yearincrements_age18_cy</td>
+<td>Population Age 18</td>
+</tr>
+<tr class="even">
+<td>F1yearincrements_age19_cy</td>
+<td>Population Age 19</td>
+</tr>
+<tr class="odd">
+<td>MEAN_Asthma</td>
+<td>MEAN Asthma</td>
+</tr>
+<tr class="even">
+<td>MEAN_Low_Birth_Weight</td>
+<td>MEAN Low_Birth_Weight</td>
+</tr>
+<tr class="odd">
+<td>MEAN_Cardiovascular</td>
+<td>MEAN Cardiovascular</td>
+</tr>
+<tr class="even">
+<td>raceandhispanicorigin_hisppop_c</td>
+<td>Hispanic Population</td>
+</tr>
+<tr class="odd">
+<td>raceandhispanicorigin_nonhisp_c</td>
+<td>Non-Hispanic Population</td>
+</tr>
+<tr class="even">
+<td>raceandhispanicorigin_nhspwht_c</td>
+<td>Non-Hispanic White Pop</td>
+</tr>
+<tr class="odd">
+<td>raceandhispanicorigin_nhspblk_c</td>
+<td>Non-Hispanic Black Pop</td>
+</tr>
+<tr class="even">
+<td>raceandhispanicorigin_nhspai_cy</td>
+<td>Non-Hispanic American Indian Pop</td>
+</tr>
+<tr class="odd">
+<td>raceandhispanicorigin_nhspasn_c</td>
+<td>Non-Hispanic Asian Pop</td>
+</tr>
+<tr class="even">
+<td>raceandhispanicorigin_nhsppi_cy</td>
+<td>Non-Hispanic Pacific Islander Pop</td>
+</tr>
+<tr class="odd">
+<td>raceandhispanicorigin_nhspoth_c</td>
+<td>Non-Hispanic Other Race Pop</td>
+</tr>
+<tr class="even">
+<td>raceandhispanicorigin_nhspmlt_c</td>
+<td>Non-Hispanic Multiple Race Pop</td>
+</tr>
+<tr class="odd">
+<td>Age0_17Pct</td>
+<td>Age 0-17 Pct</td>
+</tr>
+<tr class="even">
+<td>Age18_34Pct</td>
+<td>Age 18-34 Pct</td>
+</tr>
+<tr class="odd">
+<td>Age35_54Pct</td>
+<td>Age 35-54 Pct</td>
+</tr>
+<tr class="even">
+<td>Age55_69Pct</td>
+<td>Age 55-69 Pct</td>
+</tr>
+<tr class="odd">
+<td>Age70upPct</td>
+<td>Age 70+ Pct</td>
+</tr>
+<tr class="even">
+<td>HispanicPct</td>
+<td>Hispanic Pct</td>
+</tr>
+<tr class="odd">
+<td>WhitePct</td>
+<td>White Pct</td>
+</tr>
+<tr class="even">
+<td>Black_Pct</td>
+<td>Black Pct</td>
+</tr>
+<tr class="odd">
+<td>Asian_Pct</td>
+<td>Asian Pct</td>
+</tr>
+<tr class="even">
+<td>Am_Indian</td>
+<td>American Indian Pct</td>
+</tr>
+<tr class="odd">
+<td>Pac_Island</td>
+<td>Pacific Islander Pct</td>
+</tr>
+<tr class="even">
+<td>Other_Race</td>
+<td>Other Race Pct</td>
+</tr>
+<tr class="odd">
+<td>Multi_Race</td>
+<td>Multiple Race Pct</td>
+</tr>
+<tr class="even">
+<td>No_HS</td>
+<td>No High School Diploma Pct</td>
+</tr>
+<tr class="odd">
+<td>HS_Grad</td>
+<td>High School Graduate Pct</td>
+</tr>
+<tr class="even">
+<td>Some_College</td>
+<td>Some College Pct</td>
+</tr>
+<tr class="odd">
+<td>College</td>
+<td>College Degree Pct</td>
+</tr>
+<tr class="even">
+<td>unemprt_cy</td>
+<td>Unemployment Rate</td>
+</tr>
+</tbody>
+</table>
+<section id="household-median-income" class="level3">
+<h3 class="anchored" data-anchor-id="household-median-income">Household Median Income</h3>
+<p>Let’s look at the Household Median Income. We can use <code>zcol</code> to choose which column view to in the map. The field ‘householdincome_medhinc_cy’ refers to Household Median Income.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_pna, </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">zcol=</span><span class="st">'householdincome_medhinc_cy'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/mapview/other-datasets/map_of_median_income.png" class="img-fluid" alt="interactive map of Household Median Income"></p>
+<p>There are two issues with the previous map.</p>
+<ol type="1">
+<li><p>The name of the layer is too long. We can rename the layer using <code>layer.name ='New Name'</code></p></li>
+<li><p>When you click on region, the popup shows too many fields. Use <code>select()</code> to pick the columns you need, and assign the new data frame to a new object.</p></li>
+</ol>
+<p><code>layer.name ='Avg income'</code> sets the layer name to ‘Avg income’</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>la_county_pna_map <span class="ot">&lt;-</span> la_county_pna <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUD_AR_NM, householdincome_medhinc_cy)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(la_county_pna_map, </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">zcol=</span><span class="st">'householdincome_medhinc_cy'</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">layer.name =</span><span class="st">'Avg income'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/mapview/other-datasets/fix_map.png" class="img-fluid" alt="interactive map of Household Median Income with fixed layer name and popups"></p>
+</section>
+</section>
+<section id="la-county-environmental-justice-screening-method" class="level2">
+<h2 class="anchored" data-anchor-id="la-county-environmental-justice-screening-method">LA County Environmental Justice Screening Method</h2>
+<p>Some people might be interested in comparing iNaturalist data with environmental factors.</p>
+<p>The Environmental Justice Screening Method (EJSM) was developed for Los Angeles County by USC PERE / Occidental College for LA County’s Green Zones Program. This tool can be used to identify stationary sources of pollution and analyze cumulative environmental impacts. The overall score show the pollution impacts for each census tract. <a href="https://egis-lacounty.hub.arcgis.com/datasets/lacounty::ejsm-scores/about" class="uri">https://egis-lacounty.hub.arcgis.com/datasets/lacounty::ejsm-scores/about</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ejsm <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/raw/EJSM_Scores-shp/6cbc6914-690f-48ec-a54f-2649a8ddb321202041-1-139ir98.m1ys.shp'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>ejsm_edit <span class="ot">&lt;-</span> ejsm <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CIscore, HazScore, HealthScor, SVscore, CCVscore)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are 5 fields in the data set.</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td>CIscore</td>
+<td>Cumulative Impact Score</td>
+</tr>
+<tr class="even">
+<td>HazScore</td>
+<td>Hazard Proximity Score</td>
+</tr>
+<tr class="odd">
+<td>HealthScor</td>
+<td>Health Score</td>
+</tr>
+<tr class="even">
+<td>SVscore</td>
+<td>Social Vulnerability Score</td>
+</tr>
+<tr class="odd">
+<td>CCVscore</td>
+<td>Climate Change Vulnerability Score</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(ejsm_edit, <span class="at">zcol=</span><span class="st">'CIscore'</span>,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">layer.name=</span><span class="st">'Cumulative Impact'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/mapview/other-datasets/ejsm.png" class="img-fluid" alt="create map with ejsm"></p>
+</section>
+<section id="los-angeles-ecotopes" class="level2">
+<h2 class="anchored" data-anchor-id="los-angeles-ecotopes">Los Angeles Ecotopes</h2>
+<p>LA Sanitation and Environment (LASAN) oversees the City of Los Angeles <a href="http://lacitysan.org/biodiversity">biodiversity initiative</a>. LASAN published <a href="https://sanitation.lacity.gov/cs/groups/public/documents/document/y250/mduy/~edisp/cnt052553.pdf">2020 Biodiversity Report</a> that outlines how to measure the health of the urban ecosystem in Los Angeles. As part of that report, they identified 17 ecological regions in LA called ecotopes. “Ecotopes are also envisioned as future management units to address biodiversity and related urban ecosystem stewardship topics of ecosystem services, pollution, and ecological hazards.”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ecotopes <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/raw/LA_Area_Ecotopes/FINAL Ecotope_Boundaries.shp'</span>))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ecotopes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "ET_LndsZon" "ET_Type"    "ET_Number"  "geometry"  </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(ecotopes, <span class="at">zcol=</span><span class="st">'ET_LndsZon'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/mapview/other-datasets/ecotopes.png" class="img-fluid" alt="create map with ecotopes"></p>
+</section>
+<section id="la-city-indicator-species" class="level2">
+<h2 class="anchored" data-anchor-id="la-city-indicator-species">LA city Indicator Species</h2>
+<p>LASAN worked with the Biodiversity Expert Council to create a list of <a href="https://sanitation.lacity.gov/san/faces/wcnav_externalId/s-lsh-es-si-bd-par?_adf.ctrl-state=61c3l34pj_78&amp;_afrLoop=10147855306996952#!">37 biodiversity indicator species</a>. When the species are present, it means the area has high quality habitat that can support biodiversity</p>
+<p>Let’s create a map of showing the observations of indicator species.</p>
+<p>Get all iNaturalist observations</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/cnc-los-angeles-observations.csv'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Use <code>st_as_sf()</code> to add a geometry column so we can map the observations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>inat_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(inat_data, </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>),   <span class="at">crs =</span> <span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Get list of indicator species.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>indicator_species <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/LA_city_indicator_species.csv'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Get the column names for <code>indicator_species</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(indicator_species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "group"           "scientific name" "common name"     "taxon rank"     </code></pre>
+</div>
+</div>
+<p>Get the scientific names for all the indicator species.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>indicator_scientific_names <span class="ot">&lt;-</span> indicator_species<span class="sc">$</span><span class="st">'scientific name'</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>indicator_scientific_names</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Anaxyrus boreas"                  "Batrachoseps nigriventris"       
+ [3] "Pseudacris hypochondriaca"        "Agelaius phoeniceus"             
+ [5] "Ardea herodias"                   "Bubo virginianus"                
+ [7] "Buteo jamaicensis"                "Callipepla californica"          
+ [9] "Catherpes mexicanus"              "Circus hudsonius"                
+[11] "Geococcyx californianus"          "Lophodytes cucullatus"           
+[13] "Melanerpes formicivorus"          "Pipilo maculatus"                
+[15] "Sialia mexicana"                  "Spatula cyanoptera"              
+[17] "Sturnella neglecta"               "Ammopelmatus sp."                
+[19] "Anthocharis sara"                 "Apodemia virgulti"               
+[21] "Bombus sp."                       "Callophrys dumetorum"            
+[23] "Euphilotes battoides ssp. allyni" "Limenitis lorquini"              
+[25] "Mutillidae"                       "Pogonomyrmex"                    
+[27] "Lynx rufus"                       "Neotoma macrotis"                
+[29] "Odocoileus hemionus"              "Puma concolor"                   
+[31] "Urocyon cinereoargenteus"         "Actinemys marmorata"             
+[33] "Masticophis flagellum"            "Crotalus oreganus"               
+[35] "Lampropeltis californiae"         "Pituophis catenifer"             
+[37] "Uta stansburiana"                </code></pre>
+</div>
+</div>
+<p>Find observations for indicator species by looking for <code>scientific_name</code> that are in the <code>indicator_scientific_names</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>indicator_sf <span class="ot">&lt;-</span> inat_sf <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientific_name <span class="sc">%in%</span> indicator_scientific_names) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientific_name, common_name)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(indicator_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3374    3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(indicator_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/mapview/other-datasets/indicator_species.png" class="img-fluid" alt="create map with indicator species"></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
