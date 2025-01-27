@@ -27,10 +27,7 @@ library(dplyr) # manipulate data
 
 ```{r, assign_read_csv_to_object}
 #| message: false
-#| warning: false
-
 inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
-
 ```
 
 Let's look at the data information returned by `glimpse()`.

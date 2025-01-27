@@ -363,6 +363,7 @@ Let's create a map of showing the observations of indicator species.
 
 Get all iNaturalist observations
 ```{r}
+#| message: false
 inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 ```
 
@@ -376,6 +377,7 @@ inat_sf <- st_as_sf(inat_data,
 Get list of indicator species.
 
 ```{r}
+#| message: false
 indicator_species <- read_csv('data/cleaned/LA_city_indicator_species.csv')
 ```
 

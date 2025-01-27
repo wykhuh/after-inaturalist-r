@@ -27,7 +27,6 @@ source('../scripts/map_utils.R')
 First, we need to read data from the CNC iNaturalist observation file.
 
 ```{r, read_data_from_csv}
-#| warning: false
 #| message: false
 inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 

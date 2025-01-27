@@ -133,10 +133,8 @@ price_1 + price_2
 We can do comparison of price_1 and price_2. The comparisons return TRUE or FALSE.
 
 ```{r equal_comparison}
-# equal
 price_1 == price_2
 
-# greater than
 price_1 > price_2
 ```
 

@@ -56,7 +56,6 @@ sf_use_s2(FALSE)
 First, we need to read data from the CNC iNaturalist observation file.
 
 ```{r, read_data_from_csv}
-#| warning: false
 #| message: false
 inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 
@@ -167,7 +166,7 @@ Create a map for one species.
 ::: answer
 ```{r, exercise_create_map_one_species}
 #| eval: false
-#| 
+
 my_inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
 
 my_inat_sf <- my_inat_data %>% 
@@ -406,7 +405,6 @@ Create a map for one species with LA County boundary.
 ::: answer
 ```{r, exercise_create_map_one_species_county_boundary}
 #| eval: false
-#| 
 
 my_la_county_boundary <- read_sf('data/raw/LA_County_Boundary/LA_County_Boundary.shp')
 
@@ -483,8 +481,9 @@ st_intersects(inat_sf, expo_park_boundary)
 
 Instead of 1 or empty, want a vector with TRUE or FALSE values, also known as logical vector. We use `lengths(st_intersects(inat_sf, expo_park_boundary)) > 0` to check if a row has items within Exposition Park. If a row has 1 item inside `expo_park_boundary`, return TRUE. Otherwise return FALSE.
 
+use `[1:50]` to get the first 50 rows
+
 ```{r, get_true_false}
-# we are limited the output to the first 50 rows for this explation
 (lengths(st_intersects(inat_sf, expo_park_boundary)) > 0)[1:50]
 ```
 
@@ -613,14 +612,21 @@ Some CRS use angle degrees for the units. EPSG:4326 is an example. Some CRS use 
 
 The LA River uses EPSG:4326. We need to change the CRS to EPSG:5070, add a buffer of 805 meters (1/2 mile), and then covert the buffer back to EPSG:4326
 
-```{r create_buffer}
-# change CRS to 5070
+change CRS to 5070
+
+```{r change_crs_to_5070}
 river_5070 <- st_transform(la_river, crs=5070)
+```
 
-# create 805 meter (1/2 mile) buffer
+create 805 meter (1/2 mile) buffer
+
+```{r create_buffer}
 buffer_river_5070 <- st_buffer(river_5070, 805)
+```
 
-# change CRS to 4326
+change CRS to 4326
+
+```{r change_crs_to_4326}
 buffer_river <- st_transform(buffer_river_5070, crs=st_crs(inat_sf))
 ```
 
@@ -671,6 +677,7 @@ inat_river %>%
   arrange(desc(n)) %>%
   slice(1:10)
 ```
+
 ## **Faceting**
 
 One of the most powerful features of **`ggplot`** is the ability to quickly split a plot into multiple smaller plots based on one or more columns in the data frame, which is called **faceting**. Use the `facet_wrap()` function to generate a series of smaller plots, and pass in the selected column using `vars(<column>)`.
@@ -746,13 +753,11 @@ We can create interactive choropleth map by by using `zcol='observations_count'`
 
 ```{r create_interactive_choropleth_map}
 #| eval: false
-#| 
 mapview(count_sf,  
         zcol = 'observations_count')
 ```
 
 ![](images/mapview/creating_maps/create_interactive_choropleth_map.png){fig-alt="create interactive choropleth map"}
-
 
 ## Exporting maps
 
