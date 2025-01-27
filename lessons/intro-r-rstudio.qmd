@@ -54,7 +54,7 @@ project_folder
 │
 └── scripts
 │
-└── CNC-coding-workshop.Rproj
+└── project.Rproj
 ```
 
 Within our project folder, we have a `data` folder containing `cleaned` and `raw` sub-folders. In general, you want to keep your `raw` data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the `cleaned` folder. We also have a `results` folder for any other documents you might produce. We also have a `scripts` folder to hold any scripts we write.
