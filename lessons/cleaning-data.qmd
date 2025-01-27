@@ -11,10 +11,11 @@ Load libraries
 ```{r}
 #| message: false
 
-library(readr)
-library(dplyr)
-library(pdftools)
-library(stringr)
+library(readr) # read and write tabular data
+library(dplyr) # manipulate data
+library(pdftools) # process pdfs
+library(stringr) # work with string
+library(here) # file paths
 ```
 
 ## iNaturalist
@@ -24,12 +25,8 @@ library(stringr)
 Save the file paths as objects.
 
 ```{r}
-observations_raw_path <- 'data/raw/observations-513664.csv'
-observations_cleaned_path <- 'data/cleaned/cnc-los-angeles-observations.csv'
-threatened_raw_path <- 'data/raw/observations-514065_threatened.csv'
-introduced_raw_path <- 'data/raw/observations-514069_introduced.csv'
-native_raw_path <- 'data/raw/observations-514076_native.csv'
-
+observations_raw_path <- here('data/raw/observations-513664.csv')
+observations_cleaned_path <- here('data/cleaned/cnc-los-angeles-observations.csv')
 ```
 
 The CSV we downloaded from iNaturalist had several problems.
@@ -193,9 +190,9 @@ In order to get information about observations with threatened, introduced, and 
 #| message: false
 
 inat_data <- read_csv(observations_cleaned_path)
-threatened_raw <- read_csv(threatened_raw_path)
-introduced_raw <- read_csv(introduced_raw_path)
-native_raw <- read_csv(native_raw_path)
+threatened_raw <- read_csv(here('data/raw/observations-514065_threatened.csv'))
+introduced_raw <- read_csv(here('data/raw/observations-514069_introduced.csv'))
+native_raw <- read_csv(here('data/raw/observations-514076_native.csv'))
 
 ```
 
@@ -287,7 +284,7 @@ write_csv(combined_data, observations_cleaned_path, na = "")
 Convert pdf to CSV
 
 ```{r}
-pdf <- pdf_text("./data/raw/LASAN/cnt061142_indicator_species.pdf") %>%
+pdf <- pdf_text(here("data/raw/LASAN/cnt061142_indicator_species.pdf")) %>%
   readr::read_lines()  
 ```
 
@@ -323,7 +320,6 @@ stats_df[26,'taxon rank'] <- 'genus'
 
 ```{r}
 #| eval: FALSE
-write_csv(stats_df, './data/cleaned/LA_city_indicator_species.csv')
+write_csv(stats_df, here('data/cleaned/LA_city_indicator_species.csv'))
 
 ```
-

@@ -20,15 +20,16 @@ library(ggplot2) # create data visualizations
 library(sf) # handle vector geospatial data
 library(mapview) # create interactive maps
 library(basemaps) # add basemap
+library(here) # file paths
 
-source('../scripts/map_utils.R')
+source(here('scripts/map_utils.R'))
 ```
 
 First, we need to read data from the CNC iNaturalist observation file.
 
 ```{r, read_data_from_csv}
 #| message: false
-inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 ```
 
@@ -114,7 +115,7 @@ ggplot() +
 Let's get the observation counts for neighborhoods around Exposition Park
 
 ```{r}
-la_neighborhoods_sf <- st_read('data/raw/la_times_la_county_neighborhoods.json')
+la_neighborhoods_sf <- read_sf(here('data/raw/la_times_la_county_neighborhoods.json'))
 
 ```
 
@@ -188,7 +189,7 @@ We've provided a couple of maps with multiple boundaries that includes data valu
 Let's compare iNaturalist observations with EJSM Cumulative Impact Score for each area.
 
 ```{r read_ejsm_file}
-ejsm_sf <- read_sf('data/raw/EJSM_Scores-shp/6cbc6914-690f-48ec-a54f-2649a8ddb321202041-1-139ir98.m1ys.shp')
+ejsm_sf <- read_sf(here('data/raw/EJSM_Scores-shp/6cbc6914-690f-48ec-a54f-2649a8ddb321202041-1-139ir98.m1ys.shp'))
 
 glimpse(ejsm_sf)
 

@@ -29,6 +29,8 @@ When we reference other files from an R script, we need to give R precise instru
 
 There are two kinds of paths: absolute and relative. Absolute paths are specific to a particular computer, whereas relative paths are relative to a certain folder. Because we are using RStudio "project" feature, all of our paths is relative to the project folder. For instance an absolute path is "/Users/username/Documents/CNC-coding-workshop/data/cleaned/cnc-los-angeles-observations.csv", and relative path is "data/cleaned/cnc-los-angeles-observations.csv".
 
+**here** is an R package that makes it easier to handle file paths.
+
 ### Functions
 
 Functions are predefined bits of code that do a specific task. Arguments are values that we pass into a function. Function usually takes one or more arguments as input, does something to the values, and produces the ouput.
@@ -65,6 +67,7 @@ Generally it is a good idea to list all the libraries that you will use in the s
 library(readr) # read and write tabular data
 library(dplyr) # manipulate data
 library(lubridate) # manipulate dates
+library(here) # file paths
 ```
 
 We call `read_csv()` function from **readr**, and pass in a relative path to a CSV file in order to load the CSV.
@@ -73,7 +76,7 @@ We call `read_csv()` function from **readr**, and pass in a relative path to a C
 
 ```{r, assign_read_csv_to_object}
 #| message: false
-inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 ```
 
 ::: callout-tip
@@ -301,7 +304,7 @@ Get all your City Nature Challenge observations.
 
 ::: answer
 ```{r, exercise_your_observations}
-my_inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+my_inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 my_obs <- my_inat_data %>%
   filter(user_login == 'natureinla') %>%
@@ -1023,7 +1026,7 @@ Then use `write_csv()` from **dplyr** to create a CSV.
 
 ```{r, save_file}
 #| eval: false
-write_csv(my_obs, 'data/cleaned/my_observations.csv', na='')
+write_csv(my_obs, here('data/cleaned/my_observations.csv'), na='')
 ```
 
 ## Save changes to your repository

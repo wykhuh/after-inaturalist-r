@@ -10,13 +10,13 @@ Sometimes we find a geospatial file that has more than we need. For instance, I 
 #| warning: false
 #| message: false
 
-library(dplyr)
-library(sf)
-library(ggplot2)
-library(mapview)
-library(tigris)
-library(stringr)
-
+library(dplyr) # manipulate data
+library(ggplot2) # create data visualizations
+library(stringr) # work with string
+library(here) # file paths
+library(sf) # handle vector geospatial data
+library(mapview) # create interactive maps
+library(tigris) # access TIGER/Line shapefiles
 ```
 
 ## Find selected California counties
@@ -28,7 +28,7 @@ Let's get the boundaries for Los Angeles County.
 Read the file with all the counties in California.
 
 ```{r, get_all_california_counties}
-ca_counties <- read_sf('data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp')
+ca_counties <- read_sf(here('data/raw/California_County_Boundaries_and_Identifiers_Blue_Version_view_2716745428963682036/California_County_Boundaries_and_Identifiers.shp'))
 
 ```
 
@@ -56,7 +56,7 @@ Use `st_write()` to save the state parks within LA County as a Shape file. The f
 
 ```{r save_LA_county}
 #| eval: false
-st_write(LA, 'data/cleaned/los_angeles_county/los_angeles_county.shp')
+st_write(LA, here('data/cleaned/los_angeles_county/los_angeles_county.shp'))
 ```
 
 ## Find waterways in Los Angeles County
@@ -137,9 +137,9 @@ Save the files
 
 ```{r}
 #| eval: false
-st_write(fixed_river, 'data/cleaned/los_angeles_river.geojson')
+st_write(fixed_river, here('data/cleaned/los_angeles_river.geojson'))
 
-st_write(area_water, 'data/cleaned/la_county_waterareas.geojson')
+st_write(area_water, here('data/cleaned/la_county_waterareas.geojson'))
 ```
 
 ## Find state parks in LA County
@@ -153,13 +153,13 @@ California state has a file that lists all the counties in California. <https://
 First we read the file with all state parks in California.
 
 ```{r, get_state_parks}
-state_parks <- read_sf('data/raw/Park_Boundaries/ParkBoundaries.shp')
+state_parks <- read_sf(here('data/raw/Park_Boundaries/ParkBoundaries.shp'))
 ```
 
 The we read the file with LA County
 
 ```{r, get_LA_county}
-LA_county <- read_sf('data/cleaned/los_angeles_county/los_angeles_county.shp')
+LA_county <- read_sf(here('data/cleaned/los_angeles_county/los_angeles_county.shp'))
 
 
 ```
@@ -202,7 +202,7 @@ Save the file.
 ```{r, save_file}
 #| eval: false
 
-st_write(LA_parks, 'data/cleaned/state_parks_los_angeles_county/state_parks_los_angeles_county.shp')
+st_write(LA_parks, here('data/cleaned/state_parks_los_angeles_county/state_parks_los_angeles_county.shp'))
 ```
 
 ## Find national parks in LA County
@@ -212,9 +212,9 @@ Let's get the National Parks within Los Angeles county.
 National Park Boundaries https://catalog.data.gov/dataset/national-park-boundaries
 
 ```{r}
-parks_nps <- read_sf('data/raw/nps_boundary/nps_boundary.shp')
+parks_nps <- read_sf(here('data/raw/nps_boundary/nps_boundary.shp'))
 
-la_county <- read_sf('data/cleaned/los_angeles_county/los_angeles_county.shp')
+la_county <- read_sf(here('data/cleaned/los_angeles_county/los_angeles_county.shp'))
 
 
 ```
@@ -249,7 +249,7 @@ Save the file.
 ```{r}
 #| eval: false
 
-st_write(ca_nps_parks, 'data/cleaned/nps_la_county.geojson')
+st_write(ca_nps_parks, here('data/cleaned/nps_la_county.geojson'))
 ```
 
 ## LA County Park Needs Assessment
@@ -257,7 +257,7 @@ st_write(ca_nps_parks, 'data/cleaned/nps_la_county.geojson')
 The LA County Park Needs Assessment has layer for the entire county wide. We want to remove the county wide layer.
 
 ```{r}
-la_county_pna <- read_sf('data/raw/PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907.geojson')
+la_county_pna <- read_sf(here('data/raw/PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907.geojson'))
 
 dim(la_county_pna)
 ```
@@ -276,6 +276,6 @@ ggplot(la_county_pna_edit) +
 ```{r}
 #| eval: false
 
-st_write(la_county_pna_edit, 'data/cleaned/LA_County_PNA_Demographics.geojson')
+st_write(la_county_pna_edit, here('data/cleaned/LA_County_PNA_Demographics.geojson'))
 ```
 

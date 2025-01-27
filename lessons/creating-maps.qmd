@@ -30,7 +30,7 @@ Main steps:
 
 Loading R packages.
 
-`source('../scripts/map_utils.R')` loads a script file with custom functions created for this workshop.
+`source(here('scripts/map_utils.R'))` loads a script file with custom functions created for this workshop.
 
 ```{r, load_packages}
 #| error: false
@@ -43,8 +43,9 @@ library(dplyr) # manipulate data
 library(ggplot2) # create data visualizations
 library(sf) # handle vector geospatial data
 library(mapview) # create interactive maps
+library(here) # file paths
 
-source('../scripts/map_utils.R')
+source(here('scripts/map_utils.R'))
 ```
 
 There is a bug with **sf** <https://github.com/r-spatial/sf/issues/1762>. This bit of code is fix for the bug.
@@ -57,7 +58,7 @@ First, we need to read data from the CNC iNaturalist observation file.
 
 ```{r, read_data_from_csv}
 #| message: false
-inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 ```
 
@@ -167,7 +168,7 @@ Create a map for one species.
 ```{r, exercise_create_map_one_species}
 #| eval: false
 
-my_inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+my_inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 my_inat_sf <- my_inat_data %>% 
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)  %>% 
@@ -188,7 +189,7 @@ There are various places where you can download geospatial files for free. We do
 `read_sf()` function from **sf** package can read files and databases in various formats. We will use `read_sf()` to read the LA County boundary Shapefile.
 
 ```{r, get_LA_County_boundaries}
-la_county_boundary <- read_sf('data/raw/LA_County_Boundary/LA_County_Boundary.shp')
+la_county_boundary <- read_sf(here('data/raw/LA_County_Boundary/LA_County_Boundary.shp'))
 ```
 
 We can use `class()` to examine the data returned by `read_sf()`.
@@ -406,7 +407,7 @@ Create a map for one species with LA County boundary.
 ```{r, exercise_create_map_one_species_county_boundary}
 #| eval: false
 
-my_la_county_boundary <- read_sf('data/raw/LA_County_Boundary/LA_County_Boundary.shp')
+my_la_county_boundary <- read_sf(here('data/raw/LA_County_Boundary/LA_County_Boundary.shp'))
 
 st_crs(my_la_county_boundary) == st_crs(my_inat_sf)
 
@@ -429,7 +430,7 @@ Sometimes we won't be able to find a pre-existing file that has boundaries for a
 Let's use `read_sf()` to read a GeoJSON file.
 
 ```{r, get_Expo_park_boundaries}
-expo_park_boundary <- read_sf('data/raw/boundaries_expo_park_area.geojson')  
+expo_park_boundary <- read_sf(here('data/raw/boundaries_expo_park_area.geojson'))  
 ```
 
 We can use `glimpse()` to examine the file.
@@ -561,12 +562,12 @@ Create a map for all observations that are inside of a specific area
 ```{r,exercise_create_map_of_observations_inside_boundary}
 #| eval: false
 
-my_all_inat_sf <- read_csv('data/cleaned/cnc-los-angeles-observations.csv') %>%
+my_all_inat_sf <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv')) %>%
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326) %>%
   select(common_name, scientific_name, user_login, observed_on)
 
 
-my_boundary_sf <- read_sf('data/raw/boundaries_usc.geojson') 
+my_boundary_sf <- read_sf(here('data/raw/boundaries_usc.geojson'))
 
 st_crs(my_inat_sf) == st_crs(my_boundary)
 
@@ -589,7 +590,7 @@ Let's find observations within 1/2 mile of the Los Angeles River. In other words
 Load the LA River boundary.
 
 ```{r read_la_river_file}
-la_river <- read_sf('data/cleaned/los_angeles_river.geojson')
+la_river <- read_sf(here('data/cleaned/los_angeles_river.geojson'))
 ```
 
 Check CRS for LA River and iNaturalist are the same.
@@ -697,7 +698,7 @@ Sometimes we want to compare data in different areas. For instance, let's compar
 Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <https://maps.latimes.com/about/index.html> We’ll use the L.A. Times neighborhood boundaries for our map.
 
 ```{r read_neighborhood_file}
-la_neighborhoods_sf <- read_sf('data/raw/la_times_la_county_neighborhoods.json')
+la_neighborhoods_sf <- read_sf(here('data/raw/la_times_la_county_neighborhoods.json'))
 
 glimpse(la_neighborhoods_sf)
 
@@ -776,7 +777,7 @@ my_map <- ggplot() +
   geom_sf(data = inat_expo) 
 
 # save map
-ggsave(filename = 'results/expo_park_observations.jpg', plot = my_map,  height = 6, width = 8)
+ggsave(filename = here('results/expo_park_observations.jpg'), plot = my_map,  height = 6, width = 8)
 ```
 
 ### interactive map
@@ -791,7 +792,7 @@ my_map_2 <- mapview(expo_park_boundary) +
   mapview(inat_expo)
 
 # save map
-mapshot(my_map_2, file = 'results/expo_park_observations_2.jpg')
+mapshot(my_map_2, file = here('results/expo_park_observations_2.jpg'))
 ```
 
 You can also save the map as an interactive webpage. The second argument `url` is the path to the file we want to save. Save the file as html.
@@ -800,5 +801,5 @@ You can also save the map as an interactive webpage. The second argument `url` i
 #| eval: false
 
 # save map
-mapshot(my_map_2, url = 'results/expo_park_observations_2.html')
+mapshot(my_map_2, url = here('results/expo_park_observations_2.html'))
 ```

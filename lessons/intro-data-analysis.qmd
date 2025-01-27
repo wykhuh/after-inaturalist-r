@@ -82,11 +82,13 @@ Load software that will will need.
 library(readr) # read and write tabular data
 library(dplyr) # manipulate data
 library(ggplot2) # create data visualizations
-library(sf) # handle vector geospatial data
+library(stringr) # work with string
 library(lubridate) # manipulate dates
+library(here) # file paths
+library(sf) # handle vector geospatial data
 library(mapview) # create interactive maps
 library(basemaps) # access open source basemaps
-
+library(tigris) # access TIGER/Line shapefiles
 ```
 
 Load iNaturalist data from City Nature Challenge Los Angeles 2013-2024. There are over 191,000 observations.
@@ -96,7 +98,7 @@ Load iNaturalist data from City Nature Challenge Los Angeles 2013-2024. There ar
 #| warning: false
 #| message: false
 
-inat <- read_csv("data/cleaned/cnc-los-angeles-observations.csv")
+inat <- read_csv(here("data/cleaned/cnc-los-angeles-observations.csv"))
 ```
 
 Select the data you want. For instance, get all the research grade observations for one user.

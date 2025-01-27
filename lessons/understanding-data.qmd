@@ -23,11 +23,12 @@ We started the previous lessons with `read_csv()`. To better understand the data
 
 library(readr) # read and write tabular data
 library(dplyr) # manipulate data
+library(here) # file paths
 ```
 
 ```{r, assign_read_csv_to_object}
 #| message: false
-inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 ```
 
 Let's look at the data information returned by `glimpse()`.
@@ -142,4 +143,3 @@ min(numbers,  na.rm = TRUE)
 ```
 
 ## 
-

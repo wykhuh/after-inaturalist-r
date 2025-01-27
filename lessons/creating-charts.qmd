@@ -24,6 +24,7 @@ library(readr) # read and write tabular data
 library(dplyr) # manipulate data
 library(ggplot2) # create data visualizations
 library(lubridate) # manipulate dates
+library(here) # file paths
 ```
 
 ## Creating charts
@@ -47,7 +48,7 @@ First, read data from the iNaturalist observation file.
 
 ```{r, load_inaturalist_data}
 #| message: false
-inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv')
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 ```
 
@@ -170,7 +171,7 @@ Create a chart with all your observations for each year
 ::: answer
 ```{r, exercise_create_bar_chart}
 
-my_inat_data <- read_csv('data/cleaned/cnc-los-angeles-observations.csv') 
+my_inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 my_obs_by_year  <- my_inat_data %>% 
   mutate(year = year(observed_on))  %>% 
@@ -441,6 +442,6 @@ finalplot <- myplot +
        y = "Observations")
 
 # save plot
-ggsave(filename = 'results/observations_per_year.jpg', plot = finalplot, 
+ggsave(filename = here('results/observations_per_year.jpg'), plot = finalplot, 
        height = 6, width = 8)
 ```
