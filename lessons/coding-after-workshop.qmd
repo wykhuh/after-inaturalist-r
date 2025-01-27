@@ -4,6 +4,13 @@ format: html
 editor: visual
 ---
 
+```{r}
+#| include: false
+classroom_organization <- 'data-explorers-feb-2025'
+classroom_repos <- paste0('https://github.com/orgs/', classroom_organization, '/repositories')
+```
+
+
 For those who are interested in continue coding in R after the workshop, here are instructions to do so.
 
 ## Accessing your files after the workshop
@@ -20,7 +27,7 @@ If you want to run R code on your computer, you need to install RStudio, R, and 
 2.  Complete steps for [Setup - local page \> "Install R packages"](setup-local.qmd#install-packages)
 3.  Download workshop repository to your computer.
 
-Go to [{{<var classroom_organization >}}](https://github.com/orgs/%7B%7B%3Cvar%20classroom_organization%20%3E%7D%7D/repositories) account page, and you should see your repository. Click on your repository. The repository page will have a green "Code" button.
+Go to [`{r} classroom_organization`](`{r} classroom_repos`) account page, and you should see your repository. Click on your repository. The repository page will have a green "Code" button.
 
 ![](images/coding-after-workshop/code-button.png)
 
@@ -36,7 +43,7 @@ With R, RStudio, and R packages installed on your computer, you can also create 
 
 Currently, every free Github account has access to 120 core hours per month to run Codespaces. When you start a Codespace, by default it uses 2 cores. This means you can run a Codespace for 60 hours per month (120 core hours / 2 cores = 60 hours). If you choose 4 cores, you can run a Codespace for 30 hours per month (120 / 4 = 30). For more information, visit [Codespaces Billing](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-github-codespaces/about-billing-for-github-codespaces).
 
-You can either continue to use your repository in [{{<var classroom_organization >}}](https://github.com/orgs/%7B%7B%3Cvar%20classroom_organization%20%3E%7D%7D/repositories) or you can copy to your repository to your Github account.
+You can either continue to use your repository in [`{r} classroom_organization`](`{r} classroom_repos`) or you can copy to your repository to your Github account.
 
 #### Copy repository to your Github account
 
@@ -56,7 +63,7 @@ A copy of the repo will be added to your Github account.
 
 #### Start a Codespace
 
-Whether you use the repo in in [{{<var classroom_organization >}}](https://github.com/orgs/%7B%7B%3Cvar%20classroom_organization%20%3E%7D%7D/repositories) or the repo in your Github account, the steps to start a Codespace is the same.
+Whether you use the repo in in [`{r} classroom_organization`](`{r} classroom_repos`) or the repo in your Github account, the steps to start a Codespace is the same.
 
 1.  Click the green "Code" button.
 
