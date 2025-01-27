@@ -7,10 +7,6 @@ processFile = function(filepath) {
     gsub(pattern = "^#\\| error: false", replace = temp_text, perl = FALSE) |>
     gsub(pattern = "^#\\| eval: false", replace = temp_text, perl = FALSE) |>
     gsub(pattern = "^# ", replace = '', perl = FALSE) |>
-    # gsub(pattern = "read_csv\\('data", replace = "read_csv('lessons/data", perl = FALSE) |>
-    # gsub(pattern = "write_csv\\('data", replace = "write_csv('lessons/data", perl = FALSE) |>
-    # gsub(pattern = "read_sf\\('data", replace = "read_sf('lessons/data", perl = FALSE) |>
-    # gsub(pattern = "write_sf\\('data", replace = "write_sf('lessons/data", perl = FALSE) |>
     gsub(pattern = '../scripts/map_utils.R', replace = 'map_utils.R', perl = FALSE)
 
 
@@ -34,15 +30,14 @@ files <- c('intro-data-analysis',
            'additional-analysis')
 
 # delete files https://stackoverflow.com/a/65831178
-unlink("scripts/lessons/*", recursive = TRUE, force = TRUE)
+unlink("lesson-scripts/*", recursive = TRUE, force = TRUE)
 
 
 for (file in files) {
   input_file <- paste0('lessons/',file,'.qmd')
-  output_file <- paste0('lessons/lesson-scripts/',file,'.R')
+  output_file <- paste0('lesson-scripts/',file,'.R')
 
   knitr::purl(input = input_file, output = output_file, documentation = 1)
   processFile(output_file)
 }
 
-file.copy('scripts/map_utils.R', 'lessons/lesson-scripts/map_utils.R')

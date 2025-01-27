@@ -1,0 +1,533 @@
+## ----loading_packages---------------------------------------------------------
+
+library(readr) # read and write tabular data
+library(dplyr) # manipulate data
+library(lubridate) # manipulate dates
+library(here) # file paths
+
+
+## ----assign_read_csv_to_object------------------------------------------------
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+
+
+## ----call_glimpse-------------------------------------------------------------
+glimpse(inat_data)
+
+
+## ----head---------------------------------------------------------------------
+head(inat_data)
+
+
+## ----tail---------------------------------------------------------------------
+tail(inat_data)
+
+
+## ----view_dataframe-----------------------------------------------------------
+View(inat_data)
+
+
+## ----use_names_to_list_fields-------------------------------------------------
+names(inat_data)
+
+
+## ----use_dim_to_get_size------------------------------------------------------
+dim(inat_data)
+
+
+## ----function_help_documentation----------------------------------------------
+?head
+
+
+## ----named_arguments_in_order-------------------------------------------------
+head(x = inat_data, n = 10)
+
+
+## ----arguments_in_order-------------------------------------------------------
+head(inat_data, 10)
+
+
+## ----name_arguments_out_of_order----------------------------------------------
+head(n = 10, x = inat_data)
+
+
+## ----select_columns-----------------------------------------------------------
+select(inat_data, user_login, common_name, scientific_name, observed_on)
+
+
+## ----filter_rows--------------------------------------------------------------
+filter(inat_data, common_name == 'Western Fence Lizard')
+
+
+
+## ----pipe_filter_select-------------------------------------------------------
+inat_data %>%
+  filter(user_login == 'natureinla') %>%
+  select(user_login, common_name, scientific_name, observed_on)
+
+
+## ----call_table---------------------------------------------------------------
+table(inat_data$coordinates_obscured)
+
+
+## ----observations_with_unobscured_coordinates---------------------------------
+inat_data %>%
+  filter(coordinates_obscured == FALSE) %>%
+  select(user_login, common_name, scientific_name, observed_on)
+
+
+## ----select_filter_error------------------------------------------------------
+
+inat_data %>%
+  select(user_login, common_name, scientific_name, observed_on)  %>%
+  filter(coordinates_obscured == FALSE)
+
+
+## ----quality_grade_values-----------------------------------------------------
+unique(inat_data$quality_grade)
+
+
+## ----research_grade_observations----------------------------------------------
+inat_data %>%
+  filter(quality_grade == 'research')  %>%
+  select(user_login, common_name, scientific_name, observed_on)
+
+
+## ----error_typo_pipe----------------------------------------------------------
+inat_data %>
+  select(user_login, observed_on, common_name)
+
+
+## ----error_misspell_field-----------------------------------------------------
+inat_data %>%
+  select(user_logi, observed_on, common_name)
+
+
+## ----error_equality-----------------------------------------------------------
+inat_data %>%
+  filter(user_login = 'natureinla')
+
+
+## ----error_parenthesis--------------------------------------------------------
+inat_data %>%
+  select(user_login, observed_on, common_name))
+
+
+## ----exercise_your_observations-----------------------------------------------
+my_inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+
+my_obs <- my_inat_data %>%
+  filter(user_login == 'natureinla') %>%
+  select(user_login, observed_on, common_name, scientific_name)
+
+
+## ----filter_with_common_name_and_quality_grade--------------------------------
+my_data <- inat_data %>%
+  filter(common_name == 'Western Fence Lizard' & 
+           quality_grade == 'research')  %>%
+  select(user_login, common_name, scientific_name, observed_on, quality_grade)
+
+
+## ----and_unique_common_name---------------------------------------------------
+unique(my_data$common_name)
+
+
+## ----and_unique_quality_grade-------------------------------------------------
+unique(my_data$quality_grade)
+
+
+## -----------------------------------------------------------------------------
+my_data <- inat_data %>%
+  filter(coordinates_obscured == FALSE)  
+
+ 
+summary(my_data$positional_accuracy)
+
+
+## ----filter_with_coordinates_obscured_and_positional_accuracy-----------------
+my_data <- inat_data %>%
+  filter(coordinates_obscured == FALSE & 
+           positional_accuracy <= 5) %>%
+  select(user_login, common_name, scientific_name, positional_accuracy, coordinates_obscured)
+
+my_data
+
+
+## ----and_unique_coordinates_obscured------------------------------------------
+unique(my_data$coordinates_obscured)
+
+
+## ----and_unique_positional_accuracy-------------------------------------------
+unique(my_data$positional_accuracy)
+
+
+## ----filter_with_or_2_species-------------------------------------------------
+my_data <- inat_data %>%
+  filter(common_name == 'Western Honey Bee' | common_name == 'Western Fence Lizard')  %>%
+  select(user_login, observed_on, common_name)
+
+dim(my_data)
+
+
+## ----or_common_name-----------------------------------------------------------
+unique(my_data$common_name)
+
+
+## -----------------------------------------------------------------------------
+c(1, 2, 5)
+
+
+## -----------------------------------------------------------------------------
+1 %in% c(1, 2, 5)
+3 %in% c(1, 2, 5)
+
+
+## ----view_license_values------------------------------------------------------
+table(inat_data$license)
+
+
+## ----filter_by_license--------------------------------------------------------
+my_data <- inat_data %>%
+  filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC')) %>%
+  select(user_login, observed_on, common_name, license)
+
+dim(my_data)
+
+
+
+## ----unique_license-----------------------------------------------------------
+unique(my_data$license)
+
+
+
+## ----and_comparison-----------------------------------------------------------
+and_data <- inat_data %>%
+  filter(user_login == 'natureinla' & 
+           common_name == 'Western Fence Lizard')
+
+dim(and_data)
+
+
+## ----and_comparison_user_login------------------------------------------------
+unique(and_data$user_login)
+
+
+## ----and_comparison_common_name-----------------------------------------------
+unique(and_data$common_name)
+
+
+## ----or_comparison------------------------------------------------------------
+or_data <- inat_data %>%
+  filter(user_login == 'natureinla' | 
+           common_name == 'Western Fence Lizard')
+
+dim(or_data)
+
+
+## ----or_comparison_user_login-------------------------------------------------
+unique(or_data$user_login) %>% length
+
+
+## ----or_comparison_common_name------------------------------------------------
+unique(or_data$common_name) %>% length
+
+
+## ----exercise_your_research_grade---------------------------------------------
+my_inat_data %>%
+  filter(user_login == 'natureinla' & 
+           quality_grade == 'research') %>%
+  select(user_login, observed_on, common_name, scientific_name)
+
+
+## ----complex_queries----------------------------------------------------------
+complex_query <- inat_data %>%
+  filter(user_login == 'cdegroof' | 
+           user_login == 'deedeeflower5') %>%
+  filter(common_name == 'Western Fence Lizard')  %>%
+  select(user_login, common_name, scientific_name, observed_on)
+
+complex_query
+
+
+## ----complex_unique_common_name-----------------------------------------------
+unique(complex_query$common_name)
+
+
+## ----complex_unique_user_login------------------------------------------------
+unique(complex_query$user_login)
+
+
+## -----------------------------------------------------------------------------
+alt_1 <- inat_data %>%
+  filter(user_login == 'cdegroof' | 
+           user_login == 'deedeeflower5' & 
+           common_name == 'Western Fence Lizard')  %>%
+  select(user_login, common_name, scientific_name, observed_on)
+
+alt_1
+
+
+## ----alt_1_unique_user_login--------------------------------------------------
+unique(alt_1$user_login)
+
+
+## ----alt_1_unique_common_name-------------------------------------------------
+unique(alt_1$common_name) %>% length
+
+
+## -----------------------------------------------------------------------------
+alt_2 <- inat_data %>%
+  filter((user_login == 'cdegroof' | user_login == 'deedeeflower5') & 
+           common_name == 'Western Fence Lizard')  %>%
+  select(user_login, common_name, scientific_name, observed_on)
+
+alt_2
+
+
+## ----alt_2_unique_user_login--------------------------------------------------
+unique(alt_2$user_login)
+
+
+## ----alt_2_unique_common_name-------------------------------------------------
+unique(alt_2$common_name)
+
+
+## ----exercise_unique_common_names---------------------------------------------
+unique(my_obs$common_name)[0:10]
+
+
+## ----exercise_two_species-----------------------------------------------------
+my_inat_data %>%
+  filter(user_login == 'natureinla') %>%
+  filter(common_name == 'Red-eared Slider' | common_name=='Monarch') %>%
+  select(user_login, observed_on, common_name, scientific_name)
+
+
+## ----filter_oaks_observations-------------------------------------------------
+oaks_obs <- inat_data %>%
+  filter(common_name == 'oaks') 
+
+dim(oaks_obs)
+
+
+## -----------------------------------------------------------------------------
+unique(oaks_obs$scientific_name)
+
+
+## ----use_names_to_get_fields_2------------------------------------------------
+names(inat_data)
+
+
+## ----get_quercus_observations-------------------------------------------------
+oaks_obs_fixed <- inat_data %>%
+  filter(
+    taxon_kingdom_name == 'Plantae' &
+    taxon_phylum_name == 'Tracheophyta' &
+    taxon_class_name == 'Magnoliopsida' &
+    taxon_order_name == 'Fagales' &
+    taxon_family_name == 'Fagaceae' &
+    taxon_genus_name == 'Quercus'
+  )
+
+
+## ----number_of_oak_observations-----------------------------------------------
+dim(oaks_obs_fixed)
+
+
+## ----get_quercus_counts-------------------------------------------------------
+oaks_count <- oaks_obs_fixed %>%
+  count(common_name, scientific_name) %>%
+  arrange(desc(n))
+
+oaks_count
+
+
+## ----get_Tracheophyta_observations--------------------------------------------
+trees_obs <- inat_data %>%
+  filter(taxon_kingdom_name == 'Plantae' &
+           taxon_phylum_name == 'Tracheophyta')
+
+dim(trees_obs)
+
+
+## ----get_Tracheophyta_counts--------------------------------------------------
+trees_count <- trees_obs %>%
+  count(common_name) %>%
+  arrange(desc(n))
+
+trees_count
+
+
+## ----get_laco_species_observations--------------------------------------------
+laco_species <- c('Acacia aneura', 'Acacia stenophylla', 'Afrocarpus falcatus', "Agonis flexuosa", 'Angophora costata', "Arbutus 'marina'", 'Arbutus unedo'  )
+
+laco_species_obs <- inat_data %>%
+  filter(taxon_species_name %in% laco_species & 
+           taxon_kingdom_name == 'Plantae') %>%
+  select(user_login, common_name, scientific_name, taxon_species_name)
+
+
+## ----get_laco_species_counts--------------------------------------------------
+laco_species_count <- laco_species_obs %>%
+  count(common_name, scientific_name, taxon_species_name) %>%
+  arrange(desc(n))
+
+laco_species_count
+
+
+## ----get_laco_genera_observations---------------------------------------------
+laco_genera <- c('Acacia',  'Afrocarpus', "Agonis", 'Angophora', "Arbutus" )
+
+laco_genera_obs <- inat_data %>%
+  filter(taxon_genus_name %in% laco_genera & 
+           taxon_kingdom_name == 'Plantae') %>%
+  select(user_login, common_name, scientific_name, taxon_genus_name)
+
+
+## ----get_laco_genera_counts---------------------------------------------------
+laco_genera_count <- laco_genera_obs %>%
+  count(common_name, scientific_name, taxon_genus_name) %>%
+  arrange(desc(n))
+
+laco_genera_count
+
+
+## -----------------------------------------------------------------------------
+letters <- c('a','b','c', 'd')
+
+
+## -----------------------------------------------------------------------------
+letters[1]
+
+
+## -----------------------------------------------------------------------------
+letters[2:3]
+
+
+## ----show_observed_on---------------------------------------------------------
+inat_data$observed_on[10317:10320]
+
+
+## ----get_years_from_observed_on-----------------------------------------------
+year(inat_data$observed_on)[10317:10320]
+
+
+## ----mutate_year--------------------------------------------------------------
+temp <- inat_data %>%
+  mutate(year = year(observed_on))
+
+
+## ----counts_per_year----------------------------------------------------------
+table(temp$year)
+
+
+## -----------------------------------------------------------------------------
+class(temp$year)
+
+
+## ----2020_observations--------------------------------------------------------
+inat_data %>%
+  mutate(year = year(observed_on)) %>%
+  filter(year == 2020)
+
+
+## ----2018_2020_observations---------------------------------------------------
+temp <- inat_data %>%
+  mutate(year = year(observed_on)) %>%
+  filter(year >= 2018 & year <= 2020)
+
+
+## -----------------------------------------------------------------------------
+unique(temp$year)
+
+
+## ----exercise_last_year-------------------------------------------------------
+my_inat_data %>%
+   mutate(year = year(observed_on)) %>%
+  filter(user_login == 'natureinla' & year == 2024) %>%
+  select(user_login, observed_on, common_name, scientific_name)
+
+
+## ----count_year---------------------------------------------------------------
+inat_data %>%
+  mutate(year = year(observed_on)) %>%
+  count(year)
+
+
+## ----rename_count_column------------------------------------------------------
+inat_data %>%
+  mutate(year = year(observed_on)) %>%
+  count(year, name='obs_count')
+
+
+## ----count_species------------------------------------------------------------
+counts <- inat_data %>%
+  count(common_name, scientific_name, name='obs_count')
+
+counts
+
+
+## ----order_counts-------------------------------------------------------------
+counts <- inat_data %>%
+  count(common_name, scientific_name, name='obs_count')   %>%
+  arrange(obs_count)
+
+counts
+
+
+## ----desc_count---------------------------------------------------------------
+counts <- inat_data %>%
+  count(common_name, scientific_name, name='obs_count') %>%
+  arrange(desc(obs_count))
+
+counts
+
+
+## ----top_ten------------------------------------------------------------------
+counts <- inat_data %>%
+  count(common_name, scientific_name, name='obs_count') %>%
+  arrange(desc(obs_count))  %>%
+  slice(1:10)
+
+counts
+
+
+## ----kingdoms_count-----------------------------------------------------------
+counts <- inat_data %>%
+  count(taxon_kingdom_name, name='obs_count') %>%
+  arrange(desc(obs_count)) 
+
+counts
+
+
+## ----animal_phylums-----------------------------------------------------------
+counts <- inat_data %>%
+  filter(taxon_kingdom_name == 'Animalia') %>%
+  count(taxon_phylum_name, name='obs_count') %>%
+  arrange(desc(obs_count)) 
+
+counts
+
+
+## ----exercise_observations_per_year-------------------------------------------
+my_inat_data %>%
+  mutate(year = year(observed_on)) %>%
+  filter(user_login == 'natureinla') %>%
+  count(year, name='obs_count')
+
+
+## ----3_condition_my_observation-----------------------------------------------
+
+my_obs <- my_data <- inat_data %>%
+  filter(user_login == 'natureinla' & 
+           quality_grade == 'research' & 
+           coordinates_obscured == FALSE) 
+
+my_obs
+
+
+
+## ----save_file----------------------------------------------------------------
+write_csv(my_obs, here('data/cleaned/my_observations.csv'), na='')
+
+
+## bash  ./scripts/save_files.sh
