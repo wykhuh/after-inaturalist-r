@@ -78,7 +78,13 @@ You can run commands directly in the R console, or you can write them into an R 
 
 Let's try running some code in the console.
 
-First, click down in the Console pane, and type out `1+2`. Hit <kbd>Return</kbd> or <kbd>Enter</kbd> to run the code. You should see your code echoed, and then the value of `3` returned.
+First, click down in the Console pane, and type:
+
+```{r}
+1 + 2
+```
+
+Hit <kbd>Return</kbd> or <kbd>Enter</kbd> to run the code. You should see your code echoed, and then the value of `3` returned.
 
 #### Script
 
@@ -97,7 +103,13 @@ You can make a new R script by clicking `File → New File → R Script`, clicki
 
 ### R as Calculator
 
-Now click into your blank script, and type out `1 + 2`. With your cursor on that line, hit <kbd>Cmd+Enter</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) to run the code. You will see that your code was sent from the script to the console, where it returned a value of `3`.
+Now click into your blank script, and type:
+
+```{r}
+1 + 2
+```
+
+With your cursor on that line, hit <kbd>Cmd+Enter</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) to run the code. You will see that your code was sent from the script to the console, where it returned a value of `3`.
 
 ### Objects and Assignment
 

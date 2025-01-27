@@ -78,7 +78,6 @@ Load software that will will need.
 #| warning: false
 #| message: false
 
-#| eval: false
 library(readr) # read and write tabular data
 library(dplyr) # manipulate data
 library(ggplot2) # create data visualizations

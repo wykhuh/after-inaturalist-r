@@ -569,7 +569,7 @@ my_all_inat_sf <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv')
 
 my_boundary_sf <- read_sf(here('data/raw/boundaries_usc.geojson'))
 
-st_crs(my_inat_sf) == st_crs(my_boundary)
+st_crs(my_inat_sf) == st_crs(my_boundary_sf)
 
 my_inat_area_sf <- my_all_inat_sf[st_intersects(my_all_inat_sf, my_boundary_sf) %>% lengths > 0, ]
 
@@ -785,8 +785,7 @@ ggsave(filename = here('results/expo_park_observations.jpg'), plot = my_map,  he
 Assign the map created by mapview to an object. Then run `mapshot()` to save our map. The first argument is map you want to to save. The second argument `file` is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, or png.
 
 ```{r, save_interactive_map}
-#| eval: false
-
+ 
 # create map
 my_map_2 <- mapview(expo_park_boundary) + 
   mapview(inat_expo)

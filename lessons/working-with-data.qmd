@@ -41,7 +41,7 @@ R itself has many built-in functions, but we can access many more by installing 
 
 To install these packages, use `install.packages()` function from R. We pass in the package names as arguments. The name of the packages must be in quotes.
 
-```{}
+```         
 install.packages("readr")
 ```
 
@@ -51,7 +51,7 @@ To save time, we have already installed all the packages we need for the worksho
 
 In order to use a package, use `library()` function from R to load the package. We pass in the name of the package as an argument. Do not use quotes around the package name when using `library()`.
 
-```{}
+```         
 library(readr)
 ```
 
@@ -804,11 +804,14 @@ Vector is a list of items. We can access specific values in a vector by using `v
 
 ```{r}
 letters <- c('a','b','c', 'd')
+```
 
-# get first item 
+get first item 
+```{r}
 letters[1]
-
-# get second and third item
+```
+get second and third item
+```{r}
 letters[2:3]
 ```
 :::

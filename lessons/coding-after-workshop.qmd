@@ -71,11 +71,11 @@ Whether you use the repo in in [`{r} classroom_organization`](`{r} classroom_rep
 
 2.  Click "Codespaces" tab.
 
-3.  If there are no Codespaces for the repo, click the green "Create codespace on main" button. The browser window loads the codespace.
+3.  a\. If there are no Codespaces for the repo, click the green "Create codespace on main" button. The browser window loads the codespace.
 
     ![](images/coding-after-workshop/create-codespace-main.png)
 
-3.  If a Codespace exists for the repo, click the three dots in the "On current branch" section.
+    b\. If a Codespace exists for the repo, click the three dots in the "On current branch" section.
 
 ![](images/coding-after-workshop/existing-codespace.png)
 

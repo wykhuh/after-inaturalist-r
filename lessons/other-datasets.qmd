@@ -31,7 +31,7 @@ library(here) # file paths
 
 ## Other datasets
 
-There are various geospatial datasets that are free to use. Data sources used for this course include [LA City Geohub](https://geohub.lacity.org), [Data.gov](https://catalog.data.gov), [California State Parks](https://www.parks.ca.gov), [County of Los Angeles Open Data](https://data.lacounty.gov), and [US Census TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html). 
+There are various geospatial datasets that are free to use. Data sources used for this course include [LA City Geohub](https://geohub.lacity.org), [Data.gov](https://catalog.data.gov), [California State Parks](https://www.parks.ca.gov), [County of Los Angeles Open Data](https://data.lacounty.gov), and [US Census TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html).
 
 We've pre-selected some geospatial data that workshop attendees might want to use to analyze iNaturalist data and provided a preview in the code below. These files are in the `data` directory. We modified some of the downloaded data to make things easier for workshop attendees; see [Editing geospatial files](editing-geo-files.qmd) for more details.
 
@@ -160,7 +160,6 @@ la_river <- read_sf(here('data/cleaned/los_angeles_river.geojson'))
 ggplot() +
   geom_sf(data=la_river)
 ```
-
 
 ## Demographics data
 
@@ -302,7 +301,6 @@ mapview(la_county_pna_map,
 
 ![](images/mapview/other-datasets/fix_map.png){fig-alt="interactive map of Household Median Income with fixed layer name and popups"}
 
-
 ## LA County Environmental Justice Screening Method
 
 Some people might be interested in comparing iNaturalist data with environmental factors.
@@ -336,8 +334,6 @@ mapview(ejsm_edit, zcol='CIscore',
 
 ![](images/mapview/other-datasets/ejsm.png){fig-alt="create map with ejsm"}
 
-
-
 ## Los Angeles Ecotopes
 
 LA Sanitation and Environment (LASAN) oversees the City of Los Angeles [biodiversity initiative](http://lacitysan.org/biodiversity). LASAN published [2020 Biodiversity Report](https://sanitation.lacity.gov/cs/groups/public/documents/document/y250/mduy/~edisp/cnt052553.pdf) that outlines how to measure the health of the urban ecosystem in Los Angeles. As part of that report, they identified 17 ecological regions in LA called ecotopes. "Ecotopes are also envisioned as future management units to address biodiversity and related urban ecosystem stewardship topics of ecosystem services, pollution, and ecological hazards."
@@ -363,6 +359,7 @@ LASAN worked with the Biodiversity Expert Council to create a list of [37 biodiv
 Let's create a map of showing the observations of indicator species.
 
 Get all iNaturalist observations
+
 ```{r}
 #| message: false
 inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
@@ -382,12 +379,12 @@ Get list of indicator species.
 indicator_species <- read_csv(here('data/cleaned/LA_city_indicator_species.csv'))
 ```
 
-
 Get the column names for `indicator_species`.
 
 ```{r}
 names(indicator_species)
 ```
+
 Get the scientific names for all the indicator species.
 
 ```{r}
@@ -395,22 +392,21 @@ indicator_scientific_names <- indicator_species$'scientific name'
 
 indicator_scientific_names
 ```
+
 Find observations for indicator species by looking for `scientific_name` that are in the `indicator_scientific_names`.
 
 ```{r}
-indicator_obs <- inat_sf %>%
+indicator_sf <- inat_sf %>%
   filter(scientific_name %in% indicator_scientific_names) %>%
   select(scientific_name, common_name)
 
-dim(indicator_obs)
+dim(indicator_sf)
 ```
-
-
 
 ```{r}
 #| eval: false
 
 mapview(indicator_sf)
 ```
-![](images/mapview/other-datasets/indicator_species.png){fig-alt="create map with indicator species"}
 
+![](images/mapview/other-datasets/indicator_species.png){fig-alt="create map with indicator species"}

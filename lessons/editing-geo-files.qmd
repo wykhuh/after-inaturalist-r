@@ -278,4 +278,3 @@ ggplot(la_county_pna_edit) +
 
 st_write(la_county_pna_edit, here('data/cleaned/LA_County_PNA_Demographics.geojson'))
 ```
-

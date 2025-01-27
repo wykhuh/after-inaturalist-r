@@ -240,7 +240,7 @@ ggplot(data = inat_year,
   scale_fill_viridis_d()
 ```
 
- If you try to use viridis continuous function, you will get an error: "Discrete values supplied to continuous scale."
+If you try to use viridis continuous function, you will get an error: "Discrete values supplied to continuous scale."
 
 ```{r stacked_bar_chart_viridis_error}
 #| eval: false 
