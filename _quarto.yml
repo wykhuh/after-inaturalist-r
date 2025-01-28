@@ -20,6 +20,7 @@ website:
       - lessons/understanding-data.qmd
       - lessons/creating-maps.qmd
       - lessons/creating-charts.qmd
+      - lessons/normalizing-inat.qmd
       - lessons/other-datasets.qmd
       - lessons/next-steps.qmd
       - section: "Extra"
