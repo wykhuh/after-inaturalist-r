@@ -88,6 +88,8 @@ library(sf) # handle vector geospatial data
 library(mapview) # create interactive maps
 library(basemaps) # access open source basemaps
 library(tigris) # access TIGER/Line shapefiles
+library(pdftools) # process pdfs
+library(webshot2) # save mapview maps
 ```
 
 Load iNaturalist data from City Nature Challenge Los Angeles 2013-2024. There are over 191,000 observations.

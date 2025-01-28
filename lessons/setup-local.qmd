@@ -68,7 +68,11 @@ To try to install these packages, open RStudio and copy and paste the following 
 
 ```{r}
 #| eval: false
-install.packages(c("readr", "dplyr", "ggplot2", "sf", "lubridate", "mapview", 'webshot', 'basemaps'))
+
+install.packages(c('readr', 'dplyr', 'ggplot2', 'stringr',
+                   'lubridate', 'here',
+                   'sf', 'mapview', 'basemaps', 'tigris',
+                   'pdftools', 'webshot2'))
 ```
 
 R will display a messag in the console: "Do you want to proceed? \[Y/n\]:"
@@ -84,11 +88,15 @@ When the installation has finished, you can try to load the packages by pasting 
 library(readr)
 library(dplyr)
 library(ggplot2)
-library(sf)
+library(stringr)
 library(lubridate)
+library(here)
+library(sf)
 library(mapview)
-library(webshot)
 library(basemaps)
+library(tigris)
+library(pdftools)
+library(webshot2)
 ```
 
 If you do not see an error like `there is no package called ‘...’` you are good to go!
