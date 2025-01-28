@@ -68,9 +68,9 @@ We can use `names()` to see all the column names. "latitude" and "longitude" are
 names(inat_data)
 ```
 
-**sf** packages handles geospatial data. **sf** package uses a special type of data frame called `sf` object (special features) to store geospatial data.
+**sf** package handles geospatial data. **sf** uses a special type of data frame called `sf` object (special features) to store geospatial data.
 
-`st_as_sf()` function from **sf** package will use the longitude and latitude values to add a `geometry` column, and convert a tibble or data.frame into `sf` object. **sf** will use the `geometry` column for geospatial data processing.
+`st_as_sf()` function from **sf** package will convert a tibble or data.frame into `sf` object. It uses the longitude and latitude values to add a `geometry` column. **sf** will use the `geometry` column for geospatial data processing.
 
 -   We pass in longitude and latitude columns as a vector to `coords` argument. We must wrap longitude and latitude in quotes.
 -   `crs` argument sets the [coordinate reference system](intro-science-coding.qmd#coordinate-reference-systems) (CRS). 4326 is the code for the EPSG:4326, a commonly used CRS.
@@ -92,7 +92,7 @@ If we look at the class for `inat_base_sf`, it shows `sf` object.
 class(inat_base_sf)
 ```
 
-`st_crs()` from **sf** returns the CRS for a `sf` object. Let's use `st_crs()` to look at the CRS.
+`st_crs()` from **sf** returns the coordinate reference system CRS for a `sf` object.
 
 ```{r examine_inat_base_sf_crs}
 st_crs(inat_base_sf)
@@ -189,55 +189,62 @@ There are various places where you can download geospatial files for free. We do
 `read_sf()` function from **sf** package can read files and databases in various formats. We will use `read_sf()` to read the LA County boundary Shapefile.
 
 ```{r, get_LA_County_boundaries}
-la_county_boundary <- read_sf(here('data/raw/LA_County_Boundary/LA_County_Boundary.shp'))
+la_county_sf <- read_sf(here('data/raw/LA_County_Boundary/LA_County_Boundary.shp'))
 ```
 
 We can use `class()` to examine the data returned by `read_sf()`.
 
-```{r class_la_county_boundary.}
-class(la_county_boundary)
+```{r class_la_county_sf.}
+class(la_county_sf)
 ```
 
 We have 'data.frame' and 'tbl' like with `read_csv()`. We also have an additional `sf` object. Because `sf` object is based on data frames, we can use the same types of commands on `sf` objects that we use for tibbles and data frames.
 
 We can use `glimpse()` to examine the LA County boundary file.
 
-```{r glimspe_la_county_boundary}
-glimpse(la_county_boundary)
+```{r glimspe_la_county_sf}
+glimpse(la_county_sf)
 ```
 
 `sf` objects contain a column called `geometry` that has geospatial information.
 
+We can use `ggplot() + geom_sf()` to plot LA county.
+
+```{r map_la_county}
+ggplot() +
+  geom_sf(data = la_county_sf)
+```
+
 When working with multiple geospatial files, it's important that all the data uses the same [coordinate reference system (CRS)](intro-science-coding.qmd#coordinate-reference-systems). Let’s use `st_crs()` to check if the CRS for the iNaturalist data and the LA County boundary are the same. Use to check `==` if two things are equal.
 
 ```{r check_la_county_and_inat_crs}
-st_crs(la_county_boundary) == st_crs(inat_oak_sf)
+st_crs(la_county_sf) == st_crs(inat_oak_sf)
 ```
 
-Since the CRS are different, we need to use `st_transform()` to change the CRS of the LA County boundary. First argument is the data frame. `crs` is the new CRS value.
+Since the CRS are different, we need to use `st_transform()` to change the CRS of the LA County boundary. First argument is the data frame. `crs` is the new CRS value. We taking `la_county_sf` and changing the CRS to equal the CRS from `inat_oak_sf`
 
 ```{r update_la_county_crs}
-la_county_boundary <- st_transform(la_county_boundary,  crs = st_crs(inat_oak_sf))
+la_county_sf <- st_transform(la_county_sf,  crs = st_crs(inat_oak_sf))
 
-st_crs(la_county_boundary) == st_crs(inat_oak_sf)
+st_crs(la_county_sf) == st_crs(inat_oak_sf)
 ```
 
 ### Static maps
 
-Let's create a static map with LA County and oak observations. Create a new layer for each data set using two `geom_sf()` and `+`.
+Now that LA county boundary and iNaturalist observations have the same CRS, let's create a static map with LA County and oak observations. Create a new layer for each data set using two `geom_sf()` and `+`.
 
 ```{r, add_LA_County_to_static_map}
 ggplot() +
-  geom_sf(data = la_county_boundary)  +
+  geom_sf(data = la_county_sf)  +
   geom_sf(data = inat_oak_sf) 
 ```
 
 When **ggplot2** draws the iNaturalist observations, it draws a round circle. When it draws the LA County boundary, it draws a polygon (closed shape with many sides). The data in the `geometry` column determines how **ggplot2** draws things.
 
-Let's examine the geometry column for the first row in `la_county_boundary` and `inat_oak_sf`
+Let's examine the geometry column for the first row in `la_county_sf` and `inat_oak_sf`
 
 ```{r check_la_county_geometry}
-la_county_boundary$geometry[1]
+la_county_sf$geometry[1]
 ```
 
 ```{r check_inat_geometry}
@@ -250,7 +257,7 @@ For points, use the `color` argument to set the color. For polygons, use `color`
 
 ```{r, create_static_map_for_oak_use_color}
 ggplot() +
-  geom_sf(data = la_county_boundary, color="black", fill='beige')  +
+  geom_sf(data = la_county_sf, color="black", fill='beige')  +
   geom_sf(data = inat_oak_sf, color='green')  
 ```
 
@@ -258,29 +265,29 @@ We can also use `alpha()` to set the opacity. We pass in the color and opaacity 
 
 ```{r, create_static_map_for_oak_use_alpha}
 ggplot() +
-  geom_sf(data = la_county_boundary, color="black", fill=alpha('beige', .5))  +
+  geom_sf(data = la_county_sf, color="black", fill=alpha('beige', .5))  +
   geom_sf(data = inat_oak_sf, color=alpha('green', .3))  
 ```
 
-Instead of using one color for all the observations, we can also set the color to represent values in a particular column. `aes()` is short for aesthetic mappings, and it specifies which columns in the data are used for features of the plot using the format `aes(plot_feature=column_name)`. We pass `aes()` to the `mapping` argument.
+Instead of using one color for all the observations, we can also set the color to represent values in a particular column. `aes()` is short for aesthetic mappings, and it specifies which columns in the data are used for features of the plot. The format is `aes(plot_feature=column_name)`. We pass `aes()` to the `geom_sf()` `mapping` argument.
 
 Let's use `quality_grade` to set the color of the map markers.
 
 ```{r, create_static_map_for_oak_use_quality_grade}
 
 ggplot() +
-  geom_sf(data = la_county_boundary, color="black", fill='beige')  +
+  geom_sf(data = la_county_sf, color="black", fill='beige')  +
   geom_sf(data = inat_oak_sf, mapping=aes(color=quality_grade))  
 
 ```
 
 **ggplot2** will assign a different color to each value, and add a legend.
 
-We can set the map title and legend title using `labs(title='', subtitle='', color='')`. We can add `theme_void()` to get rid of the grey background and axis labels.
+We can set the map title using `labs(title='', subtitle='')`. We can set the legend title using `labs(color='')`. We can add `theme_void()` to get rid of the grey background and axis labels.
 
 ```{r add_title_to_static_map}
 ggplot() +
-  geom_sf(data = la_county_boundary, color="black", fill='beige')  +
+  geom_sf(data = la_county_sf, color="black", fill='beige')  +
   geom_sf(data = inat_oak_sf, mapping=aes(color=quality_grade)) +
   labs(title = 'CNC observations for Live Coast Oaks in LA County',
        subtitle='2016-2024',
@@ -295,7 +302,7 @@ Let's create an interactive map with LA County and oak observations. Create a ne
 
 ```{r, add_LA_County_to_interactive_map}
 #| eval: false
-mapview(la_county_boundary) +
+mapview(la_county_sf) +
   mapview(inat_oak_sf) 
 ```
 
@@ -305,7 +312,7 @@ mapview will add a legend for each layer. We can hide the legend with `legend=FA
 
 ```{r, add_LA_County_to_interactive_map_remove_legend}
 #| eval: false
-mapview(la_county_boundary, legend=FALSE) +
+mapview(la_county_sf, legend=FALSE) +
   mapview(inat_oak_sf, legend=FALSE) 
 ```
 
@@ -317,7 +324,7 @@ We can turn off the small hover popup with `label=FALSE`, and turn off the click
 
 ```{r add_LA_County_to_interactive_map_remove_popup}
 #| eval: false
-mapview(la_county_boundary, legend=FALSE, popup=FALSE, label=FALSE) +
+mapview(la_county_sf, legend=FALSE, popup=FALSE, label=FALSE) +
   mapview(inat_oak_sf, legend=FALSE) 
 ```
 
@@ -325,7 +332,7 @@ Use `color` to set the border color, and `col.regions` to set the color of the f
 
 ```{r, create_interactive_map_use_color}
 #| eval: false
-mapview(la_county_boundary, 
+mapview(la_county_sf, 
         legend=FALSE, popup=FALSE, label=FALSE,
         color='black', col.regions='beige') +
   mapview(inat_oak_sf, 
@@ -353,7 +360,7 @@ We can also use `alpha.region` to set the opacity. 0 is transparent, 1 is solid.
 
 ```{r, create_interactive_map_set_opacity}
 #| eval: false
-mapview(la_county_boundary, legend=FALSE,
+mapview(la_county_sf, legend=FALSE,
         popup=FALSE, label=FALSE,
         color='black', col.regions='beige',
          alpha.region=1) +
@@ -371,7 +378,7 @@ Let's use `quality_grade` to set the color of the map markers.
 ```{r, create_interactive_map_and_show_quality_grade}
 #| eval: false
 
-mapview(la_county_boundary, legend=FALSE,
+mapview(la_county_sf, legend=FALSE,
         popup=FALSE, label=FALSE,
         color='black', col.regions='beige') +
   mapview(inat_oak_sf, zcol='quality_grade')
@@ -383,7 +390,7 @@ We can set the legend title using `layer.name`. mapview does not have the abilit
 
 ```{r create_interactive_map_and_rename_legend_title}
 #| eval: false
-mapview(la_county_boundary, legend=FALSE,
+mapview(la_county_sf, legend=FALSE,
         popup=FALSE, label=FALSE,
         color='black', col.regions='beige') +
   mapview(inat_oak_sf, zcol='quality_grade',
@@ -407,15 +414,15 @@ Create a map for one species with LA County boundary.
 ```{r, exercise_create_map_one_species_county_boundary}
 #| eval: false
 
-my_la_county_boundary <- read_sf(here('data/raw/LA_County_Boundary/LA_County_Boundary.shp'))
+my_la_county_sf <- read_sf(here('data/raw/LA_County_Boundary/LA_County_Boundary.shp'))
 
-st_crs(my_la_county_boundary) == st_crs(my_inat_sf)
+st_crs(my_la_county_sf) == st_crs(my_inat_sf)
 
-my_la_county_boundary <- st_transform(my_la_county_boundary,  crs = st_crs(my_inat_sf))
+my_la_county_sf <- st_transform(my_la_county_sf,  crs = st_crs(my_inat_sf))
 
-st_crs(my_la_county_boundary) == st_crs(my_inat_sf)
+st_crs(my_la_county_sf) == st_crs(my_inat_sf)
 
-mapview(my_la_county_boundary) + 
+mapview(my_la_county_sf) + 
   mapview(my_inat_sf)
 ```
 :::
@@ -423,7 +430,7 @@ mapview(my_la_county_boundary) +
 
 ## Observations in a specific region
 
-Sometimes we want to lookt at data within a specific region. Let's look for all iNaturalist observations made in Exposition Park.
+Sometimes we want to look at data within a specific region. Let's look for all iNaturalist observations made in Exposition Park.
 
 Sometimes we won't be able to find a pre-existing file that has boundaries for an area that we want to analyze. In these cases, we need to create our own boundaries. I used this [Draw map boundaries](https://wykhuh.github.io/draw-map-boundaries/) webpage to draw and download the boundaries of Exposition Park. The file is in GeoJSON format.
 
@@ -466,13 +473,13 @@ The following code will get the observations that are inside Exposition Park. We
 ```{r, get_all_observations_within_expo_park}
 inat_expo <- inat_sf[lengths(st_intersects(inat_sf, expo_park_boundary)) > 0, ]
 
-inat_expo
+dim(inat_expo)
 ```
 
 ::: callout-note
 For those who want to understand that chunk of code, here's a explanation.
 
-`st_intersects()` from **sf** tells us if one spatial object touches, crosses, or is within in a second spatial object. It returns the number of items in object one that intersects object two. If there are no items, it returns empty.
+`st_intersects()` from **sf** tells the number of items in the first spatial object that touches, crosses, or is within in a second spatial object. If there are no items, it returns empty.
 
 The following code returns the number of items in each row of `inat_sf` that intersects `expo_park_boundary`. Since each row only contains one location, we will either get 1 or empty.
 
@@ -480,7 +487,7 @@ The following code returns the number of items in each row of `inat_sf` that int
 st_intersects(inat_sf, expo_park_boundary)
 ```
 
-Instead of 1 or empty, want a vector with TRUE or FALSE values, also known as logical vector. We use `lengths(st_intersects(inat_sf, expo_park_boundary)) > 0` to check if a row has items within Exposition Park. If a row has 1 item inside `expo_park_boundary`, return TRUE. Otherwise return FALSE.
+Instead of 1 or empty, want a vector with TRUE or FALSE values, also known as logical vector. If a row has 1 item inside `expo_park_boundary`, return TRUE. Otherwise return FALSE. We use `lengths(st_intersects(inat_sf, expo_park_boundary)) > 0` to check if a row has items within Exposition Park.
 
 use `[1:50]` to get the first 50 rows
 
@@ -496,14 +503,6 @@ This code selects all rows in `inat_sf` where there is one or more items in the 
 inat_expo_2 <- inat_sf[lengths(st_intersects(inat_sf, expo_park_boundary)) > 0, ]
 ```
 :::
-
-Use `dim()` to get row and column count. 191K observations in LA county, 2964 observation in Expo Park.
-
-```{r, compare_size_of_dataframes}
-dim(inat_sf)
-
-dim(inat_expo)
-```
 
 Let's create map of all observations in Expo Park.
 
@@ -646,10 +645,10 @@ Get iNaturalist observations inside the buffer. We included `taxon_kingdom_name`
 
 ```{r, get_all_observations_near_la_river}
 
-inat_river <- inat_base_sf %>% 
+inat_data_2 <- inat_base_sf %>% 
   select(user_login, common_name, scientific_name, taxon_kingdom_name)
   
-inat_river <- inat_river[lengths(st_intersects(inat_river, buffer_river)) > 0, ]
+inat_river <- inat_data_2[lengths(st_intersects(inat_data_2, buffer_river)) > 0, ]
 
 ```
 
@@ -683,9 +682,9 @@ inat_river %>%
 
 One of the most powerful features of **`ggplot`** is the ability to quickly split a plot into multiple smaller plots based on one or more columns in the data frame, which is called **faceting**. Use the `facet_wrap()` function to generate a series of smaller plots, and pass in the selected column using `vars(<column>)`.
 
-Let’s facet the iNaturalist observations for the LA River by `taxon_kingdom_name`. We will create a separate map for each kingdom.
+Let’s create separate maps for each kingdom along the LA River. We pass `taxon_kingdom_name` to `facet_wrap(vars())` to create facets based on the kingdom.
 
-```{r}
+```{r facet_kingdom_map}
 ggplot() +
   geom_sf(data = inat_river ) +                                 
   facet_wrap(vars(taxon_kingdom_name))
@@ -727,15 +726,15 @@ Check if the neighborhood maps have the same CRS as the iNaturalist data.
 st_crs(la_neighborhoods_sf) == st_crs(inat_sf)
 ```
 
-Use custom function `add_inat_count_to_boundary_sf()` to count the number of iNaturalist observations per neighborhood, and add the count column to `la_neighborhoods_sf`. The first argument is the iNaturalist data frame, the second argument is the data frame with the boundaries, the third argument is column in the boundaries data frame that has unique values.
+I created a custom function `add_inat_count_to_boundary_sf()` that takes a dataframe with iNaturalist observations and an sf object that have multiple regions, and returns a sf object with a column `observations_count` that has the number of iNaturalist observations per region. The first argument is the iNaturalist data frame, the second argument is the sf object with the regions, the third argument is column in the sf object that has unique values.
 
-```{r}
+```{r add_inat_count_to_neighborhood_sf}
 count_sf <- add_inat_count_to_boundary_sf(inat_sf, la_neighborhoods_sf, 'name')
 
 glimpse(count_sf)
 ```
 
-```{r}
+```{r view_count_sf}
 head(count_sf)
 ```
 
@@ -782,23 +781,24 @@ ggsave(filename = here('results/expo_park_observations.jpg'), plot = my_map,  he
 
 ### interactive map
 
-Assign the map created by mapview to an object. Then run `mapshot()` to save our map. The first argument is map you want to to save. The second argument `file` is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, or png.
+Assign the map created by mapview to an object. Then run `mapshot2()` to save our map. The first argument is map you want to to save. The second argument `file` is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, or png.
 
 ```{r, save_interactive_map}
- 
+#| eval: false
+
 # create map
 my_map_2 <- mapview(expo_park_boundary) + 
   mapview(inat_expo)
 
 # save map
-mapshot(my_map_2, file = here('results/expo_park_observations_2.jpg'))
+mapshot2(my_map_2, file = here('results/expo_park_observations_2.jpg'))
 ```
 
-You can also save the map as an interactive webpage. The second argument `url` is the path to the file we want to save. Save the file as html.
+You can also save the map as an interactive HTML & JS webpage. The second argument `url` is the path to the file we want to save. Save the file as html.
 
 ```{r, save_interactive_map_html}
 #| eval: false
 
 # save map
-mapshot(my_map_2, url = here('results/expo_park_observations_2.html'))
+mapshot2(my_map_2, url = here('results/expo_park_observations_2.html'))
 ```

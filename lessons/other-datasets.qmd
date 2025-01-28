@@ -43,14 +43,41 @@ Some people might be interested in comparing iNaturalist data within different L
 
 LA City Neighborhood Councils boundaries <https://geohub.lacity.org/datasets/lahub::neighborhood-council-boundaries-2018/about>
 
-```{r}
+```{r get_neighborhood_council}
 nc_boundaries <- read_sf(here('data/raw/Neighborhood_Councils_(Certified)/Neighborhood_Councils_(Certified).shp'))
 ```
 
-```{r}
+Use `View()` to see all the records.
+
+```{r view_neighborhood_council}
+#| eval: false
+View(nc_boundaries)
+```
+
+
+```{r map_neighborhood_council}
 ggplot() +
   geom_sf(data=nc_boundaries) +
   theme_minimal()
+```
+
+If we want the boundaries for one neighborhood, we can use `filter()`. Let's get the boundaries for Arroyo Seco neighborhood council. We have to use capital letters because that's the format of the original data.
+
+```{r get_arroyo_seco}
+arroyo_seco <- nc_boundaries %>%
+  filter(NAME == 'ARROYO SECO NC')
+```
+```{r map_arroy_seco}
+ggplot() +
+  geom_sf(data=arroyo_seco) +
+  theme_minimal()
+```
+
+We can save the boundaries for Arroyo Seco NC using `st_write()`. First argument is the sf object, the second argument is the path. We can save the file as a Shapefile using `.shp` extension, or as GeoJSON file using `.geojson` extension.
+
+```{r save_arroyo_seco}
+#| eval: false
+st_write(arroyo_seco, here('data/cleaned/arroyo_seco_boundaries.geojson'))
 ```
 
 ## Los Angeles Times - LA neighborhoods
@@ -59,11 +86,11 @@ Some people might be interested in comparing iNaturalist data with different nei
 
 Los Angeles Times Data Desk developed a map that broke down L.A. County in 272 neighborhoods. <https://maps.latimes.com/about/index.html>
 
-```{r read_neighborhood_file}
+```{r get_la_times_neigbhorhoods}
 la_neighborhoods <- read_sf(here('data/raw/la_times_la_county_neighborhoods.json'))
 ```
 
-```{r}
+```{r map_la_times_neigbhorhoods}
 ggplot() +
   geom_sf(data=la_neighborhoods) 
 ```
@@ -74,11 +101,11 @@ Some people might be interested in comparing iNaturalist data in the incorporate
 
 City and Unincorporated Community Boundary (LA County Planning) <https://geohub.lacity.org/datasets/lacounty::city-and-unincorporated-community-boundary-la-county-planning/about> This layer shows all incorporated and unincorporated areas of Los Angeles County
 
-```{r}
+```{r get_admin_boundaries}
 admin_boundaries <- read_sf(here('data/raw/admin_dist_SDE_DIST_DRP_CITY_COMM_BDY_-2349953032962506288/admin_dist_SDE_DIST_DRP_CITY_COMM_BDY.shp'))
 ```
 
-```{r}
+```{r map_admin_boundaries}
 ggplot() +
   geom_sf(data=admin_boundaries)
 ```
@@ -117,7 +144,7 @@ parks_county <- st_transform(parks_county, crs = st_crs(parks_national))
 parks_city <- st_transform(parks_city, crs = st_crs(parks_national))
 ```
 
-```{r, update_city_crs_2}
+```{r, update_state_crs}
 parks_state <- st_transform(parks_state, crs = st_crs(parks_national))
 
 ```
@@ -139,24 +166,24 @@ mapview(parks_national, col.region='orange') +
 
 Some people might be interested in comparing iNaturalist data with streams, rivers, lakes, ponds in LA County.
 
-US Census TIGER/Line data provides information about water areas.
+We got water areas using US Census TIGER/Line data.
 
-```{r}
+```{r get_water_areas}
 water_areas <- read_sf(here('data/cleaned/la_county_waterareas.geojson'))
 ```
 
-```{r}
+```{r map_water_areas}
 ggplot() +
   geom_sf(data=water_areas)
 ```
 
 We also have a file for the LA River.
 
-```{r}
+```{r get_la_river}
 la_river <- read_sf(here('data/cleaned/los_angeles_river.geojson'))
 ```
 
-```{r}
+```{r map_la_river}
 ggplot() +
   geom_sf(data=la_river)
 ```
@@ -282,11 +309,9 @@ mapview(la_county_pna,
 
 There are two issues with the previous map.
 
-1.  The name of the layer is too long. We can rename the layer using `layer.name ='New Name'`
+1.  The name of the layer is too long. We can rename the layer using `layer.name ='New Name'.` `layer.name ='Avg income'` sets the layer name to 'Avg income'.
 
-2.  When you click on region, the popup shows too many fields. Use `select()` to pick the columns you need, and assign the new data frame to a new object.
-
-`layer.name ='Avg income'` sets the layer name to 'Avg income'
+2.  When you click on region, the popup shows too many fields. Use `select()` to pick the columns you need, and assign the results to a new object.
 
 ```{r, fix_map}
 #| eval: false
@@ -307,11 +332,11 @@ Some people might be interested in comparing iNaturalist data with environmental
 
 The Environmental Justice Screening Method (EJSM) was developed for Los Angeles County by USC PERE / Occidental College for LA County's Green Zones Program. This tool can be used to identify stationary sources of pollution and analyze cumulative environmental impacts. The overall score show the pollution impacts for each census tract. <https://egis-lacounty.hub.arcgis.com/datasets/lacounty::ejsm-scores/about>
 
-```{r}
+```{r get_ejsm}
 ejsm <- read_sf(here('data/raw/EJSM_Scores-shp/6cbc6914-690f-48ec-a54f-2649a8ddb321202041-1-139ir98.m1ys.shp'))
 ```
 
-```{r}
+```{r select_ejsm_fields}
 ejsm_edit <- ejsm %>% 
   select(CIscore, HazScore, HealthScor, SVscore, CCVscore)
 ```
@@ -326,7 +351,7 @@ There are 5 fields in the data set.
 | SVscore    | Social Vulnerability Score         |
 | CCVscore   | Climate Change Vulnerability Score |
 
-```{r}
+```{r map_ejsm}
 #| eval: false
 mapview(ejsm_edit, zcol='CIscore',
         layer.name='Cumulative Impact') 
@@ -338,13 +363,13 @@ mapview(ejsm_edit, zcol='CIscore',
 
 LA Sanitation and Environment (LASAN) oversees the City of Los Angeles [biodiversity initiative](http://lacitysan.org/biodiversity). LASAN published [2020 Biodiversity Report](https://sanitation.lacity.gov/cs/groups/public/documents/document/y250/mduy/~edisp/cnt052553.pdf) that outlines how to measure the health of the urban ecosystem in Los Angeles. As part of that report, they identified 17 ecological regions in LA called ecotopes. "Ecotopes are also envisioned as future management units to address biodiversity and related urban ecosystem stewardship topics of ecosystem services, pollution, and ecological hazards."
 
-```{r}
+```{r get_ecotopes}
 ecotopes <- read_sf(here('data/raw/LA_Area_Ecotopes/FINAL Ecotope_Boundaries.shp'))
 
 names(ecotopes)
 ```
 
-```{r}
+```{r map_ecotopes}
 #| eval: false
 
 mapview(ecotopes, zcol='ET_LndsZon')
@@ -360,34 +385,34 @@ Let's create a map of showing the observations of indicator species.
 
 Get all iNaturalist observations
 
-```{r}
+```{r get_inaturalist_data}
 #| message: false
 inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 ```
 
 Use `st_as_sf()` to add a geometry column so we can map the observations.
 
-```{r}
+```{r add_geometry_to_inaturalist}
 inat_sf <- st_as_sf(inat_data, 
                          coords = c("longitude", "latitude"),   crs = 4326)
 ```
 
 Get list of indicator species.
 
-```{r}
+```{r get_indicator_species}
 #| message: false
 indicator_species <- read_csv(here('data/cleaned/LA_city_indicator_species.csv'))
 ```
 
 Get the column names for `indicator_species`.
 
-```{r}
+```{r get_indicator_species_columns}
 names(indicator_species)
 ```
 
 Get the scientific names for all the indicator species.
 
-```{r}
+```{r get_scientific_names}
 indicator_scientific_names <- indicator_species$'scientific name'
 
 indicator_scientific_names
@@ -395,7 +420,7 @@ indicator_scientific_names
 
 Find observations for indicator species by looking for `scientific_name` that are in the `indicator_scientific_names`.
 
-```{r}
+```{r get_indicator_species_observations}
 indicator_sf <- inat_sf %>%
   filter(scientific_name %in% indicator_scientific_names) %>%
   select(scientific_name, common_name)
@@ -403,7 +428,7 @@ indicator_sf <- inat_sf %>%
 dim(indicator_sf)
 ```
 
-```{r}
+```{r map_indicator_species}
 #| eval: false
 
 mapview(indicator_sf)

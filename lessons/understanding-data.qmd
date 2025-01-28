@@ -41,7 +41,7 @@ glimpse(inat_data)
 
 `glimpse()` shows `<dbl> <date> <chr> <lgl>`. Those are data types.
 
-In computer programming, **data type** is a way to group data values. Every value has a data type. A value's data type will determine what the programming language can do with the value. For instance, in R we can add numbers but we can't add character strings.
+In computer programming, **data type** is a way to group data values. Every value has a data type. An analogy is human languages have numbers and words. A value's data type will determine what the programming language can do with the value. For instance, in R we can add numbers but we can't add character strings.
 
 There are 4 main types in R: **numeric**, **integer**, **logical**, and **character**.
 
@@ -119,7 +119,7 @@ For `inat_data`, `id` is **numeric**, `captive_cultivated` is **logical**, `user
 
 ## Missing data
 
-R represents missing data as `NA`, without quotes. `NA` stands for not applicable.
+In tabular data, there are times when a record does not have a value for a particular field. In spreadsheet programs, when there is no value, cells are left blank. R represents missing values as `NA`, without quotes. `NA` stands for not applicable.
 
 `NA` is allowed in vectors of any data type.
 
@@ -132,13 +132,13 @@ class(numbers)
 
 When you pass number vectors with `NA` to a math function like `min()` , the function returns `NA`. `min()` returns the smallest number in a vector.
 
-```{r}
+```{r min}
 min(numbers)
 ```
 
 Many math functions have an argument `na.rm` to remove `NA` values for its calculations.
 
-```{r}
+```{r min_na_rm}
 min(numbers,  na.rm = TRUE)
 ```
 

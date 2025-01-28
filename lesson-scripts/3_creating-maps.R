@@ -81,35 +81,40 @@ mapview(my_inat_sf)
 
 
 ## ----get_LA_County_boundaries-------------------------------------------------
-la_county_boundary <- read_sf(here('data/raw/LA_County_Boundary/LA_County_Boundary.shp'))
+la_county_sf <- read_sf(here('data/raw/LA_County_Boundary/LA_County_Boundary.shp'))
 
 
-## ----class_la_county_boundary.------------------------------------------------
-class(la_county_boundary)
+## ----class_la_county_sf.------------------------------------------------------
+class(la_county_sf)
 
 
-## ----glimspe_la_county_boundary-----------------------------------------------
-glimpse(la_county_boundary)
+## ----glimspe_la_county_sf-----------------------------------------------------
+glimpse(la_county_sf)
+
+
+## ----map_la_county------------------------------------------------------------
+ggplot() +
+  geom_sf(data = la_county_sf)
 
 
 ## ----check_la_county_and_inat_crs---------------------------------------------
-st_crs(la_county_boundary) == st_crs(inat_oak_sf)
+st_crs(la_county_sf) == st_crs(inat_oak_sf)
 
 
 ## ----update_la_county_crs-----------------------------------------------------
-la_county_boundary <- st_transform(la_county_boundary,  crs = st_crs(inat_oak_sf))
+la_county_sf <- st_transform(la_county_sf,  crs = st_crs(inat_oak_sf))
 
-st_crs(la_county_boundary) == st_crs(inat_oak_sf)
+st_crs(la_county_sf) == st_crs(inat_oak_sf)
 
 
 ## ----add_LA_County_to_static_map----------------------------------------------
 ggplot() +
-  geom_sf(data = la_county_boundary)  +
+  geom_sf(data = la_county_sf)  +
   geom_sf(data = inat_oak_sf) 
 
 
 ## ----check_la_county_geometry-------------------------------------------------
-la_county_boundary$geometry[1]
+la_county_sf$geometry[1]
 
 
 ## ----check_inat_geometry------------------------------------------------------
@@ -118,27 +123,27 @@ inat_oak_sf$geometry[1]
 
 ## ----create_static_map_for_oak_use_color--------------------------------------
 ggplot() +
-  geom_sf(data = la_county_boundary, color="black", fill='beige')  +
+  geom_sf(data = la_county_sf, color="black", fill='beige')  +
   geom_sf(data = inat_oak_sf, color='green')  
 
 
 ## ----create_static_map_for_oak_use_alpha--------------------------------------
 ggplot() +
-  geom_sf(data = la_county_boundary, color="black", fill=alpha('beige', .5))  +
+  geom_sf(data = la_county_sf, color="black", fill=alpha('beige', .5))  +
   geom_sf(data = inat_oak_sf, color=alpha('green', .3))  
 
 
 ## ----create_static_map_for_oak_use_quality_grade------------------------------
 
 ggplot() +
-  geom_sf(data = la_county_boundary, color="black", fill='beige')  +
+  geom_sf(data = la_county_sf, color="black", fill='beige')  +
   geom_sf(data = inat_oak_sf, mapping=aes(color=quality_grade))  
 
 
 
 ## ----add_title_to_static_map--------------------------------------------------
 ggplot() +
-  geom_sf(data = la_county_boundary, color="black", fill='beige')  +
+  geom_sf(data = la_county_sf, color="black", fill='beige')  +
   geom_sf(data = inat_oak_sf, mapping=aes(color=quality_grade)) +
   labs(title = 'CNC observations for Live Coast Oaks in LA County',
        subtitle='2016-2024',
@@ -148,22 +153,22 @@ ggplot() +
 
 
 ## ----add_LA_County_to_interactive_map-----------------------------------------
-mapview(la_county_boundary) +
+mapview(la_county_sf) +
   mapview(inat_oak_sf)
 
 
 ## ----add_LA_County_to_interactive_map_remove_legend---------------------------
-mapview(la_county_boundary, legend=FALSE) +
+mapview(la_county_sf, legend=FALSE) +
   mapview(inat_oak_sf, legend=FALSE)
 
 
 ## ----add_LA_County_to_interactive_map_remove_popup----------------------------
-mapview(la_county_boundary, legend=FALSE, popup=FALSE, label=FALSE) +
+mapview(la_county_sf, legend=FALSE, popup=FALSE, label=FALSE) +
   mapview(inat_oak_sf, legend=FALSE)
 
 
 ## ----create_interactive_map_use_color-----------------------------------------
-mapview(la_county_boundary,
+mapview(la_county_sf,
         legend=FALSE, popup=FALSE, label=FALSE,
         color='black', col.regions='beige') +
   mapview(inat_oak_sf,
@@ -176,7 +181,7 @@ mapviewOptions(basemaps.color.shuffle = FALSE)
 
 
 ## ----create_interactive_map_set_opacity---------------------------------------
-mapview(la_county_boundary, legend=FALSE,
+mapview(la_county_sf, legend=FALSE,
         popup=FALSE, label=FALSE,
         color='black', col.regions='beige',
          alpha.region=1) +
@@ -187,14 +192,14 @@ mapview(la_county_boundary, legend=FALSE,
 
 ## ----create_interactive_map_and_show_quality_grade----------------------------
 
-mapview(la_county_boundary, legend=FALSE,
+mapview(la_county_sf, legend=FALSE,
         popup=FALSE, label=FALSE,
         color='black', col.regions='beige') +
   mapview(inat_oak_sf, zcol='quality_grade')
 
 
 ## ----create_interactive_map_and_rename_legend_title---------------------------
-mapview(la_county_boundary, legend=FALSE,
+mapview(la_county_sf, legend=FALSE,
         popup=FALSE, label=FALSE,
         color='black', col.regions='beige') +
   mapview(inat_oak_sf, zcol='quality_grade',
@@ -204,15 +209,15 @@ mapview(la_county_boundary, legend=FALSE,
 
 ## ----exercise_create_map_one_species_county_boundary--------------------------
 
-my_la_county_boundary <- read_sf(here('data/raw/LA_County_Boundary/LA_County_Boundary.shp'))
+my_la_county_sf <- read_sf(here('data/raw/LA_County_Boundary/LA_County_Boundary.shp'))
 
-st_crs(my_la_county_boundary) == st_crs(my_inat_sf)
+st_crs(my_la_county_sf) == st_crs(my_inat_sf)
 
-my_la_county_boundary <- st_transform(my_la_county_boundary,  crs = st_crs(my_inat_sf))
+my_la_county_sf <- st_transform(my_la_county_sf,  crs = st_crs(my_inat_sf))
 
-st_crs(my_la_county_boundary) == st_crs(my_inat_sf)
+st_crs(my_la_county_sf) == st_crs(my_inat_sf)
 
-mapview(my_la_county_boundary) +
+mapview(my_la_county_sf) +
   mapview(my_inat_sf)
 
 
@@ -240,7 +245,7 @@ mapview(expo_park_boundary)
 ## ----get_all_observations_within_expo_park------------------------------------
 inat_expo <- inat_sf[lengths(st_intersects(inat_sf, expo_park_boundary)) > 0, ]
 
-inat_expo
+dim(inat_expo)
 
 
 ## ----st_intersects------------------------------------------------------------
@@ -253,12 +258,6 @@ st_intersects(inat_sf, expo_park_boundary)
 
 ## ----all_observations_within_expo_park----------------------------------------
 inat_expo_2 <- inat_sf[lengths(st_intersects(inat_sf, expo_park_boundary)) > 0, ]
-
-
-## ----compare_size_of_dataframes-----------------------------------------------
-dim(inat_sf)
-
-dim(inat_expo)
 
 
 ## ----create_static_map_of_observations_in_expo_park---------------------------
@@ -333,10 +332,10 @@ mapview(buffer_river) +
 
 ## ----get_all_observations_near_la_river---------------------------------------
 
-inat_river <- inat_base_sf %>% 
+inat_data_2 <- inat_base_sf %>% 
   select(user_login, common_name, scientific_name, taxon_kingdom_name)
   
-inat_river <- inat_river[lengths(st_intersects(inat_river, buffer_river)) > 0, ]
+inat_river <- inat_data_2[lengths(st_intersects(inat_data_2, buffer_river)) > 0, ]
 
 
 
@@ -357,7 +356,7 @@ inat_river %>%
   slice(1:10)
 
 
-## -----------------------------------------------------------------------------
+## ----facet_kingdom_map--------------------------------------------------------
 ggplot() +
   geom_sf(data = inat_river ) +                                 
   facet_wrap(vars(taxon_kingdom_name))
@@ -387,13 +386,13 @@ head(la_neighborhoods_sf)
 st_crs(la_neighborhoods_sf) == st_crs(inat_sf)
 
 
-## -----------------------------------------------------------------------------
+## ----add_inat_count_to_neighborhood_sf----------------------------------------
 count_sf <- add_inat_count_to_boundary_sf(inat_sf, la_neighborhoods_sf, 'name')
 
 glimpse(count_sf)
 
 
-## -----------------------------------------------------------------------------
+## ----view_count_sf------------------------------------------------------------
 head(count_sf)
 
 
@@ -425,11 +424,11 @@ my_map_2 <- mapview(expo_park_boundary) +
   mapview(inat_expo)
 
 # save map
-mapshot(my_map_2, file = here('results/expo_park_observations_2.jpg'))
+mapshot2(my_map_2, file = here('results/expo_park_observations_2.jpg'))
 
 
 ## ----save_interactive_map_html------------------------------------------------
 
 # save map
-mapshot(my_map_2, url = here('results/expo_park_observations_2.html'))
+mapshot2(my_map_2, url = here('results/expo_park_observations_2.html'))
 

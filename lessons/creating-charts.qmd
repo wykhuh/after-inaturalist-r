@@ -100,7 +100,7 @@ Let's create a line chart that shows the number of observations per year.
 
 For line charts, we need to specify which columns to use for the x and y axis.
 
-We need to create a data frame that has a year column, and a column that counts the observations per year. Use `mutate()` to add year column. Use `count()` to add column that has the count per year.
+We need to create a data frame that has a year column, and a column that counts the observations per year. Use `mutate()` and `year()` to add year column. Use `count()` to add column that has the count per year.
 
 ```{r, create_dataframe_with_year_count}
 inat_year_count <- inat_data %>% 
@@ -162,8 +162,8 @@ The height of each bar represents the number of observations per year. The heigh
 Create a chart with all your observations for each year
 
 -   Use `read_csv()` to read iNaturalist file.
--   Use `mutate()` to add year column
--   Use `filter()` to select observations you made
+-   Use `mutate()` and `year()` to add year column
+-   Use `filter()` to select observations you made. Use 'quantron' as the user if you don't have CNC observations.
 -   Save the data frame to `my_obs_by_year` object
 -   Use `ggplot()` to set the data and aesthetics.
 -   Choose which type of chart you want: bar or line.
@@ -217,7 +217,7 @@ ggplot(data = inat_year_count,
 
 ## Color scales
 
-For the stacked bar chart example, **ggplot2** selected colors for the field values.
+For the stacked bar chart example, **ggplot2** automatically selected the colors for the values.
 
 ```{r, stacked_bar_chart_default_colors}
 ggplot(data = inat_year, 
@@ -260,7 +260,7 @@ ggplot(data = inat_year,
   scale_fill_brewer()
 ```
 
-We can also use a custom set of colors with `scale_fill_manual()` , and passing in a vector of colors,
+We can also use a custom set of colors with `scale_fill_manual()` , and passing in a vector of colors.
 
 ```{r stacked_bar_chart_manual}
 ggplot(data = inat_year, 
@@ -323,7 +323,7 @@ myplot +
 
 ```
 
-Let's try changing the size of the text on our axis titles. We can do this by specifying that the `axis.title` should be an `element_text()` with `size` set to 14.
+Let's change the size of the text on our axis titles. We can do this by specifying that the `axis.title` should be an `element_text()` with `size` set to 14.
 
 ```{r set_text_size, warning=FALSE}
 myplot +
@@ -356,7 +356,7 @@ Because there are so many possible arguments to the `theme()` function, it can s
 
 ## Changing labels
 
-We can customize the axis labels and add a chart title using `labs()`.
+We can customize the axis labels and add a chart title using `labs()`. `title` is the title of the chart. `subtitle` is the subtitle. `x` is the label for the x axis. `y` is the label for the y axis.
 
 ```{r changing_labels, warning=FALSE}
 myplot +
@@ -383,7 +383,7 @@ Take the `my_obs_by_year` data frame from exercise 1 and create a plot. Customiz
 -   add a title
 -   choose the one of the built in themes
 -   change the axis titles
--   change the fill colors of the bars
+-   change the colors of the bars or lines
 
 ::: answer
 ```{r, exercise_change_chart_appearance}

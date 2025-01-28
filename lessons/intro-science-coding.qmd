@@ -40,7 +40,7 @@ In theory, every iNaturalist observation represents a species. In practice, an i
 
 ## Coding Concepts
 
-The basis of programming is that we write down instructions for the computer to follow, and then we tell the computer to follow those instructions. We write these instructions in the form of code, which is a common language that is understood by the computer and humans (after some practice). We call these instructions commands, and we tell the computer to follow the instructions by running (also called executing) the commands.
+Programming is writing instructions for a computer to follow. We write these instructions in the form of code. There are hundreds of programming languages, each with its own vocabulary and syntax.
 
 ## Geospatial concepts
 

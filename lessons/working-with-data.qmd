@@ -23,14 +23,6 @@ editor: visual
 
 A CSV of iNaturalist observations for City Nature Challenge Los Angeles from 2015 to 2024 is located at "data/cleaned/cnc-los-angeles-observations.csv". We are going to read that CSV using R.
 
-### File paths
-
-When we reference other files from an R script, we need to give R precise instructions on where those files are. We do that using something called a file path.
-
-There are two kinds of paths: absolute and relative. Absolute paths are specific to a particular computer, whereas relative paths are relative to a certain folder. Because we are using RStudio "project" feature, all of our paths is relative to the project folder. For instance an absolute path is "/Users/username/Documents/CNC-coding-workshop/data/cleaned/cnc-los-angeles-observations.csv", and relative path is "data/cleaned/cnc-los-angeles-observations.csv".
-
-**here** is an R package that makes it easier to handle file paths.
-
 ### Functions
 
 Functions are predefined bits of code that do a specific task. Arguments are values that we pass into a function. Function usually takes one or more arguments as input, does something to the values, and produces the ouput.
@@ -57,7 +49,7 @@ library(readr)
 
 ### Reading a CSV file
 
-In order to analyze the iNaturalist csv, we need to load **readr**, **lubridate** and **dplyr** packages.
+In order to analyze the iNaturalist csv, we need to load **readr**, **lubridate,** **dplyr**, and **here** packages.
 
 Generally it is a good idea to list all the libraries that you will use in the script at the beginning of the script. You want to install a package to your computer once, and then load it with `library()` in each script where you need to use it.
 
@@ -70,9 +62,19 @@ library(lubridate) # manipulate dates
 library(here) # file paths
 ```
 
+::: callout-note
+#### File paths
+
+When we reference other files from an R script, we need to give R precise instructions on where those files are. We do that using something called a file path.
+
+There are two kinds of paths: absolute and relative. Absolute paths are specific to a particular computer, whereas relative paths are relative to a certain folder. Because we are using RStudio "project" feature, all of our paths is relative to the project folder. For instance an absolute path is "/Users/username/Documents/CNC-coding-workshop/data/cleaned/cnc-los-angeles-observations.csv", and relative path is "data/cleaned/cnc-los-angeles-observations.csv".
+
+**here** is an R package that makes it easier to handle file paths.
+:::
+
 We call `read_csv()` function from **readr**, and pass in a relative path to a CSV file in order to load the CSV.
 
-`read_csv()` will read the file and return the content of the file. In order for us access the content later on, we will assign the content to an object called `inat_data`.
+`read_csv()` will read the file and return the content of the file as data.frame. data.frame is how R handles data with rows and columns. In order for us access the content later on, we will assign the content to an object called `inat_data`.
 
 ```{r, assign_read_csv_to_object}
 #| message: false
@@ -112,7 +114,7 @@ You can use `names()` from **R** to see the fields in the data frame.
 names(inat_data)
 ```
 
-We can use `dim()` function from **R** to get the dimension of a data frame.
+We can use `dim()` dimension function from **R** to get the dimension of a data frame.
 
 ```{r use_dim_to_get_size}
 dim(inat_data)
@@ -205,7 +207,15 @@ Pipe operator take the thing on the left hand side and insert it as the first ar
 
 Sometimes the coordinates for iNaturalist observations are obscured. For instance, when the observation involves an endangered species, iNaturalist will automatically obscure the coordinates in order to protect the species. Sometimes people choose to obscure their location when they are making observations so that other people will not know their exact location. iNaturalist has information about [obscured coordinates](https://help.inaturalist.org/en/support/solutions/articles/151000169938-what-is-geoprivacy-what-does-it-mean-for-an-observation-to-be-obscured-).
 
-To access one column in a data frame, use `dataframe$column_name`. When we pass in a data frame column to `table()` function from R, it will return the unique values in a column, and the number of rows that contain each value.
+To access one column in a data frame, use `dataframe$column_name`.
+
+```{r coordinates_obscured}
+#| eval: false
+
+inat_data$coordinates_obscured
+```
+
+When we pass in a data frame column to `table()` function from R, it will return the unique values in a column, and the number of rows that contain each value.
 
 Use `table()` to get a count of how many observations have obscured locations by passing in the data frame column.
 
@@ -246,6 +256,8 @@ To see all the unique values for a column, use `unique()` function from R and pa
 ```{r, quality_grade_values}
 unique(inat_data$quality_grade)
 ```
+
+iNaturalist FAQ about [quality grade](https://help.inaturalist.org/en/support/solutions/articles/151000169936-what-is-the-data-quality-assessment-and-how-do-observations-qualify-to-become-research-grade-).
 
 When researchers use iNaturalist data, they normally use research grade observations. Let's get the observations that are research grade.
 
@@ -334,6 +346,11 @@ my_data <- inat_data %>%
   select(user_login, common_name, scientific_name, observed_on, quality_grade)
 ```
 
+```{r view_my_data}
+#| eval: false
+View(my_data)
+```
+
 We can check the results to make sure we wrote we got the data we want. We can use `unique()` to check the column values.
 
 ```{r, and_unique_common_name}
@@ -348,9 +365,9 @@ unique(my_data$quality_grade)
 
 Previously we looked at `coordinates_obscured`. In addition to coordinates being intentionally obscured, another thing that can affect the coordinates for an observation is the accuracy of the coordinates. The accuracy of GPS on smart phones depends on the hardware, software, physical environment, etc. The `positional_accuracy` from iNaturalist measures the coordinates error in meters. For example if an observation has a positional accuracy of 65 meters, this means the measured coordinates is within 65 meters from the actual coordinates.
 
-When given a vector of numbers, `summary()` displays statistics about the values. Let's use `summary()` to look at the positional accuracy of observations where the coordinates are not obscured.
+When given a column in a dataframe, `summary()` displays statistics about the values. Let's use `summary()` to look at the positional accuracy of observations where the coordinates are not obscured.
 
-```{r}
+```{r get_summary_of_unobscured_observations}
 my_data <- inat_data %>%
   filter(coordinates_obscured == FALSE)  
 
@@ -407,59 +424,14 @@ Let's get observations where `common_name` is 'Western Fence Lizard' or 'Western
 
 ```{r, filter_with_or_2_species}
 my_data <- inat_data %>%
-  filter(common_name == 'Western Honey Bee' | common_name == 'Western Fence Lizard')  %>%
+  filter(common_name == 'Western Honey Bee' | 
+        common_name == 'Western Fence Lizard')  %>%
   select(user_login, observed_on, common_name)
 
-dim(my_data)
 ```
 
 ```{r, or_common_name}
 unique(my_data$common_name)
-```
-
-### %in% c()
-
-Another way to get rows that match one or more of the criteria is with the in operator `%in%.`
-
-::: callout-note
-A vector is way R stores multiple values. `c()` combine function from R creates a vector with the passed in values.
-
-```{r}
-c(1, 2, 5)
-```
-
-`%in%` operator from R returns true if an item matches values in a given vector.
-
-```{r}
-1 %in% c(1, 2, 5)
-3 %in% c(1, 2, 5)
-```
-:::
-
-#### select observations by multiple license
-
-iNaturalist observations, photos, and sounds are covered by licenses. The default license is **CC BY-NC** (Creative Commons: Attribution-NonCommercial) so other people can use the content if they give attribution to you and use it for non-commercial purposes. iNaturalist exports observations with No Copyright (CC0), Attribution (CC BY), and Attribution-NonCommercial (CC BY-NC) license to [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org), an international organization that provides access to biodiversity information. Many researchers who use iNaturalist data get their data from GBIF. More info about [iNaturalist licenses](https://help.inaturalist.org/en/support/solutions/articles/151000175695-what-are-licenses-how-can-i-update-the-licenses-on-my-content-). This means if iNaturalist observers want their data to be used by scientists, they need to use one of those three licenses.
-
-We can use `table()` to see the license types and count.
-
-```{r view_license_values}
-table(inat_data$license)
-```
-
-Let's get observations with CC0, CC-BY, or CC-BY-NC license. `filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC'))` will return rows where the `license` field is in the vector ('CC0', 'CC-BY', 'CC-BY-NC')
-
-```{r filter_by_license}
-my_data <- inat_data %>%
-  filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC')) %>%
-  select(user_login, observed_on, common_name, license)
-
-dim(my_data)
-
-```
-
-```{r unique_license}
-unique(my_data$license)
-
 ```
 
 ### & (and) versus \| (or)
@@ -506,13 +478,58 @@ We get 6,216 rows with 1052 user_login and 1031 common_name
 
 `&` vs `|` will return different results. Check the results of your code to make sure your results matches what you intended.
 
+### %in% c()
+
+Another way to get rows that match one or more of the criteria is with the in operator `%in%.`
+
+::: callout-note
+A vector is way R stores multiple values. `c()` combine function from R creates a vector with the passed in values.
+
+```{r create_vector}
+c(1, 2, 5)
+```
+
+`%in%` operator from R returns true if an item matches values in a given vector.
+
+```{r in_vector}
+1 %in% c(1, 2, 5)
+3 %in% c(1, 2, 5)
+```
+:::
+
+#### select observations by multiple license
+
+iNaturalist observations, photos, and sounds are covered by licenses. The default license is **CC BY-NC** (Creative Commons: Attribution-NonCommercial) so other people can use the content if they give attribution to you and use it for non-commercial purposes. iNaturalist exports observations with No Copyright (CC0), Attribution (CC BY), and Attribution-NonCommercial (CC BY-NC) license to [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org), an international organization that provides access to biodiversity information. Many researchers who use iNaturalist data get their data from GBIF. More info about [iNaturalist licenses](https://help.inaturalist.org/en/support/solutions/articles/151000175695-what-are-licenses-how-can-i-update-the-licenses-on-my-content-). This means if iNaturalist observers want their data to be used by scientists, they need to use one of those three licenses.
+
+We can use `table()` to see the license types and count.
+
+```{r view_license_values}
+table(inat_data$license)
+```
+
+Let's get observations with CC0, CC-BY, or CC-BY-NC license. `filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC'))` will return rows where the `license` field is in the vector ('CC0', 'CC-BY', 'CC-BY-NC')
+
+```{r filter_by_license}
+my_data <- inat_data %>%
+  filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC')) %>%
+  select(user_login, observed_on, common_name, license)
+
+dim(my_data)
+
+```
+
+```{r unique_license}
+unique(my_data$license)
+
+```
+
 :::: exercise
 ## Exercise 2
 
 Get all your observations that are research grade
 
 -   use `my_inat_data` from Exercise 1 to access CNC observations
--   Use `&` with `filter()` since we want to pick observations by both username and quality grade
+-   Use `&` with `filter()` since we want to pick observations by both username and quality grade. Use 'quantron' as the user if you don't have CNC observations.
 -   Use `select()` to pick 4 columns
 
 ::: answer
@@ -540,7 +557,7 @@ complex_query <- inat_data %>%
   filter(common_name == 'Western Fence Lizard')  %>%
   select(user_login, common_name, scientific_name, observed_on)
 
-complex_query
+dim(complex_query)
 ```
 
 ```{r, complex_unique_common_name}
@@ -554,14 +571,14 @@ unique(complex_query$user_login)
 ::: callout-note
 This query using just `|` `&` with one `filter()` does not give us what we want.
 
-```{r}
+```{r incorrect_and_or}
 alt_1 <- inat_data %>%
   filter(user_login == 'cdegroof' | 
            user_login == 'deedeeflower5' & 
            common_name == 'Western Fence Lizard')  %>%
   select(user_login, common_name, scientific_name, observed_on)
 
-alt_1
+dim(alt_1)
 ```
 
 ```{r, alt_1_unique_user_login}
@@ -578,13 +595,13 @@ In most programming languages `and` is evaluated before `or`. Our query asked fo
 
 This query using `|` `&` `()` does give us what we want. We used parenthesis around the two `user_login`.
 
-```{r}
+```{r parenthesis_and_or}
 alt_2 <- inat_data %>%
-  filter((user_login == 'cdegroof' | user_login == 'deedeeflower5') & 
+  filter((user_login == 'cdegroof' | user_login == 'deedeeflower5') &
            common_name == 'Western Fence Lizard')  %>%
   select(user_login, common_name, scientific_name, observed_on)
 
-alt_2
+dim(alt_2)
 ```
 
 ```{r, alt_2_unique_user_login}
@@ -605,7 +622,8 @@ Get all your observations for two species
 
 -   Use `my_inat_data` to access CNC observations
 -   Use `unique(my_obs$common_names)` from Exercise 1 to find two species name.
--   Use `filter(), |` to pick two species and your username.
+-   Use `filter(), |` to pick two species
+-   Use `filter()` to pick your username. Use 'quantron' as the user if you don't have CNC observations.
 -   Use `select()` to pick four columns.
 
 ::: answer
@@ -645,13 +663,7 @@ When you search for 'oaks' on iNaturalist, click the 'About' link, and it will b
 
 'Oaks' is the common name for genus Quercus. When you search iNaturalist observations for 'oaks', iNaturalist returns observations that belong to the genus Quercus, which includes species such as 'Live Coast Oak' and 'Valley Oak'.
 
-Let's look at the scientific name when we use `common_name == 'oaks'`
-
-```{r}
-unique(oaks_obs$scientific_name)
-```
-
-We only get one scientific name Quercus for 218 'oaks' observations. This means we aren't including oak species. To match the iNaturalist search results, we need to look for all observations where the genus equals Quercus including oak species.
+Our query only looks for observation where common_name is 'oaks'. This means we aren't including oak species. To match the iNaturalist search results, we need to look for all observations where the genus equals Quercus including oak species.
 
 We can use `names()` to get all the taxon name fields. There are several taxon\_\_xxx\_\_name fields.
 
@@ -683,33 +695,44 @@ oaks_obs_fixed <- inat_data %>%
     taxon_family_name == 'Fagaceae' &
     taxon_genus_name == 'Quercus'
   )
-```
 
-The reason why I listed the hierarchy instead of just filtering by `taxon_genus_name == 'Quercus'` is because of limitations of my taxonomy knowledge and the limitations of the information provided by the CSV. Some Latin words are used multiple times to represent different taxa. For instance Eisenia is a genus for a type of worm and a genus for a type kelp. A filter command for `taxon_genus_name == 'Eisenia'` would return observations for two very different organisms. I don't have enough expertise to know if a taxa name is unique, so to play it safe, I list the entire taxonomy hierarchy. Someone with more expertise might know there is only one Quercus in Plantae, and use `filter(taxon_kingdom_name == 'Plantae' & taxon_genus_name == 'Quercus')`.
-
-iNaturalist gives each taxa name a unique id. Worm Eisenia is 128842, kelp Eisenia is 125880. When iNaturalist searches for observations for a given taxa, it uses the unique id for the search to avoid the problem of duplicate scientific names. Unfortunately the CSV download does not provide ids for each taxon rank, so we can't do a search by taxon rank id. It is possible to get the ids for all the taxon ranks, but that involves more advance coding techniques.
-
-```{r, number_of_oak_observations}
 dim(oaks_obs_fixed)
 ```
 
-We now get 1367 observations.
-
-::: callout-note
 The reason why iNaturalist has 1369 observations for 'oaks' but we have 1367 is because iNaturalist has two 'oaks' observations which don't have latitude and longitude data. Our cleaned iNaturalist data excludes observations without latitude and longitude.
-:::
 
-Let's examine the number of observations for each type of oak. We can use `count()` to get the counts.
+Let's see the unique common names. We get oaks species and oaks genus.
 
-```{r get_quercus_counts}
-oaks_count <- oaks_obs_fixed %>%
-  count(common_name, scientific_name) %>%
-  arrange(desc(n))
-
-oaks_count
+```{r unique_oak_common_names}
+unique(oaks_obs_fixed$common_name)
 ```
 
-While most of the observations are species, there are 218 observations that could only be identified to the genus Quercus.
+The reason why I listed the hierarchy instead of just filtering by `taxon_genus_name == 'Quercus'` is because of limitations of my taxonomy knowledge and the limitations of the information provided by the CSV. Some Latin words are used multiple times to represent different taxa. For instance Eisenia is a genus for a type of worm and a genus for a type kelp. A filter command for `taxon_genus_name == 'Eisenia'` would return observations for two very different organisms.
+
+```{r get_Eisenia_observations}
+Eisenia_obs <- inat_data %>%
+  filter(taxon_genus_name == 'Eisenia') %>%
+  select(common_name, taxon_kingdom_name)
+
+Eisenia_obs
+```
+
+I don't have enough expertise to know if a taxa name is unique, so to play it safe, I list the entire taxonomy hierarchy.
+
+::: callout-note
+iNaturalist gives each taxa name a unique id. Worm Eisenia is 128842, kelp Eisenia is 125880. When iNaturalist searches for observations for a given taxa, it uses the unique id for the search to avoid the problem of duplicate scientific names. Unfortunately the CSV download does not provide ids for each taxon rank, so we can't do a search by taxon rank id. It is possible to get the ids for all the taxon ranks, but that involves more advance coding techniques.
+:::
+
+Instead of searching the entire hierarchy, someone with more expertise might know there is only one Quercus in Plantae so they search for Plantae kingdom and genus Quercus.
+
+```{r get_Plantae_Quercus_observations}
+Plantae_Quercus_obs <- inat_data %>%
+  filter(taxon_kingdom_name == 'Plantae' &
+           taxon_genus_name == 'Quercus') %>%
+  select(common_name, taxon_kingdom_name)
+
+dim(Plantae_Quercus_obs)
+```
 
 Another example, let's search for 'trees'. When we search iNaturalist for 'trees', the first result is [Phylum Tracheophyta](https://www.inaturalist.org/taxa/211194-Tracheophyta). Let's look at our data using `taxon_phylum_name` and 'Tracheophyta'
 
@@ -723,17 +746,11 @@ dim(trees_obs)
 
 There are 95372 Tracheophyta observations.
 
-Let's get a count of observations for Tracheophyta.
-
-```{r get_Tracheophyta_counts}
-trees_count <- trees_obs %>%
-  count(common_name) %>%
-  arrange(desc(n))
-
-trees_count
+```{r unique_trees_common_name}
+unique(trees_obs$common_name)[0:30]
 ```
 
-We are getting plants such as California poppy, grasses, which aren't trees. Why is that?
+We are getting plants such as lilies, penstemon, and milkweed which aren't trees. Why is that?
 
 If we look up ['Tracheophyta' in Wikipedia](https://en.wikipedia.org/wiki/Vascular_plant):
 
@@ -760,14 +777,6 @@ laco_species_obs <- inat_data %>%
   select(user_login, common_name, scientific_name, taxon_species_name)
 ```
 
-```{r get_laco_species_counts}
-laco_species_count <- laco_species_obs %>%
-  count(common_name, scientific_name, taxon_species_name) %>%
-  arrange(desc(n))
-
-laco_species_count
-```
-
 Search by genera.
 
 ```{r get_laco_genera_observations}
@@ -777,14 +786,6 @@ laco_genera_obs <- inat_data %>%
   filter(taxon_genus_name %in% laco_genera & 
            taxon_kingdom_name == 'Plantae') %>%
   select(user_login, common_name, scientific_name, taxon_genus_name)
-```
-
-```{r get_laco_genera_counts}
-laco_genera_count <- laco_genera_obs %>%
-  count(common_name, scientific_name, taxon_genus_name) %>%
-  arrange(desc(n))
-
-laco_genera_count
 ```
 
 When searching for species, it's generally better to search by scientific names rather than common names. A species should only have one scientific name. A species can have zero to many common names in many languages, and different sources can use different common names. For example iNaturalist uses strawberry tree and LA County tree list uses strawberry madrone for *Arbutus unedo*. The downside of searching by scientific names is trying to spell and say all these Latin words.
@@ -802,16 +803,19 @@ Use `year()` from **lubridate** on a date column to get the year.
 ::: callout-tip
 Vector is a list of items. We can access specific values in a vector by using `vector_name[number]`. To access a range of values use `vector_name[start_number:end_number]`
 
-```{r}
+```{r create_character_vector}
 letters <- c('a','b','c', 'd')
 ```
 
-get first item 
-```{r}
+get first item
+
+```{r get_first_item}
 letters[1]
 ```
+
 get second and third item
-```{r}
+
+```{r get_2nd_3rd_item}
 letters[2:3]
 ```
 :::
@@ -828,7 +832,7 @@ Let's get use `year()` to get the year from `observed_on` for rows 10317 to 1032
 year(inat_data$observed_on)[10317:10320]
 ```
 
-This code will add `year` column using the `year(observed_on)`
+We can use `mutate()` from **dplyr** and `year()` from **lubridate** to add a `year` column.
 
 ```{r, mutate_year}
 temp <- inat_data %>%
@@ -843,7 +847,7 @@ table(temp$year)
 
 Use `class()` to check the data type.
 
-```{r}
+```{r year_class}
 class(temp$year)
 ```
 
@@ -852,9 +856,13 @@ class(temp$year)
 Let's get all observations for 2020. Use `mutate()` to add `year` column, and use `filter()` to select rows where year is 2020.
 
 ```{r, 2020_observations}
-inat_data %>%
+temp <- inat_data %>%
   mutate(year = year(observed_on)) %>%
   filter(year == 2020)
+```
+
+```{r unique_years}
+unique(temp$year)
 ```
 
 Since `year` column contains numbers, we can do greater than or less than comparison.
@@ -867,7 +875,7 @@ temp <- inat_data %>%
   filter(year >= 2018 & year <= 2020)
 ```
 
-```{r}
+```{r unique_years_multiple}
 unique(temp$year)
 ```
 
@@ -878,7 +886,7 @@ Get all of your observations from 2024.
 
 -   Use `my_inat_data` to access CNC observations
 -   Use `mutate()` and `year()` to add year column
--   Use `filter()` to pick observations with your username and year is 2024
+-   Use `filter()` to pick observations with your username and year is 2024. Use 'quantron' as the user if you don't have CNC observations.
 -   Use select() to pick 4 columns
 
 ::: answer
@@ -988,7 +996,7 @@ Get the number of observation you made per year
 -   Use `my_inat_data` to access CNC observations
 -   Use `mutate()` and `year()` to add year column
 -   Use `count()` to count the number of observations per year
--   Use `filter()` to select observations with your username
+-   Use `filter()` to select observations with your username. Use 'quantron' as the user if you don't have CNC observations.
 
 ::: answer
 ```{r, exercise_observations_per_year}
@@ -1004,13 +1012,13 @@ my_inat_data %>%
 
 If you want to save your results, you can save the data frames as CSVs.
 
-For instance, a user might only want to analyze their observations that are research grade and unobscured location. Instead of writing that filter command every time, they can save that data.frame to `data/cleaned` directory, and use that saved data set for all their analysis.
+For instance, a user might only want to their observations that are research grade and unobscured location.
 
 First, assign the data frame to an object.
 
 ```{r, 3_condition_my_observation}
 
-my_obs <- my_data <- inat_data %>%
+my_obs <- inat_data %>%
   filter(user_login == 'natureinla' & 
            quality_grade == 'research' & 
            coordinates_obscured == FALSE) 
@@ -1023,7 +1031,7 @@ Then use `write_csv()` from **dplyr** to create a CSV.
 
 -   The first argument is the data frame to save.
 -   The second argument is the relative path of where to save the file.
--   To keep our files organized, we are saving CSVs to the results folder.
+-   To keep our files organized, we can save the csv in `data/cleaned` or `results`.
 -   You should give the file a sensible name to help you remember what is in the file. Some people add the date to the file name to keep track of the various versions.
 -   By default `NA` values will be saved as 'NA' string. `na=''` will save `NA` values as empty strings.
 
@@ -1032,27 +1040,4 @@ Then use `write_csv()` from **dplyr** to create a CSV.
 write_csv(my_obs, here('data/cleaned/my_observations.csv'), na='')
 ```
 
-## Save changes to your repository
-
-We are using Github, Github Classrooms and Github Codespaces to host and run our code.
-
-When you create or edit a file, the changes are saved to Codespaces. You also need to save the changes to your repository. By saving the changes to your repository, you will have access to your files after the workshop ends.
-
-Terminal is a program that allows you to write commands for the computer. To access the terminal, go to first the browser tab for Codespaces. Click the "TERMINAL" tab.
-
-![](images/terminal.png)
-
-Click on the \$. Then type the following command after the \$, and hit enter.
-
-```{bash}
-#| eval: false
-bash  ./scripts/save_files.sh
-```
-
-![](images/terminal_save_files.png)
-
-This will run a script called "save_files.sh" to save any changes you made to the repository.
-
-::: callout-note
-This script uses Git to update your repository. The script creates a git commit and pushes the commit to your repository. If you want to learn more about Git, watch this 14 minute [Git tutorial](https://www.youtube.com/watch?v=BCQHnlnPusY).
-:::
+## 

@@ -10,7 +10,6 @@ classroom_organization <- 'data-explorers-feb-2025'
 classroom_repos <- paste0('https://github.com/orgs/', classroom_organization, '/repositories')
 ```
 
-
 This workshop use GitHub to host and run the code, data, software, and infrastructure needed for the workshop. Attendees will not need to install stuff on their own computer; everything is available online using GitHub.
 
 If you are interested in installing all the software, data, and code on your computer, visit the [Setup - local page](setup-local.qmd)
@@ -25,7 +24,9 @@ It will take about ten minutes to set things up on Github.
 
 [GitHub Classroom](https://classroom.github.com) is a tool that teachers can use to share, manage, and grade assignments.
 
-[RStudio](https://posit.co/products/open-source/rstudio/) is software to write and run R code.
+[RStudio](https://posit.co/products/open-source/rstudio/) is a software application to write and run R code.
+
+[Visual Studio Code](https://code.visualstudio.com) is a software application to write and run code in a variety of languages.
 
 ### If you don't have a Github account, create an account.
 
@@ -44,11 +45,9 @@ To access the files needed for the workshop, join the After iNaturalist Github C
 
 2.  You will see a "Accept the assignment" page. Click "Accept this assignment" button.
 
-       
 This will create a repository in GitHub with code and data for the workshop. The repository will be created in [`{r} classroom_organization`](`{r} classroom_repos`) Github account. You will save your work to this repository. Only you and the workshop organizers can access your repository.
 
 ![](images/setup/accept-assignment.png)
-
 
 3.  You will see a "You're ready to go!" page. Copy the link for your repository and save it somewhere on your computer. This is how you will access your repository on subsequent visits. Click "Open in GitHub Codespaces" button.
 
@@ -57,6 +56,8 @@ This will create a repository in GitHub with code and data for the workshop. The
     ![](images/setup/open-codespace.png)
 
 4.  You will see page with "Setting up remote connection: Building codespace..." message in the corner. The software for the workshop is being downloaded and installed. This will take about 5 minutes.
+
+    This is Visual Studio Code, the default code editor for GitHub Codespaces. We want to use RStudio as our code editor.
 
 ![](images/setup/building-codespace.png)
 
@@ -74,13 +75,9 @@ This will create a repository in GitHub with code and data for the workshop. The
 
 You are done setting up Github. If you have problems, please email us.
 
-## Accessing your files
+## Using Codespaces
 
-After the initial setup of Codespaces, there are two ways to access the files in your repository.
-
-1.  To access your repository, use the link provided in the step 3 from 'Initial Setup'.
-
-Or
+After the initial setup of Codespaces, you can restart Codespaces so that you can continue to code.
 
 1.  Go to [`{r} classroom_organization`](`{r} classroom_repos`) Github page, and you should see your repository. Click on your repository.
 
@@ -95,3 +92,15 @@ Or
 4.  In the PORTS tab, hover over the item named RStudio. Click on the middle globe icon to start RStudio in a new browser tab.
 
 ![](images/setup/rstudio-port.png)
+
+### Codespace stopped
+
+If you don't use RStudio for a few minutes, Codespace will automatically stop. You will see this error message in RStudio console:
+
+![](images/codespace-stop/Codespace-stopped-Rstudio.png)
+
+You will also see "Codespace is stopped" on Visual Studio Code page.
+
+![](images/codespace-stop/Codespace-stopped.png)
+
+Click "Restart codespace" button to restart Codespace. Then click "PORTS", and the middle globe icon for RStudio to restart RStudio.

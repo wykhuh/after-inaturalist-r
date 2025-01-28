@@ -25,6 +25,12 @@ library(here) # file paths
 source(here('scripts/map_utils.R'))
 ```
 
+There is a bug with **sf** <https://github.com/r-spatial/sf/issues/1762>. This bit of code is fix for the bug.
+
+```{r fix_sf_bug}
+sf_use_s2(FALSE)
+```
+
 First, we need to read data from the CNC iNaturalist observation file.
 
 ```{r, read_data_from_csv}
@@ -90,7 +96,7 @@ inat_year_count <- inat_data %>%
 inat_year_count
 ```
 
-```{r}
+```{r plot_column_line_for_year_count}
 ggplot(data = inat_year_count,
        mapping = aes(x = year, y = count)) +
   geom_col() +
@@ -114,29 +120,23 @@ ggplot() +
 
 Let's get the observation counts for neighborhoods around Exposition Park
 
-```{r}
+```{r ge_neighborhoods}
 la_neighborhoods_sf <- read_sf(here('data/raw/la_times_la_county_neighborhoods.json'))
 
 ```
 
 Get Exposition Park neighborhood
 
-```{r}
+```{r get_expo_park}
 expo_park_sf <- la_neighborhoods_sf %>% 
   filter(name=='Exposition Park')
 
 expo_park_sf
 ```
 
-There is a bug with **sf** <https://github.com/r-spatial/sf/issues/1762>. This bit of code is fix for the bug.
-
-```{r fix_sf_bug}
-sf_use_s2(FALSE)
-```
-
 Get neighborhoods surrounding Exposition Park
 
-```{r}
+```{r get_neighborhoods_around_expo_park}
 expo_area_sf <- la_neighborhoods_sf[lengths(st_intersects(la_neighborhoods_sf, expo_park_sf)) > 0, ]
 
 expo_area_sf <-  expo_area_sf %>%
@@ -147,7 +147,7 @@ expo_area_sf
 
 Use custom function `add_inat_count_to_boundary_sf()` to count the number of iNaturalist observations per neighborhood.
 
-```{r}
+```{r add_inat_count_to_neighborhoods}
 expo_area_count_sf <- add_inat_count_to_boundary_sf(inat_sf, expo_area_sf, 'name')
 
 expo_area_count_sf
@@ -155,7 +155,7 @@ expo_area_count_sf
 
 Create map with labels that show counts
 
-```{r}
+```{r map_observations_per_expo_neighborhoods}
 
 ggplot(expo_area_count_sf, aes(label=paste0(name,': ', observations_count))) +
   geom_sf() +
@@ -165,14 +165,14 @@ ggplot(expo_area_count_sf, aes(label=paste0(name,': ', observations_count))) +
 
 Change crs to since basemaps package uses 3857
 
-```{r}
+```{r update_crs}
 expo_area_count_sf <- st_transform(expo_area_count_sf,  crs = st_crs(3857))
 
 ```
 
 Create map with labels that show counts and basemap
 
-```{r}
+```{r create_map_with_basemap}
 
 ggplot(expo_area_count_sf) +
   basemap_gglayer(expo_area_count_sf) + 
@@ -211,16 +211,10 @@ st_crs(ejsm_sf) == st_crs(inat_sf)
 
 Update CRS
 
-```{r}
+```{r update_crs_for_ejsm}
 ejsm_sf <- st_transform(ejsm_sf,  crs = st_crs(inat_sf))
 
 st_crs(ejsm_sf) == st_crs(inat_sf)
-```
-
-There is a bug with **sf** <https://github.com/r-spatial/sf/issues/1762>. This bit of code is fix for the bug.
-
-```{r fix_sf_bug_2}
-sf_use_s2(FALSE)
 ```
 
 Use custom function `add_inat_count_to_boundary_sf()` to count the number of iNaturalist observations per region and add the count to `ejsm_sf`.

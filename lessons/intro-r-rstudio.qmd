@@ -5,6 +5,12 @@ include-in-header: "components/add-answer-button.html"
 editor: visual
 ---
 
+```{r}
+#| include: false
+classroom_organization <- 'data-explorers-feb-2025'
+classroom_repos <- paste0('https://github.com/orgs/', classroom_organization, '/repositories')
+```
+
 ::: summary
 ## Questions
 
@@ -20,9 +26,20 @@ editor: visual
 
 ## What are R and RStudio?
 
-R refers to a programming language as well as the software that runs R code.
+R is a programming language. R is a popular language for data analysis.
 
-[RStudio](https://rstudio.com/) is a software interface that can make it easier to write R scripts and interact with the R software.
+[RStudio](https://rstudio.com/) is software application that can make it easier to write and run R code.
+
+## Running R and RStudio
+
+Let's start R and RStudio in GitHub Codespaces.
+
+1.  Go to [`{r} classroom_organization`](`{r} classroom_repos`) on Github.
+2.  Click on your repo.
+3.  Click "Open in GitHub Codespaces" button.
+4.  Click "PORTS" after the Codespace is finished building.
+5.  Hover over "RStudio".
+6.  Click on middle globe icon to start RStudio.
 
 ## Navigating RStudio
 
@@ -43,25 +60,35 @@ Let's examine the project files using the **Files** pane.
 
 It is a good practice to organize your projects into self-contained folders. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into subfolders.
 
-```         
+```
 project_folder
 │
+└── .devcontainer
+│
+└── .gitignore
+|
 └── data
 │    └── cleaned
 │    └── raw
 │
-└─── results
+└── project.Rproj
+│
+└── readme.md
+|
+└── results
 │
 └── scripts
-│
-└── project.Rproj
+    └── lesson-scripts
+
 ```
 
-Within our project folder, we have a `data` folder containing `cleaned` and `raw` sub-folders. In general, you want to keep your `raw` data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the `cleaned` folder. We also have a `results` folder for any other documents you might produce. We also have a `scripts` folder to hold any scripts we write.
+We have a `data` folder containing `cleaned` and `raw` sub-folders. In general, you want to keep your `raw` data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the `cleaned` folder. We also have a `results` folder for any other documents you might produce. We also have a `scripts` folder to hold any scripts we write. We have a `lesson-scripts` subfolder that has all the code from the lesson.
 
 RStudio provides a “Projects” feature that can make it easier to work on individual projects in R. RStudio projects have a `xxx.Rproj` file.
 
 One of the benefits to using RStudio Projects is that they automatically set the **working directory** to the top-level folder for the project. The working directory is the folder where R is working, so it views the location of all files (including data and scripts) as being relative to the working directory.
+
+Since the workshop is hosted on Github, we also have some additional files. `.devcontainer` has instructions on how to create Github Codespaces. `.gitignore` lists files and folders that Git should not track. `readme.md` gives a basic description of this project. Github displays the readme on the repository webpage. If you run R and RStudio on your own computer, then you don't need these additional files.
 
 ## Working in R and RStudio
 
@@ -111,6 +138,14 @@ Now click into your blank script, and type:
 
 With your cursor on that line, hit <kbd>Cmd+Enter</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) to run the code. You will see that your code was sent from the script to the console, where it returned a value of `3`.
 
+### Saving scripts
+
+Save script files by using <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a descriptive name such as 'first_script.R'. Save it in the `scripts` folder.
+
+RStudio does not have an auto save. You need to manually save the files. You should save often.
+
+When you change a file, the name of the file will appear red in the tab. That means the file has unsaved changes. When you save the file, the name turns black.
+
 ### Objects and Assignment
 
 Sometimes we want to store values in memory so we can use it later. We can save values using the assignment operator `<-` (`<` less than and `-` hyphen).
@@ -119,35 +154,35 @@ Sometimes we want to store values in memory so we can use it later. We can save 
 
 When there is `<-`, R creates an object, names the object `object_name,` and assigns `value` to the object. We use the `object_name` to access the value. Objects are shown in the **Environment** pane.
 
-Let's create `price_1` and `price_2` objects and assign them some values.
+Let's create `price1` and `price2` objects and assign them some values.
 
 ```{r assignment}
-price_1 <- 2
-price_2 <- 3
+price1 <- 2
+price2 <- 3
 ```
 
 Now that we have the two objects saved in memory, we can do things with those objects. We can add the two prices.
 
 ```{r, adding_objects}
-price_1 + price_2
+price1 + price2
 ```
 
 We can reassign new values to an existing object
 
 ```{r}
-price_1 <- 10
+price1 <- 10
 
-price_1 + price_2
+price1 + price2
 ```
 
 ### Comparing values
 
-We can do comparison of price_1 and price_2. The comparisons return TRUE or FALSE.
+We can do comparison of price1 and price2. The comparisons return TRUE or FALSE.
 
 ```{r equal_comparison}
-price_1 == price_2
+price1 == price2
 
-price_1 > price_2
+price1 > price2
 ```
 
 R comparison operators:
@@ -164,10 +199,6 @@ R comparison operators:
 
 `<=` less or equal than
 
-### Saving scripts
-
-Save script files by using <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a descriptive name such as 'first_script.R'. Save it in the `scripts` folder.
-
 ### Naming objects
 
 You should try to use a descriptive name when naming objects to help you remember what information is contained in the object.
@@ -179,3 +210,30 @@ first_name <- 'Jane'
 firstName <- 'Jane'
 first.name <- 'Jane'
 ```
+
+### Save changes to your repository
+
+We are using Github and Github Codespaces to host and run our code.
+
+When you create or edit a file, the changes are saved to Codespaces. You also need to save the changes to your repository. By saving the changes to your repository, you will have access to your files after the workshop ends.
+
+Terminal is a program that allows you to write commands for the computer. To access the terminal, go to first the browser tab for Codespaces. Click "bash" in the bottom right, then click the "TERMINAL" tab.
+
+![](images/terminal.png)
+
+Click on the \$. Then type the following command after the \$, and hit enter.
+
+```{bash}
+#| eval: false
+bash  ./scripts/save_files.sh
+```
+
+![](images/terminal_save_files.png)
+
+This will run a script called "save_files.sh" to save any changes you made to the repository.
+
+When you make a substantial amount of changes, you should run the save_files.sh script. When you are done coding for the day, you should run the save_files.sh script.
+
+::: callout-note
+This script uses Git to update your repository. The script creates a git commit and pushes the commit to your repository. If you want to learn more about Git, watch this 14 minute [Git tutorial](https://www.youtube.com/watch?v=BCQHnlnPusY).
+:::
