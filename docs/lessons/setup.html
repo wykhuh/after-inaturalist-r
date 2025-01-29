@@ -161,8 +161,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../lessons/normalizing-inat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Normalizing iNaturalist data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../lessons/other-datasets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using to other datasets</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/additional-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Additional Analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -180,12 +192,6 @@ ul.task-list li input[type="checkbox"] {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lessons/additional-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Additional Analysis</span></a>
-  </div>
-</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lessons/editing-geo-files.html" class="sidebar-item-text sidebar-link">
@@ -227,7 +233,10 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#if-you-dont-have-a-github-account-create-an-account." id="toc-if-you-dont-have-a-github-account-create-an-account." class="nav-link" data-scroll-target="#if-you-dont-have-a-github-account-create-an-account.">If you don’t have a Github account, create an account.</a></li>
   <li><a href="#setup-github-classroom-and-codespaces" id="toc-setup-github-classroom-and-codespaces" class="nav-link" data-scroll-target="#setup-github-classroom-and-codespaces">Setup Github Classroom and Codespaces</a></li>
   </ul></li>
-  <li><a href="#accessing-your-files" id="toc-accessing-your-files" class="nav-link" data-scroll-target="#accessing-your-files">Accessing your files</a></li>
+  <li><a href="#using-codespaces" id="toc-using-codespaces" class="nav-link" data-scroll-target="#using-codespaces">Using Codespaces</a>
+  <ul class="collapse">
+  <li><a href="#codespace-stopped" id="toc-codespace-stopped" class="nav-link" data-scroll-target="#codespace-stopped">Codespace stopped</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -261,7 +270,8 @@ ul.task-list li input[type="checkbox"] {
 <p><a href="https://github.com">GitHub</a> is an online platform that lets people store, manage, and share their code. Github uses version control software called <a href="https://git-scm.com/">Git</a> that keeps track of changes for all files inside a folder. We call a folder that uses Git to track changes a repository.</p>
 <p><a href="https://github.com/features/codespaces">GitHub Codespaces</a> provide an online development environment where people can run their code without installing stuff on their computer.</p>
 <p><a href="https://classroom.github.com">GitHub Classroom</a> is a tool that teachers can use to share, manage, and grade assignments.</p>
-<p><a href="https://posit.co/products/open-source/rstudio/">RStudio</a> is software to write and run R code.</p>
+<p><a href="https://posit.co/products/open-source/rstudio/">RStudio</a> is a software application to write and run R code.</p>
+<p><a href="https://code.visualstudio.com">Visual Studio Code</a> is a software application to write and run code in a variety of languages.</p>
 <section id="if-you-dont-have-a-github-account-create-an-account." class="level3">
 <h3 class="anchored" data-anchor-id="if-you-dont-have-a-github-account-create-an-account.">If you don’t have a Github account, create an account.</h3>
 <ol type="1">
@@ -290,7 +300,8 @@ ul.task-list li input[type="checkbox"] {
 <li><p>You will see a “You’re ready to go!” page. Copy the link for your repository and save it somewhere on your computer. This is how you will access your repository on subsequent visits. Click “Open in GitHub Codespaces” button.</p>
 <p>This will set up an online development environment where you can write and run code.</p>
 <p><img src="images/setup/open-codespace.png" class="img-fluid"></p></li>
-<li><p>You will see page with “Setting up remote connection: Building codespace…” message in the corner. The software for the workshop is being downloaded and installed. This will take about 5 minutes.</p></li>
+<li><p>You will see page with “Setting up remote connection: Building codespace…” message in the corner. The software for the workshop is being downloaded and installed. This will take about 5 minutes.</p>
+<p>This is Visual Studio Code, the default code editor for GitHub Codespaces. We want to use RStudio as our code editor.</p></li>
 </ol>
 <p><img src="images/setup/building-codespace.png" class="img-fluid"></p>
 <ol start="5" type="1">
@@ -304,13 +315,9 @@ ul.task-list li input[type="checkbox"] {
 <p>You are done setting up Github. If you have problems, please email us.</p>
 </section>
 </section>
-<section id="accessing-your-files" class="level2">
-<h2 class="anchored" data-anchor-id="accessing-your-files">Accessing your files</h2>
-<p>After the initial setup of Codespaces, there are two ways to access the files in your repository.</p>
-<ol type="1">
-<li>To access your repository, use the link provided in the step 3 from ‘Initial Setup’.</li>
-</ol>
-<p>Or</p>
+<section id="using-codespaces" class="level2">
+<h2 class="anchored" data-anchor-id="using-codespaces">Using Codespaces</h2>
+<p>After the initial setup of Codespaces, you can restart Codespaces so that you can continue to code.</p>
 <ol type="1">
 <li><p>Go to <a href="https://github.com/orgs/data-explorers-feb-2025/repositories">data-explorers-feb-2025</a> Github page, and you should see your repository. Click on your repository.</p></li>
 <li><p>Scroll to the bottom of the page, and click the “Open in GitHub Codespaces” button. This will restart the Codespace created in the “Setup Github Classroom and Codespaces” section.</p>
@@ -320,8 +327,16 @@ ul.task-list li input[type="checkbox"] {
 <li><p>In the PORTS tab, hover over the item named RStudio. Click on the middle globe icon to start RStudio in a new browser tab.</p></li>
 </ol>
 <p><img src="images/setup/rstudio-port.png" class="img-fluid"></p>
+<section id="codespace-stopped" class="level3">
+<h3 class="anchored" data-anchor-id="codespace-stopped">Codespace stopped</h3>
+<p>If you don’t use RStudio for a few minutes, Codespace will automatically stop. You will see this error message in RStudio console:</p>
+<p><img src="images/codespace-stop/Codespace-stopped-Rstudio.png" class="img-fluid"></p>
+<p>You will also see “Codespace is stopped” on Visual Studio Code page.</p>
+<p><img src="images/codespace-stop/Codespace-stopped.png" class="img-fluid"></p>
+<p>Click “Restart codespace” button to restart Codespace. Then click “PORTS”, and the middle globe icon for RStudio to restart RStudio.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

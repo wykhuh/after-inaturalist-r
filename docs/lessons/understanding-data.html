@@ -242,8 +242,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../lessons/normalizing-inat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Normalizing iNaturalist data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../lessons/other-datasets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using to other datasets</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/additional-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Additional Analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -261,12 +273,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lessons/additional-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Additional Analysis</span></a>
-  </div>
-</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lessons/editing-geo-files.html" class="sidebar-item-text sidebar-link">
@@ -408,7 +414,7 @@ $ establishment_means        &lt;chr&gt; "introduced", NA, "native", "native", "
 <section id="data-types" class="level2">
 <h2 class="anchored" data-anchor-id="data-types">Data Types</h2>
 <p><code>glimpse()</code> shows <code>&lt;dbl&gt; &lt;date&gt; &lt;chr&gt; &lt;lgl&gt;</code>. Those are data types.</p>
-<p>In computer programming, <strong>data type</strong> is a way to group data values. Every value has a data type. A value’s data type will determine what the programming language can do with the value. For instance, in R we can add numbers but we can’t add character strings.</p>
+<p>In computer programming, <strong>data type</strong> is a way to group data values. Every value has a data type. An analogy is human languages have numbers and words. A value’s data type will determine what the programming language can do with the value. For instance, in R we can add numbers but we can’t add character strings.</p>
 <p>There are 4 main types in R: <strong>numeric</strong>, <strong>integer</strong>, <strong>logical</strong>, and <strong>character</strong>.</p>
 <ul>
 <li><p><strong>numeric</strong> are numbers that contain a decimal (e.g.&nbsp;1.2, 10.5). By default, R also treats whole numbers as decimals (e.g.&nbsp;1, 10).</p></li>
@@ -491,7 +497,7 @@ $ establishment_means        &lt;chr&gt; "introduced", NA, "native", "native", "
 </section>
 <section id="missing-data" class="level2">
 <h2 class="anchored" data-anchor-id="missing-data">Missing data</h2>
-<p>R represents missing data as <code>NA</code>, without quotes. <code>NA</code> stands for not applicable.</p>
+<p>In tabular data, there are times when a record does not have a value for a particular field. In spreadsheet programs, when there is no value, cells are left blank. R represents missing values as <code>NA</code>, without quotes. <code>NA</code> stands for not applicable.</p>
 <p><code>NA</code> is allowed in vectors of any data type.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>)</span>

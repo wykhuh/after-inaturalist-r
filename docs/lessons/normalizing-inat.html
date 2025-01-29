@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to R and RStudio – After iNaturalist</title>
+<title>Normalizing iNaturalist data – After iNaturalist</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -100,53 +100,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script>
-// https://stackoverflow.com/questions/76119872/quarto-website-make-template-for-javascript-button-show-answer
-
-  function addAnswerWithButton(answerClass, buttonText, answerText) {
-
-    const divElement = document.querySelector(`.${answerClass}`);
-    const randomId = "answer-" + Math.floor(Math.random() * 1000000);
-
-    // Create the new button element
-    const buttonElement = document.createElement("button");
-    buttonElement.className = "btn btn-primary show-answer";
-    buttonElement.textContent = 'Show solution';
-    buttonElement.onclick = function() {
-      showAnswer(randomId);
-    };
-
-    // Create the new answer element
-    const answerElement = document.createElement("div");
-    answerElement.id = randomId;
-    answerElement.style.display = "none";
-    answerElement.innerHTML = answerText;
-
-    // Replace the div element with the new button and answer elements
-    divElement.parentNode.replaceChild(buttonElement, divElement);
-    buttonElement.insertAdjacentElement("afterend", answerElement);
-  }
-
-  function showAnswer(answerId) {
-    var answer = document.getElementById(answerId);
-    if (answer.style.display === "none") {
-      answer.style.display = "block";
-    } else {
-      answer.style.display = "none";
-    }
-  }
-
-  function addAnswerButton() {
-    var answers = document.querySelectorAll(".answer")
-    answers.forEach(e => {
-      addAnswerWithButton("answer", " Show solution", e.innerHTML);
-    });
-  }
-
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    addAnswerButton();
-  });
-</script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -161,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/intro-r-rstudio.html">Introduction to R and RStudio</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/normalizing-inat.html">Normalizing iNaturalist data</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -212,7 +165,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/intro-r-rstudio.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lessons/intro-r-rstudio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to R and RStudio</span></a>
   </div>
 </li>
@@ -242,7 +195,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/normalizing-inat.html" class="sidebar-item-text sidebar-link">
+  <a href="../lessons/normalizing-inat.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Normalizing iNaturalist data</span></a>
   </div>
 </li>
@@ -309,23 +262,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#what-are-r-and-rstudio" id="toc-what-are-r-and-rstudio" class="nav-link active" data-scroll-target="#what-are-r-and-rstudio">What are R and RStudio?</a></li>
-  <li><a href="#running-r-and-rstudio" id="toc-running-r-and-rstudio" class="nav-link" data-scroll-target="#running-r-and-rstudio">Running R and RStudio</a></li>
-  <li><a href="#navigating-rstudio" id="toc-navigating-rstudio" class="nav-link" data-scroll-target="#navigating-rstudio">Navigating RStudio</a></li>
-  <li><a href="#overview-of-workshop-files" id="toc-overview-of-workshop-files" class="nav-link" data-scroll-target="#overview-of-workshop-files">Overview of workshop files</a></li>
-  <li><a href="#working-in-r-and-rstudio" id="toc-working-in-r-and-rstudio" class="nav-link" data-scroll-target="#working-in-r-and-rstudio">Working in R and RStudio</a>
-  <ul class="collapse">
-  <li><a href="#console-vs.-script" id="toc-console-vs.-script" class="nav-link" data-scroll-target="#console-vs.-script">Console vs.&nbsp;script</a></li>
-  </ul></li>
-  <li><a href="#first-script" id="toc-first-script" class="nav-link" data-scroll-target="#first-script">First script</a>
-  <ul class="collapse">
-  <li><a href="#r-as-calculator" id="toc-r-as-calculator" class="nav-link" data-scroll-target="#r-as-calculator">R as Calculator</a></li>
-  <li><a href="#saving-scripts" id="toc-saving-scripts" class="nav-link" data-scroll-target="#saving-scripts">Saving scripts</a></li>
-  <li><a href="#objects-and-assignment" id="toc-objects-and-assignment" class="nav-link" data-scroll-target="#objects-and-assignment">Objects and Assignment</a></li>
-  <li><a href="#comparing-values" id="toc-comparing-values" class="nav-link" data-scroll-target="#comparing-values">Comparing values</a></li>
-  <li><a href="#naming-objects" id="toc-naming-objects" class="nav-link" data-scroll-target="#naming-objects">Naming objects</a></li>
-  <li><a href="#save-changes-to-your-repository" id="toc-save-changes-to-your-repository" class="nav-link" data-scroll-target="#save-changes-to-your-repository">Save changes to your repository</a></li>
-  </ul></li>
+  <li><a href="#get-cnc-data" id="toc-get-cnc-data" class="nav-link active" data-scroll-target="#get-cnc-data">Get CNC data</a></li>
+  <li><a href="#get-observations-for-a-region" id="toc-get-observations-for-a-region" class="nav-link" data-scroll-target="#get-observations-for-a-region">Get observations for a region</a></li>
+  <li><a href="#calculate-species-diversity" id="toc-calculate-species-diversity" class="nav-link" data-scroll-target="#calculate-species-diversity">Calculate species diversity</a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise 1</a></li>
   </ul>
 </nav>
     </div>
@@ -334,7 +274,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introduction to R and RStudio</h1>
+<h1 class="title">Normalizing iNaturalist data</h1>
 </div>
 
 
@@ -351,227 +291,207 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="summary">
-<section id="questions" class="level2">
-<h2 class="anchored" data-anchor-id="questions">Questions</h2>
-<ul>
-<li>What is R and RStudio?</li>
-<li>How do you get started working in R and RStudio?</li>
-</ul>
-</section>
-<section id="objectives" class="level2">
-<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
-<ul>
-<li>Understand the difference between R and RStudio.</li>
-<li>Describe the purpose of the different RStudio panes.</li>
-<li>Organize files and directories into R Projects.</li>
-</ul>
-</section>
-</div>
-<section id="what-are-r-and-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="what-are-r-and-rstudio">What are R and RStudio?</h2>
-<p>R is a programming language. R is a popular language for data analysis.</p>
-<p><a href="https://rstudio.com/">RStudio</a> is software application that can make it easier to write and run R code.</p>
-</section>
-<section id="running-r-and-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="running-r-and-rstudio">Running R and RStudio</h2>
-<p>Let’s start R and RStudio in GitHub Codespaces.</p>
-<ol type="1">
-<li>Go to <a href="https://github.com/orgs/data-explorers-feb-2025/repositories">data-explorers-feb-2025</a> on Github.</li>
-<li>Click on your repo.</li>
-<li>Click “Open in GitHub Codespaces” button.</li>
-<li>Click “PORTS” after the Codespace is finished building.</li>
-<li>Hover over “RStudio”.</li>
-<li>Click on middle globe icon to start RStudio.</li>
-</ol>
-</section>
-<section id="navigating-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="navigating-rstudio">Navigating RStudio</h2>
-<p>We will use the RStudio integrated development environment (IDE) to write code into scripts, run code in R, navigate files on our computer, inspect objects we create in R, and look at the plots we make.</p>
-<p><img src="images/rstudio_screenshot.png" class="img-fluid" alt="Screenshot of RStudio showing the 4 &quot;panes&quot;."></p>
-<p>In the above screenshot, we can see 4 panes. If you only have 3 panes, and the Console pane is in the top left, press <kbd>Shift+Cmd+N</kbd> (Mac) or <kbd>Shift+Ctrl+N</kbd> (Windows) to open a blank R script, which should make the Source pane appear.</p>
-<ul>
-<li>Top-Left: <strong>Source</strong>&nbsp;pane that displays scripts and other files.</li>
-<li>Top-Right: <strong>Environment</strong> pane which shows all the objects in your current R session.</li>
-<li>Bottom-Left: <strong>Console</strong> pane where you can interact directly with an R console, which interprets R commands and prints the results</li>
-<li>Bottom-Right: <strong>Files</strong> pane displays directories and files on your computer. <strong>Plot</strong> and <strong>Viewer</strong> displays plots and other types of output. <strong>Help</strong> display help pages.</li>
-</ul>
-</section>
-<section id="overview-of-workshop-files" class="level2">
-<h2 class="anchored" data-anchor-id="overview-of-workshop-files">Overview of workshop files</h2>
-<p>Let’s examine the project files using the <strong>Files</strong> pane.</p>
-<p>It is a good practice to organize your projects into self-contained folders. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into subfolders.</p>
-<pre><code>project_folder
-│
-└── .devcontainer
-│
-└── .gitignore
-|
-└── data
-│    └── cleaned
-│    └── raw
-│
-└── project.Rproj
-│
-└── readme.md
-|
-└── results
-│
-└── scripts
-    └── lesson-scripts
-</code></pre>
-<p>We have a <code>data</code> folder containing <code>cleaned</code> and <code>raw</code> sub-folders. In general, you want to keep your <code>raw</code> data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the <code>cleaned</code> folder. We also have a <code>results</code> folder for any other documents you might produce. We also have a <code>scripts</code> folder to hold any scripts we write. We have a <code>lesson-scripts</code> subfolder that has all the code from the lesson.</p>
-<p>RStudio provides a “Projects” feature that can make it easier to work on individual projects in R. RStudio projects have a <code>xxx.Rproj</code> file.</p>
-<p>One of the benefits to using RStudio Projects is that they automatically set the <strong>working directory</strong> to the top-level folder for the project. The working directory is the folder where R is working, so it views the location of all files (including data and scripts) as being relative to the working directory.</p>
-<p>Since the workshop is hosted on Github, we also have some additional files. <code>.devcontainer</code> has instructions on how to create Github Codespaces. <code>.gitignore</code> lists files and folders that Git should not track. <code>readme.md</code> gives a basic description of this project. Github displays the readme on the repository webpage. If you run R and RStudio on your own computer, then you don’t need these additional files.</p>
-</section>
-<section id="working-in-r-and-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="working-in-r-and-rstudio">Working in R and RStudio</h2>
-<section id="console-vs.-script" class="level3">
-<h3 class="anchored" data-anchor-id="console-vs.-script">Console vs.&nbsp;script</h3>
-<p>You can run commands directly in the R console, or you can write them into an R script.</p>
-<section id="console" class="level4">
-<h4 class="anchored" data-anchor-id="console">Console</h4>
-<ul>
-<li>The R console is where code is run/executed</li>
-<li>The <strong>prompt</strong>, which is the <code>&gt;</code> symbol, is where you can type commands</li>
-<li>By pressing <kbd>Return</kbd> (Mac) or <kbd>Enter</kbd> (Windows), R will execute those commands and print the result.</li>
-<li>When you write commands in the R console, you will not be able to access your work in future.</li>
-</ul>
-<p>Let’s try running some code in the console.</p>
-<p>First, click down in the Console pane, and type:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 3</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapview)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<p>Hit <kbd>Return</kbd> or <kbd>Enter</kbd> to run the code. You should see your code echoed, and then the value of <code>3</code> returned.</p>
-</section>
-<section id="script" class="level4">
-<h4 class="anchored" data-anchor-id="script">Script</h4>
-<ul>
-<li>A script is a record of commands to send to R, preserved in a plain text file with a <code>.R</code> extension</li>
-<li>You type out lines of R code in a script, then send them to the R console to be evaluated. There are a few ways to run the code
-<ol type="1">
-<li><kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) will run the line of code that your cursor is on. If you highlight multiple lines of code, you can run all of them by pressing <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows)</li>
-<li>click on the&nbsp;<code>Run</code>&nbsp;button above the editor panel</li>
-</ol></li>
-<li>By preserving commands in a script, you can edit and rerun them quickly, save them for later, and share them with others</li>
-<li>An additional benefit of scripts is that you can leave <strong>comments</strong> for yourself or others to read. Lines that start with <code>#</code> are considered comments and will not be interpreted as R code.</li>
-</ul>
-</section>
-</section>
-</section>
-<section id="first-script" class="level2">
-<h2 class="anchored" data-anchor-id="first-script">First script</h2>
-<p>Let’s create our first script.</p>
-<p>You can make a new R script by clicking <code>File → New File → R Script</code>, clicking the green <code>+</code> button in the top left corner of RStudio, or pressing <kbd>Shift+Cmd+N</kbd> (Mac) or <kbd>Shift+Ctrl+N</kbd> (Windows). It will be unsaved, and called “Untitled1”</p>
-<section id="r-as-calculator" class="level3">
-<h3 class="anchored" data-anchor-id="r-as-calculator">R as Calculator</h3>
-<p>Now click into your blank script, and type:</p>
+<p>There is a bug with <strong>sf</strong> <a href="https://github.com/r-spatial/sf/issues/1762" class="uri">https://github.com/r-spatial/sf/issues/1762</a>. This bit of code is fix for the bug.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 3</code></pre>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Spherical geometry (s2) switched off</code></pre>
 </div>
 </div>
-<p>With your cursor on that line, hit <kbd>Cmd+Enter</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) to run the code.&nbsp;You will see that your code was sent from the script to the console, where it returned a value of&nbsp;<code>3</code>.</p>
-</section>
-<section id="saving-scripts" class="level3">
-<h3 class="anchored" data-anchor-id="saving-scripts">Saving scripts</h3>
-<p>Save script files by using <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a descriptive name such as ‘first_script.R’. Save it in the <code>scripts</code> folder.</p>
-<p>RStudio does not have an auto save. You need to manually save the files. You should save often.</p>
-<p>When you change a file, the name of the file will appear red in the tab. That means the file has unsaved changes. When you save the file, the name turns black.</p>
-</section>
-<section id="objects-and-assignment" class="level3">
-<h3 class="anchored" data-anchor-id="objects-and-assignment">Objects and Assignment</h3>
-<p>Sometimes we want to store values in memory so we can use it later. We can save values using the assignment operator <code>&lt;-</code> (<code>&lt;</code> less than and <code>-</code> hyphen).</p>
-<p><code>object_name &lt;- value</code></p>
-<p>When there is <code>&lt;-</code>, R creates an object, names the object <code>object_name,</code> and assigns <code>value</code> to the object. We use the <code>object_name</code> to access the value. Objects are shown in the <strong>Environment</strong> pane.</p>
-<p>Let’s create <code>price1</code> and <code>price2</code> objects and assign them some values.</p>
+<p>While community science data is extremely useful and allows you to answer many crucial questions within urban ecology, it has its limitations. One of the major limitations to community science data is that because it relies on public observations instead of consistent, standardized surveying, the data ends up being biased. This means that certain areas end up having more observations than others, and the number of observations changes over time. Certain species are also more likely to get detected, such as charismatic and abundant species, while others are harder to track. There are multiple ways to account for this bias, which is referred to as data normalization.&nbsp;</p>
+<p>Say you want to track species diversity over time in your neighborhood. Species diversity is one indicator of overall biodiversity health. With more diversity in the species found, the urban ecosystem of your neighborhood tends to be more resilient and stable. How do we measure this using community science data?</p>
+<section id="get-cnc-data" class="level2">
+<h2 class="anchored" data-anchor-id="get-cnc-data">Get CNC data</h2>
+<p>First, let’s import City Nature Challenge observations over 9 years (2016-2024) within the County of Los Angeles.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>price1 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>price2 <span class="ot">&lt;-</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>allobs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/cleaned/cnc-los-angeles-observations.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 191638 Columns: 37
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (26): time_observed_at, user_login, user_name, created_at, updated_at, ...
+dbl   (7): id, user_id, latitude, longitude, positional_accuracy, public_pos...
+lgl   (3): captive_cultivated, coordinates_obscured, threatened
+date  (1): observed_on
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<p>Now that we have the two objects saved in memory, we can do things with those objects. We can add the two prices.</p>
+</div>
+<p>Next, we want to restrict our dataset to only research grade observations. These are observations that have been identified twice and are of the highest quality. Here, we select that we only want the <code>quality_grade</code> variable to equal “research”.<br>
+</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>price1 <span class="sc">+</span> price2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 5</code></pre>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>allobs_research <span class="ot">&lt;-</span> allobs <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(quality_grade<span class="sc">==</span><span class="st">"research"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<p>We can reassign new values to an existing object</p>
+<p>We then want to convert this data into points that we can use for geospatial analysis.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>price1 <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>price1 <span class="sc">+</span> price2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 13</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>allobs_sf <span class="ot">&lt;-</span> allobs_research <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>),   <span class="at">crs =</span> <span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="comparing-values" class="level3">
-<h3 class="anchored" data-anchor-id="comparing-values">Comparing values</h3>
-<p>We can do comparison of price1 and price2. The comparisons return TRUE or FALSE.</p>
+<section id="get-observations-for-a-region" class="level2">
+<h2 class="anchored" data-anchor-id="get-observations-for-a-region">Get observations for a region</h2>
+<p>Say you live in Hollywood. We will want to clip these observations to the boundary of your neighborhood, so the only observations we have are those found within your neighborhood. First, we’ll import the boundary for the neighborhood:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>price1 <span class="sc">==</span> price2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>hollywood_boundary <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/raw/Hollywood Boundary/hollywood_boundary.shp'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We now want to check that the coordinate reference systems (CRS) are the same between our observations and our neighborhood boundary</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(hollywood_boundary) <span class="sc">==</span> <span class="fu">st_crs</span>(allobs_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>price1 <span class="sc">&gt;</span> price2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We get a result of “FALSE”. As such, let’s make the CRS the same between the two:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>hollywood_boundary <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(hollywood_boundary, <span class="at">crs =</span> <span class="fu">st_crs</span>(allobs_sf))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(hollywood_boundary) <span class="sc">==</span> <span class="fu">st_crs</span>(allobs_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
-<p>R comparison operators:</p>
-<p><code>==</code> equal</p>
-<p><code>!=</code> not equal</p>
-<p><code>&gt;</code> greater than</p>
-<p><code>&gt;=</code> greater or equal than</p>
-<p><code>&lt;</code> less than</p>
-<p><code>&lt;=</code> less or equal than</p>
-</section>
-<section id="naming-objects" class="level3">
-<h3 class="anchored" data-anchor-id="naming-objects">Naming objects</h3>
-<p>You should try to use a descriptive name when naming objects to help you remember what information is contained in the object.</p>
-<p>Object names can contain letters, numbers, underscores and periods. They cannot start with a number nor contain spaces. If you want object names with multiple words use underscores, capital letters or periods</p>
+<p>Let’s now filter the observations to those that are only within the Hollywood boundary.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>first_name <span class="ot">&lt;-</span> <span class="st">'Jane'</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>firstName <span class="ot">&lt;-</span> <span class="st">'Jane'</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>first.name <span class="ot">&lt;-</span> <span class="st">'Jane'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>neighborhood_obs <span class="ot">&lt;-</span> allobs_sf[<span class="fu">lengths</span>(<span class="fu">st_intersects</span>(allobs_sf, hollywood_boundary)) <span class="sc">&gt;</span> <span class="dv">0</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>although coordinates are longitude/latitude, st_intersects assumes that they
+are planar
+although coordinates are longitude/latitude, st_intersects assumes that they
+are planar</code></pre>
 </div>
-</section>
-<section id="save-changes-to-your-repository" class="level3">
-<h3 class="anchored" data-anchor-id="save-changes-to-your-repository">Save changes to your repository</h3>
-<p>We are using Github and Github Codespaces to host and run our code.</p>
-<p>When you create or edit a file, the changes are saved to Codespaces. You also need to save the changes to your repository. By saving the changes to your repository, you will have access to your files after the workshop ends.</p>
-<p>Terminal is a program that allows you to write commands for the computer. To access the terminal, go to first the browser tab for Codespaces. Click “bash” in the bottom right, then click the “TERMINAL” tab.</p>
-<p><img src="images/terminal.png" class="img-fluid"></p>
-<p>Click on the $. Then type the following command after the $, and hit enter.</p>
+</div>
+<p>We can now visualize the observations within a map:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span>  ./scripts/save_files.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(neighborhood_obs) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(hollywood_boundary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><img src="images/terminal_save_files.png" class="img-fluid"></p>
-<p>This will run a script called “save_files.sh” to save any changes you made to the repository.</p>
-<p>When you make a substantial amount of changes, you should run the save_files.sh script. When you are done coding for the day, you should run the save_files.sh script.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p><img src="images/mapview/normalizing-inat/hollywwod.map.png" class="img-fluid"></p>
+<p>As you can see, most of the observations take place in the large natural area of Griffith Park in the top right of the neighborhood. Observations being found more in one location compared to another is a frequently seen form of bias.</p>
+</section>
+<section id="calculate-species-diversity" class="level2">
+<h2 class="anchored" data-anchor-id="calculate-species-diversity">Calculate species diversity</h2>
+<p>We now need to determine how we calculate species diversity. There are multiple ways to do this, but because of the bias in community science data, we need to be careful on how to best do so. We want to maximize the likelihood that a species, if it is present in your neighborhood, is observed. To do this, we can do what is referred to as “thinning” the data, which is where we cap the maximum number of observations of a species. Instead of keeping every single observation, we can instead look for if a species has been observed at least once over an entire year. If it is observed at least once, we can count the species as present. Using this presence data, we can calculate species richness, which is the total number of unique species that are found within an area. Calculating species richness is a way to account for bias in community science observations through thinning the data.</p>
+<p>Additionally, because the number of observations changes over time, we need to account for this variation. One way to do this is to take a subset or a smaller portion of the observations for each year, so that each year has the same number of observations when calculating species richness.&nbsp;</p>
+<p>First, we need to create a column in our dataset that says the year using <code>mutate()</code> and <code>year()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>neighborhood_obs <span class="ot">&lt;-</span> neighborhood_obs <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-title-container flex-fill">
-Note
+<p>Next, we need to determine the year that has the lowest number of observations. We can do this by calculating the number of observations for each year.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(neighborhood_obs<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+2016 2017 2018 2019 2020 2021 2022 2023 2024 
+ 401  238  838 1065  388  501  652  547  386 </code></pre>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>This script uses Git to update your repository. The script creates a git commit and pushes the commit to your repository. If you want to learn more about Git, watch this 14 minute <a href="https://www.youtube.com/watch?v=BCQHnlnPusY">Git tutorial</a>.</p>
+<p>Let’s now calculate the minimum of these observations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>lowest_year <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">table</span>(neighborhood_obs<span class="sc">$</span>year))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>lowest_year</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 238</code></pre>
 </div>
 </div>
+<p>Then when calculating species richness for each year, we can use a random subset in order to account for this bias, making it so we have <code>lowest_year</code> number of observations for each year.</p>
+<p>We use <code>group_by()</code> to group the observations by year, and <code>slice_sample()</code> to randomly pick <code>lowest_year</code> number of observations per year. It’s also crucial that we set <code>replace</code> to FALSE. This ensures that we don’t duplicate observations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>random_obs_per_year <span class="ot">&lt;-</span> neighborhood_obs <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> lowest_year, <span class="at">replace=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, scientific_name)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(random_obs_per_year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+# Groups:   year [1]
+   year scientific_name       
+  &lt;dbl&gt; &lt;chr&gt;                 
+1  2016 Sambucus cerulea      
+2  2016 Quercus berberidifolia
+3  2016 Juglans californica   
+4  2016 Phacelia cicutaria    
+5  2016 Lonicera subspicata   
+6  2016 Urtica dioica         </code></pre>
+</div>
+</div>
+<p>We can use table to confirm we get <code>lowest_year</code> number of observations per year.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(random_obs_per_year<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+2016 2017 2018 2019 2020 2021 2022 2023 2024 
+ 238  238  238  238  238  238  238  238  238 </code></pre>
+</div>
+</div>
+<p>Now that we have our subsets, we need to thin the data so that each species only has one observation maximum per year. We can do this with the <code>distinct()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>unique_species_per_year <span class="ot">&lt;-</span> <span class="fu">distinct</span>(random_obs_per_year) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We use <code>count()</code> to count the number of species per year.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>richness_dataframe <span class="ot">&lt;-</span> unique_species_per_year <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(year, <span class="at">name=</span><span class="st">'richness'</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>richness_dataframe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 2
+# Groups:   year [9]
+   year richness
+  &lt;dbl&gt;    &lt;int&gt;
+1  2016      134
+2  2017      127
+3  2018      122
+4  2019      121
+5  2020      124
+6  2021      126
+7  2022      134
+8  2023      126
+9  2024      128</code></pre>
+</div>
+</div>
+<p>Next, we can create a chart and visualize the results. Here, we use commands for how the plot looks similar to other plots we’ve created previously.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> richness_dataframe, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>richness)) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span><span class="dv">14</span>),</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Species Richness Over Time in Hollywood"</span>,</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Species Richness"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="normalizing-inat_files/figure-html/plot_richness_per_year-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As you can see for this neighborhood, species richness has varied over time. Most of this variation is likely explained by needing more observations to better ensure that if a species is present, it can be detected. This can be done through expanding the data used to all iNaturalist observations beyond the City Nature Challenge and to continue participating in community science efforts. Additionally, there are many other indicators of ecosystem health. For example, an increase in species richness may be due to the introduction of new invasive species. Random chance when we created the subsets could also potentially skew our results, so species richness can also be measured in other, more complex ways. In order to get a better overall picture, other metrics can be explored as well. It’s also generally a good idea to look over a longer time period in order to detect trends in urban ecology, although we kept it to 9 years for this exercise. Additionally, the code can be further streamlined with the use of other coding skills, like loops. We encourage you to continue to practice and learn more about urban ecology and coding to answer some of these questions!</p>
+</section>
+<section id="exercise-1" class="level2 exercise">
+<h2 class="anchored" data-anchor-id="exercise-1">Exercise 1</h2>
+<p>Utilize the above code to visualize how species richness changes over time in an area of your choosing. Choose the area and follow the steps above to normalize the data and create your own line plot showing species richness over time.</p>
+</section>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

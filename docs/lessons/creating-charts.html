@@ -242,8 +242,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../lessons/normalizing-inat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Normalizing iNaturalist data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../lessons/other-datasets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using to other datasets</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/additional-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Additional Analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -261,12 +273,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lessons/additional-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Additional Analysis</span></a>
-  </div>
-</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lessons/editing-geo-files.html" class="sidebar-item-text sidebar-link">
@@ -458,7 +464,7 @@ Note
 <h2 class="anchored" data-anchor-id="line-chart">Line chart</h2>
 <p>Let’s create a line chart that shows the number of observations per year.</p>
 <p>For line charts, we need to specify which columns to use for the x and y axis.</p>
-<p>We need to create a data frame that has a year column, and a column that counts the observations per year. Use <code>mutate()</code> to add year column. Use <code>count()</code> to add column that has the count per year.</p>
+<p>We need to create a data frame that has a year column, and a column that counts the observations per year. Use <code>mutate()</code> and <code>year()</code> to add year column. Use <code>count()</code> to add column that has the count per year.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>inat_year_count <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on)) <span class="sc">%&gt;%</span></span>
@@ -549,8 +555,8 @@ Note
 <p>Create a chart with all your observations for each year</p>
 <ul>
 <li>Use <code>read_csv()</code> to read iNaturalist file.</li>
-<li>Use <code>mutate()</code> to add year column</li>
-<li>Use <code>filter()</code> to select observations you made</li>
+<li>Use <code>mutate()</code> and <code>year()</code> to add year column</li>
+<li>Use <code>filter()</code> to select observations you made. Use ‘quantron’ as the user if you don’t have CNC observations.</li>
 <li>Save the data frame to <code>my_obs_by_year</code> object</li>
 <li>Use <code>ggplot()</code> to set the data and aesthetics.</li>
 <li>Choose which type of chart you want: bar or line.</li>
@@ -855,7 +861,7 @@ date  (1): observed_on
 </section>
 <section id="color-scales" class="level2">
 <h2 class="anchored" data-anchor-id="color-scales">Color scales</h2>
-<p>For the stacked bar chart example, <strong>ggplot2</strong> selected colors for the field values.</p>
+<p>For the stacked bar chart example, <strong>ggplot2</strong> automatically selected the colors for the values.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> inat_year, </span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">fill =</span> quality_grade)) <span class="sc">+</span></span>
@@ -917,7 +923,7 @@ Note
 </div>
 </div>
 </div>
-<p>We can also use a custom set of colors with <code>scale_fill_manual()</code> , and passing in a vector of colors,</p>
+<p>We can also use a custom set of colors with <code>scale_fill_manual()</code> , and passing in a vector of colors.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> inat_year, </span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">fill =</span> quality_grade)) <span class="sc">+</span></span>
@@ -1000,7 +1006,7 @@ Note
 </div>
 </div>
 </div>
-<p>Let’s try changing the size of the text on our axis titles. We can do this by specifying that the <code>axis.title</code> should be an <code>element_text()</code> with <code>size</code> set to 14.</p>
+<p>Let’s change the size of the text on our axis titles. We can do this by specifying that the <code>axis.title</code> should be an <code>element_text()</code> with <code>size</code> set to 14.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>myplot <span class="sc">+</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
@@ -1060,7 +1066,7 @@ Tip
 </section>
 <section id="changing-labels" class="level2">
 <h2 class="anchored" data-anchor-id="changing-labels">Changing labels</h2>
-<p>We can customize the axis labels and add a chart title using <code>labs()</code>.</p>
+<p>We can customize the axis labels and add a chart title using <code>labs()</code>. <code>title</code> is the title of the chart. <code>subtitle</code> is the subtitle. <code>x</code> is the label for the x axis. <code>y</code> is the label for the y axis.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>myplot <span class="sc">+</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"CNC Los Angeles"</span>,</span>
@@ -1097,7 +1103,7 @@ Tip
 <li>add a title</li>
 <li>choose the one of the built in themes</li>
 <li>change the axis titles</li>
-<li>change the fill colors of the bars</li>
+<li>change the colors of the bars or lines</li>
 </ul>
 <div class="answer">
 <div class="cell">
