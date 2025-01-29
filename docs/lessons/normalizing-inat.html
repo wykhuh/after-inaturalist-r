@@ -195,14 +195,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/normalizing-inat.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Normalizing iNaturalist data</span></a>
+  <a href="../lessons/other-datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using to other datasets</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/other-datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Using to other datasets</span></a>
+  <a href="../lessons/higher-taxa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Higher taxa</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/normalizing-inat.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Normalizing iNaturalist data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -419,14 +425,14 @@ are planar</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
 # Groups:   year [1]
-   year scientific_name       
-  &lt;dbl&gt; &lt;chr&gt;                 
-1  2016 Sambucus cerulea      
-2  2016 Quercus berberidifolia
-3  2016 Juglans californica   
-4  2016 Phacelia cicutaria    
-5  2016 Lonicera subspicata   
-6  2016 Urtica dioica         </code></pre>
+   year scientific_name        
+  &lt;dbl&gt; &lt;chr&gt;                  
+1  2016 Pholistoma auritum     
+2  2016 Clarkia bottae         
+3  2016 Aphelocoma californica 
+4  2016 Armadillidium vulgare  
+5  2016 Heteromeles arbutifolia
+6  2016 Chenopodium album      </code></pre>
 </div>
 </div>
 <p>We can use table to confirm we get <code>lowest_year</code> number of observations per year.</p>
@@ -453,15 +459,15 @@ are planar</code></pre>
 # Groups:   year [9]
    year richness
   &lt;dbl&gt;    &lt;int&gt;
-1  2016      134
+1  2016      125
 2  2017      127
-3  2018      122
-4  2019      121
-5  2020      124
-6  2021      126
-7  2022      134
+3  2018      126
+4  2019      116
+5  2020      121
+6  2021      128
+7  2022      131
 8  2023      126
-9  2024      128</code></pre>
+9  2024      114</code></pre>
 </div>
 </div>
 <p>Next, we can create a chart and visualize the results. Here, we use commands for how the plot looks similar to other plots we’ve created previously.</p>

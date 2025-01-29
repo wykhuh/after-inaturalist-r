@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to R and RStudio – After iNaturalist</title>
+<title>Higher taxa – After iNaturalist</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -100,53 +100,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script>
-// https://stackoverflow.com/questions/76119872/quarto-website-make-template-for-javascript-button-show-answer
-
-  function addAnswerWithButton(answerClass, buttonText, answerText) {
-
-    const divElement = document.querySelector(`.${answerClass}`);
-    const randomId = "answer-" + Math.floor(Math.random() * 1000000);
-
-    // Create the new button element
-    const buttonElement = document.createElement("button");
-    buttonElement.className = "btn btn-primary show-answer";
-    buttonElement.textContent = 'Show solution';
-    buttonElement.onclick = function() {
-      showAnswer(randomId);
-    };
-
-    // Create the new answer element
-    const answerElement = document.createElement("div");
-    answerElement.id = randomId;
-    answerElement.style.display = "none";
-    answerElement.innerHTML = answerText;
-
-    // Replace the div element with the new button and answer elements
-    divElement.parentNode.replaceChild(buttonElement, divElement);
-    buttonElement.insertAdjacentElement("afterend", answerElement);
-  }
-
-  function showAnswer(answerId) {
-    var answer = document.getElementById(answerId);
-    if (answer.style.display === "none") {
-      answer.style.display = "block";
-    } else {
-      answer.style.display = "none";
-    }
-  }
-
-  function addAnswerButton() {
-    var answers = document.querySelectorAll(".answer")
-    answers.forEach(e => {
-      addAnswerWithButton("answer", " Show solution", e.innerHTML);
-    });
-  }
-
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    addAnswerButton();
-  });
-</script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -161,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/intro-r-rstudio.html">Introduction to R and RStudio</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/higher-taxa.html">Higher taxa</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -212,7 +165,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/intro-r-rstudio.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lessons/intro-r-rstudio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to R and RStudio</span></a>
   </div>
 </li>
@@ -248,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/higher-taxa.html" class="sidebar-item-text sidebar-link">
+  <a href="../lessons/higher-taxa.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Higher taxa</span></a>
   </div>
 </li>
@@ -310,37 +263,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#what-are-r-and-rstudio" id="toc-what-are-r-and-rstudio" class="nav-link active" data-scroll-target="#what-are-r-and-rstudio">What are R and RStudio?</a></li>
-  <li><a href="#running-r-and-rstudio" id="toc-running-r-and-rstudio" class="nav-link" data-scroll-target="#running-r-and-rstudio">Running R and RStudio</a></li>
-  <li><a href="#navigating-rstudio" id="toc-navigating-rstudio" class="nav-link" data-scroll-target="#navigating-rstudio">Navigating RStudio</a></li>
-  <li><a href="#overview-of-workshop-files" id="toc-overview-of-workshop-files" class="nav-link" data-scroll-target="#overview-of-workshop-files">Overview of workshop files</a></li>
-  <li><a href="#working-in-r-and-rstudio" id="toc-working-in-r-and-rstudio" class="nav-link" data-scroll-target="#working-in-r-and-rstudio">Working in R and RStudio</a>
-  <ul class="collapse">
-  <li><a href="#console-vs.-script" id="toc-console-vs.-script" class="nav-link" data-scroll-target="#console-vs.-script">Console vs.&nbsp;script</a></li>
-  </ul></li>
-  <li><a href="#first-script" id="toc-first-script" class="nav-link" data-scroll-target="#first-script">First script</a>
-  <ul class="collapse">
-  <li><a href="#r-as-calculator" id="toc-r-as-calculator" class="nav-link" data-scroll-target="#r-as-calculator">R as Calculator</a></li>
-  <li><a href="#saving-scripts" id="toc-saving-scripts" class="nav-link" data-scroll-target="#saving-scripts">Saving scripts</a></li>
-  <li><a href="#objects-and-assignment" id="toc-objects-and-assignment" class="nav-link" data-scroll-target="#objects-and-assignment">Objects and Assignment</a></li>
-  <li><a href="#comparing-values" id="toc-comparing-values" class="nav-link" data-scroll-target="#comparing-values">Comparing values</a></li>
-  <li><a href="#naming-objects" id="toc-naming-objects" class="nav-link" data-scroll-target="#naming-objects">Naming objects</a></li>
-  <li><a href="#save-changes-to-your-repository" id="toc-save-changes-to-your-repository" class="nav-link" data-scroll-target="#save-changes-to-your-repository">Save changes to your repository</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introduction to R and RStudio</h1>
+<h1 class="title">Higher taxa</h1>
 </div>
 
 
@@ -361,206 +292,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="questions" class="level2">
 <h2 class="anchored" data-anchor-id="questions">Questions</h2>
 <ul>
-<li>What is R and RStudio?</li>
-<li>How do you get started working in R and RStudio?</li>
+<li>How do we search for observations for groups of related species?</li>
 </ul>
 </section>
 <section id="objectives" class="level2">
 <h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
 <ul>
-<li>Understand the difference between R and RStudio.</li>
-<li>Describe the purpose of the different RStudio panes.</li>
-<li>Organize files and directories into R Projects.</li>
+<li>Learn how search for higher taxa.</li>
 </ul>
 </section>
 </div>
-<section id="what-are-r-and-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="what-are-r-and-rstudio">What are R and RStudio?</h2>
-<p>R is a programming language. R is a popular language for data analysis.</p>
-<p><a href="https://rstudio.com/">RStudio</a> is software application that can make it easier to write and run R code.</p>
-</section>
-<section id="running-r-and-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="running-r-and-rstudio">Running R and RStudio</h2>
-<p>Let’s start R and RStudio in GitHub Codespaces.</p>
-<ol type="1">
-<li>Go to <a href="https://github.com/orgs/data-explorers-feb-2025/repositories">data-explorers-feb-2025</a> on Github.</li>
-<li>Click on your repo.</li>
-<li>Click “Open in GitHub Codespaces” button.</li>
-<li>Click “PORTS” after the Codespace is finished building.</li>
-<li>Hover over “RStudio”.</li>
-<li>Click on middle globe icon to start RStudio.</li>
-</ol>
-</section>
-<section id="navigating-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="navigating-rstudio">Navigating RStudio</h2>
-<p>We will use the RStudio integrated development environment (IDE) to write code into scripts, run code in R, navigate files on our computer, inspect objects we create in R, and look at the plots we make.</p>
-<p><img src="images/rstudio_screenshot.png" class="img-fluid" alt="Screenshot of RStudio showing the 4 &quot;panes&quot;."></p>
-<p>In the above screenshot, we can see 4 panes. If you only have 3 panes, and the Console pane is in the top left, press <kbd>Shift+Cmd+N</kbd> (Mac) or <kbd>Shift+Ctrl+N</kbd> (Windows) to open a blank R script, which should make the Source pane appear.</p>
-<ul>
-<li>Top-Left: <strong>Source</strong>&nbsp;pane that displays scripts and other files.</li>
-<li>Top-Right: <strong>Environment</strong> pane which shows all the objects in your current R session.</li>
-<li>Bottom-Left: <strong>Console</strong> pane where you can interact directly with an R console, which interprets R commands and prints the results</li>
-<li>Bottom-Right: <strong>Files</strong> pane displays directories and files on your computer. <strong>Plot</strong> and <strong>Viewer</strong> displays plots and other types of output. <strong>Help</strong> display help pages.</li>
-</ul>
-</section>
-<section id="overview-of-workshop-files" class="level2">
-<h2 class="anchored" data-anchor-id="overview-of-workshop-files">Overview of workshop files</h2>
-<p>Let’s examine the project files using the <strong>Files</strong> pane.</p>
-<p>It is a good practice to organize your projects into self-contained folders. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into subfolders.</p>
-<pre><code>project_folder
-│
-└── .devcontainer
-│
-└── .gitignore
-|
-└── data
-│    └── cleaned
-│    └── raw
-│
-└── project.Rproj
-│
-└── readme.md
-|
-└── results
-│
-└── scripts
-    └── lesson-scripts
-</code></pre>
-<p>We have a <code>data</code> folder containing <code>cleaned</code> and <code>raw</code> sub-folders. In general, you want to keep your <code>raw</code> data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the <code>cleaned</code> folder. We also have a <code>results</code> folder for any other documents you might produce. We also have a <code>scripts</code> folder to hold any scripts we write. We have a <code>lesson-scripts</code> subfolder that has all the code from the lesson.</p>
-<p>RStudio provides a “Projects” feature that can make it easier to work on individual projects in R. RStudio projects have a <code>xxx.Rproj</code> file.</p>
-<p>One of the benefits to using RStudio Projects is that they automatically set the <strong>working directory</strong> to the top-level folder for the project. The working directory is the folder where R is working, so it views the location of all files (including data and scripts) as being relative to the working directory.</p>
-<p>Since the workshop is hosted on Github, we also have some additional files. <code>.devcontainer</code> has instructions on how to create Github Codespaces. <code>.gitignore</code> lists files and folders that Git should not track. <code>readme.md</code> gives a basic description of this project. Github displays the readme on the repository webpage. If you run R and RStudio on your own computer, then you don’t need these additional files.</p>
-</section>
-<section id="working-in-r-and-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="working-in-r-and-rstudio">Working in R and RStudio</h2>
-<section id="console-vs.-script" class="level3">
-<h3 class="anchored" data-anchor-id="console-vs.-script">Console vs.&nbsp;script</h3>
-<p>You can run commands directly in the R console, or you can write them into an R script.</p>
-<section id="console" class="level4">
-<h4 class="anchored" data-anchor-id="console">Console</h4>
-<ul>
-<li>The R console is where code is run/executed</li>
-<li>The <strong>prompt</strong>, which is the <code>&gt;</code> symbol, is where you can type commands</li>
-<li>By pressing <kbd>Return</kbd> (Mac) or <kbd>Enter</kbd> (Windows), R will execute those commands and print the result.</li>
-<li>When you write commands in the R console, you will not be able to access your work in future.</li>
-</ul>
-<p>Let’s try running some code in the console.</p>
-<p>First, click down in the Console pane, and type:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) <span class="co"># read and write tabular data</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># manipulate data</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># manipulate dates</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here) <span class="co"># file paths</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/cnc-los-angeles-observations.csv'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>So far we looked at species. Instead of looking at specific species, we can also look for a group of related species.</p>
+<p>Let’s look for observations for all oak trees. We can use filter where the <code>common_name</code> is ‘oaks’.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>oaks_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'oaks'</span>) </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(oaks_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 3</code></pre>
+<pre><code>[1] 218  37</code></pre>
 </div>
 </div>
-<p>Hit <kbd>Return</kbd> or <kbd>Enter</kbd> to run the code. You should see your code echoed, and then the value of <code>3</code> returned.</p>
-</section>
-<section id="script" class="level4">
-<h4 class="anchored" data-anchor-id="script">Script</h4>
-<ul>
-<li>A script is a record of commands to send to R, preserved in a plain text file with a <code>.R</code> extension</li>
-<li>You type out lines of R code in a script, then send them to the R console to be evaluated. There are a few ways to run the code
-<ol type="1">
-<li><kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) will run the line of code that your cursor is on. If you highlight multiple lines of code, you can run all of them by pressing <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows)</li>
-<li>click on the&nbsp;<code>Run</code>&nbsp;button above the editor panel</li>
-</ol></li>
-<li>By preserving commands in a script, you can edit and rerun them quickly, save them for later, and share them with others</li>
-<li>An additional benefit of scripts is that you can leave <strong>comments</strong> for yourself or others to read. Lines that start with <code>#</code> are considered comments and will not be interpreted as R code.</li>
-</ul>
-</section>
-</section>
-</section>
-<section id="first-script" class="level2">
-<h2 class="anchored" data-anchor-id="first-script">First script</h2>
-<p>Let’s create our first script.</p>
-<p>You can make a new R script by clicking <code>File → New File → R Script</code>, clicking the green <code>+</code> button in the top left corner of RStudio, or pressing <kbd>Shift+Cmd+N</kbd> (Mac) or <kbd>Shift+Ctrl+N</kbd> (Windows). It will be unsaved, and called “Untitled1”</p>
-<section id="r-as-calculator" class="level3">
-<h3 class="anchored" data-anchor-id="r-as-calculator">R as Calculator</h3>
-<p>Now click into your blank script, and type:</p>
+<p>We have 218 observations. However, when we used the iNaturalist site to look for ‘oaks’ for ‘Los Angeles City Nature Challenge Cumulative Observations 2016-2024’, we get <a href="https://www.inaturalist.org/observations?project_id=los-angeles-city-nature-challenge-cumulative-observations-2016-2024&amp;subview=map&amp;taxon_id=47851&amp;verifiable=any">1369 observations</a>. What’s causing the difference?</p>
+<p>When you search for ‘oaks’ on iNaturalist, click the ‘About’ link, and it will bring you to the <a href="https://www.inaturalist.org/taxa/47851-Quercus">taxa page for ‘oaks’</a>.</p>
+<p><img src="images/search_oaks.png" class="img-fluid" alt="search autocomplete when searching for oaks on iNaturalist"></p>
+<p><img src="images/oaks_taxa.png" class="img-fluid" alt="oaks taxa page on iNaturlaist"></p>
+<p>‘Oaks’ is the common name for genus Quercus. When you search iNaturalist observations for ‘oaks’, iNaturalist returns observations that belong to the genus Quercus, which includes species such as ‘Live Coast Oak’ and ‘Valley Oak’.</p>
+<p>Our query only looks for observation where common_name is ‘oaks’. This means we aren’t including oak species. To match the iNaturalist search results, we need to look for all observations where the genus equals Quercus including oak species.</p>
+<p>We can use <code>names()</code> to get all the taxon name fields. There are several taxon__xxx__name fields.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(inat_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 3</code></pre>
+<pre><code> [1] "id"                         "observed_on"               
+ [3] "time_observed_at"           "user_id"                   
+ [5] "user_login"                 "user_name"                 
+ [7] "created_at"                 "updated_at"                
+ [9] "quality_grade"              "license"                   
+[11] "url"                        "image_url"                 
+[13] "sound_url"                  "tag_list"                  
+[15] "description"                "captive_cultivated"        
+[17] "latitude"                   "longitude"                 
+[19] "positional_accuracy"        "public_positional_accuracy"
+[21] "geoprivacy"                 "taxon_geoprivacy"          
+[23] "coordinates_obscured"       "scientific_name"           
+[25] "common_name"                "iconic_taxon_name"         
+[27] "taxon_id"                   "taxon_kingdom_name"        
+[29] "taxon_phylum_name"          "taxon_class_name"          
+[31] "taxon_order_name"           "taxon_family_name"         
+[33] "taxon_genus_name"           "taxon_species_name"        
+[35] "taxon_subspecies_name"      "threatened"                
+[37] "establishment_means"       </code></pre>
 </div>
 </div>
-<p>With your cursor on that line, hit <kbd>Cmd+Enter</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) to run the code.&nbsp;You will see that your code was sent from the script to the console, where it returned a value of&nbsp;<code>3</code>.</p>
-</section>
-<section id="saving-scripts" class="level3">
-<h3 class="anchored" data-anchor-id="saving-scripts">Saving scripts</h3>
-<p>Save script files by using <kbd>Cmd+S</kbd> (Mac) or <kbd>Ctrl+S</kbd> (Windows). Give the script a descriptive name such as ‘first_script.R’. Save it in the <code>scripts</code> folder.</p>
-<p>RStudio does not have an auto save. You need to manually save the files. You should save often.</p>
-<p>When you change a file, the name of the file will appear red in the tab. That means the file has unsaved changes. When you save the file, the name turns black.</p>
-</section>
-<section id="objects-and-assignment" class="level3">
-<h3 class="anchored" data-anchor-id="objects-and-assignment">Objects and Assignment</h3>
-<p>Sometimes we want to store values in memory so we can use it later. We can save values using the assignment operator <code>&lt;-</code> (<code>&lt;</code> less than and <code>-</code> hyphen).</p>
-<p><code>object_name &lt;- value</code></p>
-<p>When there is <code>&lt;-</code>, R creates an object, names the object <code>object_name,</code> and assigns <code>value</code> to the object. We use the <code>object_name</code> to access the value. Objects are shown in the <strong>Environment</strong> pane.</p>
-<p>Let’s create <code>price1</code> and <code>price2</code> objects and assign them some values.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>price1 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>price2 <span class="ot">&lt;-</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Now that we have the two objects saved in memory, we can do things with those objects. We can add the two prices.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>price1 <span class="sc">+</span> price2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 5</code></pre>
-</div>
-</div>
-<p>We can reassign new values to an existing object</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>price1 <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>price1 <span class="sc">+</span> price2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 13</code></pre>
-</div>
-</div>
-</section>
-<section id="comparing-values" class="level3">
-<h3 class="anchored" data-anchor-id="comparing-values">Comparing values</h3>
-<p>We can do comparison of price1 and price2. The comparisons return TRUE or FALSE.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>price1 <span class="sc">==</span> price2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] FALSE</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>price1 <span class="sc">&gt;</span> price2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
-</div>
-</div>
-<p>R comparison operators:</p>
-<p><code>==</code> equal</p>
-<p><code>!=</code> not equal</p>
-<p><code>&gt;</code> greater than</p>
-<p><code>&gt;=</code> greater or equal than</p>
-<p><code>&lt;</code> less than</p>
-<p><code>&lt;=</code> less or equal than</p>
-</section>
-<section id="naming-objects" class="level3">
-<h3 class="anchored" data-anchor-id="naming-objects">Naming objects</h3>
-<p>You should try to use a descriptive name when naming objects to help you remember what information is contained in the object.</p>
-<p>Object names can contain letters, numbers, underscores and periods. They cannot start with a number nor contain spaces. If you want object names with multiple words use underscores, capital letters or periods</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>first_name <span class="ot">&lt;-</span> <span class="st">'Jane'</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>firstName <span class="ot">&lt;-</span> <span class="st">'Jane'</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>first.name <span class="ot">&lt;-</span> <span class="st">'Jane'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="save-changes-to-your-repository" class="level3">
-<h3 class="anchored" data-anchor-id="save-changes-to-your-repository">Save changes to your repository</h3>
-<p>We are using Github and Github Codespaces to host and run our code.</p>
-<p>When you create or edit a file, the changes are saved to Codespaces. You also need to save the changes to your repository. By saving the changes to your repository, you will have access to your files after the workshop ends.</p>
-<p>Terminal is a program that allows you to write commands for the computer. To access the terminal, go to first the browser tab for Codespaces. Click “bash” in the bottom right, then click the “TERMINAL” tab.</p>
-<p><img src="images/terminal.png" class="img-fluid"></p>
-<p>Click on the $. Then type the following command after the $, and hit enter.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span>  ./scripts/save_files.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><img src="images/terminal_save_files.png" class="img-fluid"></p>
-<p>This will run a script called “save_files.sh” to save any changes you made to the repository.</p>
-<p>When you make a substantial amount of changes, you should run the save_files.sh script. When you are done coding for the day, you should run the save_files.sh script.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -571,13 +363,167 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This script uses Git to update your repository. The script creates a git commit and pushes the commit to your repository. If you want to learn more about Git, watch this 14 minute <a href="https://www.youtube.com/watch?v=BCQHnlnPusY">Git tutorial</a>.</p>
+<p>When you download iNaturalist data, you can to select which taxon name fields to include in the download. By default, none are selected because the ‘Taxon extras’ fields slow down the export process.</p>
+<p><img src="images/taxon_extra_export.png" class="img-fluid" alt="Taxon Extra fields on iNaturalist export page"></p>
+<p>We included the main taxon ranks names in the CNC observations csv.</p>
 </div>
 </div>
+<p>The ‘Taxonomy’ tab on iNaturalist taxa pages show the taxonomic hierarchy with all the taxon ranks.</p>
+<p><img src="images/oaks_taxonomy.png" class="img-fluid"></p>
+<p>We can create a filter command to represent the taxonomic hierarchy.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>oaks_obs_fixed <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    taxon_kingdom_name <span class="sc">==</span> <span class="st">'Plantae'</span> <span class="sc">&amp;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    taxon_phylum_name <span class="sc">==</span> <span class="st">'Tracheophyta'</span> <span class="sc">&amp;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    taxon_class_name <span class="sc">==</span> <span class="st">'Magnoliopsida'</span> <span class="sc">&amp;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    taxon_order_name <span class="sc">==</span> <span class="st">'Fagales'</span> <span class="sc">&amp;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    taxon_family_name <span class="sc">==</span> <span class="st">'Fagaceae'</span> <span class="sc">&amp;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    taxon_genus_name <span class="sc">==</span> <span class="st">'Quercus'</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(oaks_obs_fixed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1367   37</code></pre>
+</div>
+</div>
+<p>The reason why iNaturalist has 1369 observations but we have 1367 is because iNaturalist has two ‘Quercus’ observations which don’t have latitude and longitude data. Our cleaned iNaturalist data excludes observations without latitude and longitude.</p>
+<p>Let’s see the unique common names.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(oaks_obs_fixed<span class="sc">$</span>common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "coast live oak"                  "Engelmann oak"                  
+ [3] "cork oak"                        "California scrub oak"           
+ [5] "oaks"                            "canyon live oak"                
+ [7] "island oak"                      "interior live oak"              
+ [9] "valley oak"                      "Holm oak"                       
+[11] "white oaks"                      "northern red oak"               
+[13] "island scrub oak"                "high-latitude oaks"             
+[15] "southern live oak"               "Tucker's Oak"                   
+[17] "California black oak"            "MacDonald Oak"                  
+[19] "blue oak"                        NA                               
+[21] "leather oak"                     "Southern live oaks"             
+[23] "North America intermediate oaks" "ring-cupped oak"                
+[25] "red oaks"                        "San Gabriel oak"                
+[27] "California Live Oak"             "Ewan's Oak"                     
+[29] "Interior live oak"               "Nuttall's scrub oak"            </code></pre>
+</div>
+</div>
+<p>We get a combination of oaks species and oaks genus.</p>
+<p>The reason why I listed the hierarchy instead of just filtering by <code>taxon_genus_name == 'Quercus'</code> is because of limitations of my taxonomy knowledge and the limitations of the information provided by the CSV. Some Latin words are used multiple times to represent different taxa. For instance Eisenia is a genus for a type of worm and a genus for a type kelp. A filter command for <code>taxon_genus_name == 'Eisenia'</code> would return observations for two very different organisms.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>Eisenia_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_genus_name <span class="sc">==</span> <span class="st">'Eisenia'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(common_name, taxon_kingdom_name)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>Eisenia_obs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 2
+  common_name       taxon_kingdom_name
+  &lt;chr&gt;             &lt;chr&gt;             
+1 Redworm           Animalia          
+2 Southern sea palm Chromista         
+3 Redworm           Animalia          
+4 Redworm           Animalia          
+5 Redworm           Animalia          
+6 Southern sea palm Chromista         
+7 Southern sea palm Chromista         </code></pre>
+</div>
+</div>
+<p>I don’t have enough expertise to know if a taxa name is unique, so to play it safe, I list the entire taxonomy hierarchy.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>iNaturalist gives each taxa name a unique id. Worm Eisenia is 128842, kelp Eisenia is 125880. When iNaturalist searches for observations for a given taxa, it uses the unique id for the search to avoid the problem of duplicate scientific names. Unfortunately the CSV download does not provide ids for each taxon rank, so we can’t do a search by taxon rank id. It is possible to get the ids for all the taxon ranks, but that involves more advance coding techniques.</p>
+</div>
+</div>
+<p>Instead of searching the entire hierarchy, someone with more expertise might know there is only one Quercus in Plantae so they search for Plantae kingdom and genus Quercus.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Plantae_Quercus_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_kingdom_name <span class="sc">==</span> <span class="st">'Plantae'</span> <span class="sc">&amp;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>           taxon_genus_name <span class="sc">==</span> <span class="st">'Quercus'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(common_name, taxon_kingdom_name)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(Plantae_Quercus_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1367    2</code></pre>
+</div>
+</div>
+<p>Another example, let’s search for ‘trees’. When we search iNaturalist for ‘trees’, the first result is <a href="https://www.inaturalist.org/taxa/211194-Tracheophyta">Phylum Tracheophyta</a>. Let’s look at our data using <code>taxon_phylum_name</code> and ‘Tracheophyta’</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>trees_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_kingdom_name <span class="sc">==</span> <span class="st">'Plantae'</span> <span class="sc">&amp;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>           taxon_phylum_name <span class="sc">==</span> <span class="st">'Tracheophyta'</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(trees_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 95372    37</code></pre>
+</div>
+</div>
+<p>There are 95372 Tracheophyta observations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(trees_obs<span class="sc">$</span>common_name)[<span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "tree houseleeks"         "London Plane"           
+ [3] "Christmas-cheer"         "Creeping Woodsorrel"    
+ [5] "century plants"          "Fortnight Lilies"       
+ [7] "Climbing fig"            "Fan Palms"              
+ [9] "Common Cotula"           "Cedars"                 
+[11] "scarlet pimpernel"       "Rancher's fiddleneck"   
+[13] "Showy Penstemon"         "redbuds"                
+[15] "flax-lilies"             "Wand Mullein"           
+[17] "California Centaury"     "crimson clover"         
+[19] "tropical milkweed"       "giant reed"             
+[21] "castor bean"             "Chilicothe"             
+[23] "roses"                   "Small-flowered Catchfly"
+[25] "goldentop grass"         "Smooth Cat's Ear"       
+[27] "purple nightshade"       "Bladder-senna"          
+[29] "Pacific pea"             "California cudweed"     </code></pre>
+</div>
+</div>
+<p>We are getting plants such as lilies, penstemon, and milkweed which aren’t trees. Why is that?</p>
+<p>If we look up <a href="https://en.wikipedia.org/wiki/Vascular_plant">‘Tracheophyta’ in Wikipedia</a>:</p>
+<blockquote class="blockquote">
+<p>The group includes most land plants (c. 300,000 accepted known species) other than mosses.</p>
+</blockquote>
+<p>If we look up <a href="https://en.wikipedia.org/wiki/Tree">‘tree’ in Wikipedia</a>:</p>
+<blockquote class="blockquote">
+<p>Trees are not a monophyletic taxonomic group but consist of a wide variety of plant species that have independently evolved a trunk and branches as a way to tower above other plants to compete for sunlight. The majority of tree species are angiosperms or hardwoods; of the rest, many are gymnosperms or softwoods.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Although “tree” is a common word, there is no universally recognized precise definition of what a tree is, either botanically or in common language.</p>
+</blockquote>
+<p>In other words, there is no one word we can use to find all trees. The fact that iNaturalist shows Tracheophyta as the first search result for ‘trees’ is a little quirk with the iNaturalist search algorithm. To find all trees, we would need to get a list of trees names, and create a filter command with all the tree names.</p>
+<p>A quick internet search came up with <a href="https://lacountycfmp.org/resources/">LA County recommended trees</a> and <a href="https://en.wikipedia.org/wiki/List_of_trees_and_shrubs_by_taxonomic_family">Wikipedia list of trees and shrubs</a>. You can use lists like these as the basis of creating a list of trees. Your search might look something like this.</p>
+<p>Search by species.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>laco_species <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Acacia aneura'</span>, <span class="st">'Acacia stenophylla'</span>, <span class="st">'Afrocarpus falcatus'</span>, <span class="st">"Agonis flexuosa"</span>, <span class="st">'Angophora costata'</span>, <span class="st">"Arbutus 'marina'"</span>, <span class="st">'Arbutus unedo'</span>  )</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>laco_species_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_species_name <span class="sc">%in%</span> laco_species <span class="sc">&amp;</span> </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>           taxon_kingdom_name <span class="sc">==</span> <span class="st">'Plantae'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, taxon_species_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Search by genera.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>laco_genera <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Acacia'</span>,  <span class="st">'Afrocarpus'</span>, <span class="st">"Agonis"</span>, <span class="st">'Angophora'</span>, <span class="st">"Arbutus"</span> )</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>laco_genera_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_genus_name <span class="sc">%in%</span> laco_genera <span class="sc">&amp;</span> </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>           taxon_kingdom_name <span class="sc">==</span> <span class="st">'Plantae'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, taxon_genus_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When searching for species, it’s generally better to search by scientific names rather than common names. A species should only have one scientific name. A species can have zero to many common names in many languages, and different sources can use different common names. For example iNaturalist uses strawberry tree and LA County tree list uses strawberry madrone for <em>Arbutus unedo</em>. The downside of searching by scientific names is trying to spell and say all these Latin words.</p>
+<p>When looking for a group of related organisms using higher taxonomy, it might take some additional research, and trial and error to get the results you want.</p>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -472,6 +472,285 @@
     ]
   },
   {
+    "objectID": "lessons/setup-local.html",
+    "href": "lessons/setup-local.html",
+    "title": "Setup - local computer",
+    "section": "",
+    "text": "The workshop used Github Codespaces to host the code, data, and software. If you want to install stuff on your on own computer, follow these steps.",
+    "crumbs": [
+      "Extra",
+      "Setup - local computer"
+    ]
+  },
+  {
+    "objectID": "lessons/setup-local.html#install-r-and-rstudio",
+    "href": "lessons/setup-local.html#install-r-and-rstudio",
+    "title": "Setup - local computer",
+    "section": "Install R and RStudio",
+    "text": "Install R and RStudio\nR and RStudio are two separate pieces of software:\n\nR is a programming language and software used to run code written in R.\nRStudio is an integrated development environment (IDE) that makes using R easier. In this course we use RStudio to interact with R.\n\nIf you don’t already have R and RStudio installed, follow the instructions for your operating system below. You have to install R before you install RStudio.\n\nFor Windows\n\nDownload R from the CRAN website.\nRun the .exe file that was just downloaded\nGo to the RStudio download page\nUnder Installers select Windows Vista 10/11 - RSTUDIO-xxxx.yy.z-zzz.exe (where x = year, y = month, and z represent version numbers)\nDouble click the file to install it\nOnce it’s installed, open RStudio to make sure it works and you don’t get any error messages.\n\n\n\nFor MacOS\n\nDownload R from the CRAN website.\nSelect the .pkg file for the latest R version\nDouble click on the downloaded file to install R\nIt is also a good idea to install XQuartz (needed by some packages)\nGo to the RStudio download page\nUnder Installers select Mac OS 13+ - RSTUDIO-xxxx.yy.z-zzz.dmg (where x = year, y = month, and z represent version numbers)\nDouble click the file to install RStudio\nOnce it’s installed, open RStudio to make sure it works and you don’t get any error messages.\n\n\n\nFor Linux\n\nDownload R from the CRAN website.\nSelect the .pkg file for the latest R version\nDouble click on the downloaded file to install R\nIt is also a good idea to install XQuartz (needed by some packages)\nGo to the RStudio download page\nUnder Installers select Your Version of Linux - RSTUDIO-xxxx.yy.z-zzz.dmg (where x = year, y = month, and z represent version numbers)\nDouble click the file to install RStudio\nOnce it’s installed, open RStudio to make sure it works and you don’t get any error messages.",
+    "crumbs": [
+      "Extra",
+      "Setup - local computer"
+    ]
+  },
+  {
+    "objectID": "lessons/setup-local.html#update-r-and-rstudio",
+    "href": "lessons/setup-local.html#update-r-and-rstudio",
+    "title": "Setup - local computer",
+    "section": "Update R and RStudio",
+    "text": "Update R and RStudio\nIf you already have R and RStudio installed, first check if your R version is up to date:\n\nWhen you open RStudio your R version will be printed in the console on the bottom left. Alternatively, you can type sessionInfo() into the console. If your R version is 4.0.0 or later, you don’t need to update R for this lesson. If your version of R is older than that, download and install the latest version of R from the R project website for Windows, for MacOS, or for Linux\nIt is not necessary to remove old versions of R from your system, but if you wish to do so you can check How do I uninstall R?\nAfter installing a new version of R, you will have to reinstall all your packages with the new version. For Windows, there is a package called installr that can help you with upgrading your R version and migrate your package library. A similar package called pacman can help with updating R packages across To update RStudio to the latest version, open RStudio and click on Help &gt; Check for Updates. If a new version is available follow the instruction on screen. By default, RStudio will also automatically notify you of new versions every once in a while.\n\n\n\n\n\n\n\nNote\n\n\n\nThe changes introduced by new R versions are usually backwards-compatible. That is, your old code should still work after updating your R version. However, if breaking changes happen, it is useful to know that you can have multiple versions of R installed in parallel and that you can switch between them in RStudio by going to Tools &gt; Global Options &gt; General &gt; Basic.\nWhile this may sound scary, it is far more common to run into issues due to using out-of-date versions of R or R packages. Keeping up with the latest versions of R, RStudio, and any packages you regularly use is a good practice.",
+    "crumbs": [
+      "Extra",
+      "Setup - local computer"
+    ]
+  },
+  {
+    "objectID": "lessons/setup-local.html#install-r-packages",
+    "href": "lessons/setup-local.html#install-r-packages",
+    "title": "Setup - local computer",
+    "section": "Install R packages",
+    "text": "Install R packages\nDuring the course we will need a number of R packages. Packages contain useful R code written by other people.\nTo try to install these packages, open RStudio and copy and paste the following command into the console window (look for a blinking cursor on the bottom left), then press the Enter (Windows and Linux) or Return (MacOS) to execute the command.\n\ninstall.packages(c('readr', 'dplyr', 'ggplot2', 'stringr',\n                   'lubridate', 'here',\n                   'sf', 'mapview', 'basemaps', 'tigris',\n                   'pdftools', 'webshot2'))\n\nR will display a messag in the console: “Do you want to proceed? [Y/n]:”\nType “Y”, and hit enter / return.\nR tries to download and install the packages on your machine.\nWhen the installation has finished, you can try to load the packages by pasting the following code into the console:\n\nlibrary(readr)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(stringr)\nlibrary(lubridate)\nlibrary(here)\nlibrary(sf)\nlibrary(mapview)\nlibrary(basemaps)\nlibrary(tigris)\nlibrary(pdftools)\nlibrary(webshot2)\n\nIf you do not see an error like there is no package called ‘...’ you are good to go!",
+    "crumbs": [
+      "Extra",
+      "Setup - local computer"
+    ]
+  },
+  {
+    "objectID": "lessons/setup-local.html#organizing-your-project-folder",
+    "href": "lessons/setup-local.html#organizing-your-project-folder",
+    "title": "Setup - local computer",
+    "section": "Organizing your project folder",
+    "text": "Organizing your project folder\nIt is a good practice to organize your projects into self-contained folders. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into subfolders.\n\nStart RStudio (you should see a view similar to the screenshot above).\nIn the top right, you will see a blue 3D cube and the words “Project: (None)”. Click on this icon.\nClick New Project from the dropdown menu.\nClick New Directory, then New Project.\nType out a name for the project.\nPut it in a convenient location using the “Create project as a subdirectory of:” section. We recommend your Desktop. You can always move the project somewhere else later, because it will be self-contained.\nClick Create Project and your new project will open.\n\nWhen you need to work on the project, click on the Rproj icon to start RStudio.\nThere are a few settings we will need to adjust to improve the reproducibility of our work. Go to your menu bar, then click Tools → Global Options to open up the Options window.\n\nMake sure your settings match those highlighted in yellow. We don’t want RStudio to store the current status of our R session and reload it the next time we start R. We want to start with a clean, empty R session every time we work.\nWe will use a basic structure for this workshop.\nproject_name\n│\n└── data\n│    └── cleaned\n│    └── raw\n│\n└─── results\n│\n└── scripts\n│\n└── project_name.Rproj\nLet’s start making our new folders. Go to the Files pane (bottom right), and check the current directory, highlighted in yellow below. You should be in the directory for the project you just made. You shouldn’t see any folders in here yet.\n\nNext, click the New Folder button, and type in scripts to generate your scripts folder. It should appear in the Files list now. Repeat the process to make your data, and results folders. Then, click on the data folder in the Files pane. This will take you into the data folder, which will be empty. Use the New Folder button to create raw and cleaned folders. To return to the project folder, click on it in the file path, which is highlighted in yellow in the previous image. It’s worth noting that the Files pane helps you create, find, and open files, but moving through your files won’t change where the working directory of your project is.",
+    "crumbs": [
+      "Extra",
+      "Setup - local computer"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-r-rstudio.html",
+    "href": "lessons/intro-r-rstudio.html",
+    "title": "Introduction to R and RStudio",
+    "section": "",
+    "text": "What is R and RStudio?\nHow do you get started working in R and RStudio?\n\n\n\n\n\nUnderstand the difference between R and RStudio.\nDescribe the purpose of the different RStudio panes.\nOrganize files and directories into R Projects.",
+    "crumbs": [
+      "Introduction to R and RStudio"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-r-rstudio.html#questions",
+    "href": "lessons/intro-r-rstudio.html#questions",
+    "title": "Introduction to R and RStudio",
+    "section": "",
+    "text": "What is R and RStudio?\nHow do you get started working in R and RStudio?",
+    "crumbs": [
+      "Introduction to R and RStudio"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-r-rstudio.html#objectives",
+    "href": "lessons/intro-r-rstudio.html#objectives",
+    "title": "Introduction to R and RStudio",
+    "section": "",
+    "text": "Understand the difference between R and RStudio.\nDescribe the purpose of the different RStudio panes.\nOrganize files and directories into R Projects.",
+    "crumbs": [
+      "Introduction to R and RStudio"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-r-rstudio.html#what-are-r-and-rstudio",
+    "href": "lessons/intro-r-rstudio.html#what-are-r-and-rstudio",
+    "title": "Introduction to R and RStudio",
+    "section": "What are R and RStudio?",
+    "text": "What are R and RStudio?\nR is a programming language. R is a popular language for data analysis.\nRStudio is software application that can make it easier to write and run R code.",
+    "crumbs": [
+      "Introduction to R and RStudio"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-r-rstudio.html#running-r-and-rstudio",
+    "href": "lessons/intro-r-rstudio.html#running-r-and-rstudio",
+    "title": "Introduction to R and RStudio",
+    "section": "Running R and RStudio",
+    "text": "Running R and RStudio\nLet’s start R and RStudio in GitHub Codespaces.\n\nGo to data-explorers-feb-2025 on Github.\nClick on your repo.\nClick “Open in GitHub Codespaces” button.\nClick “PORTS” after the Codespace is finished building.\nHover over “RStudio”.\nClick on middle globe icon to start RStudio.",
+    "crumbs": [
+      "Introduction to R and RStudio"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-r-rstudio.html#navigating-rstudio",
+    "href": "lessons/intro-r-rstudio.html#navigating-rstudio",
+    "title": "Introduction to R and RStudio",
+    "section": "Navigating RStudio",
+    "text": "Navigating RStudio\nWe will use the RStudio integrated development environment (IDE) to write code into scripts, run code in R, navigate files on our computer, inspect objects we create in R, and look at the plots we make.\n\nIn the above screenshot, we can see 4 panes. If you only have 3 panes, and the Console pane is in the top left, press Shift+Cmd+N (Mac) or Shift+Ctrl+N (Windows) to open a blank R script, which should make the Source pane appear.\n\nTop-Left: Source pane that displays scripts and other files.\nTop-Right: Environment pane which shows all the objects in your current R session.\nBottom-Left: Console pane where you can interact directly with an R console, which interprets R commands and prints the results\nBottom-Right: Files pane displays directories and files on your computer. Plot and Viewer displays plots and other types of output. Help display help pages.",
+    "crumbs": [
+      "Introduction to R and RStudio"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-r-rstudio.html#overview-of-workshop-files",
+    "href": "lessons/intro-r-rstudio.html#overview-of-workshop-files",
+    "title": "Introduction to R and RStudio",
+    "section": "Overview of workshop files",
+    "text": "Overview of workshop files\nLet’s examine the project files using the Files pane.\nIt is a good practice to organize your projects into self-contained folders. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into subfolders.\nproject_folder\n│\n└── .devcontainer\n│\n└── .gitignore\n|\n└── data\n│    └── cleaned\n│    └── raw\n│\n└── project.Rproj\n│\n└── readme.md\n|\n└── results\n│\n└── scripts\n    └── lesson-scripts\n\nWe have a data folder containing cleaned and raw sub-folders. In general, you want to keep your raw data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the cleaned folder. We also have a results folder for any other documents you might produce. We also have a scripts folder to hold any scripts we write. We have a lesson-scripts subfolder that has all the code from the lesson.\nRStudio provides a “Projects” feature that can make it easier to work on individual projects in R. RStudio projects have a xxx.Rproj file.\nOne of the benefits to using RStudio Projects is that they automatically set the working directory to the top-level folder for the project. The working directory is the folder where R is working, so it views the location of all files (including data and scripts) as being relative to the working directory.\nSince the workshop is hosted on Github, we also have some additional files. .devcontainer has instructions on how to create Github Codespaces. .gitignore lists files and folders that Git should not track. readme.md gives a basic description of this project. Github displays the readme on the repository webpage. If you run R and RStudio on your own computer, then you don’t need these additional files.",
+    "crumbs": [
+      "Introduction to R and RStudio"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-r-rstudio.html#working-in-r-and-rstudio",
+    "href": "lessons/intro-r-rstudio.html#working-in-r-and-rstudio",
+    "title": "Introduction to R and RStudio",
+    "section": "Working in R and RStudio",
+    "text": "Working in R and RStudio\n\nConsole vs. script\nYou can run commands directly in the R console, or you can write them into an R script.\n\nConsole\n\nThe R console is where code is run/executed\nThe prompt, which is the &gt; symbol, is where you can type commands\nBy pressing Return (Mac) or Enter (Windows), R will execute those commands and print the result.\nWhen you write commands in the R console, you will not be able to access your work in future.\n\nLet’s try running some code in the console.\nFirst, click down in the Console pane, and type:\n\n1 + 2\n\n[1] 3\n\n\nHit Return or Enter to run the code. You should see your code echoed, and then the value of 3 returned.\n\n\nScript\n\nA script is a record of commands to send to R, preserved in a plain text file with a .R extension\nYou type out lines of R code in a script, then send them to the R console to be evaluated. There are a few ways to run the code\n\nCmd+Return (Mac) or Ctrl+Enter (Windows) will run the line of code that your cursor is on. If you highlight multiple lines of code, you can run all of them by pressing Cmd+Return (Mac) or Ctrl+Enter (Windows)\nclick on the Run button above the editor panel\n\nBy preserving commands in a script, you can edit and rerun them quickly, save them for later, and share them with others\nAn additional benefit of scripts is that you can leave comments for yourself or others to read. Lines that start with # are considered comments and will not be interpreted as R code.",
+    "crumbs": [
+      "Introduction to R and RStudio"
+    ]
+  },
+  {
+    "objectID": "lessons/intro-r-rstudio.html#first-script",
+    "href": "lessons/intro-r-rstudio.html#first-script",
+    "title": "Introduction to R and RStudio",
+    "section": "First script",
+    "text": "First script\nLet’s create our first script.\nYou can make a new R script by clicking File → New File → R Script, clicking the green + button in the top left corner of RStudio, or pressing Shift+Cmd+N (Mac) or Shift+Ctrl+N (Windows). It will be unsaved, and called “Untitled1”\n\nR as Calculator\nNow click into your blank script, and type:\n\n1 + 2\n\n[1] 3\n\n\nWith your cursor on that line, hit Cmd+Enter (Mac) or Ctrl+Enter (Windows) to run the code. You will see that your code was sent from the script to the console, where it returned a value of 3.\n\n\nSaving scripts\nSave script files by using Cmd+S (Mac) or Ctrl+S (Windows). Give the script a descriptive name such as ‘first_script.R’. Save it in the scripts folder.\nRStudio does not have an auto save. You need to manually save the files. You should save often.\nWhen you change a file, the name of the file will appear red in the tab. That means the file has unsaved changes. When you save the file, the name turns black.\n\n\nObjects and Assignment\nSometimes we want to store values in memory so we can use it later. We can save values using the assignment operator &lt;- (&lt; less than and - hyphen).\nobject_name &lt;- value\nWhen there is &lt;-, R creates an object, names the object object_name, and assigns value to the object. We use the object_name to access the value. Objects are shown in the Environment pane.\nLet’s create price1 and price2 objects and assign them some values.\n\nprice1 &lt;- 2\nprice2 &lt;- 3\n\nNow that we have the two objects saved in memory, we can do things with those objects. We can add the two prices.\n\nprice1 + price2\n\n[1] 5\n\n\nWe can reassign new values to an existing object\n\nprice1 &lt;- 10\n\nprice1 + price2\n\n[1] 13\n\n\n\n\nComparing values\nWe can do comparison of price1 and price2. The comparisons return TRUE or FALSE.\n\nprice1 == price2\n\n[1] FALSE\n\nprice1 &gt; price2\n\n[1] TRUE\n\n\nR comparison operators:\n== equal\n!= not equal\n&gt; greater than\n&gt;= greater or equal than\n&lt; less than\n&lt;= less or equal than\n\n\nNaming objects\nYou should try to use a descriptive name when naming objects to help you remember what information is contained in the object.\nObject names can contain letters, numbers, underscores and periods. They cannot start with a number nor contain spaces. If you want object names with multiple words use underscores, capital letters or periods\n\nfirst_name &lt;- 'Jane'\nfirstName &lt;- 'Jane'\nfirst.name &lt;- 'Jane'\n\n\n\nSave changes to your repository\nWe are using Github and Github Codespaces to host and run our code.\nWhen you create or edit a file, the changes are saved to Codespaces. You also need to save the changes to your repository. By saving the changes to your repository, you will have access to your files after the workshop ends.\nTerminal is a program that allows you to write commands for the computer. To access the terminal, go to first the browser tab for Codespaces. Click “bash” in the bottom right, then click the “TERMINAL” tab.\n\nClick on the $. Then type the following command after the $, and hit enter.\n\nbash  ./scripts/save_files.sh\n\n\nThis will run a script called “save_files.sh” to save any changes you made to the repository.\nWhen you make a substantial amount of changes, you should run the save_files.sh script. When you are done coding for the day, you should run the save_files.sh script.\n\n\n\n\n\n\nNote\n\n\n\nThis script uses Git to update your repository. The script creates a git commit and pushes the commit to your repository. If you want to learn more about Git, watch this 14 minute Git tutorial.",
+    "crumbs": [
+      "Introduction to R and RStudio"
+    ]
+  },
+  {
+    "objectID": "lessons/normalizing-inat.html",
+    "href": "lessons/normalizing-inat.html",
+    "title": "Normalizing iNaturalist data",
+    "section": "",
+    "text": "library(readr)\nlibrary(dplyr)\nlibrary(here)\nlibrary(sf)\nlibrary(mapview)\nlibrary(lubridate)\nlibrary(ggplot2)\nThere is a bug with sf https://github.com/r-spatial/sf/issues/1762. This bit of code is fix for the bug.\nsf_use_s2(FALSE)\n\nSpherical geometry (s2) switched off\nWhile community science data is extremely useful and allows you to answer many crucial questions within urban ecology, it has its limitations. One of the major limitations to community science data is that because it relies on public observations instead of consistent, standardized surveying, the data ends up being biased. This means that certain areas end up having more observations than others, and the number of observations changes over time. Certain species are also more likely to get detected, such as charismatic and abundant species, while others are harder to track. There are multiple ways to account for this bias, which is referred to as data normalization.\nSay you want to track species diversity over time in your neighborhood. Species diversity is one indicator of overall biodiversity health. With more diversity in the species found, the urban ecosystem of your neighborhood tends to be more resilient and stable. How do we measure this using community science data?",
+    "crumbs": [
+      "Normalizing iNaturalist data"
+    ]
+  },
+  {
+    "objectID": "lessons/normalizing-inat.html#get-cnc-data",
+    "href": "lessons/normalizing-inat.html#get-cnc-data",
+    "title": "Normalizing iNaturalist data",
+    "section": "Get CNC data",
+    "text": "Get CNC data\nFirst, let’s import City Nature Challenge observations over 9 years (2016-2024) within the County of Los Angeles.\n\nallobs &lt;- read_csv(here(\"data/cleaned/cnc-los-angeles-observations.csv\"))\n\nRows: 191638 Columns: 37\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (26): time_observed_at, user_login, user_name, created_at, updated_at, ...\ndbl   (7): id, user_id, latitude, longitude, positional_accuracy, public_pos...\nlgl   (3): captive_cultivated, coordinates_obscured, threatened\ndate  (1): observed_on\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\nNext, we want to restrict our dataset to only research grade observations. These are observations that have been identified twice and are of the highest quality. Here, we select that we only want the quality_grade variable to equal “research”.\n\n\nallobs_research &lt;- allobs %&gt;%\n  filter(quality_grade==\"research\")\n\nWe then want to convert this data into points that we can use for geospatial analysis.\n\nallobs_sf &lt;- allobs_research %&gt;% \n  st_as_sf(coords = c(\"longitude\", \"latitude\"),   crs = 4326)",
+    "crumbs": [
+      "Normalizing iNaturalist data"
+    ]
+  },
+  {
+    "objectID": "lessons/normalizing-inat.html#get-observations-for-a-region",
+    "href": "lessons/normalizing-inat.html#get-observations-for-a-region",
+    "title": "Normalizing iNaturalist data",
+    "section": "Get observations for a region",
+    "text": "Get observations for a region\nSay you live in Hollywood. We will want to clip these observations to the boundary of your neighborhood, so the only observations we have are those found within your neighborhood. First, we’ll import the boundary for the neighborhood:\n\nhollywood_boundary &lt;- read_sf(here('data/raw/Hollywood Boundary/hollywood_boundary.shp'))\n\nWe now want to check that the coordinate reference systems (CRS) are the same between our observations and our neighborhood boundary\n\nst_crs(hollywood_boundary) == st_crs(allobs_sf)\n\n[1] FALSE\n\n\nWe get a result of “FALSE”. As such, let’s make the CRS the same between the two:\n\nhollywood_boundary &lt;- st_transform(hollywood_boundary, crs = st_crs(allobs_sf))\n\nst_crs(hollywood_boundary) == st_crs(allobs_sf)\n\n[1] TRUE\n\n\nLet’s now filter the observations to those that are only within the Hollywood boundary.\n\nneighborhood_obs &lt;- allobs_sf[lengths(st_intersects(allobs_sf, hollywood_boundary)) &gt; 0, ]\n\nalthough coordinates are longitude/latitude, st_intersects assumes that they\nare planar\nalthough coordinates are longitude/latitude, st_intersects assumes that they\nare planar\n\n\nWe can now visualize the observations within a map:\n\nmapview(neighborhood_obs) +\n  mapview(hollywood_boundary)\n\n\nAs you can see, most of the observations take place in the large natural area of Griffith Park in the top right of the neighborhood. Observations being found more in one location compared to another is a frequently seen form of bias.",
+    "crumbs": [
+      "Normalizing iNaturalist data"
+    ]
+  },
+  {
+    "objectID": "lessons/normalizing-inat.html#calculate-species-diversity",
+    "href": "lessons/normalizing-inat.html#calculate-species-diversity",
+    "title": "Normalizing iNaturalist data",
+    "section": "Calculate species diversity",
+    "text": "Calculate species diversity\nWe now need to determine how we calculate species diversity. There are multiple ways to do this, but because of the bias in community science data, we need to be careful on how to best do so. We want to maximize the likelihood that a species, if it is present in your neighborhood, is observed. To do this, we can do what is referred to as “thinning” the data, which is where we cap the maximum number of observations of a species. Instead of keeping every single observation, we can instead look for if a species has been observed at least once over an entire year. If it is observed at least once, we can count the species as present. Using this presence data, we can calculate species richness, which is the total number of unique species that are found within an area. Calculating species richness is a way to account for bias in community science observations through thinning the data.\nAdditionally, because the number of observations changes over time, we need to account for this variation. One way to do this is to take a subset or a smaller portion of the observations for each year, so that each year has the same number of observations when calculating species richness. \nFirst, we need to create a column in our dataset that says the year using mutate() and year().\n\nneighborhood_obs &lt;- neighborhood_obs %&gt;%\n  mutate(year = year(observed_on))\n\nNext, we need to determine the year that has the lowest number of observations. We can do this by calculating the number of observations for each year.\n\ntable(neighborhood_obs$year)\n\n\n2016 2017 2018 2019 2020 2021 2022 2023 2024 \n 401  238  838 1065  388  501  652  547  386 \n\n\nLet’s now calculate the minimum of these observations.\n\nlowest_year &lt;- min(table(neighborhood_obs$year))\n\nlowest_year\n\n[1] 238\n\n\nThen when calculating species richness for each year, we can use a random subset in order to account for this bias, making it so we have lowest_year number of observations for each year.\nWe use group_by() to group the observations by year, and slice_sample() to randomly pick lowest_year number of observations per year. It’s also crucial that we set replace to FALSE. This ensures that we don’t duplicate observations.\n\nrandom_obs_per_year &lt;- neighborhood_obs %&gt;%\n  st_drop_geometry() %&gt;%\n  group_by(year) %&gt;%\n  slice_sample(n = lowest_year, replace=FALSE) %&gt;%\n  select(year, scientific_name)\n\nhead(random_obs_per_year)\n\n# A tibble: 6 × 2\n# Groups:   year [1]\n   year scientific_name        \n  &lt;dbl&gt; &lt;chr&gt;                  \n1  2016 Pholistoma auritum     \n2  2016 Clarkia bottae         \n3  2016 Aphelocoma californica \n4  2016 Armadillidium vulgare  \n5  2016 Heteromeles arbutifolia\n6  2016 Chenopodium album      \n\n\nWe can use table to confirm we get lowest_year number of observations per year.\n\ntable(random_obs_per_year$year)\n\n\n2016 2017 2018 2019 2020 2021 2022 2023 2024 \n 238  238  238  238  238  238  238  238  238 \n\n\nNow that we have our subsets, we need to thin the data so that each species only has one observation maximum per year. We can do this with the distinct() function.\n\nunique_species_per_year &lt;- distinct(random_obs_per_year) \n\nWe use count() to count the number of species per year.\n\nrichness_dataframe &lt;- unique_species_per_year %&gt;%\n  count(year, name='richness')\n\nrichness_dataframe\n\n# A tibble: 9 × 2\n# Groups:   year [9]\n   year richness\n  &lt;dbl&gt;    &lt;int&gt;\n1  2016      125\n2  2017      127\n3  2018      126\n4  2019      116\n5  2020      121\n6  2021      128\n7  2022      131\n8  2023      126\n9  2024      114\n\n\nNext, we can create a chart and visualize the results. Here, we use commands for how the plot looks similar to other plots we’ve created previously.\n\nggplot(data = richness_dataframe, mapping = aes(x=year, y=richness)) +\n  geom_line() +\n  geom_point() +\n  theme_bw() +\n  theme(axis.title = element_text(size =14),\n        panel.grid.major.x = element_blank(),\n        panel.grid.minor.x = element_blank()) +\n  labs(title = \"Species Richness Over Time in Hollywood\",\n       x = \"Year\",\n       y = \"Species Richness\")\n\n\n\n\n\n\n\n\nAs you can see for this neighborhood, species richness has varied over time. Most of this variation is likely explained by needing more observations to better ensure that if a species is present, it can be detected. This can be done through expanding the data used to all iNaturalist observations beyond the City Nature Challenge and to continue participating in community science efforts. Additionally, there are many other indicators of ecosystem health. For example, an increase in species richness may be due to the introduction of new invasive species. Random chance when we created the subsets could also potentially skew our results, so species richness can also be measured in other, more complex ways. In order to get a better overall picture, other metrics can be explored as well. It’s also generally a good idea to look over a longer time period in order to detect trends in urban ecology, although we kept it to 9 years for this exercise. Additionally, the code can be further streamlined with the use of other coding skills, like loops. We encourage you to continue to practice and learn more about urban ecology and coding to answer some of these questions!",
+    "crumbs": [
+      "Normalizing iNaturalist data"
+    ]
+  },
+  {
+    "objectID": "lessons/normalizing-inat.html#exercise-1",
+    "href": "lessons/normalizing-inat.html#exercise-1",
+    "title": "Normalizing iNaturalist data",
+    "section": "Exercise 1",
+    "text": "Exercise 1\nUtilize the above code to visualize how species richness changes over time in an area of your choosing. Choose the area and follow the steps above to normalize the data and create your own line plot showing species richness over time.",
+    "crumbs": [
+      "Normalizing iNaturalist data"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "After iNaturalist - Learn How To Explore City Nature Challenge Data through R Coding",
+    "section": "",
+    "text": "Put your nature eyes on in a whole new way in this introductory workshop to R coding! Learn how to explore nature in L.A. using biodiversity data collected during nine years of the City Nature Challenge. No previous coding experience necessary!\nProgram content will consist of a virtual information session, two in-person workshops, and two optional virtual office hours. The first in-person workshop will include a high-level overview of R and how to run sample scripts. There will be a three-week break between sessions for you to practice swapping out variables and develop a short presentation.\nSchedule\n\nJan. 16, 2025, 6–7 pm: VIRTUAL Information Session (recording will be available)\nFeb. 1, 2025, 9 am–3:30 pm: IN-PERSON Session with 30-minute Lunch Break at the Natural History Museum of Los Angeles County\nTHREE-WEEK BREAK to Practice R and Develop a Short Presentation of Your Script\nFeb. 8, 2025, 10–11 am: VIRTUAL Office Hour and Q&A (Optional)\nFeb. 15, 2025, 10–11 am: VIRTUAL Office Hour and Q&A (Optional)\nFeb. 22, 2025, 9 am–12 pm:  IN-PERSON Session and Participant Presentations  at the Natural History Museum of Los Angeles County\n\nThese lesson are based on several Carpentries R lessons: Data Analysis and Visualization in R for Ecologists, Geospatial, and Social Science.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "readme.html",
+    "href": "readme.html",
+    "title": "After iNaturalist - Learn How To Explore City Nature Challenge Data through R Coding",
+    "section": "",
+    "text": "Lesson for Natural History Museum of Los Angeles County, After iNaturalist workshop.\nPut your nature eyes on in a whole new way in this introductory workshop to R coding! Learn how to explore nature in L.A. using biodiversity data collected during nine years of the City Nature Challenge.\nOnline lesson, lesson repo\n\n\nThese lesson are based on several Carpentries R lessons: Data Analysis and Visualization in R for Ecologists, Geospatial, and Social Science.\nThe lessons are built using Quarto."
+  },
+  {
+    "objectID": "readme.html#details",
+    "href": "readme.html#details",
+    "title": "After iNaturalist - Learn How To Explore City Nature Challenge Data through R Coding",
+    "section": "",
+    "text": "These lesson are based on several Carpentries R lessons: Data Analysis and Visualization in R for Ecologists, Geospatial, and Social Science.\nThe lessons are built using Quarto."
+  },
+  {
+    "objectID": "lessons/understanding-data.html",
+    "href": "lessons/understanding-data.html",
+    "title": "Understanding data",
+    "section": "",
+    "text": "How does R store and represent data?\n\n\n\n\n\nUnderstand data types and missing values\nLearn about data structures vectors and data.frame\nWe started the previous lessons with read_csv(). To better understand the data returned by read_csv(), we will learn how R represents and stores data.\nlibrary(readr) # read and write tabular data\nlibrary(dplyr) # manipulate data\nlibrary(here) # file paths\ninat_data &lt;- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))\nLet’s look at the data information returned by glimpse().\nglimpse(inat_data)\n\nRows: 191,638\nColumns: 37\n$ id                         &lt;dbl&gt; 2931940, 2934641, 2934961, 2934980, 2934994…\n$ observed_on                &lt;date&gt; 2016-04-14, 2016-04-14, 2016-04-14, 2016-0…\n$ time_observed_at           &lt;chr&gt; \"2016-04-14 19:25:00 UTC\", \"2016-04-14 19:0…\n$ user_id                    &lt;dbl&gt; 151043, 10814, 80445, 80445, 80445, 121033,…\n$ user_login                 &lt;chr&gt; \"msmorales\", \"smartrf\", \"cdegroof\", \"cdegro…\n$ user_name                  &lt;chr&gt; \"Michael Morales\", \"Richard Smart (he, him)…\n$ created_at                 &lt;chr&gt; \"2016-04-14 07:28:36 UTC\", \"2016-04-14 19:0…\n$ updated_at                 &lt;chr&gt; \"2021-12-26 06:58:04 UTC\", \"2018-05-28 02:0…\n$ quality_grade              &lt;chr&gt; \"research\", \"needs_id\", \"research\", \"resear…\n$ license                    &lt;chr&gt; \"CC-BY\", \"CC-BY-NC\", NA, NA, NA, \"CC-BY-NC\"…\n$ url                        &lt;chr&gt; \"http://www.inaturalist.org/observations/29…\n$ image_url                  &lt;chr&gt; \"https://inaturalist-open-data.s3.amazonaws…\n$ sound_url                  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…\n$ tag_list                   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…\n$ description                &lt;chr&gt; \"Spotted on a the wall of a planter, while …\n$ captive_cultivated         &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, F…\n$ latitude                   &lt;dbl&gt; 34.05829, 34.01742, 34.13020, 34.13143, 34.…\n$ longitude                  &lt;dbl&gt; -117.8219, -118.2892, -118.8226, -118.8215,…\n$ positional_accuracy        &lt;dbl&gt; 4, 5, NA, NA, NA, NA, 17, 55, 55, 55, NA, 5…\n$ public_positional_accuracy &lt;dbl&gt; 4, 5, NA, NA, NA, NA, 17, 55, 55, 55, NA, 5…\n$ geoprivacy                 &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…\n$ taxon_geoprivacy           &lt;chr&gt; NA, NA, NA, \"open\", \"open\", NA, \"open\", NA,…\n$ coordinates_obscured       &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, F…\n$ scientific_name            &lt;chr&gt; \"Cornu aspersum\", \"Oestroidea\", \"Arphia ram…\n$ common_name                &lt;chr&gt; \"Garden Snail\", \"Bot Flies, Blow Flies, and…\n$ iconic_taxon_name          &lt;chr&gt; \"Mollusca\", \"Insecta\", \"Insecta\", \"Reptilia…\n$ taxon_id                   &lt;dbl&gt; 480298, 356157, 54247, 36100, 36204, 69731,…\n$ taxon_kingdom_name         &lt;chr&gt; \"Animalia\", \"Animalia\", \"Animalia\", \"Animal…\n$ taxon_phylum_name          &lt;chr&gt; \"Mollusca\", \"Arthropoda\", \"Arthropoda\", \"Ch…\n$ taxon_class_name           &lt;chr&gt; \"Gastropoda\", \"Insecta\", \"Insecta\", \"Reptil…\n$ taxon_order_name           &lt;chr&gt; \"Stylommatophora\", \"Diptera\", \"Orthoptera\",…\n$ taxon_family_name          &lt;chr&gt; \"Helicidae\", NA, \"Acrididae\", \"Phrynosomati…\n$ taxon_genus_name           &lt;chr&gt; \"Cornu\", NA, \"Arphia\", \"Uta\", \"Sceloporus\",…\n$ taxon_species_name         &lt;chr&gt; \"Cornu aspersum\", NA, \"Arphia ramona\", \"Uta…\n$ taxon_subspecies_name      &lt;chr&gt; NA, NA, NA, \"Uta stansburiana elegans\", NA,…\n$ threatened                 &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…\n$ establishment_means        &lt;chr&gt; \"introduced\", NA, \"native\", \"native\", \"nati…",
+    "crumbs": [
+      "Understanding data"
+    ]
+  },
+  {
+    "objectID": "lessons/understanding-data.html#questions",
+    "href": "lessons/understanding-data.html#questions",
+    "title": "Understanding data",
+    "section": "",
+    "text": "How does R store and represent data?",
+    "crumbs": [
+      "Understanding data"
+    ]
+  },
+  {
+    "objectID": "lessons/understanding-data.html#objectives",
+    "href": "lessons/understanding-data.html#objectives",
+    "title": "Understanding data",
+    "section": "",
+    "text": "Understand data types and missing values\nLearn about data structures vectors and data.frame",
+    "crumbs": [
+      "Understanding data"
+    ]
+  },
+  {
+    "objectID": "lessons/understanding-data.html#data-types",
+    "href": "lessons/understanding-data.html#data-types",
+    "title": "Understanding data",
+    "section": "Data Types",
+    "text": "Data Types\nglimpse() shows &lt;dbl&gt; &lt;date&gt; &lt;chr&gt; &lt;lgl&gt;. Those are data types.\nIn computer programming, data type is a way to group data values. Every value has a data type. An analogy is human languages have numbers and words. A value’s data type will determine what the programming language can do with the value. For instance, in R we can add numbers but we can’t add character strings.\nThere are 4 main types in R: numeric, integer, logical, and character.\n\nnumeric are numbers that contain a decimal (e.g. 1.2, 10.5). By default, R also treats whole numbers as decimals (e.g. 1, 10).\ninteger are whole numbers that do not have a decimal point. (e.g. 1L, 10L). In R, the L suffix forces the number to be an integer, since by default R uses decimal numbers.\nlogical have values of TRUE or FALSE.\ncharacter are strings of characters (e.g. “abc”, ‘dog’). Characters are mainly letters and punctuation. Numbers combined with letters are treated as characters such as ‘1apple’. Strings must be surrounded by quotes, either single quotes or double quotes.",
+    "crumbs": [
+      "Understanding data"
+    ]
+  },
+  {
+    "objectID": "lessons/understanding-data.html#data-structures",
+    "href": "lessons/understanding-data.html#data-structures",
+    "title": "Understanding data",
+    "section": "Data Structures",
+    "text": "Data Structures\nA data structure is a way to organize and store a collection of values.\n\nVectors\nA vector is data structure in R that has series of values. All the value in the vector must be the same data type.\nTo create a vector we use the c() combine function, and pass in the values as arguments.\nWe can use class() function to find the type or class of any object.\nnumeric vector\n\nnumbers &lt;- c(1, 2, 5)\nnumbers\n\n[1] 1 2 5\n\nclass(numbers)\n\n[1] \"numeric\"\n\n\ncharacter vector\n\ncharacters &lt;- c(\"apple\", 'pear', \"grape\")\ncharacters\n\n[1] \"apple\" \"pear\"  \"grape\"\n\nclass(characters)\n\n[1] \"character\"\n\n\nlogical vector\n\nlogicals &lt;- c(TRUE, FALSE, TRUE)\nlogicals\n\n[1]  TRUE FALSE  TRUE\n\nclass(logicals)\n\n[1] \"logical\"\n\n\nIf you try to put values of different data types into a vector, all the values are converted to the same data type. In the following example, everything is converted to character type.\n\nmixed &lt;- c(1, \"apple\", TRUE)\nmixed\n\n[1] \"1\"     \"apple\" \"TRUE\" \n\nclass(mixed)\n\n[1] \"character\"\n\n\n\n\ndata.frame\nWhen we call class() with inat_data, it returns “tbl” and “data.frame”.\n\nclass(inat_data)\n\n[1] \"spec_tbl_df\" \"tbl_df\"      \"tbl\"         \"data.frame\" \n\n\ndata.frame is a data structure from R that is used to represent tabular data with rows and columns. tbl aka tibble is an updated version of data.frame from the tibble package. readr uses tibbles instead of data.frames.\nWhen readr loads a CSV, it tries to figure the data type for each column. Each column in a data.frame or tibble is a vector. Because each column is a vector, all the values in a column must be of the same data type.\nFor inat_data, id is numeric, captive_cultivated is logical, user_login is character. Multiple columns have NA such as license and sound_url.\nreadr has a special data type date that is used to represent dates. Column observed_on is date. Other columns are such as time_observed_at are treated as character because those strings have extra information that readr does not recognize as a date.",
+    "crumbs": [
+      "Understanding data"
+    ]
+  },
+  {
+    "objectID": "lessons/understanding-data.html#missing-data",
+    "href": "lessons/understanding-data.html#missing-data",
+    "title": "Understanding data",
+    "section": "Missing data",
+    "text": "Missing data\nIn tabular data, there are times when a record does not have a value for a particular field. In spreadsheet programs, when there is no value, cells are left blank. R represents missing values as NA, without quotes. NA stands for not applicable.\nNA is allowed in vectors of any data type.\n\nnumbers &lt;- c(1, 2, NA)\nnumbers\n\n[1]  1  2 NA\n\nclass(numbers)\n\n[1] \"numeric\"\n\n\nWhen you pass number vectors with NA to a math function like min() , the function returns NA. min() returns the smallest number in a vector.\n\nmin(numbers)\n\n[1] NA\n\n\nMany math functions have an argument na.rm to remove NA values for its calculations.\n\nmin(numbers,  na.rm = TRUE)\n\n[1] 1",
+    "crumbs": [
+      "Understanding data"
+    ]
+  },
+  {
     "objectID": "lessons/working-with-data.html",
     "href": "lessons/working-with-data.html",
     "title": "Working with data",
@@ -592,16 +871,6 @@
     ]
   },
   {
-    "objectID": "lessons/working-with-data.html#higher-taxonomy",
-    "href": "lessons/working-with-data.html#higher-taxonomy",
-    "title": "Working with data",
-    "section": "Higher taxonomy",
-    "text": "Higher taxonomy\nSo far we looked at species. Instead of looking at specific species, we can also look for a group of related species.\nLet’s look for observations for all oak trees. We can use filter where the common_name is ‘oaks’.\n\noaks_obs &lt;- inat_data %&gt;%\n  filter(common_name == 'oaks') \n\ndim(oaks_obs)\n\n[1] 218  37\n\n\nWe have 218 observations. However, when we used the iNaturalist site to look for ‘oaks’ for ‘Los Angeles City Nature Challenge Cumulative Observations 2016-2024’, we get 1369 observations. What’s causing the difference?\nWhen you search for ‘oaks’ on iNaturalist, click the ‘About’ link, and it will bring you to the taxa page for ‘oaks’.\n\n\n‘Oaks’ is the common name for genus Quercus. When you search iNaturalist observations for ‘oaks’, iNaturalist returns observations that belong to the genus Quercus, which includes species such as ‘Live Coast Oak’ and ‘Valley Oak’.\nOur query only looks for observation where common_name is ‘oaks’. This means we aren’t including oak species. To match the iNaturalist search results, we need to look for all observations where the genus equals Quercus including oak species.\nWe can use names() to get all the taxon name fields. There are several taxon__xxx__name fields.\n\nnames(inat_data)\n\n [1] \"id\"                         \"observed_on\"               \n [3] \"time_observed_at\"           \"user_id\"                   \n [5] \"user_login\"                 \"user_name\"                 \n [7] \"created_at\"                 \"updated_at\"                \n [9] \"quality_grade\"              \"license\"                   \n[11] \"url\"                        \"image_url\"                 \n[13] \"sound_url\"                  \"tag_list\"                  \n[15] \"description\"                \"captive_cultivated\"        \n[17] \"latitude\"                   \"longitude\"                 \n[19] \"positional_accuracy\"        \"public_positional_accuracy\"\n[21] \"geoprivacy\"                 \"taxon_geoprivacy\"          \n[23] \"coordinates_obscured\"       \"scientific_name\"           \n[25] \"common_name\"                \"iconic_taxon_name\"         \n[27] \"taxon_id\"                   \"taxon_kingdom_name\"        \n[29] \"taxon_phylum_name\"          \"taxon_class_name\"          \n[31] \"taxon_order_name\"           \"taxon_family_name\"         \n[33] \"taxon_genus_name\"           \"taxon_species_name\"        \n[35] \"taxon_subspecies_name\"      \"threatened\"                \n[37] \"establishment_means\"       \n\n\n\n\n\n\n\n\nNote\n\n\n\nWhen you download iNaturalist data, you can to select which taxon name fields to include in the download. By default, none are selected because the ‘Taxon extras’ fields slow down the export process.\n\nWe included the main taxon ranks names in the CNC observations csv.\n\n\nThe ‘Taxonomy’ tab on iNaturalist taxa pages show the taxonomic hierarchy with all the taxon ranks.\n\nWe can create a filter command to represent the taxonomic hierarchy.\n\noaks_obs_fixed &lt;- inat_data %&gt;%\n  filter(\n    taxon_kingdom_name == 'Plantae' &\n    taxon_phylum_name == 'Tracheophyta' &\n    taxon_class_name == 'Magnoliopsida' &\n    taxon_order_name == 'Fagales' &\n    taxon_family_name == 'Fagaceae' &\n    taxon_genus_name == 'Quercus'\n  )\n\ndim(oaks_obs_fixed)\n\n[1] 1367   37\n\n\nThe reason why iNaturalist has 1369 observations for ‘oaks’ but we have 1367 is because iNaturalist has two ‘oaks’ observations which don’t have latitude and longitude data. Our cleaned iNaturalist data excludes observations without latitude and longitude.\nLet’s see the unique common names. We get oaks species and oaks genus.\n\nunique(oaks_obs_fixed$common_name)\n\n [1] \"coast live oak\"                  \"Engelmann oak\"                  \n [3] \"cork oak\"                        \"California scrub oak\"           \n [5] \"oaks\"                            \"canyon live oak\"                \n [7] \"island oak\"                      \"interior live oak\"              \n [9] \"valley oak\"                      \"Holm oak\"                       \n[11] \"white oaks\"                      \"northern red oak\"               \n[13] \"island scrub oak\"                \"high-latitude oaks\"             \n[15] \"southern live oak\"               \"Tucker's Oak\"                   \n[17] \"California black oak\"            \"MacDonald Oak\"                  \n[19] \"blue oak\"                        NA                               \n[21] \"leather oak\"                     \"Southern live oaks\"             \n[23] \"North America intermediate oaks\" \"ring-cupped oak\"                \n[25] \"red oaks\"                        \"San Gabriel oak\"                \n[27] \"California Live Oak\"             \"Ewan's Oak\"                     \n[29] \"Interior live oak\"               \"Nuttall's scrub oak\"            \n\n\nThe reason why I listed the hierarchy instead of just filtering by taxon_genus_name == 'Quercus' is because of limitations of my taxonomy knowledge and the limitations of the information provided by the CSV. Some Latin words are used multiple times to represent different taxa. For instance Eisenia is a genus for a type of worm and a genus for a type kelp. A filter command for taxon_genus_name == 'Eisenia' would return observations for two very different organisms.\n\nEisenia_obs &lt;- inat_data %&gt;%\n  filter(taxon_genus_name == 'Eisenia') %&gt;%\n  select(common_name, taxon_kingdom_name)\n\nEisenia_obs\n\n# A tibble: 7 × 2\n  common_name       taxon_kingdom_name\n  &lt;chr&gt;             &lt;chr&gt;             \n1 Redworm           Animalia          \n2 Southern sea palm Chromista         \n3 Redworm           Animalia          \n4 Redworm           Animalia          \n5 Redworm           Animalia          \n6 Southern sea palm Chromista         \n7 Southern sea palm Chromista         \n\n\nI don’t have enough expertise to know if a taxa name is unique, so to play it safe, I list the entire taxonomy hierarchy.\n\n\n\n\n\n\nNote\n\n\n\niNaturalist gives each taxa name a unique id. Worm Eisenia is 128842, kelp Eisenia is 125880. When iNaturalist searches for observations for a given taxa, it uses the unique id for the search to avoid the problem of duplicate scientific names. Unfortunately the CSV download does not provide ids for each taxon rank, so we can’t do a search by taxon rank id. It is possible to get the ids for all the taxon ranks, but that involves more advance coding techniques.\n\n\nInstead of searching the entire hierarchy, someone with more expertise might know there is only one Quercus in Plantae so they search for Plantae kingdom and genus Quercus.\n\nPlantae_Quercus_obs &lt;- inat_data %&gt;%\n  filter(taxon_kingdom_name == 'Plantae' &\n           taxon_genus_name == 'Quercus') %&gt;%\n  select(common_name, taxon_kingdom_name)\n\ndim(Plantae_Quercus_obs)\n\n[1] 1367    2\n\n\nAnother example, let’s search for ‘trees’. When we search iNaturalist for ‘trees’, the first result is Phylum Tracheophyta. Let’s look at our data using taxon_phylum_name and ‘Tracheophyta’\n\ntrees_obs &lt;- inat_data %&gt;%\n  filter(taxon_kingdom_name == 'Plantae' &\n           taxon_phylum_name == 'Tracheophyta')\n\ndim(trees_obs)\n\n[1] 95372    37\n\n\nThere are 95372 Tracheophyta observations.\n\nunique(trees_obs$common_name)[0:30]\n\n [1] \"tree houseleeks\"         \"London Plane\"           \n [3] \"Christmas-cheer\"         \"Creeping Woodsorrel\"    \n [5] \"century plants\"          \"Fortnight Lilies\"       \n [7] \"Climbing fig\"            \"Fan Palms\"              \n [9] \"Common Cotula\"           \"Cedars\"                 \n[11] \"scarlet pimpernel\"       \"Rancher's fiddleneck\"   \n[13] \"Showy Penstemon\"         \"redbuds\"                \n[15] \"flax-lilies\"             \"Wand Mullein\"           \n[17] \"California Centaury\"     \"crimson clover\"         \n[19] \"tropical milkweed\"       \"giant reed\"             \n[21] \"castor bean\"             \"Chilicothe\"             \n[23] \"roses\"                   \"Small-flowered Catchfly\"\n[25] \"goldentop grass\"         \"Smooth Cat's Ear\"       \n[27] \"purple nightshade\"       \"Bladder-senna\"          \n[29] \"Pacific pea\"             \"California cudweed\"     \n\n\nWe are getting plants such as lilies, penstemon, and milkweed which aren’t trees. Why is that?\nIf we look up ‘Tracheophyta’ in Wikipedia:\n\nThe group includes most land plants (c. 300,000 accepted known species) other than mosses.\n\nIf we look up ‘tree’ in Wikipedia:\n\nTrees are not a monophyletic taxonomic group but consist of a wide variety of plant species that have independently evolved a trunk and branches as a way to tower above other plants to compete for sunlight. The majority of tree species are angiosperms or hardwoods; of the rest, many are gymnosperms or softwoods.\n\n\nAlthough “tree” is a common word, there is no universally recognized precise definition of what a tree is, either botanically or in common language.\n\nIn other words, there is no one word we can use to find all trees. The fact that iNaturalist shows Tracheophyta as the first search result for ‘trees’ is a little quirk with the iNaturalist search algorithm. To find all trees, we would need to get a list of trees names, and create a filter command with all the tree names.\nA quick internet search came up with LA County recommended trees and Wikipedia list of trees and shrubs. You can use lists like these as the basis of creating a list of trees. Your search might look something like this.\nSearch by species.\n\nlaco_species &lt;- c('Acacia aneura', 'Acacia stenophylla', 'Afrocarpus falcatus', \"Agonis flexuosa\", 'Angophora costata', \"Arbutus 'marina'\", 'Arbutus unedo'  )\n\nlaco_species_obs &lt;- inat_data %&gt;%\n  filter(taxon_species_name %in% laco_species & \n           taxon_kingdom_name == 'Plantae') %&gt;%\n  select(user_login, common_name, scientific_name, taxon_species_name)\n\nSearch by genera.\n\nlaco_genera &lt;- c('Acacia',  'Afrocarpus', \"Agonis\", 'Angophora', \"Arbutus\" )\n\nlaco_genera_obs &lt;- inat_data %&gt;%\n  filter(taxon_genus_name %in% laco_genera & \n           taxon_kingdom_name == 'Plantae') %&gt;%\n  select(user_login, common_name, scientific_name, taxon_genus_name)\n\nWhen searching for species, it’s generally better to search by scientific names rather than common names. A species should only have one scientific name. A species can have zero to many common names in many languages, and different sources can use different common names. For example iNaturalist uses strawberry tree and LA County tree list uses strawberry madrone for Arbutus unedo. The downside of searching by scientific names is trying to spell and say all these Latin words.\nWhen looking for a group of related organisms using higher taxonomy, it might take some additional research, and trial and error to get the results you want.",
-    "crumbs": [
-      "Working with data"
-    ]
-  },
-  {
     "objectID": "lessons/working-with-data.html#add-new-columns-with-mutate",
     "href": "lessons/working-with-data.html#add-new-columns-with-mutate",
     "title": "Working with data",
@@ -652,282 +921,33 @@
     ]
   },
   {
-    "objectID": "lessons/understanding-data.html",
-    "href": "lessons/understanding-data.html",
-    "title": "Understanding data",
+    "objectID": "lessons/higher-taxa.html",
+    "href": "lessons/higher-taxa.html",
+    "title": "Higher taxa",
     "section": "",
-    "text": "How does R store and represent data?\n\n\n\n\n\nUnderstand data types and missing values\nLearn about data structures vectors and data.frame\nWe started the previous lessons with read_csv(). To better understand the data returned by read_csv(), we will learn how R represents and stores data.\nlibrary(readr) # read and write tabular data\nlibrary(dplyr) # manipulate data\nlibrary(here) # file paths\ninat_data &lt;- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))\nLet’s look at the data information returned by glimpse().\nglimpse(inat_data)\n\nRows: 191,638\nColumns: 37\n$ id                         &lt;dbl&gt; 2931940, 2934641, 2934961, 2934980, 2934994…\n$ observed_on                &lt;date&gt; 2016-04-14, 2016-04-14, 2016-04-14, 2016-0…\n$ time_observed_at           &lt;chr&gt; \"2016-04-14 19:25:00 UTC\", \"2016-04-14 19:0…\n$ user_id                    &lt;dbl&gt; 151043, 10814, 80445, 80445, 80445, 121033,…\n$ user_login                 &lt;chr&gt; \"msmorales\", \"smartrf\", \"cdegroof\", \"cdegro…\n$ user_name                  &lt;chr&gt; \"Michael Morales\", \"Richard Smart (he, him)…\n$ created_at                 &lt;chr&gt; \"2016-04-14 07:28:36 UTC\", \"2016-04-14 19:0…\n$ updated_at                 &lt;chr&gt; \"2021-12-26 06:58:04 UTC\", \"2018-05-28 02:0…\n$ quality_grade              &lt;chr&gt; \"research\", \"needs_id\", \"research\", \"resear…\n$ license                    &lt;chr&gt; \"CC-BY\", \"CC-BY-NC\", NA, NA, NA, \"CC-BY-NC\"…\n$ url                        &lt;chr&gt; \"http://www.inaturalist.org/observations/29…\n$ image_url                  &lt;chr&gt; \"https://inaturalist-open-data.s3.amazonaws…\n$ sound_url                  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…\n$ tag_list                   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…\n$ description                &lt;chr&gt; \"Spotted on a the wall of a planter, while …\n$ captive_cultivated         &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, F…\n$ latitude                   &lt;dbl&gt; 34.05829, 34.01742, 34.13020, 34.13143, 34.…\n$ longitude                  &lt;dbl&gt; -117.8219, -118.2892, -118.8226, -118.8215,…\n$ positional_accuracy        &lt;dbl&gt; 4, 5, NA, NA, NA, NA, 17, 55, 55, 55, NA, 5…\n$ public_positional_accuracy &lt;dbl&gt; 4, 5, NA, NA, NA, NA, 17, 55, 55, 55, NA, 5…\n$ geoprivacy                 &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…\n$ taxon_geoprivacy           &lt;chr&gt; NA, NA, NA, \"open\", \"open\", NA, \"open\", NA,…\n$ coordinates_obscured       &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, F…\n$ scientific_name            &lt;chr&gt; \"Cornu aspersum\", \"Oestroidea\", \"Arphia ram…\n$ common_name                &lt;chr&gt; \"Garden Snail\", \"Bot Flies, Blow Flies, and…\n$ iconic_taxon_name          &lt;chr&gt; \"Mollusca\", \"Insecta\", \"Insecta\", \"Reptilia…\n$ taxon_id                   &lt;dbl&gt; 480298, 356157, 54247, 36100, 36204, 69731,…\n$ taxon_kingdom_name         &lt;chr&gt; \"Animalia\", \"Animalia\", \"Animalia\", \"Animal…\n$ taxon_phylum_name          &lt;chr&gt; \"Mollusca\", \"Arthropoda\", \"Arthropoda\", \"Ch…\n$ taxon_class_name           &lt;chr&gt; \"Gastropoda\", \"Insecta\", \"Insecta\", \"Reptil…\n$ taxon_order_name           &lt;chr&gt; \"Stylommatophora\", \"Diptera\", \"Orthoptera\",…\n$ taxon_family_name          &lt;chr&gt; \"Helicidae\", NA, \"Acrididae\", \"Phrynosomati…\n$ taxon_genus_name           &lt;chr&gt; \"Cornu\", NA, \"Arphia\", \"Uta\", \"Sceloporus\",…\n$ taxon_species_name         &lt;chr&gt; \"Cornu aspersum\", NA, \"Arphia ramona\", \"Uta…\n$ taxon_subspecies_name      &lt;chr&gt; NA, NA, NA, \"Uta stansburiana elegans\", NA,…\n$ threatened                 &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…\n$ establishment_means        &lt;chr&gt; \"introduced\", NA, \"native\", \"native\", \"nati…",
+    "text": "How do we search for observations for groups of related species?\n\n\n\n\n\nLearn how search for higher taxa.\nlibrary(readr) # read and write tabular data\nlibrary(dplyr) # manipulate data\nlibrary(lubridate) # manipulate dates\nlibrary(here) # file paths\ninat_data &lt;- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))\nSo far we looked at species. Instead of looking at specific species, we can also look for a group of related species.\nLet’s look for observations for all oak trees. We can use filter where the common_name is ‘oaks’.\noaks_obs &lt;- inat_data %&gt;%\n  filter(common_name == 'oaks') \n\ndim(oaks_obs)\n\n[1] 218  37\nWe have 218 observations. However, when we used the iNaturalist site to look for ‘oaks’ for ‘Los Angeles City Nature Challenge Cumulative Observations 2016-2024’, we get 1369 observations. What’s causing the difference?\nWhen you search for ‘oaks’ on iNaturalist, click the ‘About’ link, and it will bring you to the taxa page for ‘oaks’.\n‘Oaks’ is the common name for genus Quercus. When you search iNaturalist observations for ‘oaks’, iNaturalist returns observations that belong to the genus Quercus, which includes species such as ‘Live Coast Oak’ and ‘Valley Oak’.\nOur query only looks for observation where common_name is ‘oaks’. This means we aren’t including oak species. To match the iNaturalist search results, we need to look for all observations where the genus equals Quercus including oak species.\nWe can use names() to get all the taxon name fields. There are several taxon__xxx__name fields.\nnames(inat_data)\n\n [1] \"id\"                         \"observed_on\"               \n [3] \"time_observed_at\"           \"user_id\"                   \n [5] \"user_login\"                 \"user_name\"                 \n [7] \"created_at\"                 \"updated_at\"                \n [9] \"quality_grade\"              \"license\"                   \n[11] \"url\"                        \"image_url\"                 \n[13] \"sound_url\"                  \"tag_list\"                  \n[15] \"description\"                \"captive_cultivated\"        \n[17] \"latitude\"                   \"longitude\"                 \n[19] \"positional_accuracy\"        \"public_positional_accuracy\"\n[21] \"geoprivacy\"                 \"taxon_geoprivacy\"          \n[23] \"coordinates_obscured\"       \"scientific_name\"           \n[25] \"common_name\"                \"iconic_taxon_name\"         \n[27] \"taxon_id\"                   \"taxon_kingdom_name\"        \n[29] \"taxon_phylum_name\"          \"taxon_class_name\"          \n[31] \"taxon_order_name\"           \"taxon_family_name\"         \n[33] \"taxon_genus_name\"           \"taxon_species_name\"        \n[35] \"taxon_subspecies_name\"      \"threatened\"                \n[37] \"establishment_means\"\nThe ‘Taxonomy’ tab on iNaturalist taxa pages show the taxonomic hierarchy with all the taxon ranks.\nWe can create a filter command to represent the taxonomic hierarchy.\noaks_obs_fixed &lt;- inat_data %&gt;%\n  filter(\n    taxon_kingdom_name == 'Plantae' &\n    taxon_phylum_name == 'Tracheophyta' &\n    taxon_class_name == 'Magnoliopsida' &\n    taxon_order_name == 'Fagales' &\n    taxon_family_name == 'Fagaceae' &\n    taxon_genus_name == 'Quercus'\n  )\n\ndim(oaks_obs_fixed)\n\n[1] 1367   37\nThe reason why iNaturalist has 1369 observations but we have 1367 is because iNaturalist has two ‘Quercus’ observations which don’t have latitude and longitude data. Our cleaned iNaturalist data excludes observations without latitude and longitude.\nLet’s see the unique common names.\nunique(oaks_obs_fixed$common_name)\n\n [1] \"coast live oak\"                  \"Engelmann oak\"                  \n [3] \"cork oak\"                        \"California scrub oak\"           \n [5] \"oaks\"                            \"canyon live oak\"                \n [7] \"island oak\"                      \"interior live oak\"              \n [9] \"valley oak\"                      \"Holm oak\"                       \n[11] \"white oaks\"                      \"northern red oak\"               \n[13] \"island scrub oak\"                \"high-latitude oaks\"             \n[15] \"southern live oak\"               \"Tucker's Oak\"                   \n[17] \"California black oak\"            \"MacDonald Oak\"                  \n[19] \"blue oak\"                        NA                               \n[21] \"leather oak\"                     \"Southern live oaks\"             \n[23] \"North America intermediate oaks\" \"ring-cupped oak\"                \n[25] \"red oaks\"                        \"San Gabriel oak\"                \n[27] \"California Live Oak\"             \"Ewan's Oak\"                     \n[29] \"Interior live oak\"               \"Nuttall's scrub oak\"\nWe get a combination of oaks species and oaks genus.\nThe reason why I listed the hierarchy instead of just filtering by taxon_genus_name == 'Quercus' is because of limitations of my taxonomy knowledge and the limitations of the information provided by the CSV. Some Latin words are used multiple times to represent different taxa. For instance Eisenia is a genus for a type of worm and a genus for a type kelp. A filter command for taxon_genus_name == 'Eisenia' would return observations for two very different organisms.\nEisenia_obs &lt;- inat_data %&gt;%\n  filter(taxon_genus_name == 'Eisenia') %&gt;%\n  select(common_name, taxon_kingdom_name)\n\nEisenia_obs\n\n# A tibble: 7 × 2\n  common_name       taxon_kingdom_name\n  &lt;chr&gt;             &lt;chr&gt;             \n1 Redworm           Animalia          \n2 Southern sea palm Chromista         \n3 Redworm           Animalia          \n4 Redworm           Animalia          \n5 Redworm           Animalia          \n6 Southern sea palm Chromista         \n7 Southern sea palm Chromista\nI don’t have enough expertise to know if a taxa name is unique, so to play it safe, I list the entire taxonomy hierarchy.\nInstead of searching the entire hierarchy, someone with more expertise might know there is only one Quercus in Plantae so they search for Plantae kingdom and genus Quercus.\nPlantae_Quercus_obs &lt;- inat_data %&gt;%\n  filter(taxon_kingdom_name == 'Plantae' &\n           taxon_genus_name == 'Quercus') %&gt;%\n  select(common_name, taxon_kingdom_name)\n\ndim(Plantae_Quercus_obs)\n\n[1] 1367    2\nAnother example, let’s search for ‘trees’. When we search iNaturalist for ‘trees’, the first result is Phylum Tracheophyta. Let’s look at our data using taxon_phylum_name and ‘Tracheophyta’\ntrees_obs &lt;- inat_data %&gt;%\n  filter(taxon_kingdom_name == 'Plantae' &\n           taxon_phylum_name == 'Tracheophyta')\n\ndim(trees_obs)\n\n[1] 95372    37\nThere are 95372 Tracheophyta observations.\nunique(trees_obs$common_name)[0:30]\n\n [1] \"tree houseleeks\"         \"London Plane\"           \n [3] \"Christmas-cheer\"         \"Creeping Woodsorrel\"    \n [5] \"century plants\"          \"Fortnight Lilies\"       \n [7] \"Climbing fig\"            \"Fan Palms\"              \n [9] \"Common Cotula\"           \"Cedars\"                 \n[11] \"scarlet pimpernel\"       \"Rancher's fiddleneck\"   \n[13] \"Showy Penstemon\"         \"redbuds\"                \n[15] \"flax-lilies\"             \"Wand Mullein\"           \n[17] \"California Centaury\"     \"crimson clover\"         \n[19] \"tropical milkweed\"       \"giant reed\"             \n[21] \"castor bean\"             \"Chilicothe\"             \n[23] \"roses\"                   \"Small-flowered Catchfly\"\n[25] \"goldentop grass\"         \"Smooth Cat's Ear\"       \n[27] \"purple nightshade\"       \"Bladder-senna\"          \n[29] \"Pacific pea\"             \"California cudweed\"\nWe are getting plants such as lilies, penstemon, and milkweed which aren’t trees. Why is that?\nIf we look up ‘Tracheophyta’ in Wikipedia:\nIf we look up ‘tree’ in Wikipedia:\nIn other words, there is no one word we can use to find all trees. The fact that iNaturalist shows Tracheophyta as the first search result for ‘trees’ is a little quirk with the iNaturalist search algorithm. To find all trees, we would need to get a list of trees names, and create a filter command with all the tree names.\nA quick internet search came up with LA County recommended trees and Wikipedia list of trees and shrubs. You can use lists like these as the basis of creating a list of trees. Your search might look something like this.\nSearch by species.\nlaco_species &lt;- c('Acacia aneura', 'Acacia stenophylla', 'Afrocarpus falcatus', \"Agonis flexuosa\", 'Angophora costata', \"Arbutus 'marina'\", 'Arbutus unedo'  )\n\nlaco_species_obs &lt;- inat_data %&gt;%\n  filter(taxon_species_name %in% laco_species & \n           taxon_kingdom_name == 'Plantae') %&gt;%\n  select(user_login, common_name, scientific_name, taxon_species_name)\nSearch by genera.\nlaco_genera &lt;- c('Acacia',  'Afrocarpus', \"Agonis\", 'Angophora', \"Arbutus\" )\n\nlaco_genera_obs &lt;- inat_data %&gt;%\n  filter(taxon_genus_name %in% laco_genera & \n           taxon_kingdom_name == 'Plantae') %&gt;%\n  select(user_login, common_name, scientific_name, taxon_genus_name)\nWhen searching for species, it’s generally better to search by scientific names rather than common names. A species should only have one scientific name. A species can have zero to many common names in many languages, and different sources can use different common names. For example iNaturalist uses strawberry tree and LA County tree list uses strawberry madrone for Arbutus unedo. The downside of searching by scientific names is trying to spell and say all these Latin words.\nWhen looking for a group of related organisms using higher taxonomy, it might take some additional research, and trial and error to get the results you want.",
     "crumbs": [
-      "Understanding data"
+      "Higher taxa"
     ]
   },
   {
-    "objectID": "lessons/understanding-data.html#questions",
-    "href": "lessons/understanding-data.html#questions",
-    "title": "Understanding data",
+    "objectID": "lessons/higher-taxa.html#questions",
+    "href": "lessons/higher-taxa.html#questions",
+    "title": "Higher taxa",
     "section": "",
-    "text": "How does R store and represent data?",
+    "text": "How do we search for observations for groups of related species?",
     "crumbs": [
-      "Understanding data"
+      "Higher taxa"
     ]
   },
   {
-    "objectID": "lessons/understanding-data.html#objectives",
-    "href": "lessons/understanding-data.html#objectives",
-    "title": "Understanding data",
+    "objectID": "lessons/higher-taxa.html#objectives",
+    "href": "lessons/higher-taxa.html#objectives",
+    "title": "Higher taxa",
     "section": "",
-    "text": "Understand data types and missing values\nLearn about data structures vectors and data.frame",
+    "text": "Learn how search for higher taxa.",
     "crumbs": [
-      "Understanding data"
-    ]
-  },
-  {
-    "objectID": "lessons/understanding-data.html#data-types",
-    "href": "lessons/understanding-data.html#data-types",
-    "title": "Understanding data",
-    "section": "Data Types",
-    "text": "Data Types\nglimpse() shows &lt;dbl&gt; &lt;date&gt; &lt;chr&gt; &lt;lgl&gt;. Those are data types.\nIn computer programming, data type is a way to group data values. Every value has a data type. An analogy is human languages have numbers and words. A value’s data type will determine what the programming language can do with the value. For instance, in R we can add numbers but we can’t add character strings.\nThere are 4 main types in R: numeric, integer, logical, and character.\n\nnumeric are numbers that contain a decimal (e.g. 1.2, 10.5). By default, R also treats whole numbers as decimals (e.g. 1, 10).\ninteger are whole numbers that do not have a decimal point. (e.g. 1L, 10L). In R, the L suffix forces the number to be an integer, since by default R uses decimal numbers.\nlogical have values of TRUE or FALSE.\ncharacter are strings of characters (e.g. “abc”, ‘dog’). Characters are mainly letters and punctuation. Numbers combined with letters are treated as characters such as ‘1apple’. Strings must be surrounded by quotes, either single quotes or double quotes.",
-    "crumbs": [
-      "Understanding data"
-    ]
-  },
-  {
-    "objectID": "lessons/understanding-data.html#data-structures",
-    "href": "lessons/understanding-data.html#data-structures",
-    "title": "Understanding data",
-    "section": "Data Structures",
-    "text": "Data Structures\nA data structure is a way to organize and store a collection of values.\n\nVectors\nA vector is data structure in R that has series of values. All the value in the vector must be the same data type.\nTo create a vector we use the c() combine function, and pass in the values as arguments.\nWe can use class() function to find the type or class of any object.\nnumeric vector\n\nnumbers &lt;- c(1, 2, 5)\nnumbers\n\n[1] 1 2 5\n\nclass(numbers)\n\n[1] \"numeric\"\n\n\ncharacter vector\n\ncharacters &lt;- c(\"apple\", 'pear', \"grape\")\ncharacters\n\n[1] \"apple\" \"pear\"  \"grape\"\n\nclass(characters)\n\n[1] \"character\"\n\n\nlogical vector\n\nlogicals &lt;- c(TRUE, FALSE, TRUE)\nlogicals\n\n[1]  TRUE FALSE  TRUE\n\nclass(logicals)\n\n[1] \"logical\"\n\n\nIf you try to put values of different data types into a vector, all the values are converted to the same data type. In the following example, everything is converted to character type.\n\nmixed &lt;- c(1, \"apple\", TRUE)\nmixed\n\n[1] \"1\"     \"apple\" \"TRUE\" \n\nclass(mixed)\n\n[1] \"character\"\n\n\n\n\ndata.frame\nWhen we call class() with inat_data, it returns “tbl” and “data.frame”.\n\nclass(inat_data)\n\n[1] \"spec_tbl_df\" \"tbl_df\"      \"tbl\"         \"data.frame\" \n\n\ndata.frame is a data structure from R that is used to represent tabular data with rows and columns. tbl aka tibble is an updated version of data.frame from the tibble package. readr uses tibbles instead of data.frames.\nWhen readr loads a CSV, it tries to figure the data type for each column. Each column in a data.frame or tibble is a vector. Because each column is a vector, all the values in a column must be of the same data type.\nFor inat_data, id is numeric, captive_cultivated is logical, user_login is character. Multiple columns have NA such as license and sound_url.\nreadr has a special data type date that is used to represent dates. Column observed_on is date. Other columns are such as time_observed_at are treated as character because those strings have extra information that readr does not recognize as a date.",
-    "crumbs": [
-      "Understanding data"
-    ]
-  },
-  {
-    "objectID": "lessons/understanding-data.html#missing-data",
-    "href": "lessons/understanding-data.html#missing-data",
-    "title": "Understanding data",
-    "section": "Missing data",
-    "text": "Missing data\nIn tabular data, there are times when a record does not have a value for a particular field. In spreadsheet programs, when there is no value, cells are left blank. R represents missing values as NA, without quotes. NA stands for not applicable.\nNA is allowed in vectors of any data type.\n\nnumbers &lt;- c(1, 2, NA)\nnumbers\n\n[1]  1  2 NA\n\nclass(numbers)\n\n[1] \"numeric\"\n\n\nWhen you pass number vectors with NA to a math function like min() , the function returns NA. min() returns the smallest number in a vector.\n\nmin(numbers)\n\n[1] NA\n\n\nMany math functions have an argument na.rm to remove NA values for its calculations.\n\nmin(numbers,  na.rm = TRUE)\n\n[1] 1",
-    "crumbs": [
-      "Understanding data"
-    ]
-  },
-  {
-    "objectID": "readme.html",
-    "href": "readme.html",
-    "title": "After iNaturalist - Learn How To Explore City Nature Challenge Data through R Coding",
-    "section": "",
-    "text": "Lesson for Natural History Museum of Los Angeles County, After iNaturalist workshop.\nPut your nature eyes on in a whole new way in this introductory workshop to R coding! Learn how to explore nature in L.A. using biodiversity data collected during nine years of the City Nature Challenge.\nOnline lesson, lesson repo\n\n\nThese lesson are based on several Carpentries R lessons: Data Analysis and Visualization in R for Ecologists, Geospatial, and Social Science.\nThe lessons are built using Quarto."
-  },
-  {
-    "objectID": "readme.html#details",
-    "href": "readme.html#details",
-    "title": "After iNaturalist - Learn How To Explore City Nature Challenge Data through R Coding",
-    "section": "",
-    "text": "These lesson are based on several Carpentries R lessons: Data Analysis and Visualization in R for Ecologists, Geospatial, and Social Science.\nThe lessons are built using Quarto."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "After iNaturalist - Learn How To Explore City Nature Challenge Data through R Coding",
-    "section": "",
-    "text": "Put your nature eyes on in a whole new way in this introductory workshop to R coding! Learn how to explore nature in L.A. using biodiversity data collected during nine years of the City Nature Challenge. No previous coding experience necessary!\nProgram content will consist of a virtual information session, two in-person workshops, and two optional virtual office hours. The first in-person workshop will include a high-level overview of R and how to run sample scripts. There will be a three-week break between sessions for you to practice swapping out variables and develop a short presentation.\nSchedule\n\nJan. 16, 2025, 6–7 pm: VIRTUAL Information Session (recording will be available)\nFeb. 1, 2025, 9 am–3:30 pm: IN-PERSON Session with 30-minute Lunch Break at the Natural History Museum of Los Angeles County\nTHREE-WEEK BREAK to Practice R and Develop a Short Presentation of Your Script\nFeb. 8, 2025, 10–11 am: VIRTUAL Office Hour and Q&A (Optional)\nFeb. 15, 2025, 10–11 am: VIRTUAL Office Hour and Q&A (Optional)\nFeb. 22, 2025, 9 am–12 pm:  IN-PERSON Session and Participant Presentations  at the Natural History Museum of Los Angeles County\n\nThese lesson are based on several Carpentries R lessons: Data Analysis and Visualization in R for Ecologists, Geospatial, and Social Science.",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "lessons/normalizing-inat.html",
-    "href": "lessons/normalizing-inat.html",
-    "title": "Normalizing iNaturalist data",
-    "section": "",
-    "text": "library(readr)\nlibrary(dplyr)\nlibrary(here)\nlibrary(sf)\nlibrary(mapview)\nlibrary(lubridate)\nlibrary(ggplot2)\nThere is a bug with sf https://github.com/r-spatial/sf/issues/1762. This bit of code is fix for the bug.\nsf_use_s2(FALSE)\n\nSpherical geometry (s2) switched off\nWhile community science data is extremely useful and allows you to answer many crucial questions within urban ecology, it has its limitations. One of the major limitations to community science data is that because it relies on public observations instead of consistent, standardized surveying, the data ends up being biased. This means that certain areas end up having more observations than others, and the number of observations changes over time. Certain species are also more likely to get detected, such as charismatic and abundant species, while others are harder to track. There are multiple ways to account for this bias, which is referred to as data normalization.\nSay you want to track species diversity over time in your neighborhood. Species diversity is one indicator of overall biodiversity health. With more diversity in the species found, the urban ecosystem of your neighborhood tends to be more resilient and stable. How do we measure this using community science data?",
-    "crumbs": [
-      "Normalizing iNaturalist data"
-    ]
-  },
-  {
-    "objectID": "lessons/normalizing-inat.html#get-cnc-data",
-    "href": "lessons/normalizing-inat.html#get-cnc-data",
-    "title": "Normalizing iNaturalist data",
-    "section": "Get CNC data",
-    "text": "Get CNC data\nFirst, let’s import City Nature Challenge observations over 9 years (2016-2024) within the County of Los Angeles.\n\nallobs &lt;- read_csv(here(\"data/cleaned/cnc-los-angeles-observations.csv\"))\n\nRows: 191638 Columns: 37\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (26): time_observed_at, user_login, user_name, created_at, updated_at, ...\ndbl   (7): id, user_id, latitude, longitude, positional_accuracy, public_pos...\nlgl   (3): captive_cultivated, coordinates_obscured, threatened\ndate  (1): observed_on\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\nNext, we want to restrict our dataset to only research grade observations. These are observations that have been identified twice and are of the highest quality. Here, we select that we only want the quality_grade variable to equal “research”.\n\n\nallobs_research &lt;- allobs %&gt;%\n  filter(quality_grade==\"research\")\n\nWe then want to convert this data into points that we can use for geospatial analysis.\n\nallobs_sf &lt;- allobs_research %&gt;% \n  st_as_sf(coords = c(\"longitude\", \"latitude\"),   crs = 4326)",
-    "crumbs": [
-      "Normalizing iNaturalist data"
-    ]
-  },
-  {
-    "objectID": "lessons/normalizing-inat.html#get-observations-for-a-region",
-    "href": "lessons/normalizing-inat.html#get-observations-for-a-region",
-    "title": "Normalizing iNaturalist data",
-    "section": "Get observations for a region",
-    "text": "Get observations for a region\nSay you live in Hollywood. We will want to clip these observations to the boundary of your neighborhood, so the only observations we have are those found within your neighborhood. First, we’ll import the boundary for the neighborhood:\n\nhollywood_boundary &lt;- read_sf(here('data/raw/Hollywood Boundary/hollywood_boundary.shp'))\n\nWe now want to check that the coordinate reference systems (CRS) are the same between our observations and our neighborhood boundary\n\nst_crs(hollywood_boundary) == st_crs(allobs_sf)\n\n[1] FALSE\n\n\nWe get a result of “FALSE”. As such, let’s make the CRS the same between the two:\n\nhollywood_boundary &lt;- st_transform(hollywood_boundary, crs = st_crs(allobs_sf))\n\nst_crs(hollywood_boundary) == st_crs(allobs_sf)\n\n[1] TRUE\n\n\nLet’s now filter the observations to those that are only within the Hollywood boundary.\n\nneighborhood_obs &lt;- allobs_sf[lengths(st_intersects(allobs_sf, hollywood_boundary)) &gt; 0, ]\n\nalthough coordinates are longitude/latitude, st_intersects assumes that they\nare planar\nalthough coordinates are longitude/latitude, st_intersects assumes that they\nare planar\n\n\nWe can now visualize the observations within a map:\n\nmapview(neighborhood_obs) +\n  mapview(hollywood_boundary)\n\n\nAs you can see, most of the observations take place in the large natural area of Griffith Park in the top right of the neighborhood. Observations being found more in one location compared to another is a frequently seen form of bias.",
-    "crumbs": [
-      "Normalizing iNaturalist data"
-    ]
-  },
-  {
-    "objectID": "lessons/normalizing-inat.html#calculate-species-diversity",
-    "href": "lessons/normalizing-inat.html#calculate-species-diversity",
-    "title": "Normalizing iNaturalist data",
-    "section": "Calculate species diversity",
-    "text": "Calculate species diversity\nWe now need to determine how we calculate species diversity. There are multiple ways to do this, but because of the bias in community science data, we need to be careful on how to best do so. We want to maximize the likelihood that a species, if it is present in your neighborhood, is observed. To do this, we can do what is referred to as “thinning” the data, which is where we cap the maximum number of observations of a species. Instead of keeping every single observation, we can instead look for if a species has been observed at least once over an entire year. If it is observed at least once, we can count the species as present. Using this presence data, we can calculate species richness, which is the total number of unique species that are found within an area. Calculating species richness is a way to account for bias in community science observations through thinning the data.\nAdditionally, because the number of observations changes over time, we need to account for this variation. One way to do this is to take a subset or a smaller portion of the observations for each year, so that each year has the same number of observations when calculating species richness. \nFirst, we need to create a column in our dataset that says the year using mutate() and year().\n\nneighborhood_obs &lt;- neighborhood_obs %&gt;%\n  mutate(year = year(observed_on))\n\nNext, we need to determine the year that has the lowest number of observations. We can do this by calculating the number of observations for each year.\n\ntable(neighborhood_obs$year)\n\n\n2016 2017 2018 2019 2020 2021 2022 2023 2024 \n 401  238  838 1065  388  501  652  547  386 \n\n\nLet’s now calculate the minimum of these observations.\n\nlowest_year &lt;- min(table(neighborhood_obs$year))\n\nlowest_year\n\n[1] 238\n\n\nThen when calculating species richness for each year, we can use a random subset in order to account for this bias, making it so we have lowest_year number of observations for each year.\nWe use group_by() to group the observations by year, and slice_sample() to randomly pick lowest_year number of observations per year. It’s also crucial that we set replace to FALSE. This ensures that we don’t duplicate observations.\n\nrandom_obs_per_year &lt;- neighborhood_obs %&gt;%\n  st_drop_geometry() %&gt;%\n  group_by(year) %&gt;%\n  slice_sample(n = lowest_year, replace=FALSE) %&gt;%\n  select(year, scientific_name)\n\nhead(random_obs_per_year)\n\n# A tibble: 6 × 2\n# Groups:   year [1]\n   year scientific_name       \n  &lt;dbl&gt; &lt;chr&gt;                 \n1  2016 Sambucus cerulea      \n2  2016 Quercus berberidifolia\n3  2016 Juglans californica   \n4  2016 Phacelia cicutaria    \n5  2016 Lonicera subspicata   \n6  2016 Urtica dioica         \n\n\nWe can use table to confirm we get lowest_year number of observations per year.\n\ntable(random_obs_per_year$year)\n\n\n2016 2017 2018 2019 2020 2021 2022 2023 2024 \n 238  238  238  238  238  238  238  238  238 \n\n\nNow that we have our subsets, we need to thin the data so that each species only has one observation maximum per year. We can do this with the distinct() function.\n\nunique_species_per_year &lt;- distinct(random_obs_per_year) \n\nWe use count() to count the number of species per year.\n\nrichness_dataframe &lt;- unique_species_per_year %&gt;%\n  count(year, name='richness')\n\nrichness_dataframe\n\n# A tibble: 9 × 2\n# Groups:   year [9]\n   year richness\n  &lt;dbl&gt;    &lt;int&gt;\n1  2016      134\n2  2017      127\n3  2018      122\n4  2019      121\n5  2020      124\n6  2021      126\n7  2022      134\n8  2023      126\n9  2024      128\n\n\nNext, we can create a chart and visualize the results. Here, we use commands for how the plot looks similar to other plots we’ve created previously.\n\nggplot(data = richness_dataframe, mapping = aes(x=year, y=richness)) +\n  geom_line() +\n  geom_point() +\n  theme_bw() +\n  theme(axis.title = element_text(size =14),\n        panel.grid.major.x = element_blank(),\n        panel.grid.minor.x = element_blank()) +\n  labs(title = \"Species Richness Over Time in Hollywood\",\n       x = \"Year\",\n       y = \"Species Richness\")\n\n\n\n\n\n\n\n\nAs you can see for this neighborhood, species richness has varied over time. Most of this variation is likely explained by needing more observations to better ensure that if a species is present, it can be detected. This can be done through expanding the data used to all iNaturalist observations beyond the City Nature Challenge and to continue participating in community science efforts. Additionally, there are many other indicators of ecosystem health. For example, an increase in species richness may be due to the introduction of new invasive species. Random chance when we created the subsets could also potentially skew our results, so species richness can also be measured in other, more complex ways. In order to get a better overall picture, other metrics can be explored as well. It’s also generally a good idea to look over a longer time period in order to detect trends in urban ecology, although we kept it to 9 years for this exercise. Additionally, the code can be further streamlined with the use of other coding skills, like loops. We encourage you to continue to practice and learn more about urban ecology and coding to answer some of these questions!",
-    "crumbs": [
-      "Normalizing iNaturalist data"
-    ]
-  },
-  {
-    "objectID": "lessons/normalizing-inat.html#exercise-1",
-    "href": "lessons/normalizing-inat.html#exercise-1",
-    "title": "Normalizing iNaturalist data",
-    "section": "Exercise 1",
-    "text": "Exercise 1\nUtilize the above code to visualize how species richness changes over time in an area of your choosing. Choose the area and follow the steps above to normalize the data and create your own line plot showing species richness over time.",
-    "crumbs": [
-      "Normalizing iNaturalist data"
-    ]
-  },
-  {
-    "objectID": "lessons/intro-r-rstudio.html",
-    "href": "lessons/intro-r-rstudio.html",
-    "title": "Introduction to R and RStudio",
-    "section": "",
-    "text": "What is R and RStudio?\nHow do you get started working in R and RStudio?\n\n\n\n\n\nUnderstand the difference between R and RStudio.\nDescribe the purpose of the different RStudio panes.\nOrganize files and directories into R Projects.",
-    "crumbs": [
-      "Introduction to R and RStudio"
-    ]
-  },
-  {
-    "objectID": "lessons/intro-r-rstudio.html#questions",
-    "href": "lessons/intro-r-rstudio.html#questions",
-    "title": "Introduction to R and RStudio",
-    "section": "",
-    "text": "What is R and RStudio?\nHow do you get started working in R and RStudio?",
-    "crumbs": [
-      "Introduction to R and RStudio"
-    ]
-  },
-  {
-    "objectID": "lessons/intro-r-rstudio.html#objectives",
-    "href": "lessons/intro-r-rstudio.html#objectives",
-    "title": "Introduction to R and RStudio",
-    "section": "",
-    "text": "Understand the difference between R and RStudio.\nDescribe the purpose of the different RStudio panes.\nOrganize files and directories into R Projects.",
-    "crumbs": [
-      "Introduction to R and RStudio"
-    ]
-  },
-  {
-    "objectID": "lessons/intro-r-rstudio.html#what-are-r-and-rstudio",
-    "href": "lessons/intro-r-rstudio.html#what-are-r-and-rstudio",
-    "title": "Introduction to R and RStudio",
-    "section": "What are R and RStudio?",
-    "text": "What are R and RStudio?\nR is a programming language. R is a popular language for data analysis.\nRStudio is software application that can make it easier to write and run R code.",
-    "crumbs": [
-      "Introduction to R and RStudio"
-    ]
-  },
-  {
-    "objectID": "lessons/intro-r-rstudio.html#running-r-and-rstudio",
-    "href": "lessons/intro-r-rstudio.html#running-r-and-rstudio",
-    "title": "Introduction to R and RStudio",
-    "section": "Running R and RStudio",
-    "text": "Running R and RStudio\nLet’s start R and RStudio in GitHub Codespaces.\n\nGo to data-explorers-feb-2025 on Github.\nClick on your repo.\nClick “Open in GitHub Codespaces” button.\nClick “PORTS” after the Codespace is finished building.\nHover over “RStudio”.\nClick on middle globe icon to start RStudio.",
-    "crumbs": [
-      "Introduction to R and RStudio"
-    ]
-  },
-  {
-    "objectID": "lessons/intro-r-rstudio.html#navigating-rstudio",
-    "href": "lessons/intro-r-rstudio.html#navigating-rstudio",
-    "title": "Introduction to R and RStudio",
-    "section": "Navigating RStudio",
-    "text": "Navigating RStudio\nWe will use the RStudio integrated development environment (IDE) to write code into scripts, run code in R, navigate files on our computer, inspect objects we create in R, and look at the plots we make.\n\nIn the above screenshot, we can see 4 panes. If you only have 3 panes, and the Console pane is in the top left, press Shift+Cmd+N (Mac) or Shift+Ctrl+N (Windows) to open a blank R script, which should make the Source pane appear.\n\nTop-Left: Source pane that displays scripts and other files.\nTop-Right: Environment pane which shows all the objects in your current R session.\nBottom-Left: Console pane where you can interact directly with an R console, which interprets R commands and prints the results\nBottom-Right: Files pane displays directories and files on your computer. Plot and Viewer displays plots and other types of output. Help display help pages.",
-    "crumbs": [
-      "Introduction to R and RStudio"
-    ]
-  },
-  {
-    "objectID": "lessons/intro-r-rstudio.html#overview-of-workshop-files",
-    "href": "lessons/intro-r-rstudio.html#overview-of-workshop-files",
-    "title": "Introduction to R and RStudio",
-    "section": "Overview of workshop files",
-    "text": "Overview of workshop files\nLet’s examine the project files using the Files pane.\nIt is a good practice to organize your projects into self-contained folders. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into subfolders.\nproject_folder\n│\n└── .devcontainer\n│\n└── .gitignore\n|\n└── data\n│    └── cleaned\n│    └── raw\n│\n└── project.Rproj\n│\n└── readme.md\n|\n└── results\n│\n└── scripts\n    └── lesson-scripts\n\nWe have a data folder containing cleaned and raw sub-folders. In general, you want to keep your raw data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the cleaned folder. We also have a results folder for any other documents you might produce. We also have a scripts folder to hold any scripts we write. We have a lesson-scripts subfolder that has all the code from the lesson.\nRStudio provides a “Projects” feature that can make it easier to work on individual projects in R. RStudio projects have a xxx.Rproj file.\nOne of the benefits to using RStudio Projects is that they automatically set the working directory to the top-level folder for the project. The working directory is the folder where R is working, so it views the location of all files (including data and scripts) as being relative to the working directory.\nSince the workshop is hosted on Github, we also have some additional files. .devcontainer has instructions on how to create Github Codespaces. .gitignore lists files and folders that Git should not track. readme.md gives a basic description of this project. Github displays the readme on the repository webpage. If you run R and RStudio on your own computer, then you don’t need these additional files.",
-    "crumbs": [
-      "Introduction to R and RStudio"
-    ]
-  },
-  {
-    "objectID": "lessons/intro-r-rstudio.html#working-in-r-and-rstudio",
-    "href": "lessons/intro-r-rstudio.html#working-in-r-and-rstudio",
-    "title": "Introduction to R and RStudio",
-    "section": "Working in R and RStudio",
-    "text": "Working in R and RStudio\n\nConsole vs. script\nYou can run commands directly in the R console, or you can write them into an R script.\n\nConsole\n\nThe R console is where code is run/executed\nThe prompt, which is the &gt; symbol, is where you can type commands\nBy pressing Return (Mac) or Enter (Windows), R will execute those commands and print the result.\nWhen you write commands in the R console, you will not be able to access your work in future.\n\nLet’s try running some code in the console.\nFirst, click down in the Console pane, and type:\n\n1 + 2\n\n[1] 3\n\n\nHit Return or Enter to run the code. You should see your code echoed, and then the value of 3 returned.\n\n\nScript\n\nA script is a record of commands to send to R, preserved in a plain text file with a .R extension\nYou type out lines of R code in a script, then send them to the R console to be evaluated. There are a few ways to run the code\n\nCmd+Return (Mac) or Ctrl+Enter (Windows) will run the line of code that your cursor is on. If you highlight multiple lines of code, you can run all of them by pressing Cmd+Return (Mac) or Ctrl+Enter (Windows)\nclick on the Run button above the editor panel\n\nBy preserving commands in a script, you can edit and rerun them quickly, save them for later, and share them with others\nAn additional benefit of scripts is that you can leave comments for yourself or others to read. Lines that start with # are considered comments and will not be interpreted as R code.",
-    "crumbs": [
-      "Introduction to R and RStudio"
-    ]
-  },
-  {
-    "objectID": "lessons/intro-r-rstudio.html#first-script",
-    "href": "lessons/intro-r-rstudio.html#first-script",
-    "title": "Introduction to R and RStudio",
-    "section": "First script",
-    "text": "First script\nLet’s create our first script.\nYou can make a new R script by clicking File → New File → R Script, clicking the green + button in the top left corner of RStudio, or pressing Shift+Cmd+N (Mac) or Shift+Ctrl+N (Windows). It will be unsaved, and called “Untitled1”\n\nR as Calculator\nNow click into your blank script, and type:\n\n1 + 2\n\n[1] 3\n\n\nWith your cursor on that line, hit Cmd+Enter (Mac) or Ctrl+Enter (Windows) to run the code. You will see that your code was sent from the script to the console, where it returned a value of 3.\n\n\nSaving scripts\nSave script files by using Cmd+S (Mac) or Ctrl+S (Windows). Give the script a descriptive name such as ‘first_script.R’. Save it in the scripts folder.\nRStudio does not have an auto save. You need to manually save the files. You should save often.\nWhen you change a file, the name of the file will appear red in the tab. That means the file has unsaved changes. When you save the file, the name turns black.\n\n\nObjects and Assignment\nSometimes we want to store values in memory so we can use it later. We can save values using the assignment operator &lt;- (&lt; less than and - hyphen).\nobject_name &lt;- value\nWhen there is &lt;-, R creates an object, names the object object_name, and assigns value to the object. We use the object_name to access the value. Objects are shown in the Environment pane.\nLet’s create price1 and price2 objects and assign them some values.\n\nprice1 &lt;- 2\nprice2 &lt;- 3\n\nNow that we have the two objects saved in memory, we can do things with those objects. We can add the two prices.\n\nprice1 + price2\n\n[1] 5\n\n\nWe can reassign new values to an existing object\n\nprice1 &lt;- 10\n\nprice1 + price2\n\n[1] 13\n\n\n\n\nComparing values\nWe can do comparison of price1 and price2. The comparisons return TRUE or FALSE.\n\nprice1 == price2\n\n[1] FALSE\n\nprice1 &gt; price2\n\n[1] TRUE\n\n\nR comparison operators:\n== equal\n!= not equal\n&gt; greater than\n&gt;= greater or equal than\n&lt; less than\n&lt;= less or equal than\n\n\nNaming objects\nYou should try to use a descriptive name when naming objects to help you remember what information is contained in the object.\nObject names can contain letters, numbers, underscores and periods. They cannot start with a number nor contain spaces. If you want object names with multiple words use underscores, capital letters or periods\n\nfirst_name &lt;- 'Jane'\nfirstName &lt;- 'Jane'\nfirst.name &lt;- 'Jane'\n\n\n\nSave changes to your repository\nWe are using Github and Github Codespaces to host and run our code.\nWhen you create or edit a file, the changes are saved to Codespaces. You also need to save the changes to your repository. By saving the changes to your repository, you will have access to your files after the workshop ends.\nTerminal is a program that allows you to write commands for the computer. To access the terminal, go to first the browser tab for Codespaces. Click “bash” in the bottom right, then click the “TERMINAL” tab.\n\nClick on the $. Then type the following command after the $, and hit enter.\n\nbash  ./scripts/save_files.sh\n\n\nThis will run a script called “save_files.sh” to save any changes you made to the repository.\nWhen you make a substantial amount of changes, you should run the save_files.sh script. When you are done coding for the day, you should run the save_files.sh script.\n\n\n\n\n\n\nNote\n\n\n\nThis script uses Git to update your repository. The script creates a git commit and pushes the commit to your repository. If you want to learn more about Git, watch this 14 minute Git tutorial.",
-    "crumbs": [
-      "Introduction to R and RStudio"
-    ]
-  },
-  {
-    "objectID": "lessons/setup-local.html",
-    "href": "lessons/setup-local.html",
-    "title": "Setup - local computer",
-    "section": "",
-    "text": "The workshop used Github Codespaces to host the code, data, and software. If you want to install stuff on your on own computer, follow these steps.",
-    "crumbs": [
-      "Extra",
-      "Setup - local computer"
-    ]
-  },
-  {
-    "objectID": "lessons/setup-local.html#install-r-and-rstudio",
-    "href": "lessons/setup-local.html#install-r-and-rstudio",
-    "title": "Setup - local computer",
-    "section": "Install R and RStudio",
-    "text": "Install R and RStudio\nR and RStudio are two separate pieces of software:\n\nR is a programming language and software used to run code written in R.\nRStudio is an integrated development environment (IDE) that makes using R easier. In this course we use RStudio to interact with R.\n\nIf you don’t already have R and RStudio installed, follow the instructions for your operating system below. You have to install R before you install RStudio.\n\nFor Windows\n\nDownload R from the CRAN website.\nRun the .exe file that was just downloaded\nGo to the RStudio download page\nUnder Installers select Windows Vista 10/11 - RSTUDIO-xxxx.yy.z-zzz.exe (where x = year, y = month, and z represent version numbers)\nDouble click the file to install it\nOnce it’s installed, open RStudio to make sure it works and you don’t get any error messages.\n\n\n\nFor MacOS\n\nDownload R from the CRAN website.\nSelect the .pkg file for the latest R version\nDouble click on the downloaded file to install R\nIt is also a good idea to install XQuartz (needed by some packages)\nGo to the RStudio download page\nUnder Installers select Mac OS 13+ - RSTUDIO-xxxx.yy.z-zzz.dmg (where x = year, y = month, and z represent version numbers)\nDouble click the file to install RStudio\nOnce it’s installed, open RStudio to make sure it works and you don’t get any error messages.\n\n\n\nFor Linux\n\nDownload R from the CRAN website.\nSelect the .pkg file for the latest R version\nDouble click on the downloaded file to install R\nIt is also a good idea to install XQuartz (needed by some packages)\nGo to the RStudio download page\nUnder Installers select Your Version of Linux - RSTUDIO-xxxx.yy.z-zzz.dmg (where x = year, y = month, and z represent version numbers)\nDouble click the file to install RStudio\nOnce it’s installed, open RStudio to make sure it works and you don’t get any error messages.",
-    "crumbs": [
-      "Extra",
-      "Setup - local computer"
-    ]
-  },
-  {
-    "objectID": "lessons/setup-local.html#update-r-and-rstudio",
-    "href": "lessons/setup-local.html#update-r-and-rstudio",
-    "title": "Setup - local computer",
-    "section": "Update R and RStudio",
-    "text": "Update R and RStudio\nIf you already have R and RStudio installed, first check if your R version is up to date:\n\nWhen you open RStudio your R version will be printed in the console on the bottom left. Alternatively, you can type sessionInfo() into the console. If your R version is 4.0.0 or later, you don’t need to update R for this lesson. If your version of R is older than that, download and install the latest version of R from the R project website for Windows, for MacOS, or for Linux\nIt is not necessary to remove old versions of R from your system, but if you wish to do so you can check How do I uninstall R?\nAfter installing a new version of R, you will have to reinstall all your packages with the new version. For Windows, there is a package called installr that can help you with upgrading your R version and migrate your package library. A similar package called pacman can help with updating R packages across To update RStudio to the latest version, open RStudio and click on Help &gt; Check for Updates. If a new version is available follow the instruction on screen. By default, RStudio will also automatically notify you of new versions every once in a while.\n\n\n\n\n\n\n\nNote\n\n\n\nThe changes introduced by new R versions are usually backwards-compatible. That is, your old code should still work after updating your R version. However, if breaking changes happen, it is useful to know that you can have multiple versions of R installed in parallel and that you can switch between them in RStudio by going to Tools &gt; Global Options &gt; General &gt; Basic.\nWhile this may sound scary, it is far more common to run into issues due to using out-of-date versions of R or R packages. Keeping up with the latest versions of R, RStudio, and any packages you regularly use is a good practice.",
-    "crumbs": [
-      "Extra",
-      "Setup - local computer"
-    ]
-  },
-  {
-    "objectID": "lessons/setup-local.html#install-r-packages",
-    "href": "lessons/setup-local.html#install-r-packages",
-    "title": "Setup - local computer",
-    "section": "Install R packages",
-    "text": "Install R packages\nDuring the course we will need a number of R packages. Packages contain useful R code written by other people.\nTo try to install these packages, open RStudio and copy and paste the following command into the console window (look for a blinking cursor on the bottom left), then press the Enter (Windows and Linux) or Return (MacOS) to execute the command.\n\ninstall.packages(c('readr', 'dplyr', 'ggplot2', 'stringr',\n                   'lubridate', 'here',\n                   'sf', 'mapview', 'basemaps', 'tigris',\n                   'pdftools', 'webshot2'))\n\nR will display a messag in the console: “Do you want to proceed? [Y/n]:”\nType “Y”, and hit enter / return.\nR tries to download and install the packages on your machine.\nWhen the installation has finished, you can try to load the packages by pasting the following code into the console:\n\nlibrary(readr)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(stringr)\nlibrary(lubridate)\nlibrary(here)\nlibrary(sf)\nlibrary(mapview)\nlibrary(basemaps)\nlibrary(tigris)\nlibrary(pdftools)\nlibrary(webshot2)\n\nIf you do not see an error like there is no package called ‘...’ you are good to go!",
-    "crumbs": [
-      "Extra",
-      "Setup - local computer"
-    ]
-  },
-  {
-    "objectID": "lessons/setup-local.html#organizing-your-project-folder",
-    "href": "lessons/setup-local.html#organizing-your-project-folder",
-    "title": "Setup - local computer",
-    "section": "Organizing your project folder",
-    "text": "Organizing your project folder\nIt is a good practice to organize your projects into self-contained folders. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into subfolders.\n\nStart RStudio (you should see a view similar to the screenshot above).\nIn the top right, you will see a blue 3D cube and the words “Project: (None)”. Click on this icon.\nClick New Project from the dropdown menu.\nClick New Directory, then New Project.\nType out a name for the project.\nPut it in a convenient location using the “Create project as a subdirectory of:” section. We recommend your Desktop. You can always move the project somewhere else later, because it will be self-contained.\nClick Create Project and your new project will open.\n\nWhen you need to work on the project, click on the Rproj icon to start RStudio.\nThere are a few settings we will need to adjust to improve the reproducibility of our work. Go to your menu bar, then click Tools → Global Options to open up the Options window.\n\nMake sure your settings match those highlighted in yellow. We don’t want RStudio to store the current status of our R session and reload it the next time we start R. We want to start with a clean, empty R session every time we work.\nWe will use a basic structure for this workshop.\nproject_name\n│\n└── data\n│    └── cleaned\n│    └── raw\n│\n└─── results\n│\n└── scripts\n│\n└── project_name.Rproj\nLet’s start making our new folders. Go to the Files pane (bottom right), and check the current directory, highlighted in yellow below. You should be in the directory for the project you just made. You shouldn’t see any folders in here yet.\n\nNext, click the New Folder button, and type in scripts to generate your scripts folder. It should appear in the Files list now. Repeat the process to make your data, and results folders. Then, click on the data folder in the Files pane. This will take you into the data folder, which will be empty. Use the New Folder button to create raw and cleaned folders. To return to the project folder, click on it in the file path, which is highlighted in yellow in the previous image. It’s worth noting that the Files pane helps you create, find, and open files, but moving through your files won’t change where the working directory of your project is.",
-    "crumbs": [
-      "Extra",
-      "Setup - local computer"
+      "Higher taxa"
     ]
   },
   {
