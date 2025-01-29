@@ -30,8 +30,9 @@ files <- c(
            'understanding-data',
            'creating-maps',
            'creating-charts',
-           'normalizing-inat',
            'other-datasets',
+           'higher-taxa',
+           'normalizing-inat',
            'additional-analysis')
 
 # delete files https://stackoverflow.com/a/65831178
