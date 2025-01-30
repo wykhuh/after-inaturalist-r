@@ -27,6 +27,13 @@ library(ggplot2) # create data visualizations
 library(sf) # handle vector geospatial data
 library(mapview) # create interactive maps
 library(here) # file paths
+library(lubridate) #
+```
+
+There is a bug with **sf** <https://github.com/r-spatial/sf/issues/1762>. This bit of code is fix for the bug.
+
+```{r fix_sf_bug_1}
+sf_use_s2(FALSE)
 ```
 
 ## Other datasets
@@ -54,7 +61,6 @@ Use `View()` to see all the records.
 View(nc_boundaries)
 ```
 
-
 ```{r map_neighborhood_council}
 ggplot() +
   geom_sf(data=nc_boundaries) +
@@ -67,6 +73,7 @@ If we want the boundaries for one neighborhood, we can use `filter()`. Let's get
 arroyo_seco <- nc_boundaries %>%
   filter(NAME == 'ARROYO SECO NC')
 ```
+
 ```{r map_arroy_seco}
 ggplot() +
   geom_sf(data=arroyo_seco) +
@@ -186,6 +193,153 @@ la_river <- read_sf(here('data/cleaned/los_angeles_river.geojson'))
 ```{r map_la_river}
 ggplot() +
   geom_sf(data=la_river)
+```
+
+## Wildfires in LA County
+
+Some people might be interested in comparing iNaturalist data with wildfires.
+
+California Department of Forestry and Fire Protection's Fire and Resource Assessment Program (FRAP) keeps track wildfires in California. [CAL FIRE website](https://www.fire.ca.gov), [CAL FIRE datasets](https://data.ca.gov/organization/cal-fire).
+
+[California Fire Perimeters (all)](https://data.ca.gov/dataset/california-fire-perimeters-all): This dataset covers California wildfires from 1878 to 2023. "Although the dataset represents the most complete digital record of fire perimeters in California, it is still incomplete, and users should be cautious when drawing conclusions based on the data."
+
+[CAL FIRE Damage Inspection (DINS) Data](https://data.ca.gov/dataset/cal-fire-damage-inspection-dins-data): "This database represents structures impacted by wildland fire that are inside or within 100 meters of the fire perimeter." This dataset covers 2013 to 2025.
+
+[CA Perimeters NIFC FIRIS public view](https://data.ca.gov/dataset/ca-perimeters-nifc-firis-public-view): "This public layer was created to be used by the CAL FIRE Communications Program for the CAL FIRE incident map." This dataset covers 2024 to 2025.
+
+The Wildland Fire Interagency Geospatial Services (WFIGS) Group keeps track of wildfires in the United States.
+
+[WFIGS 2025 Interagency Fire Perimeters to Date](https://data-nifc.opendata.arcgis.com/datasets/nifc::wfigs-2025-interagency-fire-perimeters-to-date/about): "Best available perimeters for all reported wildland fires in the United States in the current year to date". This dataset covers 2025.
+
+We downloaded the datasets and extracted data for the wildfires in Los Angeles County.
+
+```{r get_la_county_boundary}
+la_county <- read_sf(here('data/cleaned/los_angeles_county/los_angeles_county.shp'))
+```
+
+### California Fire Perimeters (all)  for LA county
+
+```{r get_all_la_county_fires}
+fires_all_la <- read_sf(here('data/cleaned/cal_fire_los_angeles_county.geojson'))
+
+dim(fires_all_la)
+```
+
+2619 wildfires
+
+Let's get wildfires in the last ten years.
+
+This dataset has a `YEAR` column. We can `filter()` by `YEAR`
+
+```{r get_fires_for_10_year}
+decade_fires <- fires_all_la %>%
+  filter(YEAR_ >= 2015)
+
+dim(decade_fires)
+```
+
+264 wildfires
+
+```{r create_map_for_fires_for_10_years}
+ggplot() +
+  geom_sf(data=la_county) +
+  geom_sf(data=decade_fires, fill='yellow')
+```
+
+Let's get all wildfires for a particular location.
+
+We can use `st_point()` to create a point using longitude and latitude. Then use `st_sfc()` to add geometry and CRS.
+
+```{r create_location}
+location <- st_sfc(st_point(c(-118.809407, 34.089205)), crs=st_crs(4326))
+
+location
+```
+
+```{r map_location}
+#| eval: false
+mapview(location) 
+```
+
+![](images/mapview/other-datasets/location_point.png)
+
+check if CRS are the same
+
+```{r check_crs_location_fire}
+st_crs(location) == st_crs(fires_all_la)
+```
+
+Set CRS of the fires_all_la to match the location.
+
+```{r update_crs_location_fire}
+fires_all_la <- st_transform(fires_all_la, crs=4326)
+
+st_crs(location) == st_crs(fires_all_la)
+```
+
+Find the fires that intersect with the location.
+
+```{r find_fires_for_location}
+
+fires_for_location <- fires_all_la[st_intersects(fires_all_la, location) %>% lengths > 0,]
+
+fires_for_location
+```
+
+```{r creat}
+#| eval: false
+mapview(fires_for_location, zcol="FIRE_NAME") +
+  mapview(location) 
+```
+
+![](images/mapview/other-datasets/fire_for_location.png)
+
+### CAL FIRE Damage Inspection (DINS) for LA county
+
+```{r get_damaged_structures}
+DINS_la <-read_sf(here('data/cleaned/DINS_los_angeles_county.geojson'))
+
+dim(DINS_la)
+```
+
+34, 266 structures were damaged in wildfire.
+
+Let's get the damaged structures for 2025.
+
+```{r get_damaged_structures_2025}
+recent_DINS <- DINS_la %>% 
+  mutate(year = year(INCIDENTST)) %>%
+  filter(year == 2025)
+
+dim(recent_DINS)
+```
+
+30,493 structures were damaged in 2025.
+
+```{r create_map_for_damaged_structures_2025}
+ggplot() +
+  geom_sf(data=la_county) +
+  geom_sf(data=recent_DINS, fill='yellow')
+```
+
+### CA Perimeters NIFC FIRIS for LA county
+
+```{r create_map_for_nifc_firis}
+NIFC_FIRIS_la <- read_sf(here('data/cleaned/NIFC_FIRIS_los_angeles_county.geojson'))
+
+ggplot() +
+  geom_sf(data=la_county) +
+  geom_sf(data=NIFC_FIRIS_la, fill='yellow')
+```
+
+### WFIGS 2025 Interagency Fire Perimeters to Date for LA county
+
+```{r create_map_for_2025_fires}
+WFIGS_2025_la <- read_sf(here('data/cleaned/wfigs_2025_los_angeles_county.geojson'))
+
+ggplot() +
+  geom_sf(data=la_county) +
+  geom_sf(data=WFIGS_2025_la, fill='yellow')
 ```
 
 ## Demographics data

@@ -15,7 +15,6 @@ library(ggplot2) # create data visualizations
 library(stringr) # work with string
 library(here) # file paths
 library(sf) # handle vector geospatial data
-library(mapview) # create interactive maps
 library(tigris) # access TIGER/Line shapefiles
 ```
 
@@ -277,4 +276,101 @@ ggplot(la_county_pna_edit) +
 #| eval: false
 
 st_write(la_county_pna_edit, here('data/cleaned/LA_County_PNA_Demographics.geojson'))
+```
+
+## Wildfires
+
+Let's get the wildfires within Los Angeles County from California Department of Forestry and Fire Protection's Fire and Resource Assessment Program (FRAP) and Wildland Fire Interagency Geospatial Services (WFIGS) Group.
+
+```{r}
+tmp <- tempfile()
+zip_path <- here('data/raw/California_Fire_Perimeters_(all).zip')
+unzip(zipfile = zip_path, exdir = tmp)
+ca_fires_all <- read_sf(tmp)
+
+NIFC_FIRIS <- read_sf(here('data/raw/CA_Perimeters_NIFC_FIRIS_public_view/CA_Perimeters_NIFC_FIRIS_public_view.shp'))
+
+tmp <- tempfile()
+zip_path <- here('data/raw/POSTFIRE_MASTER_DATA_SHARE_2101786311546707294.zip')
+unzip(zipfile = zip_path, exdir = tmp)
+DINS <- read_sf(tmp)
+
+WFIGS_2025 <- read_sf(here('data/raw/WFIGS_Interagency_Perimeters_YearToDate_-5395415287356828930/Perimeters.shp'))
+
+la_county <- read_sf(here('data/cleaned/los_angeles_county/los_angeles_county.shp'))
+```
+
+check if CRS are the same
+
+```{r}
+st_crs(ca_fires_all) == st_crs(la_county)
+st_crs(NIFC_FIRIS) == st_crs(la_county)
+st_crs(DINS) == st_crs(la_county)
+st_crs(WFIGS_2025) == st_crs(la_county)
+```
+
+Set CRS of the fires to match LA County.
+
+```{r}
+ca_fires_all <- st_transform(ca_fires_all, crs = st_crs(la_county))
+
+NIFC_FIRIS <- st_transform(NIFC_FIRIS, crs = st_crs(la_county))
+
+DINS <- st_transform(DINS, crs = st_crs(la_county))
+
+WFIGS_2025 <- st_transform(WFIGS_2025, crs = st_crs(la_county))
+
+```
+
+get fires within LA county
+
+```{r}
+la_fires_all <- ca_fires_all[st_intersects(ca_fires_all, la_county ) %>% lengths > 0,]
+
+ggplot() +
+  geom_sf(data=la_county) + 
+  geom_sf(data=la_fires_all) 
+
+```
+
+```{r}
+
+NIFC_FIRIS_la <- NIFC_FIRIS[st_intersects(NIFC_FIRIS, la_county ) %>% lengths > 0,]
+
+ggplot() +
+  geom_sf(data=la_county) + 
+  geom_sf(data=NIFC_FIRIS_la) 
+
+```
+
+```{r}
+DINS_la <- DINS[st_intersects(DINS, la_county ) %>% lengths > 0,]
+
+ggplot() +
+  geom_sf(data=la_county) + 
+  geom_sf(data=DINS_la) 
+```
+
+```{r}
+WFIGS_2025_la <- WFIGS_2025[st_intersects(WFIGS_2025, la_county ) %>% lengths > 0,]
+
+ggplot() +
+  geom_sf(data=la_county) + 
+  geom_sf(data=WFIGS_2025_la) 
+```
+
+![]()
+
+Save the file
+
+```{r}
+#| eval: false
+
+st_write(la_fires_all, here('data/cleaned/cal_fire_los_angeles_county.geojson'))
+
+st_write(NIFC_FIRIS_la, here('data/cleaned/NIFC_FIRIS_los_angeles_county.geojson'))
+
+st_write(DINS_la, here('data/cleaned/DINS_los_angeles_county.geojson'))
+
+st_write(WFIGS_2025_la, here('data/cleaned/wfigs_2025_los_angeles_county.geojson'))
 ```
