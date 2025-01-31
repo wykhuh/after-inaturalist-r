@@ -273,6 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#multiple-charts" id="toc-multiple-charts" class="nav-link" data-scroll-target="#multiple-charts">Multiple charts</a></li>
   <li><a href="#adding-labels-and-basemaps-to-ggplot-map" id="toc-adding-labels-and-basemaps-to-ggplot-map" class="nav-link" data-scroll-target="#adding-labels-and-basemaps-to-ggplot-map">Adding labels and basemaps to ggplot map</a></li>
   <li><a href="#compare-inaturalist-observations-per-region-to-another-value" id="toc-compare-inaturalist-observations-per-region-to-another-value" class="nav-link" data-scroll-target="#compare-inaturalist-observations-per-region-to-another-value">Compare iNaturalist observations per region to another value</a></li>
+  <li><a href="#download-images" id="toc-download-images" class="nav-link" data-scroll-target="#download-images">Download images</a></li>
   </ul>
 </nav>
     </div>
@@ -300,6 +301,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>In this section, we will show a few more examples of maps and charts.</p>
 <p>For more examples of charts and graphs visit <a href="https://r-graph-gallery.com">R Graph Gallery</a>.</p>
+<p><code>source(here('scripts/data_utils.R'))</code> loads a script file with custom functions created for this workshop.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) <span class="co"># read and write tabular data</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># manipulate data</span></span>
@@ -310,7 +312,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(basemaps) <span class="co"># add basemap</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here) <span class="co"># file paths</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">'scripts/map_utils.R'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">'scripts/data_utils.R'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>There is a bug with <strong>sf</strong> <a href="https://github.com/r-spatial/sf/issues/1762" class="uri">https://github.com/r-spatial/sf/issues/1762</a>. This bit of code is fix for the bug.</p>
 <div class="cell">
@@ -705,6 +707,54 @@ $ geometry           &lt;POINT [°]&gt; POINT (-118.5365 34.38503), POINT (-118.
 <span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">zcol=</span><span class="st">"observations_count"</span>,<span class="at">legend=</span><span class="cn">FALSE</span>, <span class="at">col.regions=</span><span class="st">'black'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/mapview/creating_maps/create_interactive_centroid_map.png" class="img-fluid" alt="create interactive centroid map"></p>
+</section>
+<section id="download-images" class="level2">
+<h2 class="anchored" data-anchor-id="download-images">Download images</h2>
+<p>We provide a custom function to download images for a data frame of iNaturalist observations.</p>
+<p>Just make sure you follow the license terms for the observations. Here’s a summary of the various <a href="https://creativecommons.org/share-your-work/cclicenses/">Creative Commons licenses</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(inat_data<span class="sc">$</span>license)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+      CC-BY    CC-BY-NC CC-BY-NC-ND CC-BY-NC-SA    CC-BY-ND    CC-BY-SA 
+       5384      129677        1199        2934          35          79 
+        CC0 
+       4934 </code></pre>
+</div>
+</div>
+<p>The observations are ordered from oldest date to newest date. Use <code>filter()</code> to select the observation you want.</p>
+<p>Use <code>slice(start:end)</code> to get observations from start row number to end row number. In this case we are getting the first five Western fence lizard observations with CCO license.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>my_inat2 <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(license <span class="sc">==</span> <span class="st">'CC0'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(my_inat2<span class="sc">$</span>observed_on)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+2016-04-15 2016-04-17 2016-04-18 2016-04-19 2017-04-17 
+         1          1          1          1          1 </code></pre>
+</div>
+</div>
+<p>If you want to get a specified number of randomly selected rows, use <code>slice_sample(n = &lt;number&gt;)</code>. In this case we are getting five random Western fence lizard observations with CCO license.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>my_inat <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'Western Fence Lizard'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(license <span class="sc">==</span> <span class="st">'CC0'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n=</span><span class="dv">5</span>)</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(my_inat<span class="sc">$</span>observed_on)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+2017-04-17 2022-05-01 2023-04-30 2024-04-28 
+         1          2          1          1 </code></pre>
+</div>
+</div>
+<p>Once we have the observations we want, call custom function <code>download_inaturalist_images()</code> to download the images for the observations. The images are saved in the results directory. A new directory will be created for each <code>scientific_name</code>. The image name will contain the scientific name, observation id, username and license.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">download_inaturalist_images</span>(my_inat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section>
