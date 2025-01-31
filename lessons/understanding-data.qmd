@@ -105,7 +105,7 @@ class(mixed)
 
 When we call `class()` with `inat_data`, it returns "tbl" and "data.frame".
 
-```{r}
+```{r class_dataframe}
 class(inat_data)
 ```
 

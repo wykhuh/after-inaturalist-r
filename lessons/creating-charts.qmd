@@ -208,7 +208,7 @@ ggplot(data = inat_year,  mapping = aes(x = year)) +
 
 We can change the color of the lines and points using `color`.
 
-```{r}
+```{r set_bar_and_point_color}
 ggplot(data = inat_year_count, 
        mapping = aes(x = year, y=count)) +
   geom_line(color='#75cd5e') +
@@ -358,7 +358,7 @@ Because there are so many possible arguments to the `theme()` function, it can s
 
 We can customize the axis labels and add a chart title using `labs()`. `title` is the title of the chart. `subtitle` is the subtitle. `x` is the label for the x axis. `y` is the label for the y axis.
 
-```{r changing_labels, warning=FALSE}
+```{r changing_labels}
 myplot +
   labs(title = "CNC Los Angeles",
        subtitle="Observations per year",
@@ -368,7 +368,7 @@ myplot +
 
 We can also change the title in the legend using `labs()`
 
-```{r}
+```{r changing_legend_title}
 ggplot(data = inat_year, 
        mapping = aes(x = year, fill = quality_grade)) +
   geom_bar() +
@@ -404,7 +404,7 @@ One of the most powerful features of **`ggplot`** is the ability to quickly spli
 
 Let's facet the iNaturalist observations by `quality_grade` .
 
-```{r}
+```{r create_facets}
 ggplot(data = inat_year, 
        mapping = aes(x = year)) +
   geom_bar() +                                                          
@@ -413,7 +413,7 @@ ggplot(data = inat_year,
 
 We can also put the charts in a single column using `ncol = 1`.
 
-```{r}
+```{r create_facets_1_column}
 ggplot(data = inat_year, 
        mapping = aes(x = year)) +
   geom_bar() +                                                          
