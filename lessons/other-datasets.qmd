@@ -589,3 +589,56 @@ mapview(indicator_sf)
 ```
 
 ![](images/mapview/other-datasets/indicator_species.png){fig-alt="create map with indicator species"}
+
+## Calscape 
+
+Some people might be interested in observations for native plants.
+
+[Calscape](https://www.calscape.org) is project by the California Native Plant Society that helps people find native plants in their area. We provide a list of native plants for [Los Angeles County](https://www.calscape.org/search?height_from=&height_to=&lat=34.3871821&lng=-118.1122679&location_name=Los%20Angeles%20County%2C%20CA%2C%20USA)
+
+Get all iNaturalist observations
+
+```{r get_inaturalist_data_2}
+#| message: false
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+```
+
+Use `st_as_sf()` to add a geometry column so we can map the observations.
+
+```{r add_geometry_to_inaturalist_2}
+inat_sf <- st_as_sf(inat_data, 
+                         coords = c("longitude", "latitude"),   crs = 4326)
+
+```
+
+Get list of native plants.
+
+```{r get_native_plants_datas}
+calscape_la_county <- read_csv(here("data/raw/calscape - Los Angeles County, CA.csv"))
+
+names(calscape_la_county)
+```
+
+Get the scientific names for all the native plants.
+
+```{r get_plants_scientific_names}
+plants_scientific_names <- calscape_la_county$'Botanical Name'
+```
+
+Find observations for native plants by looking for `scientific_name` that are in the `plants_scientific_names`.
+
+```{r get_native_plants_observations}
+native_plants_sf <- inat_sf %>%
+  filter(scientific_name %in% plants_scientific_names) %>%
+  select(scientific_name, common_name, establishment_means)
+
+dim(native_plants_sf)
+```
+
+```{r map_native_plants}
+#| eval: false
+
+mapview(native_plants_sf)
+```
+
+![](images/mapview/other-datasets/native_plants.png)
