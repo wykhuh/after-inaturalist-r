@@ -25,7 +25,11 @@ library(here) # file paths
 Save the file paths as objects.
 
 ```{r}
-observations_raw_path <- here('data/raw/observations-513664.csv')
+
+observations_raw_path <- tempfile()
+zip_path <- here('data/raw/observations-513664.csv.zip')
+unzip(zipfile = zip_path, exdir = observations_raw_path)
+
 observations_cleaned_path <- here('data/cleaned/cnc-los-angeles-observations.csv')
 ```
 
@@ -41,12 +45,16 @@ In order to simplify things for the workshop attendees, we fixed the various iss
 
 These are the steps we took to produced the cleaned up file. The raw file is at '`{r} observations_raw_path`', the cleaned file is at '`{r} observations_cleaned_path`'
 
+
 ```{r}
 #| message: false
 #| warning: false
 
-inat_raw <- read_csv(observations_raw_path)
+tmp <- tempfile()
+zip_path <- here('data/raw/observations-513664.zip')
+unzip(zipfile = zip_path, exdir = tmp)
 
+inat_raw <- read_csv(paste(tmp, 'observations-513664.csv', sep='/'))
 ```
 
 Use `colSums(is.na())` to count the number of rows that have NA values for each column.
