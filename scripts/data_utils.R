@@ -40,9 +40,9 @@ add_inat_count_to_boundary_sf <- function(inat_sf, boundaries_sf, boundaries_fie
 }
 
 # download_inaturalist_images downloads all the `image_url` for dataframe of
-# an iNaturalist observations. The images will be saved in the results and taxa
-# name folder. The image name will contain the taxa name, observation id,
-# username and license.
+# an iNaturalist observations. The images will be saved in the results directory.
+# A new directory will be created for each `scientific_name`. The image name
+# will contain the scientific name, observation id, username and license.
 
 # Arguments
 # inat_df: dataframe with iNaturalist observations

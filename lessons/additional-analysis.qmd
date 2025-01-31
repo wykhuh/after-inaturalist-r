@@ -269,3 +269,45 @@ mapview(ejsm_inat_basic_sf,
 ```
 
 ![](images/mapview/creating_maps/create_interactive_centroid_map.png){fig-alt="create interactive centroid map"}
+
+## Download images
+
+We provide a custom function to download images for a data frame of iNaturalist observations.
+
+Just make sure you follow the license terms for the observations. Here's a summary of the various [Creative Commons licenses](https://creativecommons.org/share-your-work/cclicenses/).
+
+```{r examine_license}
+table(inat_data$license)
+```
+
+The observations are ordered from oldest date to newest date. Use `filter()` to select the observation you want.
+
+Use `slice(start:end)` to get observations from start row number to end row number. In this case we are getting the first five Western fence lizard observations with CCO license.
+
+```{r select_observations_with_slice}
+my_inat2 <- inat_data %>%
+  filter(common_name == 'Western Fence Lizard') %>%
+  filter(license == 'CC0') %>%
+  slice(1:5)
+
+table(my_inat2$observed_on)
+```
+
+If you want to get a specified number of randomly selected rows, use `slice_sample(n = <number>)`. In this case we are getting five random Western fence lizard observations with CCO license.
+
+```{r select_observations_with_slice_sample}
+my_inat <- inat_data %>%
+  filter(common_name == 'Western Fence Lizard') %>%
+  filter(license == 'CC0') %>%
+  slice_sample(n=5)
+
+table(my_inat$observed_on)
+```
+
+
+Once we have the observations we want, call custom function `download_inaturalist_images()` to download the images for the observations. The images are saved in the results directory. A new directory will be created for each `scientific_name`. The image name will contain the scientific name, observation id, username and license.
+
+```{r download_images}
+#| eval: false
+download_inaturalist_images(my_inat)
+```
