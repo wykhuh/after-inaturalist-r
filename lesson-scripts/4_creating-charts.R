@@ -97,7 +97,7 @@ ggplot(data = inat_year,  mapping = aes(x = year)) +
   geom_bar(fill='#75cd5e')
 
 
-## -----------------------------------------------------------------------------
+## ----set_bar_and_point_color--------------------------------------------------
 ggplot(data = inat_year_count, 
        mapping = aes(x = year, y=count)) +
   geom_line(color='#75cd5e') +
@@ -185,7 +185,7 @@ myplot +
         panel.grid.minor.x = element_blank())
 
 
-## ----changing_labels, warning=FALSE-------------------------------------------
+## ----changing_labels----------------------------------------------------------
 myplot +
   labs(title = "CNC Los Angeles",
        subtitle="Observations per year",
@@ -193,7 +193,7 @@ myplot +
        y = "Observations")
 
 
-## -----------------------------------------------------------------------------
+## ----changing_legend_title----------------------------------------------------
 ggplot(data = inat_year, 
        mapping = aes(x = year, fill = quality_grade)) +
   geom_bar() +
@@ -210,14 +210,14 @@ my_chart +
   labs(title = "CNC Los Angeles",  x = "Year",  y = "Observations") 
 
 
-## -----------------------------------------------------------------------------
+## ----create_facets------------------------------------------------------------
 ggplot(data = inat_year, 
        mapping = aes(x = year)) +
   geom_bar() +                                                          
   facet_wrap(vars(quality_grade))
 
 
-## -----------------------------------------------------------------------------
+## ----create_facets_1_column---------------------------------------------------
 ggplot(data = inat_year, 
        mapping = aes(x = year)) +
   geom_bar() +                                                          

@@ -6,6 +6,11 @@ library(ggplot2) # create data visualizations
 library(sf) # handle vector geospatial data
 library(mapview) # create interactive maps
 library(here) # file paths
+library(lubridate) #
+
+
+## ----fix_sf_bug_1-------------------------------------------------------------
+sf_use_s2(FALSE)
 
 
 ## ----get_neighborhood_council-------------------------------------------------
@@ -25,6 +30,7 @@ ggplot() +
 ## ----get_arroyo_seco----------------------------------------------------------
 arroyo_seco <- nc_boundaries %>%
   filter(NAME == 'ARROYO SECO NC')
+
 
 ## ----map_arroy_seco-----------------------------------------------------------
 ggplot() +
@@ -101,6 +107,97 @@ la_river <- read_sf(here('data/cleaned/los_angeles_river.geojson'))
 ## ----map_la_river-------------------------------------------------------------
 ggplot() +
   geom_sf(data=la_river)
+
+
+## ----get_la_county_boundary---------------------------------------------------
+la_county <- read_sf(here('data/cleaned/los_angeles_county/los_angeles_county.shp'))
+
+
+## ----get_all_la_county_fires--------------------------------------------------
+fires_all_la <- read_sf(here('data/cleaned/cal_fire_los_angeles_county.geojson'))
+
+dim(fires_all_la)
+
+
+## ----get_fires_for_10_year----------------------------------------------------
+decade_fires <- fires_all_la %>%
+  filter(YEAR_ >= 2015)
+
+dim(decade_fires)
+
+
+## ----create_map_for_fires_for_10_years----------------------------------------
+ggplot() +
+  geom_sf(data=la_county) +
+  geom_sf(data=decade_fires, fill='yellow')
+
+
+## ----create_location----------------------------------------------------------
+location <- st_sfc(st_point(c(-118.809407, 34.089205)), crs=st_crs(4326))
+
+location
+
+
+## ----map_location-------------------------------------------------------------
+mapview(location)
+
+
+## ----check_crs_location_fire--------------------------------------------------
+st_crs(location) == st_crs(fires_all_la)
+
+
+## ----update_crs_location_fire-------------------------------------------------
+fires_all_la <- st_transform(fires_all_la, crs=4326)
+
+st_crs(location) == st_crs(fires_all_la)
+
+
+## ----find_fires_for_location--------------------------------------------------
+
+fires_for_location <- fires_all_la[st_intersects(fires_all_la, location) %>% lengths > 0,]
+
+fires_for_location
+
+
+## ----creat--------------------------------------------------------------------
+mapview(fires_for_location, zcol="FIRE_NAME") +
+  mapview(location)
+
+
+## ----get_damaged_structures---------------------------------------------------
+DINS_la <-read_sf(here('data/cleaned/DINS_los_angeles_county.geojson'))
+
+dim(DINS_la)
+
+
+## ----get_damaged_structures_2025----------------------------------------------
+recent_DINS <- DINS_la %>% 
+  mutate(year = year(INCIDENTST)) %>%
+  filter(year == 2025)
+
+dim(recent_DINS)
+
+
+## ----create_map_for_damaged_structures_2025-----------------------------------
+ggplot() +
+  geom_sf(data=la_county) +
+  geom_sf(data=recent_DINS, fill='yellow')
+
+
+## ----create_map_for_nifc_firis------------------------------------------------
+NIFC_FIRIS_la <- read_sf(here('data/cleaned/NIFC_FIRIS_los_angeles_county.geojson'))
+
+ggplot() +
+  geom_sf(data=la_county) +
+  geom_sf(data=NIFC_FIRIS_la, fill='yellow')
+
+
+## ----create_map_for_2025_fires------------------------------------------------
+WFIGS_2025_la <- read_sf(here('data/cleaned/wfigs_2025_los_angeles_county.geojson'))
+
+ggplot() +
+  geom_sf(data=la_county) +
+  geom_sf(data=WFIGS_2025_la, fill='yellow')
 
 
 ## ----get_pna_data-------------------------------------------------------------
@@ -181,4 +278,37 @@ dim(indicator_sf)
 ## ----map_indicator_species----------------------------------------------------
 
 mapview(indicator_sf)
+
+
+## ----get_inaturalist_data_2---------------------------------------------------
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+
+
+## ----add_geometry_to_inaturalist_2--------------------------------------------
+inat_sf <- st_as_sf(inat_data, 
+                         coords = c("longitude", "latitude"),   crs = 4326)
+
+
+
+## ----get_native_plants_datas--------------------------------------------------
+calscape_la_county <- read_csv(here("data/raw/calscape - Los Angeles County, CA.csv"))
+
+names(calscape_la_county)
+
+
+## ----get_plants_scientific_names----------------------------------------------
+plants_scientific_names <- calscape_la_county$'Botanical Name'
+
+
+## ----get_native_plants_observations-------------------------------------------
+native_plants_sf <- inat_sf %>%
+  filter(scientific_name %in% plants_scientific_names) %>%
+  select(scientific_name, common_name, establishment_means)
+
+dim(native_plants_sf)
+
+
+## ----map_native_plants--------------------------------------------------------
+
+mapview(native_plants_sf)
 

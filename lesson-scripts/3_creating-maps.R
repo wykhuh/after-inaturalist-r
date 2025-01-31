@@ -8,7 +8,7 @@ library(sf) # handle vector geospatial data
 library(mapview) # create interactive maps
 library(here) # file paths
 
-source(here('scripts/map_utils.R'))
+source(here('scripts/data_utils.R'))
 
 
 ## ----fix_sf_bug_1-------------------------------------------------------------

@@ -9,7 +9,7 @@ library(mapview) # create interactive maps
 library(basemaps) # add basemap
 library(here) # file paths
 
-source(here('scripts/map_utils.R'))
+source(here('scripts/data_utils.R'))
 
 
 ## ----fix_sf_bug---------------------------------------------------------------
@@ -185,4 +185,30 @@ mapview(ejsm_inat_basic_sf,
         zcol = 'CIscore') +
   mapview(centroid_sf, cex="observations_count",
           zcol="observations_count",legend=FALSE, col.regions='black')
+
+
+## ----examine_license----------------------------------------------------------
+table(inat_data$license)
+
+
+## ----select_observations_with_slice-------------------------------------------
+my_inat2 <- inat_data %>%
+  filter(common_name == 'Western Fence Lizard') %>%
+  filter(license == 'CC0') %>%
+  slice(1:5)
+
+table(my_inat2$observed_on)
+
+
+## ----select_observations_with_slice_sample------------------------------------
+my_inat <- inat_data %>%
+  filter(common_name == 'Western Fence Lizard') %>%
+  filter(license == 'CC0') %>%
+  slice_sample(n=5)
+
+table(my_inat$observed_on)
+
+
+## ----download_images----------------------------------------------------------
+download_inaturalist_images(my_inat)
 
