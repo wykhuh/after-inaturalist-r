@@ -10,7 +10,7 @@ processFile = function(filepath) {
     gsub(pattern = "^# ", replace = '', perl = FALSE) |>
     gsub(pattern = "^classroom_organization.*?$", replace = temp_text, perl = FALSE) |>
     gsub(pattern = "^classroom_repos.*?$", replace = temp_text, perl = FALSE) |>
-    gsub(pattern = '../scripts/map_utils.R', replace = 'map_utils.R', perl = FALSE)
+    gsub(pattern = '../scripts/data_utils.R', replace = 'data_utils.R', perl = FALSE)
 
 
   # remove blank lines with readLines https://stackoverflow.com/a/11866046

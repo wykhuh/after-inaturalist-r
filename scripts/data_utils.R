@@ -38,3 +38,39 @@ add_inat_count_to_boundary_sf <- function(inat_sf, boundaries_sf, boundaries_fie
 
   left_join(boundaries_sf, boundaries_count, by=boundaries_field)
 }
+
+# download_inaturalist_images downloads all the `image_url` for dataframe of
+# an iNaturalist observations. The images will be saved in the results and taxa
+# name folder. The image name will contain the taxa name, observation id,
+# username and license.
+
+# Arguments
+# inat_df: dataframe with iNaturalist observations
+download_inaturalist_images <- function(inat_df) {
+  download_row_image <- function(row) {
+    url = row['image_url']
+    taxa = row['scientific_name']
+    id = row['id']
+    user = row['user_login']
+    license = row['license']
+
+    # create filename
+    filename = paste0(taxa, '_', id, '_', user, '_', license, '.jpg')
+    print(filename)
+
+    # create directories
+    dir.create(here('results/images'), showWarnings = FALSE)
+    dir.create(here('results/images', taxa), showWarnings = FALSE)
+
+    # download the image
+    tryCatch({
+      download.file(url, here('results/images', taxa, filename))
+    },
+    error = function(e){
+      message('Caught an error!')
+      print(e)
+    })
+  }
+
+  apply(inat_df, 1, download_row_image)
+}

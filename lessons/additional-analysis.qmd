@@ -8,6 +8,8 @@ In this section, we will show a few more examples of maps and charts.
 
 For more examples of charts and graphs visit [R Graph Gallery](https://r-graph-gallery.com).
 
+`source(here('scripts/data_utils.R'))` loads a script file with custom functions created for this workshop.
+
 ```{r, load_packages}
 #| error: false
 #| warning: false
@@ -22,7 +24,7 @@ library(mapview) # create interactive maps
 library(basemaps) # add basemap
 library(here) # file paths
 
-source(here('scripts/map_utils.R'))
+source(here('scripts/data_utils.R'))
 ```
 
 There is a bug with **sf** <https://github.com/r-spatial/sf/issues/1762>. This bit of code is fix for the bug.
