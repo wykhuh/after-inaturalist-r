@@ -395,7 +395,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="other-datasets" class="level2">
 <h2 class="anchored" data-anchor-id="other-datasets">Other datasets</h2>
 <p>There are various geospatial datasets that are free to use. Data sources used for this course include <a href="https://geohub.lacity.org">LA City Geohub</a>, <a href="https://catalog.data.gov">Data.gov</a>, <a href="https://www.parks.ca.gov">California State Parks</a>, <a href="https://data.lacounty.gov">County of Los Angeles Open Data</a>, and <a href="https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html">US Census TIGER</a>.</p>
-<p>We’ve pre-selected some geospatial data that workshop attendees might want to use to analyze iNaturalist data and provided a preview in the code below. These files are in the <code>data</code> directory. We modified some of the downloaded data to make things easier for workshop attendees; see <a href="../lessons/editing-geo-files.html">Editing geospatial files</a> for more details.</p>
+<p>We’ve pre-selected some geospatial data that workshop attendees might want to use to analyze iNaturalist data and provided a preview in the code below. These files are in the <code>data/raw</code> directory. We modified some of the downloaded data to make things easier for workshop attendees; see <a href="../lessons/editing-geo-files.html">Editing geospatial files</a> for more details. These files are in the <code>data/cleaned</code> directory.</p>
 <p>When you use data from other sources, it’s a good idea to tell people where you got the data. Some data sets require people to cite the original source. Plus, it helps people who are looking at your analysis to know where you got the data.</p>
 </section>
 <section id="la-city-neighborhood-councils-boundaries" class="level2">
@@ -566,6 +566,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="california-fire-perimeters-all-for-la-county" class="level3">
 <h3 class="anchored" data-anchor-id="california-fire-perimeters-all-for-la-county">California Fire Perimeters (all) for LA county</h3>
+<p>Wildfires in LA County from 1878 to 2023.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fires_all_la <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/cal_fire_los_angeles_county.geojson'</span>))</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -602,9 +603,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Let’s get all wildfires for a particular location.</p>
 <p>We can use <code>st_point()</code> to create a point using longitude and latitude. Then use <code>st_sfc()</code> to add geometry and CRS.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>location <span class="ot">&lt;-</span> <span class="fu">st_sfc</span>(<span class="fu">st_point</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">118.809407</span>, <span class="fl">34.089205</span>)), <span class="at">crs=</span><span class="fu">st_crs</span>(<span class="dv">4326</span>))</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>location</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>point <span class="ot">&lt;-</span> <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">118.809407</span>, <span class="fl">34.089205</span>))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>location <span class="ot">&lt;-</span> <span class="fu">st_sfc</span>(point, <span class="at">crs=</span><span class="fu">st_crs</span>(<span class="dv">4326</span>))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>location</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Geometry set for 1 feature 
 Geometry type: POINT
@@ -638,7 +640,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 <p>Find the fires that intersect with the location.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>fires_for_location <span class="ot">&lt;-</span> fires_all_la[<span class="fu">st_intersects</span>(fires_all_la, location) <span class="sc">%&gt;%</span> lengths <span class="sc">&gt;</span> <span class="dv">0</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>fires_for_location <span class="ot">&lt;-</span> fires_all_la[<span class="fu">lengths</span>(<span class="fu">st_intersects</span>(fires_all_la, location)) <span class="sc">&gt;</span> <span class="dv">0</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>although coordinates are longitude/latitude, st_intersects assumes that they
 are planar</code></pre>
@@ -669,6 +671,7 @@ Geodetic CRS:  WGS 84
 </section>
 <section id="cal-fire-damage-inspection-dins-for-la-county" class="level3">
 <h3 class="anchored" data-anchor-id="cal-fire-damage-inspection-dins-for-la-county">CAL FIRE Damage Inspection (DINS) for LA county</h3>
+<p>Structures in LA County impacted by wildfires from 2013 to 2025.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>DINS_la <span class="ot">&lt;-</span><span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/DINS_los_angeles_county.geojson'</span>))</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -693,7 +696,7 @@ Geodetic CRS:  WGS 84
 <div class="cell">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>la_county) <span class="sc">+</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>recent_DINS, <span class="at">fill=</span><span class="st">'yellow'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>recent_DINS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -705,6 +708,7 @@ Geodetic CRS:  WGS 84
 </section>
 <section id="ca-perimeters-nifc-firis-for-la-county" class="level3">
 <h3 class="anchored" data-anchor-id="ca-perimeters-nifc-firis-for-la-county">CA Perimeters NIFC FIRIS for LA county</h3>
+<p>Wildfires in LA County from 2024 to 2025.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>NIFC_FIRIS_la <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/NIFC_FIRIS_los_angeles_county.geojson'</span>))</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -722,6 +726,7 @@ Geodetic CRS:  WGS 84
 </section>
 <section id="wfigs-2025-interagency-fire-perimeters-to-date-for-la-county" class="level3">
 <h3 class="anchored" data-anchor-id="wfigs-2025-interagency-fire-perimeters-to-date-for-la-county">WFIGS 2025 Interagency Fire Perimeters to Date for LA county</h3>
+<p>Wildfires in LA County in 2025.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>WFIGS_2025_la <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/wfigs_2025_los_angeles_county.geojson'</span>))</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1270,7 +1275,7 @@ Note
 <section id="calscape" class="level2">
 <h2 class="anchored" data-anchor-id="calscape">Calscape</h2>
 <p>Some people might be interested in observations for native plants.</p>
-<p><a href="https://www.calscape.org">Calscape</a> is project by the California Native Plant Society that helps people find native plants in their area. We provide a list of native plants for <a href="https://www.calscape.org/search?height_from=&amp;height_to=&amp;lat=34.3871821&amp;lng=-118.1122679&amp;location_name=Los%20Angeles%20County%2C%20CA%2C%20USA">Los Angeles County</a></p>
+<p><a href="https://www.calscape.org">Calscape</a> is project by the California Native Plant Society that helps people find native plants in their area. We downloaded a list of native plants for <a href="https://www.calscape.org/search?height_from=&amp;height_to=&amp;lat=34.3871821&amp;lng=-118.1122679&amp;location_name=Los%20Angeles%20County%2C%20CA%2C%20USA">Los Angeles County</a>.</p>
 <p>Get all iNaturalist observations</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/cnc-los-angeles-observations.csv'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1347,23 +1352,79 @@ dbl  (9): Butterflies and Moths Supported, Elevation (min), Elevation (max),...
 [50] "QR Codes (change number to change image size in pixels)"</code></pre>
 </div>
 </div>
+<p>Get columns.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(calscape_la_county)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Botanical Name"                                         
+ [2] "Common Name"                                            
+ [3] "Butterflies and Moths Supported"                        
+ [4] "Attracts Wildlife"                                      
+ [5] "Plant Type"                                             
+ [6] "Form"                                                   
+ [7] "Height"                                                 
+ [8] "Width"                                                  
+ [9] "Growth Rate"                                            
+[10] "Seasonality"                                            
+[11] "Flower Color"                                           
+[12] "Flowering Season"                                       
+[13] "Fragrance"                                              
+[14] "Sun"                                                    
+[15] "Soil Drainage"                                          
+[16] "Water Requirement"                                      
+[17] "Summer Irrigation"                                      
+[18] "Ease of Care"                                           
+[19] "Nursery Availability"                                   
+[20] "Companions"                                             
+[21] "Special Uses"                                           
+[22] "Communities (simplified)"                               
+[23] "Communities"                                            
+[24] "Hardiness"                                              
+[25] "Sunset Zones"                                           
+[26] "Soil"                                                   
+[27] "Soil Texture"                                           
+[28] "Soil pH"                                                
+[29] "Soil Toxicity"                                          
+[30] "Mulch"                                                  
+[31] "Site Type"                                              
+[32] "Elevation (min)"                                        
+[33] "Elevation (max)"                                        
+[34] "Rainfall (min)"                                         
+[35] "Rainfall (max)"                                         
+[36] "Tips"                                                   
+[37] "Pests"                                                  
+[38] "Propagation"                                            
+[39] "Height (min)"                                           
+[40] "Height (max)"                                           
+[41] "Width (min)"                                            
+[42] "Width (max)"                                            
+[43] "Other Names"                                            
+[44] "Alternative Common Names"                               
+[45] "Obsolete Names"                                         
+[46] "Rarity"                                                 
+[47] "Is Cultivar"                                            
+[48] "Jepson Link"                                            
+[49] "Plant Url"                                              
+[50] "QR Codes (change number to change image size in pixels)"</code></pre>
+</div>
+</div>
 <p>Get the scientific names for all the native plants.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>plants_scientific_names <span class="ot">&lt;-</span> calscape_la_county<span class="sc">$</span><span class="st">'Botanical Name'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>plants_scientific_names <span class="ot">&lt;-</span> calscape_la_county<span class="sc">$</span><span class="st">'Botanical Name'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Find observations for native plants by looking for <code>scientific_name</code> that are in the <code>plants_scientific_names</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>native_plants_sf <span class="ot">&lt;-</span> inat_sf <span class="sc">%&gt;%</span></span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientific_name <span class="sc">%in%</span> plants_scientific_names) <span class="sc">%&gt;%</span></span>
-<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientific_name, common_name, establishment_means)</span>
-<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(native_plants_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>native_plants_sf <span class="ot">&lt;-</span> inat_sf <span class="sc">%&gt;%</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientific_name <span class="sc">%in%</span> plants_scientific_names) <span class="sc">%&gt;%</span></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientific_name, common_name, establishment_means)</span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(native_plants_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 29146     4</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(native_plants_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(native_plants_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/mapview/other-datasets/native_plants.png" class="img-fluid"></p>
 

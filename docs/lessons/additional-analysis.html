@@ -299,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In this section, we will show a few more examples of maps and charts.</p>
+<p>In this section, we will show a few more examples of maps, charts, and code.</p>
 <p>For more examples of charts and graphs visit <a href="https://r-graph-gallery.com">R Graph Gallery</a>.</p>
 <p><code>source(here('scripts/data_utils.R'))</code> loads a script file with custom functions created for this workshop.</p>
 <div class="cell">
@@ -527,7 +527,7 @@ Geodetic CRS:  WGS 84
 7 Vermont Square         (((-118.2827 34.01111, -118.282 34.…                 95</code></pre>
 </div>
 </div>
-<p>Create map with labels that show counts</p>
+<p>Create map with labels that show counts per neighborhood.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(expo_area_count_sf, <span class="fu">aes</span>(<span class="at">label=</span><span class="fu">paste0</span>(name,<span class="st">': '</span>, observations_count))) <span class="sc">+</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
@@ -544,11 +544,12 @@ give correct results for longitude/latitude data</code></pre>
 </div>
 </div>
 </div>
-<p>Change crs to since basemaps package uses 3857</p>
+<p>We can use basemaps package to add a basmap to ggplot maps.</p>
+<p>Change crs to 3857 since basemaps package uses 3857.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>expo_area_count_sf <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(expo_area_count_sf,  <span class="at">crs =</span> <span class="fu">st_crs</span>(<span class="dv">3857</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Create map with labels that show counts and basemap</p>
+<p>Create map with labels that show counts and basemap. Use <code>basemap_gglayer()</code> and <code>scale_fill_identity()</code> to add a basemap. Use <code>aes(fill=alpha())</code> to make the fill for each neighborhood tranparent yellow.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(expo_area_count_sf) <span class="sc">+</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">basemap_gglayer</span>(expo_area_count_sf) <span class="sc">+</span> </span>
@@ -722,7 +723,7 @@ $ geometry           &lt;POINT [°]&gt; POINT (-118.5365 34.38503), POINT (-118.
        4934 </code></pre>
 </div>
 </div>
-<p>The observations are ordered from oldest date to newest date. Use <code>filter()</code> to select the observation you want.</p>
+<p>The observations are ordered from oldest date to newest date. Use <code>filter()</code> to select the observation you want. We can use slice to limit the number observation.</p>
 <p>Use <code>slice(start:end)</code> to get observations from start row number to end row number. In this case we are getting the first five Western fence lizard observations with CCO license.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>my_inat2 <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
@@ -747,8 +748,8 @@ $ geometry           &lt;POINT [°]&gt; POINT (-118.5365 34.38503), POINT (-118.
 <span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(my_inat<span class="sc">$</span>observed_on)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-2017-04-17 2022-05-01 2023-04-30 2024-04-28 
-         1          2          1          1 </code></pre>
+2016-04-15 2021-05-02 2022-05-01 2022-05-02 2023-04-29 
+         1          1          1          1          1 </code></pre>
 </div>
 </div>
 <p>Once we have the observations we want, call custom function <code>download_inaturalist_images()</code> to download the images for the observations. The images are saved in the results directory. A new directory will be created for each <code>scientific_name</code>. The image name will contain the scientific name, observation id, username and license.</p>

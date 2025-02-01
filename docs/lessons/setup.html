@@ -236,13 +236,14 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#initial-setup" id="toc-initial-setup" class="nav-link active" data-scroll-target="#initial-setup">Initial Setup</a>
   <ul class="collapse">
-  <li><a href="#if-you-dont-have-a-github-account-create-an-account." id="toc-if-you-dont-have-a-github-account-create-an-account." class="nav-link" data-scroll-target="#if-you-dont-have-a-github-account-create-an-account.">If you don’t have a Github account, create an account.</a></li>
+  <li><a href="#create-github-account" id="toc-create-github-account" class="nav-link" data-scroll-target="#create-github-account">Create Github account</a></li>
   <li><a href="#setup-github-classroom-and-codespaces" id="toc-setup-github-classroom-and-codespaces" class="nav-link" data-scroll-target="#setup-github-classroom-and-codespaces">Setup Github Classroom and Codespaces</a></li>
   </ul></li>
-  <li><a href="#using-codespaces" id="toc-using-codespaces" class="nav-link" data-scroll-target="#using-codespaces">Using Codespaces</a>
+  <li><a href="#restart-a-codespace" id="toc-restart-a-codespace" class="nav-link" data-scroll-target="#restart-a-codespace">Restart a Codespace</a>
   <ul class="collapse">
-  <li><a href="#codespace-stopped" id="toc-codespace-stopped" class="nav-link" data-scroll-target="#codespace-stopped">Codespace stopped</a></li>
+  <li><a href="#codespace-stopped-due-to-inactivity" id="toc-codespace-stopped-due-to-inactivity" class="nav-link" data-scroll-target="#codespace-stopped-due-to-inactivity">Codespace stopped due to inactivity</a></li>
   </ul></li>
+  <li><a href="#stop-a-codespace" id="toc-stop-a-codespace" class="nav-link" data-scroll-target="#stop-a-codespace">Stop a Codespace</a></li>
   </ul>
 </nav>
     </div>
@@ -278,8 +279,9 @@ ul.task-list li input[type="checkbox"] {
 <p><a href="https://classroom.github.com">GitHub Classroom</a> is a tool that teachers can use to share, manage, and grade assignments.</p>
 <p><a href="https://posit.co/products/open-source/rstudio/">RStudio</a> is a software application to write and run R code.</p>
 <p><a href="https://code.visualstudio.com">Visual Studio Code</a> is a software application to write and run code in a variety of languages.</p>
-<section id="if-you-dont-have-a-github-account-create-an-account." class="level3">
-<h3 class="anchored" data-anchor-id="if-you-dont-have-a-github-account-create-an-account.">If you don’t have a Github account, create an account.</h3>
+<section id="create-github-account" class="level3">
+<h3 class="anchored" data-anchor-id="create-github-account">Create Github account</h3>
+<p>If you don’t have a Github account, create an account.</p>
 <ol type="1">
 <li>Sign up for a <a href="https://github.com">GitHub</a> account.</li>
 <li>After you login, update your settings.</li>
@@ -300,7 +302,7 @@ ul.task-list li input[type="checkbox"] {
 <li><p>Click on the invitation link for After iNaturalist classroom that we emailed to you.</p></li>
 <li><p>You will see a “Accept the assignment” page. Click “Accept this assignment” button.</p></li>
 </ol>
-<p>This will create a repository in GitHub with code and data for the workshop. The repository will be created in <a href="https://github.com/orgs/data-explorers-feb-2025/repositories">data-explorers-feb-2025</a> Github account. You will save your work to this repository. Only you and the workshop organizers can access your repository.</p>
+<p>This will create a repository in GitHub with code and data for the workshop. The repository will be created in <a href="`{r} classroom_repos`">data-explorers-feb-2025</a> Github account. You will save your work to this repository. Only you and the workshop organizers can access your repository.</p>
 <p><img src="images/setup/accept-assignment.png" class="img-fluid"></p>
 <ol start="3" type="1">
 <li><p>You will see a “You’re ready to go!” page. Copy the link for your repository and save it somewhere on your computer. This is how you will access your repository on subsequent visits. Click “Open in GitHub Codespaces” button.</p>
@@ -321,11 +323,11 @@ ul.task-list li input[type="checkbox"] {
 <p>You are done setting up Github. If you have problems, please email us.</p>
 </section>
 </section>
-<section id="using-codespaces" class="level2">
-<h2 class="anchored" data-anchor-id="using-codespaces">Using Codespaces</h2>
-<p>After the initial setup of Codespaces, you can restart Codespaces so that you can continue to code.</p>
+<section id="restart-a-codespace" class="level2">
+<h2 class="anchored" data-anchor-id="restart-a-codespace">Restart a Codespace</h2>
+<p>After the initial setup of a Codespace, you can restart an existing Codespace.</p>
 <ol type="1">
-<li><p>Go to <a href="https://github.com/orgs/data-explorers-feb-2025/repositories">data-explorers-feb-2025</a> Github page, and you should see your repository. Click on your repository.</p></li>
+<li><p>Go to <a href="`{r} classroom_repos`">data-explorers-feb-2025</a> Github page, and you should see your repository. Click on your repository.</p></li>
 <li><p>Scroll to the bottom of the page, and click the “Open in GitHub Codespaces” button. This will restart the Codespace created in the “Setup Github Classroom and Codespaces” section.</p>
 <p><img src="images/setup/repo-open-codespace.png" class="img-fluid"></p></li>
 <li><p>Once the Codespace has started, click on the “PORTS” tab at the bottom.</p>
@@ -333,16 +335,26 @@ ul.task-list li input[type="checkbox"] {
 <li><p>In the PORTS tab, hover over the item named RStudio. Click on the middle globe icon to start RStudio in a new browser tab.</p></li>
 </ol>
 <p><img src="images/setup/rstudio-port.png" class="img-fluid"></p>
-<section id="codespace-stopped" class="level3">
-<h3 class="anchored" data-anchor-id="codespace-stopped">Codespace stopped</h3>
-<p>If you don’t use RStudio for a few minutes, Codespace will automatically stop. You will see this error message in RStudio console:</p>
+<section id="codespace-stopped-due-to-inactivity" class="level3">
+<h3 class="anchored" data-anchor-id="codespace-stopped-due-to-inactivity">Codespace stopped due to inactivity</h3>
+<p>If you don’t use Codespace for a while, Codespace will automatically stop. When you run some R code, you will see this error message in RStudio console:</p>
 <p><img src="images/codespace-stop/Codespace-stopped-Rstudio.png" class="img-fluid"></p>
 <p>You will also see “Codespace is stopped” on Visual Studio Code page.</p>
-<p><img src="images/codespace-stop/Codespace-stopped.png" class="img-fluid"></p>
+<p><img src="images/codespace-stop/Codespace-stopped.png" class="img-fluid" width="423"></p>
 <p>Click “Restart codespace” button to restart Codespace. Then click “PORTS”, and the middle globe icon for RStudio to restart RStudio.</p>
-
-
 </section>
+</section>
+<section id="stop-a-codespace" class="level2">
+<h2 class="anchored" data-anchor-id="stop-a-codespace">Stop a Codespace</h2>
+<p>After you finish your work for the day, you need to stop R and stop Codespace.</p>
+<p>To stop R, click the round orange circle in the upper right corner of RStudio</p>
+<p><img src="images/setup/stop_R.png" class="img-fluid"></p>
+<p>To stop Codespace, click the blue area in the lower left corner of Visual Studio Code.</p>
+<p><img src="images/setup/vscode.png" class="img-fluid"></p>
+<p>A popup window will appear. Select “Stop Current Codespace”.</p>
+<p><img src="images/setup/stop_codespace.png" class="img-fluid"></p>
+
+
 </section>
 
 </main> <!-- /main -->
