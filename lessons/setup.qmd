@@ -95,6 +95,16 @@ After the initial setup of a Codespace, you can restart an existing Codespace.
 
 ![](images/setup/rstudio-port.png)
 
+5.   If you don't use Codespace for a while, Codespace will automatically stop due to inactivity. By default, Codespace expect people to use Visual Studio Code as the editor. We want to use RStudio. Since Visual Studio Code isn't being used, Codespace thinks we are being inactive, and will stop the Codespace after 30 minutes. We need to trick Codespace into thinking we are using Visual Studio Code. We created a script using Python programming language that prints a message every 5 minutes. We run this script in Visual Studio Code to fake some activity. To run the script, we type `python3 timer.py` in the Terminal and hit enter/return.
+
+![](images/setup/python_timer.png)
+
+The script will start and show a message.
+
+![](images/setup/python_timer_start.png)
+
+To stop the script, use <kbd>ctrl + c</kbd>.
+
 ### Codespace stopped due to inactivity
 
 If you don't use Codespace for a while, Codespace will automatically stop. When you run some R code, you will see this error message in RStudio console:
