@@ -28,7 +28,9 @@ It will take about ten minutes to set things up on Github.
 
 [Visual Studio Code](https://code.visualstudio.com) is a software application to write and run code in a variety of languages.
 
-### If you don't have a Github account, create an account.
+### Create Github account
+
+If you don't have a Github account, create an account.
 
 1.  Sign up for a [GitHub](https://github.com) account.
 2.  After you login, update your settings.
@@ -45,7 +47,7 @@ To access the files needed for the workshop, join the After iNaturalist Github C
 
 2.  You will see a "Accept the assignment" page. Click "Accept this assignment" button.
 
-This will create a repository in GitHub with code and data for the workshop. The repository will be created in [`{r} classroom_organization`](`{r} classroom_repos`) Github account. You will save your work to this repository. Only you and the workshop organizers can access your repository.
+This will create a repository in GitHub with code and data for the workshop. The repository will be created in [`{r} classroom_organization`](%60%7Br%7D%20classroom_repos%60) Github account. You will save your work to this repository. Only you and the workshop organizers can access your repository.
 
 ![](images/setup/accept-assignment.png)
 
@@ -75,11 +77,11 @@ This will create a repository in GitHub with code and data for the workshop. The
 
 You are done setting up Github. If you have problems, please email us.
 
-## Using Codespaces
+## Restart a Codespace
 
-After the initial setup of Codespaces, you can restart Codespaces so that you can continue to code.
+After the initial setup of a Codespace, you can restart an existing Codespace.
 
-1.  Go to [`{r} classroom_organization`](`{r} classroom_repos`) Github page, and you should see your repository. Click on your repository.
+1.  Go to [`{r} classroom_organization`](%60%7Br%7D%20classroom_repos%60) Github page, and you should see your repository. Click on your repository.
 
 2.  Scroll to the bottom of the page, and click the "Open in GitHub Codespaces" button. This will restart the Codespace created in the "Setup Github Classroom and Codespaces" section.
 
@@ -93,14 +95,30 @@ After the initial setup of Codespaces, you can restart Codespaces so that you ca
 
 ![](images/setup/rstudio-port.png)
 
-### Codespace stopped
+### Codespace stopped due to inactivity
 
-If you don't use RStudio for a few minutes, Codespace will automatically stop. You will see this error message in RStudio console:
+If you don't use Codespace for a while, Codespace will automatically stop. When you run some R code, you will see this error message in RStudio console:
 
 ![](images/codespace-stop/Codespace-stopped-Rstudio.png)
 
 You will also see "Codespace is stopped" on Visual Studio Code page.
 
-![](images/codespace-stop/Codespace-stopped.png)
+![](images/codespace-stop/Codespace-stopped.png){width="423"}
 
 Click "Restart codespace" button to restart Codespace. Then click "PORTS", and the middle globe icon for RStudio to restart RStudio.
+
+## Stop a Codespace
+
+After you finish your work for the day, you need to stop R and stop Codespace.
+
+To stop R, click the round orange circle in the upper right corner of RStudio
+
+![](images/setup/stop_R.png)
+
+To stop Codespace, click the blue area in the lower left corner of Visual Studio Code.
+
+![](images/setup/vscode.png)
+
+A popup window will appear. Select "Stop Current Codespace".
+
+![](images/setup/stop_codespace.png)
