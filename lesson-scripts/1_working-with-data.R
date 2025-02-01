@@ -127,7 +127,7 @@ my_obs <- my_inat_data %>%
 
 ## ----filter_with_common_name_and_quality_grade--------------------------------
 my_data <- inat_data %>%
-  filter(common_name == 'Western Fence Lizard' & 
+  filter(common_name == 'Western Fence Lizard' &
            quality_grade == 'research')  %>%
   select(user_login, common_name, scientific_name, observed_on, quality_grade)
 
@@ -146,19 +146,19 @@ unique(my_data$quality_grade)
 
 ## ----get_summary_of_unobscured_observations-----------------------------------
 my_data <- inat_data %>%
-  filter(coordinates_obscured == FALSE)  
+  filter(coordinates_obscured == FALSE)
 
- 
+
 summary(my_data$positional_accuracy)
 
 
 ## ----filter_with_coordinates_obscured_and_positional_accuracy-----------------
 my_data <- inat_data %>%
-  filter(coordinates_obscured == FALSE & 
+  filter(coordinates_obscured == FALSE &
            positional_accuracy <= 5) %>%
   select(user_login, common_name, scientific_name, positional_accuracy, coordinates_obscured)
 
-my_data
+dim(my_data)
 
 
 ## ----and_unique_coordinates_obscured------------------------------------------
@@ -171,10 +171,11 @@ unique(my_data$positional_accuracy)
 
 ## ----filter_with_or_2_species-------------------------------------------------
 my_data <- inat_data %>%
-  filter(common_name == 'Western Honey Bee' | 
+  filter(common_name == 'Western Honey Bee' |
         common_name == 'Western Fence Lizard')  %>%
   select(user_login, observed_on, common_name)
 
+dim(my_data)
 
 
 ## ----or_common_name-----------------------------------------------------------
@@ -183,7 +184,7 @@ unique(my_data$common_name)
 
 ## ----and_comparison-----------------------------------------------------------
 and_data <- inat_data %>%
-  filter(user_login == 'natureinla' & 
+  filter(user_login == 'natureinla' &
            common_name == 'Western Fence Lizard')
 
 dim(and_data)
@@ -199,7 +200,7 @@ unique(and_data$common_name)
 
 ## ----or_comparison------------------------------------------------------------
 or_data <- inat_data %>%
-  filter(user_login == 'natureinla' | 
+  filter(user_login == 'natureinla' |
            common_name == 'Western Fence Lizard')
 
 dim(or_data)
@@ -242,14 +243,14 @@ unique(my_data$license)
 
 ## ----exercise_your_research_grade---------------------------------------------
 my_inat_data %>%
-  filter(user_login == 'natureinla' & 
+  filter(user_login == 'natureinla' &
            quality_grade == 'research') %>%
   select(user_login, observed_on, common_name, scientific_name)
 
 
 ## ----complex_queries----------------------------------------------------------
 complex_query <- inat_data %>%
-  filter(user_login == 'cdegroof' | 
+  filter(user_login == 'cdegroof' |
            user_login == 'deedeeflower5') %>%
   filter(common_name == 'Western Fence Lizard')  %>%
   select(user_login, common_name, scientific_name, observed_on)
@@ -267,8 +268,8 @@ unique(complex_query$user_login)
 
 ## ----incorrect_and_or---------------------------------------------------------
 alt_1 <- inat_data %>%
-  filter(user_login == 'cdegroof' | 
-           user_login == 'deedeeflower5' & 
+  filter(user_login == 'cdegroof' |
+           user_login == 'deedeeflower5' &
            common_name == 'Western Fence Lizard')  %>%
   select(user_login, common_name, scientific_name, observed_on)
 
@@ -418,7 +419,7 @@ counts
 ## ----kingdoms_count-----------------------------------------------------------
 counts <- inat_data %>%
   count(taxon_kingdom_name, name='obs_count') %>%
-  arrange(desc(obs_count)) 
+  arrange(desc(obs_count))
 
 counts
 
@@ -427,7 +428,7 @@ counts
 counts <- inat_data %>%
   filter(taxon_kingdom_name == 'Animalia') %>%
   count(taxon_phylum_name, name='obs_count') %>%
-  arrange(desc(obs_count)) 
+  arrange(desc(obs_count))
 
 counts
 
@@ -442,9 +443,9 @@ my_inat_data %>%
 ## ----3_condition_my_observation-----------------------------------------------
 
 my_obs <- inat_data %>%
-  filter(user_login == 'natureinla' & 
-           quality_grade == 'research' & 
-           coordinates_obscured == FALSE) 
+  filter(user_login == 'natureinla' &
+           quality_grade == 'research' &
+           coordinates_obscured == FALSE)
 
 my_obs
 

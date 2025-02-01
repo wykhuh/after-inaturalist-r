@@ -397,8 +397,8 @@ head(count_sf)
 
 
 ## ----create_static_choropleth_map---------------------------------------------
-ggplot(data = count_sf) +
-  geom_sf(aes(fill = observations_count))
+ggplot() +
+  geom_sf(data = count_sf, mapping =aes(fill = observations_count))
 
 
 ## ----create_interactive_choropleth_map----------------------------------------

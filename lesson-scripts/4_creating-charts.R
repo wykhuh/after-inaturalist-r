@@ -37,8 +37,7 @@ ggplot(data = inat_year, mapping = aes(y = year)) +
 
 
 ## ----create_dataframe_with_year_count-----------------------------------------
-inat_year_count <- inat_data %>% 
-  mutate(year = year(observed_on)) %>%
+inat_year_count <- inat_year %>%
   count(year, name='count')  
 
 inat_year_count

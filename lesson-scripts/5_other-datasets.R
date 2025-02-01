@@ -133,7 +133,8 @@ ggplot() +
 
 
 ## ----create_location----------------------------------------------------------
-location <- st_sfc(st_point(c(-118.809407, 34.089205)), crs=st_crs(4326))
+point <- st_point(c(-118.809407, 34.089205))
+location <- st_sfc(point, crs=st_crs(4326))
 
 location
 
@@ -154,7 +155,7 @@ st_crs(location) == st_crs(fires_all_la)
 
 ## ----find_fires_for_location--------------------------------------------------
 
-fires_for_location <- fires_all_la[st_intersects(fires_all_la, location) %>% lengths > 0,]
+fires_for_location <- fires_all_la[lengths(st_intersects(fires_all_la, location)) > 0,]
 
 fires_for_location
 
@@ -181,7 +182,7 @@ dim(recent_DINS)
 ## ----create_map_for_damaged_structures_2025-----------------------------------
 ggplot() +
   geom_sf(data=la_county) +
-  geom_sf(data=recent_DINS, fill='yellow')
+  geom_sf(data=recent_DINS)
 
 
 ## ----create_map_for_nifc_firis------------------------------------------------
@@ -293,6 +294,10 @@ inat_sf <- st_as_sf(inat_data,
 ## ----get_native_plants_datas--------------------------------------------------
 calscape_la_county <- read_csv(here("data/raw/calscape - Los Angeles County, CA.csv"))
 
+names(calscape_la_county)
+
+
+## ----get_calscape_columns-----------------------------------------------------
 names(calscape_la_county)
 
 
