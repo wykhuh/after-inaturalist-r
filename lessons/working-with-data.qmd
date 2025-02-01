@@ -68,6 +68,7 @@ library(readr) # read and write tabular data
 library(dplyr) # manipulate data
 library(lubridate) # manipulate dates
 library(here) # file paths
+library(stringr) # work with string
 ```
 
 ::: callout-note
@@ -272,6 +273,7 @@ inat_data %>%
   filter(quality_grade == 'research')  %>%
   select(user_login, common_name, scientific_name, observed_on)
 ```
+
 
 ## Errors in code
 
@@ -531,6 +533,64 @@ dim(my_data)
 unique(my_data$license)
 
 ```
+
+#### Find species with fuzzy search
+
+Previously we used `common_name == 'Western Fence Lizard'` which did an exact match for `'Western Fence Lizard'.` If you want to do a search that contains a phrase, use str_subset`()` from **stringr** package.
+
+Let's find all species common names with the word 'lizard'.
+
+`unique(inat_data$common_name)` will return all common names. Use `length()` to get the number of items.
+
+```{r get_common_names}
+common_names <- unique(inat_data$common_name) 
+
+length(common_names)
+```
+
+We have over 7000 common names.
+
+`str_subset()` from **stringr** package will find all items that match a given pattern. The first argument is the items we are searching through. The second argument `pattern` is the pattern we are looking for.
+
+When we use `pattern = 'lizard'`, we get zero results. The reason is that `str_subset()` is case sensitive. It is looking for matches for lowercase 'lizard'.
+
+```{r get_matches_for_lizard}
+str_subset(common_names, pattern = 'lizard')
+```
+
+To have a case insensitive match, we need to pass in `(?i)` at the beginning of the pattern. This will look find matches for 'lizard' no matter the case.
+
+```{r get_matches_for_lizard_case_insensitive}
+str_subset(common_names, pattern = '(?i)lizard')
+```
+
+As you can see, all the common names with 'lizard' use uppercase 'Lizard'. This is why the first search returned zero results. There are no common names with lowercase 'lizard'
+
+Let's look for all common names with the word 'ants'.
+
+```{r get_matches_for_ants}
+str_subset(common_names, pattern = '(?i)ants')
+```
+
+The results return names with the word 'plants' because it 'ants' is part of 'pl**ants**'.
+
+If we want to only find matches for the word 'ants' and ignore partial matches, we need to add `\\b` at the before and after 'ants'.
+
+```{r get_matches_for_word_ants}
+str_subset(common_names, pattern = "(?i)\\bants\\b")
+```
+Now that we have a list of ant names, we can use `%in%` to look for multiple ant species.
+
+```{r get_observations_for_ants}
+ants <- c("Velvety Tree Ants", "Carpenter Ants", "Sneaking Ants")
+
+ants_obs <- inat_data %>%
+  filter(common_name %in% ants) %>%
+  select(user_login, observed_on, common_name)
+
+dim(ants_obs)
+```
+
 
 :::: exercise
 ## Exercise 2
