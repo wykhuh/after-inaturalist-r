@@ -3,7 +3,15 @@ title: "Working with data"
 format: html
 include-in-header: "components/add-answer-button.html"
 editor: visual
+time: 25 min to Ex 1. 10 min Ex 1. 15 min to ex 2. 10 min ex 2. 5 min to ex 3. 10 min ex 3. 10 min to ex 4. 10 min for ex 4. 15 min to ex 5. 10 min ex 5. 2 hours.
 ---
+
+```{r}
+#| include: false
+lesson <- 25 + 15 + 5 + 10 + 15 
+exercise <- 5 * 10
+lesson + exercise
+```
 
 ::: summary
 ## Questions
@@ -249,15 +257,13 @@ inat_data %>%
 
 #### select observations by quality_grade
 
-iNaturalist gives a quality grade to each observation.
+iNaturalist gives a quality grade to each observation. The observations are labeled as 'needs_id', 'research', or 'casual'. iNaturalist FAQ about [quality grade](https://help.inaturalist.org/en/support/solutions/articles/151000169936-what-is-the-data-quality-assessment-and-how-do-observations-qualify-to-become-research-grade-).
 
 To see all the unique values for a column, use `unique()` function from R and pass in the data frame column.
 
 ```{r, quality_grade_values}
 unique(inat_data$quality_grade)
 ```
-
-iNaturalist FAQ about [quality grade](https://help.inaturalist.org/en/support/solutions/articles/151000169936-what-is-the-data-quality-assessment-and-how-do-observations-qualify-to-become-research-grade-).
 
 When researchers use iNaturalist data, they normally use research grade observations. Let's get the observations that are research grade.
 
@@ -308,10 +314,10 @@ inat_data %>%
 
 Get all your City Nature Challenge observations.
 
--   Use `read_csv()` to load the CNC CSV.
+-   Use `read_csv()` to load the CNC CSV. Assign the results to `my_inat_data` object
 -   Use `filter()` to select observations with your iNaturalist username. If you don't have any CNC observations, use 'quantron' the most prolific community scientist for CNC Los Angeles.
 -   Use `select()` to select 4 columns. One of the columns should be `common_name`
--   assign the results to `my_obs` object
+-   assign the results of `filter()` and `select()` to `my_obs` object
 -   click on `my_obs` in the Environment tab to see the results
 
 ::: answer
@@ -399,7 +405,7 @@ my_data <- inat_data %>%
            positional_accuracy <= 5) %>%
   select(user_login, common_name, scientific_name, positional_accuracy, coordinates_obscured)
 
-my_data
+dim(my_data)
 ```
 
 We have 41K observations with position accuracy less than 5 meters.
@@ -414,7 +420,7 @@ unique(my_data$positional_accuracy)
 
 ### or operator: \|
 
-If there are multiple criteria, and we want to get rows that match one or more of the criteria, we use or operator `|` in between the criteria.
+If there are multiple criteria, and we want to get rows that match one or more of the criteria, we use or operator `|` or in between the criteria.
 
 `condition_1 | condition_2`
 
@@ -428,6 +434,7 @@ my_data <- inat_data %>%
         common_name == 'Western Fence Lizard')  %>%
   select(user_login, observed_on, common_name)
 
+dim(my_data)
 ```
 
 ```{r, or_common_name}
@@ -499,7 +506,9 @@ c(1, 2, 5)
 
 #### select observations by multiple license
 
-iNaturalist observations, photos, and sounds are covered by licenses. The default license is **CC BY-NC** (Creative Commons: Attribution-NonCommercial) so other people can use the content if they give attribution to you and use it for non-commercial purposes. iNaturalist exports observations with No Copyright (CC0), Attribution (CC BY), and Attribution-NonCommercial (CC BY-NC) license to [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org), an international organization that provides access to biodiversity information. Many researchers who use iNaturalist data get their data from GBIF. More info about [iNaturalist licenses](https://help.inaturalist.org/en/support/solutions/articles/151000175695-what-are-licenses-how-can-i-update-the-licenses-on-my-content-). This means if iNaturalist observers want their data to be used by scientists, they need to use one of those three licenses.
+iNaturalist observations, photos, and sounds are covered by licenses. The default license is **CC BY-NC** (Creative Commons: Attribution-NonCommercial) so other people can use the content if they give attribution to you and use it for non-commercial purposes. More info about [iNaturalist licenses](https://help.inaturalist.org/en/support/solutions/articles/151000175695-what-are-licenses-how-can-i-update-the-licenses-on-my-content-) and various [Creative Commons licenses](https://creativecommons.org/share-your-work/cclicenses/).
+
+iNaturalist exports observations with No Copyright (CC0), Attribution (CC BY), and Attribution-NonCommercial (CC BY-NC) license to [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org), an international organization that provides access to biodiversity information. Many researchers who use iNaturalist data get their data from GBIF. This means if iNaturalist observers want their data to be used by scientists, they need to use one of those three licenses.
 
 We can use `table()` to see the license types and count.
 
@@ -640,15 +649,9 @@ my_inat_data %>%
 :::
 ::::
 
-
-
 ## Add new columns with mutate()
 
 Another common task is creating a new column based on values in existing columns. For example, we could add a new column for year.
-
-Use `mutate()` from **dplry** to add a column. We pass in the name of the new column, and the value of the column.
-
-Use `year()` from **lubridate** on a date column to get the year.
 
 ::: callout-tip
 Vector is a list of items. We can access specific values in a vector by using `vector_name[number]`. To access a range of values use `vector_name[start_number:end_number]`
@@ -670,7 +673,7 @@ letters[2:3]
 ```
 :::
 
-Let's get `observed_on` for rows 10317 to 10320.
+Let's get `observed_on` for rows 10317 to 10320. The reason we picked these rows is because the year changes from 2016 to 2017.
 
 ```{r show_observed_on}
 inat_data$observed_on[10317:10320]
@@ -682,14 +685,14 @@ Let's get use `year()` to get the year from `observed_on` for rows 10317 to 1032
 year(inat_data$observed_on)[10317:10320]
 ```
 
-We can use `mutate()` from **dplyr** and `year()` from **lubridate** to add a `year` column.
+We can use `mutate()` from **dplyr** and `year()` from **lubridate** to add a `year` column. For `mutate()`, we pass in the name of the new column, and the value of the column.
 
 ```{r, mutate_year}
 temp <- inat_data %>%
   mutate(year = year(observed_on))
 ```
 
-We can also use `table()` to get the number of observations per year.
+We can also use `table()` to see the number of observations per year.
 
 ```{r, counts_per_year}
 table(temp$year)
@@ -703,7 +706,7 @@ class(temp$year)
 
 #### select observations by year
 
-Let's get all observations for 2020. Use `mutate()` to add `year` column, and use `filter()` to select rows where year is 2020.
+Let's get all observations for 2020. Use `mutate()` and `year()` to add `year` column. Then use `filter()` to select rows where year is 2020.
 
 ```{r, 2020_observations}
 temp <- inat_data %>%

@@ -2,6 +2,7 @@
 title: "Higher taxa"
 format: html
 editor: visual
+time: 10 min
 ---
 
 ::: summary
@@ -14,6 +15,7 @@ editor: visual
 -   Learn how search for higher taxa.
 :::
 
+Load packages.
 
 ```{r, loading_packages}
 #| message: false
@@ -24,12 +26,14 @@ library(lubridate) # manipulate dates
 library(here) # file paths
 ```
 
+So far we looked at species. Instead of looking at specific species, we can also look for a group of related species.
+
+Get iNaturalist data.
+
 ```{r, assign_read_csv_to_object}
 #| message: false
 inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 ```
-
-So far we looked at species. Instead of looking at specific species, we can also look for a group of related species.
 
 Let's look for observations for all oak trees. We can use filter where the `common_name` is 'oaks'.
 
@@ -88,11 +92,12 @@ dim(oaks_obs_fixed)
 
 The reason why iNaturalist has 1369 observations but we have 1367 is because iNaturalist has two 'Quercus' observations which don't have latitude and longitude data. Our cleaned iNaturalist data excludes observations without latitude and longitude.
 
-Let's see the unique common names. 
+Let's see the unique common names.
 
 ```{r unique_oak_common_names}
 unique(oaks_obs_fixed$common_name)
 ```
+
 We get a combination of oaks species and oaks genus.
 
 The reason why I listed the hierarchy instead of just filtering by `taxon_genus_name == 'Quercus'` is because of limitations of my taxonomy knowledge and the limitations of the information provided by the CSV. Some Latin words are used multiple times to represent different taxa. For instance Eisenia is a genus for a type of worm and a genus for a type kelp. A filter command for `taxon_genus_name == 'Eisenia'` would return observations for two very different organisms.
@@ -105,13 +110,11 @@ Eisenia_obs <- inat_data %>%
 Eisenia_obs
 ```
 
-I don't have enough expertise to know if a taxa name is unique, so to play it safe, I list the entire taxonomy hierarchy.
-
 ::: callout-note
 iNaturalist gives each taxa name a unique id. Worm Eisenia is 128842, kelp Eisenia is 125880. When iNaturalist searches for observations for a given taxa, it uses the unique id for the search to avoid the problem of duplicate scientific names. Unfortunately the CSV download does not provide ids for each taxon rank, so we can't do a search by taxon rank id. It is possible to get the ids for all the taxon ranks, but that involves more advance coding techniques.
 :::
 
-Instead of searching the entire hierarchy, someone with more expertise might know there is only one Quercus in Plantae so they search for Plantae kingdom and genus Quercus.
+I don't have enough expertise to know if a taxa name is unique, so to play it safe, I list the entire taxonomy hierarchy. Instead of searching the entire hierarchy, someone with more expertise might know there is only one Quercus in Plantae so they search for Plantae kingdom and genus Quercus.
 
 ```{r get_Plantae_Quercus_observations}
 Plantae_Quercus_obs <- inat_data %>%

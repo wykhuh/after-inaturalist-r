@@ -3,6 +3,7 @@ title: "Introduction to R and RStudio"
 format: html
 include-in-header: "components/add-answer-button.html"
 editor: visual
+time: 20 minutes
 ---
 
 ```{r}
@@ -60,7 +61,7 @@ Let's examine the project files using the **Files** pane.
 
 It is a good practice to organize your projects into self-contained folders. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into subfolders.
 
-```
+```         
 project_folder
 │
 └── .devcontainer
@@ -79,7 +80,6 @@ project_folder
 │
 └── scripts
     └── lesson-scripts
-
 ```
 
 We have a `data` folder containing `cleaned` and `raw` sub-folders. In general, you want to keep your `raw` data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the `cleaned` folder. We also have a `results` folder for any other documents you might produce. We also have a `scripts` folder to hold any scripts we write. We have a `lesson-scripts` subfolder that has all the code from the lesson.
@@ -94,14 +94,14 @@ Since the workshop is hosted on Github, we also have some additional files. `.de
 
 ### Console vs. script
 
-You can run commands directly in the R console, or you can write them into an R script.
+Programming is writing instructions for a computer. We refer to those instructions as code. You can run those instructions directly in the R console, or you can write them into an R script.
 
 #### Console
 
 -   The R console is where code is run/executed
 -   The **prompt**, which is the `>` symbol, is where you can type commands
 -   By pressing <kbd>Return</kbd> (Mac) or <kbd>Enter</kbd> (Windows), R will execute those commands and print the result.
--   When you write commands in the R console, you will not be able to access your work in future.
+-   When you write code in the R console, you will not be able to access your work in future.
 
 Let's try running some code in the console.
 
@@ -115,11 +115,11 @@ Hit <kbd>Return</kbd> or <kbd>Enter</kbd> to run the code. You should see your c
 
 #### Script
 
--   A script is a record of commands to send to R, preserved in a plain text file with a `.R` extension
+-    We can also save the code in a plain text file called scripts. For R programming language, the script files have a `.R` extension
 -   You type out lines of R code in a script, then send them to the R console to be evaluated. There are a few ways to run the code
     1.  <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) will run the line of code that your cursor is on. If you highlight multiple lines of code, you can run all of them by pressing <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows)
     2.  click on the `Run` button above the editor panel
--   By preserving commands in a script, you can edit and rerun them quickly, save them for later, and share them with others
+-   By saving the code in a script, you can edit and rerun them quickly, save them for later, and share them with others
 -   An additional benefit of scripts is that you can leave **comments** for yourself or others to read. Lines that start with `#` are considered comments and will not be interpreted as R code.
 
 ## First script

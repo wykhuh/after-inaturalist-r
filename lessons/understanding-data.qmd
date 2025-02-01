@@ -3,6 +3,7 @@ title: "Understanding data"
 format: html
 include-in-header: "components/add-answer-button.html"
 editor: visual
+time: 5 minutes
 ---
 
 ::: summary
@@ -143,3 +144,4 @@ min(numbers,  na.rm = TRUE)
 ```
 
 ## 
+

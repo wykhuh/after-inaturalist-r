@@ -3,6 +3,7 @@ title: "Creating charts"
 format: html
 include-in-header: "components/add-answer-button.html"
 editor: visual
+time: 10 min to ex 1. 10 min ex 1. 10 min to ex 2. 10 min ex 2. 5 min lesson. 25 min leeson. 20 exercise.
 ---
 
 ::: summary
@@ -100,11 +101,10 @@ Let's create a line chart that shows the number of observations per year.
 
 For line charts, we need to specify which columns to use for the x and y axis.
 
-We need to create a data frame that has a year column, and a column that counts the observations per year. Use `mutate()` and `year()` to add year column. Use `count()` to add column that has the count per year.
+We need to create a data frame that has a year column, and a column that counts the observations per year. `inat_year` has a year column. Use `count()` to add a column that has the count per year.
 
 ```{r, create_dataframe_with_year_count}
-inat_year_count <- inat_data %>% 
-  mutate(year = year(observed_on)) %>%
+inat_year_count <- inat_year %>%
   count(year, name='count')  
 
 inat_year_count

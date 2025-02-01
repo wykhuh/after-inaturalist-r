@@ -2,9 +2,10 @@
 title: "Additional Analysis"
 format: html
 editor: visual
+time: 10 min
 ---
 
-In this section, we will show a few more examples of maps and charts.
+In this section, we will show a few more examples of maps, charts, and code.
 
 For more examples of charts and graphs visit [R Graph Gallery](https://r-graph-gallery.com).
 
@@ -155,7 +156,7 @@ expo_area_count_sf <- add_inat_count_to_boundary_sf(inat_sf, expo_area_sf, 'name
 expo_area_count_sf
 ```
 
-Create map with labels that show counts
+Create map with labels that show counts per neighborhood. 
 
 ```{r map_observations_per_expo_neighborhoods}
 
@@ -165,14 +166,17 @@ ggplot(expo_area_count_sf, aes(label=paste0(name,': ', observations_count))) +
 
 ```
 
-Change crs to since basemaps package uses 3857
+We can use basemaps package to add a basmap to ggplot maps.
+
+Change crs to 3857 since basemaps package uses 3857.
 
 ```{r update_crs}
 expo_area_count_sf <- st_transform(expo_area_count_sf,  crs = st_crs(3857))
 
 ```
 
-Create map with labels that show counts and basemap
+Create map with labels that show counts and basemap.
+Use `basemap_gglayer()` and `scale_fill_identity()` to add a basemap. Use `aes(fill=alpha())` to make the fill for each neighborhood tranparent yellow.
 
 ```{r create_map_with_basemap}
 
@@ -183,6 +187,7 @@ ggplot(expo_area_count_sf) +
   geom_sf_label( mapping=aes(label = paste0(name, ': ',observations_count)) )  +
   theme_void()
 ```
+
 
 ## Compare iNaturalist observations per region to another value
 
@@ -280,7 +285,7 @@ Just make sure you follow the license terms for the observations. Here's a summa
 table(inat_data$license)
 ```
 
-The observations are ordered from oldest date to newest date. Use `filter()` to select the observation you want.
+The observations are ordered from oldest date to newest date. Use `filter()` to select the observation you want. We can use slice to limit the number observation.
 
 Use `slice(start:end)` to get observations from start row number to end row number. In this case we are getting the first five Western fence lizard observations with CCO license.
 

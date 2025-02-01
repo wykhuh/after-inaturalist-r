@@ -3,6 +3,7 @@ title: "Creating maps"
 format: html
 include-in-header: "components/add-answer-button.html"
 editor: visual
+time: 5 min to ex 1. 10 min ex 1. 15 min to ex 2. 10 min ex 2. 5 min to ex 3. 10 mim ex 3. 5 min lesson. 30 min lesson, 30 min exercise.
 ---
 
 ::: summary
@@ -356,7 +357,7 @@ mapviewOptions(basemaps.color.shuffle = FALSE)
 mapviewOptions(basemaps.color.shuffle = FALSE)
 ```
 
-We can also use `alpha.region` to set the opacity. 0 is transparent, 1 is solid.
+ Use `alpha.region` to set alpha. 1 is ipaque, 0 is transparent.
 
 ```{r, create_interactive_map_set_opacity}
 #| eval: false
@@ -678,7 +679,7 @@ inat_river %>%
   slice(1:10)
 ```
 
-## **Faceting**
+## Faceting
 
 One of the most powerful features of **`ggplot`** is the ability to quickly split a plot into multiple smaller plots based on one or more columns in the data frame, which is called **faceting**. Use the `facet_wrap()` function to generate a series of smaller plots, and pass in the selected column using `vars(<column>)`.
 
@@ -745,8 +746,8 @@ Choropleth maps use colors to show how data changes from place to place.
 We can create static choropleth map by by using `aes(fill=observations_count)` to color each neighborhood using the value in `observations_count`.
 
 ```{r create_static_choropleth_map}
-ggplot(data = count_sf) +
-  geom_sf(aes(fill = observations_count))
+ggplot() +
+  geom_sf(data = count_sf, mapping =aes(fill = observations_count))
 ```
 
 We can create interactive choropleth map by by using `zcol='observations_count'` to color each neighborhood using the value in `observations_count`.
