@@ -10,23 +10,29 @@ classroom_organization <- 'data-explorers-feb-2025'
 classroom_repos <- paste0('https://github.com/orgs/', classroom_organization, '/repositories')
 ```
 
-This workshop use GitHub to host and run the code, data, software, and infrastructure needed for the workshop. Attendees will not need to install stuff on their own computer; everything is available online using GitHub.
-
-If you are interested in installing all the software, data, and code on your computer, visit the [Setup - local page](setup-local.qmd)
-
-## Initial Setup
-
-It will take about ten minutes to set things up on Github.
-
-[GitHub](https://github.com) is an online platform that lets people store, manage, and share their code. Github uses version control software called [Git](https://git-scm.com/) that keeps track of changes for all files inside a folder. We call a folder that uses Git to track changes a repository.
-
-[GitHub Codespaces](https://github.com/features/codespaces) provide an online development environment where people can run their code without installing stuff on their computer.
-
-[GitHub Classroom](https://classroom.github.com) is a tool that teachers can use to share, manage, and grade assignments.
+R is a programming language that will be used for this workshop.
 
 [RStudio](https://posit.co/products/open-source/rstudio/) is a software application to write and run R code.
 
+[GitHub](https://github.com) is an online platform that lets people store, manage, and share their code. Github uses version control software called [Git](https://git-scm.com/) that keeps track of changes for all files inside a folder. We call a folder that uses Git to track changes a repository.
+
+[GitHub Codespaces](https://github.com/features/codespaces) provide an online development environment where people can run their code online without installing stuff on their computer.
+
+[GitHub Classroom](https://classroom.github.com) is a tool that teachers can use to share, manage, and grade assignments.
+
 [Visual Studio Code](https://code.visualstudio.com) is a software application to write and run code in a variety of languages.
+
+There are several ways to setup a computer for the material covered in this workshop.
+
+1.  For people who attend the in-person workshop, setup the software, data, and code on Codespaces using the workshop's Github Classroom. You can run the software for free, with no hard limit on the number of hours per month. Follow the Initial Setup instructions on this page.
+2.  For people who did not attend the in-person workshop, setup the software, data, and code on Codespaces using your Github account. You can run the software for free for 60 hours per month. Visit the [Setup - Codespace on my Github account](setup-my-account.qmd) page.
+3.  Install all the software, data, and code on your computer. You can run the software for free for an unlimited number of hours. Visit the [Setup - local](setup-local.qmd) page.
+
+## Intitial Setup
+
+This workshop use GitHub to host and run the code, data, software, and infrastructure needed for the workshop. Attendees will not need to install stuff on their own computer; everything is available online using GitHub.
+
+It will take about ten minutes to set things up on Github.
 
 ### Create Github account
 
@@ -41,17 +47,19 @@ If you don't have a Github account, create an account.
 
 ### Setup Github Classroom and Codespaces
 
-To access the files needed for the workshop, join the After iNaturalist Github Classroom.
+For workshop attendees, we will use Github Classroom to share files and setup Codespaces. To access the files needed for the workshop, join the After iNaturalist Github Classroom.
 
 1.  Click on the invitation link for After iNaturalist classroom that we emailed to you.
 
 2.  You will see a "Accept the assignment" page. Click "Accept this assignment" button.
 
-This will create a repository in GitHub with code and data for the workshop. The repository will be created in [`{r} classroom_organization`](%60%7Br%7D%20classroom_repos%60) Github account. You will save your work to this repository. Only you and the workshop organizers can access your repository.
+This will create a repository in GitHub with code and data for the workshop. The repository will be created in [`{r} classroom_organization`](`{r} classroom_repos`) Github account. You will save your work to this repository. Only you and the workshop organizers can access your repository.
 
 ![](images/setup/accept-assignment.png)
 
-3.  You will see a "You're ready to go!" page. Copy the link for your repository and save it somewhere on your computer. This is how you will access your repository on subsequent visits. Click "Open in GitHub Codespaces" button.
+3.  You will see a "You're ready to go!" page. You can open that link in another browser tab or window to view your repository.
+
+    Click "Open in GitHub Codespaces" button.
 
     This will set up an online development environment where you can write and run code.
 
@@ -67,7 +75,7 @@ This will create a repository in GitHub with code and data for the workshop. The
 
     ![](images/setup/finish-building.png)
 
-6.  In the PORTS tab, hover over the item named RStudio. Click on the middle globe icon to start RStudio in a new browser tab.
+6.  In the PORTS tab, hover over the item named RStudio or 8787. Click on the middle globe icon to start RStudio in a new browser tab.
 
     ![](images/setup/rstudio-port.png)
 
@@ -75,60 +83,62 @@ This will create a repository in GitHub with code and data for the workshop. The
 
     ![](images/setup/rstudio.png)
 
+8.  Next step is to stop R and Codespace . Follow the steps listed in [Stop R and Codespace](setup.qmd#stop-r-and-codespace).
+
 You are done setting up Github. If you have problems, please email us.
 
-## Restart a Codespace
+## Restart Codespace
 
-After the initial setup of a Codespace, you can restart an existing Codespace.
+After the initial setup of Codespace, you can restart an existing Codespace.
 
-1.  Go to [`{r} classroom_organization`](%60%7Br%7D%20classroom_repos%60) Github page, and you should see your repository. Click on your repository.
+1.  Go to [`{r} classroom_organization`](`{r} classroom_repos`) Github page, and you should see your repository. Click on your repository.
 
 2.  Scroll to the bottom of the page, and click the "Open in GitHub Codespaces" button. This will restart the Codespace created in the "Setup Github Classroom and Codespaces" section.
 
     ![](images/setup/repo-open-codespace.png)
 
-3.  Once the Codespace has started, click on the "PORTS" tab at the bottom.
+3.  This is Visual Studio Code, the default code editor for GitHub Codespaces. We want to use RStudio as our code editor.
+
+4.  Once the Codespace has started, click on the "PORTS" tab at the bottom.
 
     ![](images/setup/finish-building.png)
 
-4.  In the PORTS tab, hover over the item named RStudio. Click on the middle globe icon to start RStudio in a new browser tab.
+5.  In the PORTS tab, hover over the item named RStudio or 8787. Click on the middle globe icon to start RStudio in a new browser tab.
 
 ![](images/setup/rstudio-port.png)
 
-5.   If you don't use Codespace for a while, Codespace will automatically stop due to inactivity. By default, Codespace expect people to use Visual Studio Code as the editor. We want to use RStudio. Since Visual Studio Code isn't being used, Codespace thinks we are being inactive, and will stop the Codespace after 30 minutes. We need to trick Codespace into thinking we are using Visual Studio Code. We created a script using Python programming language that prints a message every 5 minutes. We run this script in Visual Studio Code to fake some activity. To run the script, we type `python3 timer.py` in the Terminal and hit enter/return.
+6.  Now you are ready to write and run R code using RStudio.
 
-![](images/setup/python_timer.png)
+    ![](images/setup/rstudio.png)
 
-The script will start and show a message.
+## Stop Codespace
 
-![](images/setup/python_timer_start.png)
+After you finish your work for the day, you need to stop R, push your code changes to your repository and, stop Codespace.
 
-To stop the script, use <kbd>ctrl + c</kbd>.
-
-### Codespace stopped due to inactivity
-
-If you don't use Codespace for a while, Codespace will automatically stop. When you run some R code, you will see this error message in RStudio console:
-
-![](images/codespace-stop/Codespace-stopped-Rstudio.png)
-
-You will also see "Codespace is stopped" on Visual Studio Code page.
-
-![](images/codespace-stop/Codespace-stopped.png){width="423"}
-
-Click "Restart codespace" button to restart Codespace. Then click "PORTS", and the middle globe icon for RStudio to restart RStudio.
-
-## Stop a Codespace
-
-After you finish your work for the day, you need to stop R and stop Codespace.
-
-To stop R, click the round orange circle in the upper right corner of RStudio
+To stop R, click the orange circle in the upper right of RStudio.
 
 ![](images/setup/stop_R.png)
 
+You'll see a message "R Session Ended". Close the browser tab for RStudio.
+
+![](images/setup/r_session_ended.png)
+
+Go to the Visual Studio Code browser tab. Click "TERMINAL". Click "bash".
+
+![](images/setup/bash.png)
+
+To save the changed files to your repository, type "bash scripts/save_files.sh" in the Terminal, and hit return/enter.
+
+![](images/setup/bash_save_files.png)
+
 To stop Codespace, click the blue area in the lower left corner of Visual Studio Code.
 
-![](images/setup/vscode.png)
+![](images/setup/stop_codespace_button.png)
 
-A popup window will appear. Select "Stop Current Codespace".
+A popup window will appear. Click "Stop Current Codespace".
 
 ![](images/setup/stop_codespace.png)
+
+After a little while, you will see a "Codespace is stopped" message.
+
+![](images/codespace-stop/Codespace-stopped.png){width="425"}
