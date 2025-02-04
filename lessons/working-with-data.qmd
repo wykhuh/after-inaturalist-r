@@ -6,13 +6,6 @@ editor: visual
 time: 25 min to Ex 1. 10 min Ex 1. 15 min to ex 2. 10 min ex 2. 5 min to ex 3. 10 min ex 3. 10 min to ex 4. 10 min for ex 4. 15 min to ex 5. 10 min ex 5. 2 hours.
 ---
 
-```{r}
-#| include: false
-lesson <- 25 + 15 + 5 + 10 + 15 
-exercise <- 5 * 10
-lesson + exercise
-```
-
 ::: summary
 ## Questions
 
@@ -273,7 +266,6 @@ inat_data %>%
   filter(quality_grade == 'research')  %>%
   select(user_login, common_name, scientific_name, observed_on)
 ```
-
 
 ## Errors in code
 
@@ -536,9 +528,9 @@ unique(my_data$license)
 
 #### Find species with fuzzy search
 
-Previously we used `common_name == 'Western Fence Lizard'` which did an exact match for `'Western Fence Lizard'.` If you want to do a search that contains a phrase, use str_subset`()` from **stringr** package.
+Previously we used `common_name == 'Western Fence Lizard'` which did an exact match for `'Western Fence Lizard'.` But a lot of the times we want to search for a phrase, not an exact match.
 
-Let's find all species common names with the word 'lizard'.
+Let's find all species common names that have the word 'lizard'.
 
 `unique(inat_data$common_name)` will return all common names. Use `length()` to get the number of items.
 
@@ -552,7 +544,7 @@ We have over 7000 common names.
 
 `str_subset()` from **stringr** package will find all items that match a given pattern. The first argument is the items we are searching through. The second argument `pattern` is the pattern we are looking for.
 
-When we use `pattern = 'lizard'`, we get zero results. The reason is that `str_subset()` is case sensitive. It is looking for matches for lowercase 'lizard'.
+When we use `pattern = 'lizard'`, we get zero results. The reason is that `str_subset()` is case sensitive. It is looking for lowercase 'lizard'.
 
 ```{r get_matches_for_lizard}
 str_subset(common_names, pattern = 'lizard')
@@ -564,25 +556,59 @@ To have a case insensitive match, we need to pass in `(?i)` at the beginning of 
 str_subset(common_names, pattern = '(?i)lizard')
 ```
 
-As you can see, all the common names with 'lizard' use uppercase 'Lizard'. This is why the first search returned zero results. There are no common names with lowercase 'lizard'
-
 Let's look for all common names with the word 'ants'.
 
 ```{r get_matches_for_ants}
 str_subset(common_names, pattern = '(?i)ants')
 ```
 
-The results return names with the word 'plants' because it 'ants' is part of 'pl**ants**'.
+The results return names with the word 'plants' because it 'ants' is part of 'pl**ants**'. If we want to only find matches for the word 'ants' , we need to use `\\b`
 
-If we want to only find matches for the word 'ants' and ignore partial matches, we need to add `\\b` at the before and after 'ants'.
+`\\b` before and after "ants" will look for the word "ants".
 
 ```{r get_matches_for_word_ants}
 str_subset(common_names, pattern = "(?i)\\bants\\b")
 ```
+
+`\\b` before 'ant' will look for the words that start with 'ant' such as 'ant', 'ants', 'anthuriums'. We use `[0:30]` to show the first 30 matches.
+
+```{r get_matches_for_starts_with_ants}
+str_subset(common_names, pattern = "(?i)\\bant")[0:30]
+```
+
+`\\b` after 'ant' will look for the words that end with 'ant' such as 'ant', 'plant', 'giant'.
+
+```{r get_matches_for_ends_with_ants}
+str_subset(common_names, pattern = "(?i)ant\\b")[0:30]
+```
+
 Now that we have a list of ant names, we can use `%in%` to look for multiple ant species.
 
 ```{r get_observations_for_ants}
-ants <- c("Velvety Tree Ants", "Carpenter Ants", "Sneaking Ants")
+ants <- c(
+"Acorn Ants and Allies",
+"Acrobat Ants",
+"Argentine Ant",
+"Big-headed Ants",
+"Californicus-group Harvester Ants",
+"Camponotin Ants",
+"Carpenter Ants",
+"Citronella Ants, Fuzzy Ants, and Allies",
+"fallax-group Big-headed Ants",
+"Formicine Ants",
+"Furrowed Ants",
+"Lasiin Ants",
+"Leptomyrmecin Ants",
+"Molesta-group Thief Ants",
+"Myrmicine Ants",
+"Pavement Ants",
+"Pyramid Ants",
+"Sneaking Ants",
+"Sneaking Ants",
+"Solenopsis Fire Ants and Thief Ants",
+"Velvety Tree Ants",
+"Velvety Tree Ants"
+)
 
 ants_obs <- inat_data %>%
   filter(common_name %in% ants) %>%
@@ -590,7 +616,6 @@ ants_obs <- inat_data %>%
 
 dim(ants_obs)
 ```
-
 
 :::: exercise
 ## Exercise 2

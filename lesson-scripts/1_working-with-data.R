@@ -264,8 +264,39 @@ str_subset(common_names, pattern = '(?i)ants')
 str_subset(common_names, pattern = "(?i)\\bants\\b")
 
 
+## ----get_matches_for_starts_with_ants-----------------------------------------
+str_subset(common_names, pattern = "(?i)\\bant")[0:30]
+
+
+## ----get_matches_for_ends_with_ants-------------------------------------------
+str_subset(common_names, pattern = "(?i)ant\\b")[0:30]
+
+
 ## ----get_observations_for_ants------------------------------------------------
-ants <- c("Velvety Tree Ants", "Carpenter Ants", "Sneaking Ants")
+ants <- c(
+"Acorn Ants and Allies",
+"Acrobat Ants",
+"Argentine Ant",
+"Big-headed Ants",
+"Californicus-group Harvester Ants",
+"Camponotin Ants",
+"Carpenter Ants",
+"Citronella Ants, Fuzzy Ants, and Allies",
+"fallax-group Big-headed Ants",
+"Formicine Ants",
+"Furrowed Ants",
+"Lasiin Ants",
+"Leptomyrmecin Ants",
+"Molesta-group Thief Ants",
+"Myrmicine Ants",
+"Pavement Ants",
+"Pyramid Ants",
+"Sneaking Ants",
+"Sneaking Ants",
+"Solenopsis Fire Ants and Thief Ants",
+"Velvety Tree Ants",
+"Velvety Tree Ants"
+)
 
 ants_obs <- inat_data %>%
   filter(common_name %in% ants) %>%
