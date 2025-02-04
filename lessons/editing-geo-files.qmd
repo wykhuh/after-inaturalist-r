@@ -51,7 +51,7 @@ ggplot() +
 
 ```
 
-Use `st_write()` to save the state parks within LA County as a Shape file. The first argument is the map data we want to save, and  the second argument is the file path.
+Use `st_write()` to save the state parks within LA County as a Shape file. The first argument is the map data we want to save, and the second argument is the file path.
 
 ```{r save_LA_county}
 #| eval: false
@@ -92,7 +92,7 @@ names(area_water)
 
 Let's look for `FULLNAME` equals 'Los Angeles River'
 
-```{r}
+```{r filter_la_river}
 #| eval: false
 
 la_river <- area_water %>% 
@@ -105,7 +105,7 @@ No records found.
 
 Let's use `str_starts()` from **stringr** package to look for items that start with 'Los Angeles'
 
-```{r}
+```{r filter_str_starts_la_river}
 #| eval: false
 
 la_river <- area_water %>% 
@@ -118,7 +118,7 @@ We get three records. The river is called 'Los Angeles Riv'
 
 We want row 1 and 2. row 3 is a weird triangle
 
-```{r}
+```{r plot_la_river_parts}
 #| eval: false
 
 ggplot() +
@@ -127,7 +127,7 @@ ggplot() +
 
 ```
 
-```{r}
+```{r plot_la_river_triangle}
 #| eval: false
 
 ggplot() +
@@ -135,14 +135,14 @@ ggplot() +
 
 ```
 
-```{r}
+```{r filter_la_river_parts}
 #| eval: false
 
 fixed_river <- la_river %>% 
   filter(HYDROID %in% c(1104493447410, 1104493447488))
 ```
 
-```{r}
+```{r map_fixed_la_river}
 #| eval: false
 
 ggplot() +
@@ -151,7 +151,7 @@ ggplot() +
 
 Save the files
 
-```{r}
+```{r write_la_river}
 #| eval: false
 st_write(fixed_river, here('data/cleaned/los_angeles_river.geojson'))
 

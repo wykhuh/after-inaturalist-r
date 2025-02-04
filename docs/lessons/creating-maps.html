@@ -567,11 +567,11 @@ GEOGCRS["WGS 84",
 <h2 class="anchored" data-anchor-id="exercise-1">Exercise 1</h2>
 <p>Create a map for one species.</p>
 <ul>
-<li>use <code>read_csv()</code> to read iNaturalist file.</li>
+<li>use <code>read_csv()</code> to read iNaturalist file. Assign the results to <code>my_inat_data</code> object.</li>
 <li>use <code>st_as_sf()</code> to add <code>geometry</code> column.</li>
 <li>use <code>select()</code> to pick four columns.</li>
 <li>use <code>filter()</code> to select observations for one species.</li>
-<li>save iNaturalist observations to <code>my_inat_sf</code> object.</li>
+<li>Assign the results of <code>filter()</code> and <code>select()</code> to <code>my_inat_sf</code></li>
 <li>create either a static or interactive map.</li>
 </ul>
 <div class="answer">
@@ -1024,15 +1024,15 @@ are planar</code></pre>
 <h2 class="anchored" data-anchor-id="exercise-3">Exercise 3</h2>
 <p>Create a map for all observations that are inside of a specific area</p>
 <ul>
-<li><p>use <code>read_csv()</code> to read iNaturalist file.</p></li>
-<li><p>use <code>st_as_sf()</code> to add <code>geometry</code> column to iNaturalist data.</p></li>
-<li><p>use <code>select()</code> to select 4 columns for iNaturalist data.</p></li>
-<li><p>Used <a href="https://wykhuh.github.io/draw-map-boundaries/">Draw map boundaries</a> to draw and download an area that you are interested in.</p></li>
-<li><p>Save the file to the <code>data/raw</code> directory.</p></li>
-<li><p>use <code>read_sf()</code> to read your boundary data.</p></li>
-<li><p>check if iNaturalist observations and your boundary use the same CRS</p></li>
-<li><p>get observations inside a boundary</p></li>
-<li><p>create static or interactive map</p></li>
+<li>use <code>my_inat_data</code> from exercise 1 to access iNaturalist data</li>
+<li>use <code>st_as_sf()</code> to add <code>geometry</code> column to iNaturalist data.</li>
+<li>use <code>select()</code> to select 4 columns for iNaturalist data.</li>
+<li>use <a href="https://wykhuh.github.io/draw-map-boundaries/">Draw map boundaries</a> to draw and download an area that you are interested in.</li>
+<li>Save the file to the <code>data/raw</code> directory.</li>
+<li>use <code>read_sf()</code> to read your boundary data.</li>
+<li>check if iNaturalist observations and your boundary use the same CRS</li>
+<li>get observations inside a boundary</li>
+<li>create static or interactive map</li>
 </ul>
 <div class="answer">
 <div class="cell">
