@@ -308,7 +308,7 @@ inat_data %>%
 
 Get all your City Nature Challenge observations.
 
--   Use `read_csv()` to load the CNC CSV. Assign the results to `my_inat_data` object
+-   Use `read_csv()` to load the CNC CSV. Assign the results to `my_inat_data` object.
 -   Use `filter()` to select observations with your iNaturalist username. If you don't have any CNC observations, use 'quantron' the most prolific community scientist for CNC Los Angeles.
 -   Use `select()` to select 4 columns. One of the columns should be `common_name`
 -   assign the results of `filter()` and `select()` to `my_obs` object
@@ -825,7 +825,7 @@ Get all of your observations from 2024.
 -   Use `my_inat_data` to access CNC observations
 -   Use `mutate()` and `year()` to add year column
 -   Use `filter()` to pick observations with your username and year is 2024. Use 'quantron' as the user if you don't have CNC observations.
--   Use select() to pick 4 columns
+-   Use `select()` to pick 4 columns
 
 ::: answer
 ```{r, exercise_last_year}

@@ -99,6 +99,8 @@ After the initial setup of Codespace, you can restart an existing Codespace.
 
 3.  This is Visual Studio Code, the default code editor for GitHub Codespaces. We want to use RStudio as our code editor.
 
+    ![](images/setup/building-codespace.png)
+
 4.  Once the Codespace has started, click on the "PORTS" tab at the bottom.
 
     ![](images/setup/finish-building.png)
@@ -108,6 +110,8 @@ After the initial setup of Codespace, you can restart an existing Codespace.
 ![](images/setup/rstudio-port.png)
 
 6.  Now you are ready to write and run R code using RStudio.
+
+    Even though we won't use Visual Studio Code to write R code, keep the tab for Visual Studio Code open.
 
     ![](images/setup/rstudio.png)
 
@@ -123,11 +127,11 @@ You'll see a message "R Session Ended". Close the browser tab for RStudio.
 
 ![](images/setup/r_session_ended.png)
 
-Go to the Visual Studio Code browser tab. Click "TERMINAL". Click "bash".
+Go to the Visual Studio Code browser tab. Click "bash". Click "TERMINAL".
 
 ![](images/setup/bash.png)
 
-To save the changed files to your repository, type "bash scripts/save_files.sh" in the Terminal, and hit return/enter.
+To save the changed files to your repository, type "bash scripts/save_files.sh" after the \$, and hit return/enter.
 
 ![](images/setup/bash_save_files.png)
 
@@ -139,6 +143,6 @@ A popup window will appear. Click "Stop Current Codespace".
 
 ![](images/setup/stop_codespace.png)
 
-After a little while, you will see a "Codespace is stopped" message.
+After a little while, you will see a "Codespace is stopped" message. You can now close the browser tab.
 
 ![](images/codespace-stop/Codespace-stopped.png){width="425"}

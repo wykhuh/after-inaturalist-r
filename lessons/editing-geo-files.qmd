@@ -227,7 +227,7 @@ Let's get the National Parks within Los Angeles county.
 
 National Park Boundaries https://catalog.data.gov/dataset/national-park-boundaries
 
-```{r}
+```{r read_park_files}
 parks_nps <- read_sf(here('data/raw/nps_boundary/nps_boundary.shp'))
 
 la_county <- read_sf(here('data/cleaned/los_angeles_county/los_angeles_county.shp'))
@@ -237,20 +237,20 @@ la_county <- read_sf(here('data/cleaned/los_angeles_county/los_angeles_county.sh
 
 check if CRS are the same
 
-```{r}
+```{r check_crs_nps}
 st_crs(parks_nps) == st_crs(la_county)
 ```
 
 Set CRS of the parks to match LA County.
 
-```{r}
+```{r update_crs_nps}
 parks_nps <- st_transform(parks_nps, crs = st_crs(la_county) )
 st_crs(parks_nps) == st_crs(la_county)
 ```
 
 get national parks within LA county
 
-```{r}
+```{r map_nps_in_la}
 
 ca_nps_parks <- parks_nps[st_intersects(parks_nps, la_county ) %>% lengths > 0,]
 
@@ -262,7 +262,7 @@ ggplot() +
 
 Save the file.
 
-```{r}
+```{r save_nps}
 #| eval: false
 
 st_write(ca_nps_parks, here('data/cleaned/nps_la_county.geojson'))
@@ -272,24 +272,24 @@ st_write(ca_nps_parks, here('data/cleaned/nps_la_county.geojson'))
 
 The LA County Park Needs Assessment has layer for the entire county wide. We want to remove the county wide layer.
 
-```{r}
+```{r read_pna}
 la_county_pna <- read_sf(here('data/raw/PNA_Demographics_for_Dashboard_(View_Layer_SDE)_8662424390864523907.geojson'))
 
 dim(la_county_pna)
 ```
 
-```{r}
+```{r delete_county_layer}
 la_county_pna_edit <- la_county_pna[-189, ]
 
 dim(la_county_pna_edit)
 ```
 
-```{r}
+```{r map_pna}
 ggplot(la_county_pna_edit) +
   geom_sf()
 ```
 
-```{r}
+```{r write_pna}
 #| eval: false
 
 st_write(la_county_pna_edit, here('data/cleaned/LA_County_PNA_Demographics.geojson'))
@@ -299,7 +299,7 @@ st_write(la_county_pna_edit, here('data/cleaned/LA_County_PNA_Demographics.geojs
 
 Let's get the wildfires within Los Angeles County from California Department of Forestry and Fire Protection's Fire and Resource Assessment Program (FRAP) and Wildland Fire Interagency Geospatial Services (WFIGS) Group.
 
-```{r}
+```{r read_fire_files}
 tmp <- tempfile()
 zip_path <- here('data/raw/California_Fire_Perimeters_(all).zip')
 unzip(zipfile = zip_path, exdir = tmp)
@@ -319,7 +319,7 @@ la_county <- read_sf(here('data/cleaned/los_angeles_county/los_angeles_county.sh
 
 check if CRS are the same
 
-```{r}
+```{r check_crs_fires}
 st_crs(ca_fires_all) == st_crs(la_county)
 st_crs(NIFC_FIRIS) == st_crs(la_county)
 st_crs(DINS) == st_crs(la_county)
@@ -328,7 +328,7 @@ st_crs(WFIGS_2025) == st_crs(la_county)
 
 Set CRS of the fires to match LA County.
 
-```{r}
+```{r update_crs_fires}
 ca_fires_all <- st_transform(ca_fires_all, crs = st_crs(la_county))
 
 NIFC_FIRIS <- st_transform(NIFC_FIRIS, crs = st_crs(la_county))
@@ -341,7 +341,7 @@ WFIGS_2025 <- st_transform(WFIGS_2025, crs = st_crs(la_county))
 
 get fires within LA county
 
-```{r}
+```{r map_la_fires}
 la_fires_all <- ca_fires_all[st_intersects(ca_fires_all, la_county ) %>% lengths > 0,]
 
 ggplot() +
@@ -350,7 +350,7 @@ ggplot() +
 
 ```
 
-```{r}
+```{r map_nifc_firis}
 
 NIFC_FIRIS_la <- NIFC_FIRIS[st_intersects(NIFC_FIRIS, la_county ) %>% lengths > 0,]
 
@@ -360,7 +360,7 @@ ggplot() +
 
 ```
 
-```{r}
+```{r map_dins}
 DINS_la <- DINS[st_intersects(DINS, la_county ) %>% lengths > 0,]
 
 ggplot() +
@@ -368,7 +368,7 @@ ggplot() +
   geom_sf(data=DINS_la) 
 ```
 
-```{r}
+```{r map_wfigs}
 WFIGS_2025_la <- WFIGS_2025[st_intersects(WFIGS_2025, la_county ) %>% lengths > 0,]
 
 ggplot() +
@@ -380,7 +380,7 @@ ggplot() +
 
 Save the file
 
-```{r}
+```{r save_wildfire_files}
 #| eval: false
 
 st_write(la_fires_all, here('data/cleaned/cal_fire_los_angeles_county.geojson'))

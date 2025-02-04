@@ -61,7 +61,7 @@ Let's examine the project files using the **Files** pane.
 
 It is a good practice to organize your projects into self-contained folders. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into subfolders.
 
-```
+```         
 project_folder
 │
 └── .devcontainer
@@ -226,14 +226,14 @@ Click on the \$. Then type the following command after the \$, and hit enter.
 
 ```{bash}
 #| eval: false
-bash  ./scripts/save_files.sh
+bash  scripts/save_files.sh
 ```
 
 ![](images/terminal_save_files.png)
 
 This will run a script called "save_files.sh" to save any changes you made to the repository.
 
-When you make a substantial amount of changes, you should run the save_files.sh script. When you are done coding for the day, you should run the save_files.sh script.
+When you are done coding for the day, you should run the save_files.sh script.
 
 ::: callout-note
 This script uses Git to update your repository. The script creates a git commit and pushes the commit to your repository. If you want to learn more about Git, watch this 14 minute [Git tutorial](https://www.youtube.com/watch?v=BCQHnlnPusY).
