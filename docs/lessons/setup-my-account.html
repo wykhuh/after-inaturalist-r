@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Setup – After iNaturalist</title>
+<title>Setup - Codespace on my Github account page – After iNaturalist</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -80,7 +80,9 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/setup.html">Setup</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
+      After iNaturalist
+      </li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -113,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/setup.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lessons/setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setup</span></a>
   </div>
 </li>
@@ -229,27 +231,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#intitial-setup" id="toc-intitial-setup" class="nav-link active" data-scroll-target="#intitial-setup">Intitial Setup</a>
-  <ul class="collapse">
-  <li><a href="#create-github-account" id="toc-create-github-account" class="nav-link" data-scroll-target="#create-github-account">Create Github account</a></li>
-  <li><a href="#setup-github-classroom-and-codespaces" id="toc-setup-github-classroom-and-codespaces" class="nav-link" data-scroll-target="#setup-github-classroom-and-codespaces">Setup Github Classroom and Codespaces</a></li>
-  </ul></li>
-  <li><a href="#restart-codespace" id="toc-restart-codespace" class="nav-link" data-scroll-target="#restart-codespace">Restart Codespace</a></li>
-  <li><a href="#stop-codespace" id="toc-stop-codespace" class="nav-link" data-scroll-target="#stop-codespace">Stop Codespace</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Setup</h1>
+<h1 class="title">Setup - Codespace on my Github account page</h1>
 </div>
 
 
@@ -266,106 +256,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>R is a programming language that will be used for this workshop.</p>
-<p><a href="https://posit.co/products/open-source/rstudio/">RStudio</a> is a software application to write and run R code.</p>
-<p><a href="https://github.com">GitHub</a> is an online platform that lets people store, manage, and share their code. Github uses version control software called <a href="https://git-scm.com/">Git</a> that keeps track of changes for all files inside a folder. We call a folder that uses Git to track changes a repository.</p>
-<p><a href="https://github.com/features/codespaces">GitHub Codespaces</a> provide an online development environment where people can run their code online without installing stuff on their computer.</p>
-<p><a href="https://classroom.github.com">GitHub Classroom</a> is a tool that teachers can use to share, manage, and grade assignments.</p>
-<p><a href="https://code.visualstudio.com">Visual Studio Code</a> is a software application to write and run code in a variety of languages.</p>
-<p>There are several ways to setup a computer for the material covered in this workshop.</p>
-<ol type="1">
-<li>For people who attend the in-person workshop, setup the software, data, and code on Codespaces using the workshop’s Github Classroom. You can run the software for free, with no hard limit on the number of hours per month. Follow the Initial Setup instructions on this page.</li>
-<li>For people who did not attend the in-person workshop, setup the software, data, and code on Codespaces using your Github account. You can run the software for free for 60 hours per month. Visit the <a href="../lessons/setup-my-account.html">Setup - Codespace on my Github account</a> page.</li>
-<li>Install all the software, data, and code on your computer. You can run the software for free for an unlimited number of hours. Visit the <a href="../lessons/setup-local.html">Setup - local</a> page.</li>
-</ol>
-<section id="intitial-setup" class="level2">
-<h2 class="anchored" data-anchor-id="intitial-setup">Intitial Setup</h2>
-<p>This workshop use GitHub to host and run the code, data, software, and infrastructure needed for the workshop. Attendees will not need to install stuff on their own computer; everything is available online using GitHub.</p>
-<p>It will take about ten minutes to set things up on Github.</p>
-<section id="create-github-account" class="level3">
-<h3 class="anchored" data-anchor-id="create-github-account">Create Github account</h3>
-<p>If you don’t have a Github account, create an account.</p>
-<ol type="1">
-<li>Sign up for a <a href="https://github.com">GitHub</a> account.</li>
-<li>After you login, update your settings.</li>
-<li>Go to <a href="https://github.com/settings/emails">Emails settings</a>.
-<ol type="1">
-<li>Select ‘Keep my email addresses private’. ‘Block command line pushes that expose my email’ should also be automatically selected.</li>
-</ol></li>
-<li>Optional. Go to <a href="https://github.com/settings/security">Password and authentication settings</a>.
-<ol type="1">
-<li>If needed, setup Passkey or two-factor authentication.</li>
-</ol></li>
-</ol>
-</section>
-<section id="setup-github-classroom-and-codespaces" class="level3">
-<h3 class="anchored" data-anchor-id="setup-github-classroom-and-codespaces">Setup Github Classroom and Codespaces</h3>
-<p>For workshop attendees, we will use Github Classroom to share files and setup Codespaces. To access the files needed for the workshop, join the After iNaturalist Github Classroom.</p>
-<ol type="1">
-<li><p>Click on the invitation link for After iNaturalist classroom that we emailed to you.</p></li>
-<li><p>You will see a “Accept the assignment” page. Click “Accept this assignment” button.</p></li>
-</ol>
-<p>This will create a repository in GitHub with code and data for the workshop. The repository will be created in <a href="https://github.com/orgs/data-explorers-feb-2025/repositories">data-explorers-feb-2025</a> Github account. You will save your work to this repository. Only you and the workshop organizers can access your repository.</p>
-<p><img src="images/setup/accept-assignment.png" class="img-fluid"></p>
-<ol start="3" type="1">
-<li><p>You will see a “You’re ready to go!” page. You can open that link in another browser tab or window to view your repository.</p>
-<p>Click “Open in GitHub Codespaces” button.</p>
-<p>This will set up an online development environment where you can write and run code.</p>
-<p><img src="images/setup/open-codespace.png" class="img-fluid"></p></li>
-<li><p>You will see page with “Setting up remote connection: Building codespace…” message in the corner. The software for the workshop is being downloaded and installed. This will take about 5 minutes.</p>
-<p>This is Visual Studio Code, the default code editor for GitHub Codespaces. We want to use RStudio as our code editor.</p></li>
-</ol>
-<p><img src="images/setup/building-codespace.png" class="img-fluid"></p>
-<ol start="5" type="1">
-<li><p>Once the Codespace if finished building, click on the “PORTS” tab at the bottom.</p>
-<p><img src="images/setup/finish-building.png" class="img-fluid"></p></li>
-<li><p>In the PORTS tab, hover over the item named RStudio or 8787. Click on the middle globe icon to start RStudio in a new browser tab.</p>
-<p><img src="images/setup/rstudio-port.png" class="img-fluid"></p></li>
-<li><p>Now you are ready to write and run R code using RStudio.</p>
-<p><img src="images/setup/rstudio.png" class="img-fluid"></p></li>
-<li><p>Next step is to stop R and Codespace . Follow the steps listed in <a href="../lessons/setup.html#stop-r-and-codespace">Stop R and Codespace</a>.</p></li>
-</ol>
-<p>You are done setting up Github. If you have problems, please email us.</p>
-</section>
-</section>
-<section id="restart-codespace" class="level2">
-<h2 class="anchored" data-anchor-id="restart-codespace">Restart Codespace</h2>
-<p>After the initial setup of Codespace, you can restart an existing Codespace.</p>
-<ol type="1">
-<li><p>Go to <a href="https://github.com/orgs/data-explorers-feb-2025/repositories">data-explorers-feb-2025</a> Github page, and you should see your repository. Click on your repository.</p></li>
-<li><p>Scroll to the bottom of the page, and click the “Open in GitHub Codespaces” button. This will restart the Codespace created in the “Setup Github Classroom and Codespaces” section.</p>
-<p><img src="images/setup/repo-open-codespace.png" class="img-fluid"></p></li>
-<li><p>This is Visual Studio Code, the default code editor for GitHub Codespaces. We want to use RStudio as our code editor.</p></li>
-<li><p>Once the Codespace has started, click on the “PORTS” tab at the bottom.</p>
-<p><img src="images/setup/finish-building.png" class="img-fluid"></p></li>
-<li><p>In the PORTS tab, hover over the item named RStudio or 8787. Click on the middle globe icon to start RStudio in a new browser tab.</p></li>
-</ol>
-<p><img src="images/setup/rstudio-port.png" class="img-fluid"></p>
-<ol start="6" type="1">
-<li><p>Now you are ready to write and run R code using RStudio.</p>
-<p><img src="images/setup/rstudio.png" class="img-fluid"></p></li>
-</ol>
-</section>
-<section id="stop-codespace" class="level2">
-<h2 class="anchored" data-anchor-id="stop-codespace">Stop Codespace</h2>
-<p>After you finish your work for the day, you need to stop R, push your code changes to your repository and, stop Codespace.</p>
-<p>To stop R, click the orange circle in the upper right of RStudio.</p>
-<p><img src="images/setup/stop_R.png" class="img-fluid"></p>
-<p>You’ll see a message “R Session Ended”. Close the browser tab for RStudio.</p>
-<p><img src="images/setup/r_session_ended.png" class="img-fluid"></p>
-<p>Go to the Visual Studio Code browser tab. Click “TERMINAL”. Click “bash”.</p>
-<p><img src="images/setup/bash.png" class="img-fluid"></p>
-<p>To save the changed files to your repository, type “bash scripts/save_files.sh” in the Terminal, and hit return/enter.</p>
-<p><img src="images/setup/bash_save_files.png" class="img-fluid"></p>
-<p>To stop Codespace, click the blue area in the lower left corner of Visual Studio Code.</p>
-<p><img src="images/setup/stop_codespace_button.png" class="img-fluid"></p>
-<p>A popup window will appear. Click “Stop Current Codespace”.</p>
-<p><img src="images/setup/stop_codespace.png" class="img-fluid"></p>
-<p>After a little while, you will see a “Codespace is stopped” message.</p>
-<p><img src="images/codespace-stop/Codespace-stopped.png" class="img-fluid" width="425"></p>
+<p>Coming soon…</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
