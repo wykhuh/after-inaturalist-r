@@ -61,7 +61,7 @@ Let's examine the project files using the **Files** pane.
 
 It is a good practice to organize your projects into self-contained folders. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into subfolders.
 
-```         
+```
 project_folder
 │
 └── .devcontainer
@@ -79,10 +79,11 @@ project_folder
 └── results
 │
 └── scripts
+    └── exercises
     └── lesson-scripts
 ```
 
-We have a `data` folder containing `cleaned` and `raw` sub-folders. In general, you want to keep your `raw` data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the `cleaned` folder. We also have a `results` folder for any other documents you might produce. We also have a `scripts` folder to hold any scripts we write. We have a `lesson-scripts` subfolder that has all the code from the lesson.
+We have a `data` folder containing `cleaned` and `raw` sub-folders. In general, you want to keep your `raw` data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the `cleaned` folder. We also have a `results` folder for any other documents you might produce. We also have a `scripts` folder to hold any scripts we write. We have a `lesson-scripts` subfolder that has all the code from the lesson, and a `exercises` subfolder for the lesson exercises.
 
 RStudio provides a “Projects” feature that can make it easier to work on individual projects in R. RStudio projects have a `xxx.Rproj` file.
 
@@ -115,7 +116,7 @@ Hit <kbd>Return</kbd> or <kbd>Enter</kbd> to run the code. You should see your c
 
 #### Script
 
--    We can also save the code in a plain text file called scripts. For R programming language, the script files have a `.R` extension
+-   We can also save the code in a plain text file called scripts. For R programming language, the script files have a `.R` extension
 -   You type out lines of R code in a script, then send them to the R console to be evaluated. There are a few ways to run the code
     1.  <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows) will run the line of code that your cursor is on. If you highlight multiple lines of code, you can run all of them by pressing <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows)
     2.  click on the `Run` button above the editor panel

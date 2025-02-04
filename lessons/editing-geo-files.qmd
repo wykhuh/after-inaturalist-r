@@ -51,7 +51,7 @@ ggplot() +
 
 ```
 
-Use `st_write()` to save the state parks within LA County as a Shape file. The first argument is the map data we want to save, and the second argument is the file path.
+Use `st_write()` to save the state parks within LA County as a Shape file. The first argument is the map data we want to save, and  the second argument is the file path.
 
 ```{r save_LA_county}
 #| eval: false
@@ -68,11 +68,14 @@ We can find waterways in LA County by passing the state and county to `area_wate
 
 ```{r get_la_count_water_areas}
 #| output: false
+#| eval: false
 
 area_water <- area_water(state = "CA", county="Los Angeles") 
 ```
 
 ```{r map_la_county_water_areas}
+#| eval: false
+
 ggplot() +
   geom_sf(data = area_water)
 ```
@@ -82,12 +85,16 @@ Let's find the LA River
 Use `names()` to get the column names.
 
 ```{r}
+#| eval: false
+
 names(area_water)
 ```
 
 Let's look for `FULLNAME` equals 'Los Angeles River'
 
 ```{r}
+#| eval: false
+
 la_river <- area_water %>% 
   filter(FULLNAME == 'Los Angeles River')
 
@@ -99,6 +106,8 @@ No records found.
 Let's use `str_starts()` from **stringr** package to look for items that start with 'Los Angeles'
 
 ```{r}
+#| eval: false
+
 la_river <- area_water %>% 
   filter(str_starts(FULLNAME, 'Los Angeles'))
 
@@ -110,6 +119,8 @@ We get three records. The river is called 'Los Angeles Riv'
 We want row 1 and 2. row 3 is a weird triangle
 
 ```{r}
+#| eval: false
+
 ggplot() +
   geom_sf(data=la_river[1,]) +
   geom_sf(data=la_river[2,]) 
@@ -117,17 +128,23 @@ ggplot() +
 ```
 
 ```{r}
+#| eval: false
+
 ggplot() +
   geom_sf(data=la_river[3,]) 
 
 ```
 
 ```{r}
+#| eval: false
+
 fixed_river <- la_river %>% 
   filter(HYDROID %in% c(1104493447410, 1104493447488))
 ```
 
 ```{r}
+#| eval: false
+
 ggplot() +
   geom_sf(data=fixed_river) 
 ```

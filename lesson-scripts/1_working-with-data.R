@@ -4,6 +4,7 @@ library(readr) # read and write tabular data
 library(dplyr) # manipulate data
 library(lubridate) # manipulate dates
 library(here) # file paths
+library(stringr) # work with string
 
 
 ## ----assign_read_csv_to_object------------------------------------------------
@@ -239,6 +240,38 @@ dim(my_data)
 ## ----unique_license-----------------------------------------------------------
 unique(my_data$license)
 
+
+
+## ----get_common_names---------------------------------------------------------
+common_names <- unique(inat_data$common_name)
+
+length(common_names)
+
+
+## ----get_matches_for_lizard---------------------------------------------------
+str_subset(common_names, pattern = 'lizard')
+
+
+## ----get_matches_for_lizard_case_insensitive----------------------------------
+str_subset(common_names, pattern = '(?i)lizard')
+
+
+## ----get_matches_for_ants-----------------------------------------------------
+str_subset(common_names, pattern = '(?i)ants')
+
+
+## ----get_matches_for_word_ants------------------------------------------------
+str_subset(common_names, pattern = "(?i)\\bants\\b")
+
+
+## ----get_observations_for_ants------------------------------------------------
+ants <- c("Velvety Tree Ants", "Carpenter Ants", "Sneaking Ants")
+
+ants_obs <- inat_data %>%
+  filter(common_name %in% ants) %>%
+  select(user_login, observed_on, common_name)
+
+dim(ants_obs)
 
 
 ## ----exercise_your_research_grade---------------------------------------------

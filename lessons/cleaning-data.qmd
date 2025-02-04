@@ -45,7 +45,6 @@ In order to simplify things for the workshop attendees, we fixed the various iss
 
 These are the steps we took to produced the cleaned up file. The raw file is at '`{r} observations_raw_path`', the cleaned file is at '`{r} observations_cleaned_path`'
 
-
 ```{r}
 #| message: false
 #| warning: false
