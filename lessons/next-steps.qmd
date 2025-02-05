@@ -15,11 +15,11 @@ We have covered various ways to do basic analyze iNaturalist data. Next step is 
 
 2.  Learning a programming language is like learning spoken/written languages - it will take practice to get better. Since this is the first programming experience for many of you, it is perfectly normal to copy others while gradually forming a mental model of what is going on. Review the online lessons notes and use Codespace to run the examples in 'scripts/lesson-scripts'.
 
-3. We did one exercise in class. Optionally, do the rest of the exercises in the ["Working with data"](working-with-data.qmd), ["Creating maps"](creating-maps.qmd), and ["Creating charts"](creating-charts.qmd) sections to get more practice with coding. Click the "Show solution" button on the online lesson to see the solution.
+3.  We did one exercise in class. Optionally, do the rest of the exercises in the ["Working with data"](working-with-data.qmd), ["Creating maps"](creating-maps.qmd), and ["Creating charts"](creating-charts.qmd) sections to get more practice with coding. Click the "Show solution" button on the online lesson to see the solution.
 
-4.  Once you formed some questions, figure out how to go from 191K City Nature Challenge observations to the observation you want. I provided a lot of coding examples, but I don't expect anyone to use all the examples for their analysis. Think of each code example as one building block. It's up to you to pick the blocks you need to build your analysis. 
+4.  Once you formed some questions, figure out how to go from 191K City Nature Challenge observations to the observation you want. I provided a lot of coding examples, but I don't expect anyone to use all the examples for their analysis. Think of each code example as one building block. It's up to you to pick the blocks you need to build your analysis.
 
-If you want to study one or more species, review the examples that filter by species. If you want to study a group of species, review the higher taxa examples. If you want to limit the observations to a particular location, review the examples that show filtering observations using a geographic boundaries. If you want to compare observations in different areas, review the examples about counting the number of obsevations per neighborhood. If you want to study your own observations, review the examples about filtering by iNaturalist user. If you want to mimic the data standards used by scientists, review the examples about filter by research grade and licenses. If you want to limit the observations by year, review the examples about filtering by years. If you want to remove some of the biases in community science data, review normalizing iNaturalist data examples. Review the datasets listed on the ["Using to other datasets"](other-datasets.qmd) page to see if any of the datasets are useful for you.
+    If you want to study one or more species, review the examples that filter by species. If you want to study a group of species, review the higher taxa examples. If you want to limit the observations to a particular location, review the examples that show filtering observations using a geographic boundaries. If you want to compare observations in different areas, review the examples about counting the number of obsevations per neighborhood. If you want to study your own observations, review the examples about filtering by iNaturalist user. If you want to mimic the data standards used by scientists, review the examples about filter by research grade and licenses. If you want to limit the observations by year, review the examples about filtering by years. If you want to remove some of the biases in community science data, review normalizing iNaturalist data examples. Review the datasets listed on the ["Using to other datasets"](other-datasets.qmd) page to see if any of the datasets are useful for you.
 
 ### Writing your own code
 
@@ -31,7 +31,7 @@ Once you have a rough idea about what you want to analyze, you can start writing
 
 3.  Copy and paste examples provided in the lessons, and adjust them to fit your needs. When you have something that kinda works, save the script file and the results. Save your scripts often since RStudio does not have auto-save functionality. Save the scripts to the scripts folder. Save any CSVs and images you generate to the results folder.
 
-You can add comments in your scripts to help remind you of what the code does.
+    You can add comments in your scripts to help remind you of what the code does.
 
 ```{r}
 # Comments are lines that start with #. Comments are not processed by R. 
@@ -45,10 +45,10 @@ You can add comments in your scripts to help remind you of what the code does.
 
 ```
 
-4.  Data exploration is an iterative process. Chances are, you won't get your final results on your first day. Try different way to look at the data. Use `filter()`, `select()`, `count()`, and `mutate()` to change the data. Then create summary tables, charts, and/or maps to find patterns. Repeat the process. If you had an idea for an analyis, but the idea didn't reveal any interesting patterns, you can modify your analysis. You can create multiple script files as your analysis evolves. 
+4.  Data exploration is an iterative process. Chances are, you won't get your final results on your first day. Try different way to look at the data. Use `filter()`, `select()`, `count()`, and `mutate()` to change the data. Then create summary tables, charts, and/or maps to find patterns. Repeat the process. If you had an idea for an analyis, but the idea didn't reveal any interesting patterns, you can modify your analysis. You can create multiple script files as your analysis evolves.
 
-As you get more practice reading, copying, writing, and editing R code, your mental model what the R code is doing will evolve. Some things that didn't make sense at first, will begin to click.
+    As you get more practice reading, copying, writing, and editing R code, your mental model what the R code is doing will evolve. Some things that didn't make sense at first, will begin to click.
 
-5.  As you are analyzing the data, think about how you want to present your results. Your presentation should represent your analysis, your voice, and your interests. Since animals, plants, fungi, etc can't speak for themselves, we need to use our voice to advocate for them. 
+5.  As you are analyzing the data, think about how you want to present your results. Your presentation should represent your analysis, your voice, and your interests. Since animals, plants, fungi, etc can't speak for themselves, we need to use our voice to advocate for them.
 
-6. Attend the office hours or email me if you have questions.
+6.  Attend the office hours or email me if you have questions.
