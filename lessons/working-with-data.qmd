@@ -526,7 +526,29 @@ unique(my_data$license)
 
 ```
 
-#### Find species with fuzzy search
+
+:::: exercise
+
+
+## Exercise 2
+
+Get all your observations that are research grade
+
+-   use `my_inat_data` from Exercise 1 to access CNC observations
+-   Use `&` with `filter()` since we want to pick observations by both username and quality grade. Use 'quantron' as the user if you don't have CNC observations.
+-   Use `select()` to pick 4 columns
+
+::: answer
+```{r, exercise_your_research_grade}
+my_inat_data %>%
+  filter(user_login == 'natureinla' & 
+           quality_grade == 'research') %>%
+  select(user_login, observed_on, common_name, scientific_name)
+```
+:::
+::::
+
+## Find items with wildcard or partial search
 
 Previously we used `common_name == 'Western Fence Lizard'` which did an exact match for `'Western Fence Lizard'.` But a lot of the times we want to search for a phrase, not an exact match.
 
@@ -544,11 +566,13 @@ We have over 7000 common names.
 
 `str_subset()` from **stringr** package will find all items that match a given pattern. The first argument is the items we are searching through. The second argument `pattern` is the pattern we are looking for.
 
-When we use `pattern = 'lizard'`, we get zero results. The reason is that `str_subset()` is case sensitive. It is looking for lowercase 'lizard'.
+Here we are searching through common names for any names that contain 'lizard'. 
 
 ```{r get_matches_for_lizard}
 str_subset(common_names, pattern = 'lizard')
 ```
+When we use `pattern = 'lizard'`, we get zero results. The reason is that `str_subset()` is case sensitive. It is looking for lowercase 'lizard'.
+
 
 To have a case insensitive match, we need to pass in `(?i)` at the beginning of the pattern. This will look find matches for 'lizard' no matter the case.
 
@@ -616,25 +640,6 @@ ants_obs <- inat_data %>%
 
 dim(ants_obs)
 ```
-
-:::: exercise
-## Exercise 2
-
-Get all your observations that are research grade
-
--   use `my_inat_data` from Exercise 1 to access CNC observations
--   Use `&` with `filter()` since we want to pick observations by both username and quality grade. Use 'quantron' as the user if you don't have CNC observations.
--   Use `select()` to pick 4 columns
-
-::: answer
-```{r, exercise_your_research_grade}
-my_inat_data %>%
-  filter(user_login == 'natureinla' & 
-           quality_grade == 'research') %>%
-  select(user_login, observed_on, common_name, scientific_name)
-```
-:::
-::::
 
 ## More complex queries
 
