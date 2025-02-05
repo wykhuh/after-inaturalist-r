@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -234,7 +268,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#developing-your-analysis" id="toc-developing-your-analysis" class="nav-link active" data-scroll-target="#developing-your-analysis">Developing your analysis</a></li>
+  <li><a href="#developing-your-analysis" id="toc-developing-your-analysis" class="nav-link active" data-scroll-target="#developing-your-analysis">Developing your analysis</a>
+  <ul class="collapse">
+  <li><a href="#before-you-start-writing-your-own-code" id="toc-before-you-start-writing-your-own-code" class="nav-link" data-scroll-target="#before-you-start-writing-your-own-code">Before you start writing your own code</a></li>
+  <li><a href="#writing-your-own-code" id="toc-writing-your-own-code" class="nav-link" data-scroll-target="#writing-your-own-code">Writing your own code</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -263,20 +301,46 @@ ul.task-list li input[type="checkbox"] {
 <p>We have covered various ways to do basic analyze iNaturalist data. Next step is for you to come up with some questions, and analyze the CNC iNaturalist data.</p>
 <section id="developing-your-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="developing-your-analysis">Developing your analysis</h2>
+<section id="before-you-start-writing-your-own-code" class="level3">
+<h3 class="anchored" data-anchor-id="before-you-start-writing-your-own-code">Before you start writing your own code</h3>
 <ol type="1">
-<li>Come up with one or more questions that you are interested in.</li>
-<li>Review the online lessons notes and use Codespace to run the lesson-scripts.</li>
-<li>We did one exercise in class. Optionally, do the rest of the exercises in the <a href="../lessons/working-with-data.html">“Working with data”</a>, <a href="../lessons/creating-maps.html">“Creating maps”</a>, and <a href="../lessons/creating-charts.html">“Creating charts”</a> sections to get more practice with coding. Click in “Show solution” button on the online lesson to see the solution.</li>
-<li>Figure out how to go from 191K City Nature Challenge observations to the observation you want. If you want to study one or more species, review the examples that filter by species. If you want to study a group of species, review the higher taxa examples. If you want to limit the observations to a particular location, review the examples that show filtering observations using a geographic boundaries. If you want to study your own observations, review the examples about filtering by iNaturalist user. If you want to mimic the data standards used by scientists, review the examples about filter by research grade and licenses. If you want to limit the observations by year, review the examples about filtering by years. If you want to remove some of the biases in community science data, review normalizing iNaturalist data examples.</li>
-<li>Read the <a href="https://wykhuh.github.io/after-inaturalist-r/lessons/setup.html#restart-codespace">“Restart Codespace”</a> section to restart Codespace. Read the <a href="https://wykhuh.github.io/after-inaturalist-r/lessons/setup.html#stop-codespace">“Stop Codespace”</a> section to learn how to stop Codespace at the end of your work session.</li>
-<li>Create a script file to save your work.</li>
-<li>Copy and paste examples provided in the lessons, and adjust them to fit your needs. When you have something that kinda works, save the script file and the results. Save your scripts often since RStudio does not have auto save functionality. Save the scripts to the scripts folder. Save any CSVs and images you generate to the results folder.</li>
-<li>Data exploration is an iterative process. Chances are, you won’t get your final results on your first day. Try different way to look at the data. Use <code>filter()</code>, <code>select()</code>, <code>count()</code>, and <code>mutate()</code> to change the data. Then create summary tables, charts, and/or maps to find patterns. Repeat the process. You can create multiple script files.</li>
-<li>As you are analyzing the data, think about how you want to present your results. Your presentation should represent your analysis, your voice, and your interests.</li>
-<li>Attend the office hours or email me if you have questions.</li>
+<li><p>Come up with one or more questions that you are interested in. Pick questions that mean something to you. It is your curiosity that will motivate you to learn how to use R to look for answers to your questions.</p></li>
+<li><p>Learning a programming language is like learning spoken/written languages - it will take practice to get better. Since this is the first programming experience for many of you, it is perfectly normal to copy others while gradually forming a mental model of what is going on. Review the online lessons notes and use Codespace to run the examples in ‘scripts/lesson-scripts’.</p></li>
+<li><p>We did one exercise in class. Optionally, do the rest of the exercises in the <a href="../lessons/working-with-data.html">“Working with data”</a>, <a href="../lessons/creating-maps.html">“Creating maps”</a>, and <a href="../lessons/creating-charts.html">“Creating charts”</a> sections to get more practice with coding. Click the “Show solution” button on the online lesson to see the solution.</p></li>
+<li><p>Once you formed some questions, figure out how to go from 191K City Nature Challenge observations to the observation you want. I provided a lot of coding examples, but I don’t expect anyone to use all the examples for their analysis. Think of each code example as one building block. It’s up to you to pick the blocks you need to build your analysis.</p></li>
+</ol>
+<p>If you want to study one or more species, review the examples that filter by species. If you want to study a group of species, review the higher taxa examples. If you want to limit the observations to a particular location, review the examples that show filtering observations using a geographic boundaries. If you want to compare observations in different areas, review the examples about counting the number of obsevations per neighborhood. If you want to study your own observations, review the examples about filtering by iNaturalist user. If you want to mimic the data standards used by scientists, review the examples about filter by research grade and licenses. If you want to limit the observations by year, review the examples about filtering by years. If you want to remove some of the biases in community science data, review normalizing iNaturalist data examples. Review the datasets listed on the <a href="../lessons/other-datasets.html">“Using to other datasets”</a> page to see if any of the datasets are useful for you.</p>
+</section>
+<section id="writing-your-own-code" class="level3">
+<h3 class="anchored" data-anchor-id="writing-your-own-code">Writing your own code</h3>
+<p>Once you have a rough idea about what you want to analyze, you can start writing code for your analysis.</p>
+<ol type="1">
+<li><p>Read the <a href="https://wykhuh.github.io/after-inaturalist-r/lessons/setup.html#restart-codespace">“Restart Codespace”</a> section to restart Codespace. Read the <a href="https://wykhuh.github.io/after-inaturalist-r/lessons/setup.html#stop-codespace">“Stop Codespace”</a> section to learn how to stop Codespace at the end of your work session.</p></li>
+<li><p>Create script files to save your work. Remember to end the script files with <code>.R</code>.</p></li>
+<li><p>Copy and paste examples provided in the lessons, and adjust them to fit your needs. When you have something that kinda works, save the script file and the results. Save your scripts often since RStudio does not have auto-save functionality. Save the scripts to the scripts folder. Save any CSVs and images you generate to the results folder.</p></li>
+</ol>
+<p>You can add comments in your scripts to help remind you of what the code does.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Comments are lines that start with #. Comments are not processed by R. </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Comments are lines that we add to help explain what is going on.</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># read the CNC CSV</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># read file that has Expostion park boundaries</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># get my research grade observations in Exposition Park.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="4" type="1">
+<li>Data exploration is an iterative process. Chances are, you won’t get your final results on your first day. Try different way to look at the data. Use <code>filter()</code>, <code>select()</code>, <code>count()</code>, and <code>mutate()</code> to change the data. Then create summary tables, charts, and/or maps to find patterns. Repeat the process. If you had an idea for an analyis, but the idea didn’t reveal any interesting patterns, you can modify your analysis. You can create multiple script files as your analysis evolves.</li>
+</ol>
+<p>As you get more practice reading, copying, writing, and editing R code, your mental model what the R code is doing will evolve. Some things that didn’t make sense at first, will begin to click.</p>
+<ol start="5" type="1">
+<li><p>As you are analyzing the data, think about how you want to present your results. Your presentation should represent your analysis, your voice, and your interests. Since animals, plants, fungi, etc can’t speak for themselves, we need to use our voice to advocate for them.</p></li>
+<li><p>Attend the office hours or email me if you have questions.</p></li>
 </ol>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

@@ -338,6 +338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#in-c" id="toc-in-c" class="nav-link" data-scroll-target="#in-c">%in% c()</a></li>
   </ul></li>
   <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2">Exercise 2</a></li>
+  <li><a href="#find-items-with-wildcard-or-partial-search" id="toc-find-items-with-wildcard-or-partial-search" class="nav-link" data-scroll-target="#find-items-with-wildcard-or-partial-search">Find items with wildcard or partial search</a></li>
   <li><a href="#more-complex-queries" id="toc-more-complex-queries" class="nav-link" data-scroll-target="#more-complex-queries">More complex queries</a></li>
   <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3">Exercise 3</a></li>
   <li><a href="#add-new-columns-with-mutate" id="toc-add-new-columns-with-mutate" class="nav-link" data-scroll-target="#add-new-columns-with-mutate">Add new columns with mutate()</a></li>
@@ -1145,31 +1146,67 @@ Note
 </div>
 </div>
 </section>
-<section id="find-species-with-fuzzy-search" class="level4">
-<h4 class="anchored" data-anchor-id="find-species-with-fuzzy-search">Find species with fuzzy search</h4>
+</section>
+</section>
+<section id="exercise-2" class="level2 exercise">
+<h2 class="anchored" data-anchor-id="exercise-2">Exercise 2</h2>
+<p>Get all your observations that are research grade</p>
+<ul>
+<li>use <code>my_inat_data</code> from Exercise 1 to access CNC observations</li>
+<li>Use <code>&amp;</code> with <code>filter()</code> since we want to pick observations by both username and quality grade. Use ‘quantron’ as the user if you don’t have CNC observations.</li>
+<li>Use <code>select()</code> to pick 4 columns</li>
+</ul>
+<div class="answer">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>my_inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span> <span class="sc">&amp;</span> </span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>           quality_grade <span class="sc">==</span> <span class="st">'research'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name, scientific_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,556 × 4
+   user_login observed_on common_name            scientific_name              
+   &lt;chr&gt;      &lt;date&gt;      &lt;chr&gt;                  &lt;chr&gt;                        
+ 1 natureinla 2016-04-14  Red-eared Slider       Trachemys scripta elegans    
+ 2 natureinla 2016-04-14  Monarch                Danaus plexippus             
+ 3 natureinla 2016-04-14  San Diego Gopher Snake Pituophis catenifer annectens
+ 4 natureinla 2016-04-14  California Towhee      Melozone crissalis           
+ 5 natureinla 2016-04-14  Cooper's Hawk          Astur cooperii               
+ 6 natureinla 2016-04-14  Monarch                Danaus plexippus             
+ 7 natureinla 2016-04-14  Allen's Hummingbird    Selasphorus sasin            
+ 8 natureinla 2016-04-15  Northern Mockingbird   Mimus polyglottos            
+ 9 natureinla 2016-04-15  House Sparrow          Passer domesticus            
+10 natureinla 2016-04-15  Indian Peafowl         Pavo cristatus               
+# ℹ 1,546 more rows</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="find-items-with-wildcard-or-partial-search" class="level2">
+<h2 class="anchored" data-anchor-id="find-items-with-wildcard-or-partial-search">Find items with wildcard or partial search</h2>
 <p>Previously we used <code>common_name == 'Western Fence Lizard'</code> which did an exact match for <code>'Western Fence Lizard'.</code> But a lot of the times we want to search for a phrase, not an exact match.</p>
 <p>Let’s find all species common names that have the word ‘lizard’.</p>
 <p><code>unique(inat_data$common_name)</code> will return all common names. Use <code>length()</code> to get the number of items.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>common_names <span class="ot">&lt;-</span> <span class="fu">unique</span>(inat_data<span class="sc">$</span>common_name) </span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(common_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>common_names <span class="ot">&lt;-</span> <span class="fu">unique</span>(inat_data<span class="sc">$</span>common_name) </span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(common_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 7260</code></pre>
 </div>
 </div>
 <p>We have over 7000 common names.</p>
 <p><code>str_subset()</code> from <strong>stringr</strong> package will find all items that match a given pattern. The first argument is the items we are searching through. The second argument <code>pattern</code> is the pattern we are looking for.</p>
-<p>When we use <code>pattern = 'lizard'</code>, we get zero results. The reason is that <code>str_subset()</code> is case sensitive. It is looking for lowercase ‘lizard’.</p>
+<p>Here we are searching through common names for any names that contain ‘lizard’.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(common_names, <span class="at">pattern =</span> <span class="st">'lizard'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(common_names, <span class="at">pattern =</span> <span class="st">'lizard'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>character(0)</code></pre>
 </div>
 </div>
+<p>When we use <code>pattern = 'lizard'</code>, we get zero results. The reason is that <code>str_subset()</code> is case sensitive. It is looking for lowercase ‘lizard’.</p>
 <p>To have a case insensitive match, we need to pass in <code>(?i)</code> at the beginning of the pattern. This will look find matches for ‘lizard’ no matter the case.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(common_names, <span class="at">pattern =</span> <span class="st">'(?i)lizard'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(common_names, <span class="at">pattern =</span> <span class="st">'(?i)lizard'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Western Side-blotched Lizard"   "Western Fence Lizard"          
  [3] "Southern Alligator Lizard"      "Great Basin Fence Lizard"      
@@ -1190,7 +1227,7 @@ Note
 </div>
 <p>Let’s look for all common names with the word ‘ants’.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(common_names, <span class="at">pattern =</span> <span class="st">'(?i)ants'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(common_names, <span class="at">pattern =</span> <span class="st">'(?i)ants'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "plants"                                 
  [2] "century plants"                         
@@ -1247,7 +1284,7 @@ Note
 <p>The results return names with the word ‘plants’ because it ‘ants’ is part of ‘pl<strong>ants</strong>’. If we want to only find matches for the word ‘ants’ , we need to use <code>\\b</code></p>
 <p><code>\\b</code> before and after “ants” will look for the word “ants”.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(common_names, <span class="at">pattern =</span> <span class="st">"(?i)</span><span class="sc">\\</span><span class="st">bants</span><span class="sc">\\</span><span class="st">b"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(common_names, <span class="at">pattern =</span> <span class="st">"(?i)</span><span class="sc">\\</span><span class="st">bants</span><span class="sc">\\</span><span class="st">b"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Typical American Harvester Ants"        
  [2] "Ants, Bees, Wasps, and Sawflies"        
@@ -1281,7 +1318,7 @@ Note
 </div>
 <p><code>\\b</code> before ‘ant’ will look for the words that start with ‘ant’ such as ‘ant’, ‘ants’, ‘anthuriums’. We use <code>[0:30]</code> to show the first 30 matches.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(common_names, <span class="at">pattern =</span> <span class="st">"(?i)</span><span class="sc">\\</span><span class="st">bant"</span>)[<span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(common_names, <span class="at">pattern =</span> <span class="st">"(?i)</span><span class="sc">\\</span><span class="st">bant"</span>)[<span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Typical American Harvester Ants"     
  [2] "Argentine Ant"                       
@@ -1317,7 +1354,7 @@ Note
 </div>
 <p><code>\\b</code> after ‘ant’ will look for the words that end with ‘ant’ such as ‘ant’, ‘plant’, ‘giant’.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(common_names, <span class="at">pattern =</span> <span class="st">"(?i)ant</span><span class="sc">\\</span><span class="st">b"</span>)[<span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(common_names, <span class="at">pattern =</span> <span class="st">"(?i)ant</span><span class="sc">\\</span><span class="st">b"</span>)[<span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Double-crested Cormorant"    "Argentine Ant"              
  [3] "giant reed"                  "Giant Canyon Woodlouse"     
@@ -1338,73 +1375,38 @@ Note
 </div>
 <p>Now that we have a list of ant names, we can use <code>%in%</code> to look for multiple ant species.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>ants <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="st">"Acorn Ants and Allies"</span>,</span>
-<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="st">"Acrobat Ants"</span>,</span>
-<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a><span class="st">"Argentine Ant"</span>,</span>
-<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a><span class="st">"Big-headed Ants"</span>,</span>
-<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a><span class="st">"Californicus-group Harvester Ants"</span>,</span>
-<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a><span class="st">"Camponotin Ants"</span>,</span>
-<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a><span class="st">"Carpenter Ants"</span>,</span>
-<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a><span class="st">"Citronella Ants, Fuzzy Ants, and Allies"</span>,</span>
-<span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a><span class="st">"fallax-group Big-headed Ants"</span>,</span>
-<span id="cb102-11"><a href="#cb102-11" aria-hidden="true" tabindex="-1"></a><span class="st">"Formicine Ants"</span>,</span>
-<span id="cb102-12"><a href="#cb102-12" aria-hidden="true" tabindex="-1"></a><span class="st">"Furrowed Ants"</span>,</span>
-<span id="cb102-13"><a href="#cb102-13" aria-hidden="true" tabindex="-1"></a><span class="st">"Lasiin Ants"</span>,</span>
-<span id="cb102-14"><a href="#cb102-14" aria-hidden="true" tabindex="-1"></a><span class="st">"Leptomyrmecin Ants"</span>,</span>
-<span id="cb102-15"><a href="#cb102-15" aria-hidden="true" tabindex="-1"></a><span class="st">"Molesta-group Thief Ants"</span>,</span>
-<span id="cb102-16"><a href="#cb102-16" aria-hidden="true" tabindex="-1"></a><span class="st">"Myrmicine Ants"</span>,</span>
-<span id="cb102-17"><a href="#cb102-17" aria-hidden="true" tabindex="-1"></a><span class="st">"Pavement Ants"</span>,</span>
-<span id="cb102-18"><a href="#cb102-18" aria-hidden="true" tabindex="-1"></a><span class="st">"Pyramid Ants"</span>,</span>
-<span id="cb102-19"><a href="#cb102-19" aria-hidden="true" tabindex="-1"></a><span class="st">"Sneaking Ants"</span>,</span>
-<span id="cb102-20"><a href="#cb102-20" aria-hidden="true" tabindex="-1"></a><span class="st">"Sneaking Ants"</span>,</span>
-<span id="cb102-21"><a href="#cb102-21" aria-hidden="true" tabindex="-1"></a><span class="st">"Solenopsis Fire Ants and Thief Ants"</span>,</span>
-<span id="cb102-22"><a href="#cb102-22" aria-hidden="true" tabindex="-1"></a><span class="st">"Velvety Tree Ants"</span>,</span>
-<span id="cb102-23"><a href="#cb102-23" aria-hidden="true" tabindex="-1"></a><span class="st">"Velvety Tree Ants"</span></span>
-<span id="cb102-24"><a href="#cb102-24" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb102-25"><a href="#cb102-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb102-26"><a href="#cb102-26" aria-hidden="true" tabindex="-1"></a>ants_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb102-27"><a href="#cb102-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">%in%</span> ants) <span class="sc">%&gt;%</span></span>
-<span id="cb102-28"><a href="#cb102-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name)</span>
-<span id="cb102-29"><a href="#cb102-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb102-30"><a href="#cb102-30" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ants_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>ants <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="st">"Acorn Ants and Allies"</span>,</span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a><span class="st">"Acrobat Ants"</span>,</span>
+<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a><span class="st">"Argentine Ant"</span>,</span>
+<span id="cb104-5"><a href="#cb104-5" aria-hidden="true" tabindex="-1"></a><span class="st">"Big-headed Ants"</span>,</span>
+<span id="cb104-6"><a href="#cb104-6" aria-hidden="true" tabindex="-1"></a><span class="st">"Californicus-group Harvester Ants"</span>,</span>
+<span id="cb104-7"><a href="#cb104-7" aria-hidden="true" tabindex="-1"></a><span class="st">"Camponotin Ants"</span>,</span>
+<span id="cb104-8"><a href="#cb104-8" aria-hidden="true" tabindex="-1"></a><span class="st">"Carpenter Ants"</span>,</span>
+<span id="cb104-9"><a href="#cb104-9" aria-hidden="true" tabindex="-1"></a><span class="st">"Citronella Ants, Fuzzy Ants, and Allies"</span>,</span>
+<span id="cb104-10"><a href="#cb104-10" aria-hidden="true" tabindex="-1"></a><span class="st">"fallax-group Big-headed Ants"</span>,</span>
+<span id="cb104-11"><a href="#cb104-11" aria-hidden="true" tabindex="-1"></a><span class="st">"Formicine Ants"</span>,</span>
+<span id="cb104-12"><a href="#cb104-12" aria-hidden="true" tabindex="-1"></a><span class="st">"Furrowed Ants"</span>,</span>
+<span id="cb104-13"><a href="#cb104-13" aria-hidden="true" tabindex="-1"></a><span class="st">"Lasiin Ants"</span>,</span>
+<span id="cb104-14"><a href="#cb104-14" aria-hidden="true" tabindex="-1"></a><span class="st">"Leptomyrmecin Ants"</span>,</span>
+<span id="cb104-15"><a href="#cb104-15" aria-hidden="true" tabindex="-1"></a><span class="st">"Molesta-group Thief Ants"</span>,</span>
+<span id="cb104-16"><a href="#cb104-16" aria-hidden="true" tabindex="-1"></a><span class="st">"Myrmicine Ants"</span>,</span>
+<span id="cb104-17"><a href="#cb104-17" aria-hidden="true" tabindex="-1"></a><span class="st">"Pavement Ants"</span>,</span>
+<span id="cb104-18"><a href="#cb104-18" aria-hidden="true" tabindex="-1"></a><span class="st">"Pyramid Ants"</span>,</span>
+<span id="cb104-19"><a href="#cb104-19" aria-hidden="true" tabindex="-1"></a><span class="st">"Sneaking Ants"</span>,</span>
+<span id="cb104-20"><a href="#cb104-20" aria-hidden="true" tabindex="-1"></a><span class="st">"Sneaking Ants"</span>,</span>
+<span id="cb104-21"><a href="#cb104-21" aria-hidden="true" tabindex="-1"></a><span class="st">"Solenopsis Fire Ants and Thief Ants"</span>,</span>
+<span id="cb104-22"><a href="#cb104-22" aria-hidden="true" tabindex="-1"></a><span class="st">"Velvety Tree Ants"</span>,</span>
+<span id="cb104-23"><a href="#cb104-23" aria-hidden="true" tabindex="-1"></a><span class="st">"Velvety Tree Ants"</span></span>
+<span id="cb104-24"><a href="#cb104-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb104-25"><a href="#cb104-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-26"><a href="#cb104-26" aria-hidden="true" tabindex="-1"></a>ants_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb104-27"><a href="#cb104-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">%in%</span> ants) <span class="sc">%&gt;%</span></span>
+<span id="cb104-28"><a href="#cb104-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name)</span>
+<span id="cb104-29"><a href="#cb104-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-30"><a href="#cb104-30" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ants_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 446   3</code></pre>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="exercise-2" class="level2 exercise">
-<h2 class="anchored" data-anchor-id="exercise-2">Exercise 2</h2>
-<p>Get all your observations that are research grade</p>
-<ul>
-<li>use <code>my_inat_data</code> from Exercise 1 to access CNC observations</li>
-<li>Use <code>&amp;</code> with <code>filter()</code> since we want to pick observations by both username and quality grade. Use ‘quantron’ as the user if you don’t have CNC observations.</li>
-<li>Use <code>select()</code> to pick 4 columns</li>
-</ul>
-<div class="answer">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>my_inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span> <span class="sc">&amp;</span> </span>
-<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>           quality_grade <span class="sc">==</span> <span class="st">'research'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name, scientific_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,556 × 4
-   user_login observed_on common_name            scientific_name              
-   &lt;chr&gt;      &lt;date&gt;      &lt;chr&gt;                  &lt;chr&gt;                        
- 1 natureinla 2016-04-14  Red-eared Slider       Trachemys scripta elegans    
- 2 natureinla 2016-04-14  Monarch                Danaus plexippus             
- 3 natureinla 2016-04-14  San Diego Gopher Snake Pituophis catenifer annectens
- 4 natureinla 2016-04-14  California Towhee      Melozone crissalis           
- 5 natureinla 2016-04-14  Cooper's Hawk          Astur cooperii               
- 6 natureinla 2016-04-14  Monarch                Danaus plexippus             
- 7 natureinla 2016-04-14  Allen's Hummingbird    Selasphorus sasin            
- 8 natureinla 2016-04-15  Northern Mockingbird   Mimus polyglottos            
- 9 natureinla 2016-04-15  House Sparrow          Passer domesticus            
-10 natureinla 2016-04-15  Indian Peafowl         Pavo cristatus               
-# ℹ 1,546 more rows</code></pre>
-</div>
 </div>
 </div>
 </section>
