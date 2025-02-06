@@ -25,6 +25,7 @@ We started the previous lessons with `read_csv()`. To better understand the data
 library(readr) # read and write tabular data
 library(dplyr) # manipulate data
 library(here) # file paths
+library(tibble) # tibbles are updated version of dataframes
 ```
 
 ```{r, assign_read_csv_to_object}
@@ -42,7 +43,20 @@ glimpse(inat_data)
 
 `glimpse()` shows `<dbl> <date> <chr> <lgl>`. Those are data types.
 
-In computer programming, **data type** is a way to group data values. Every value has a data type. An analogy is human languages have numbers and words. A value's data type will determine what the programming language can do with the value. For instance, in R we can add numbers but we can't add character strings.
+In computer programming, **data type** is a way to group data values. Every value has a data type. An analogy is human languages have numbers and words. A value's data type will determine what the programming language can do with the value. For instance, in R we can add numbers but we can't add words.
+
+Adding numbers if fine.
+
+```{r adding_numbers}
+1 + 2
+```
+
+Adding words causes an error.
+
+```{r adding_words}
+#| eval: false
+"cat" + "dogs"
+```
 
 There are 4 main types in R: **numeric**, **integer**, **logical**, and **character**.
 
@@ -104,17 +118,43 @@ class(mixed)
 
 ### data.frame
 
-When we call `class()` with `inat_data`, it returns "tbl" and "data.frame".
+**data.frame** is a data structure from R that is used to represent tabular data with rows and columns. Each column in a data.frame is a vector. Because each column is a vector, all the values in a column must be of the same data type.
 
-```{r class_dataframe}
+We can create a data.frame using the previous vectors using `data.frame()`. For each column, we give the column a name and a vector.
+
+```{r create_dataframe}
+df <- data.frame(Numbers = numbers, Characters = characters)
+df
+```
+
+When we call `class()` on a data.frame, it returns "data.frame"
+
+```{r class_of_dataframe}
+class(df)
+```
+
+**Tibble** is an updated version of data.frame from the **tibble** package.
+
+We can create a tibble using the previous vectors using `tibble()`.
+
+```{r create_tibble}
+tb <- tibble(Numbers = numbers, Characters = characters)
+tb
+```
+
+When we call `class()` on a tibble, it returns "tbl_df" (tibble data.frame), "tbl" (tibble), and "data.frame".
+
+```{r class_of_tibble}
+class(tb)
+```
+
+**readr** returns results as special type of tibble. When we call `class()` with `inat_data`, it returns "spec_tbl_df" (specification tibble data.frame), "tbl_df", "tbl", and "data.frame".
+
+```{r class_of_inat_data}
 class(inat_data)
 ```
 
-**data.frame** is a data structure from R that is used to represent tabular data with rows and columns. **tbl** aka tibble is an updated version of data.frame from the **tibble** package. **readr** uses tibbles instead of data.frames.
-
-When `readr` loads a CSV, it tries to figure the data type for each column. Each column in a data.frame or tibble is a vector. Because each column is a vector, all the values in a column must be of the same data type.
-
-For `inat_data`, `id` is **numeric**, `captive_cultivated` is **logical**, `user_login` is **character**. Multiple columns have `NA` such as `license` and `sound_url`.
+When `readr` loads a CSV, it tries to figure the data type for each column. For `inat_data`, `id` is **numeric**, `captive_cultivated` is **logical**, `user_login` is **character**. Multiple columns have `NA` such as `license` and `sound_url`.
 
 `readr` has a special data type `date` that is used to represent dates. Column `observed_on` is **date**. Other columns are such as `time_observed_at` are treated as **character** because those strings have extra information that `readr` does not recognize as a **date**.
 
@@ -144,3 +184,4 @@ min(numbers,  na.rm = TRUE)
 ```
 
 ## 
+
