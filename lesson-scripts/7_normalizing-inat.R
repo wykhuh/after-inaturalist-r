@@ -25,7 +25,7 @@ allobs_research <- allobs %>%
 
 
 ## ----add_geometry_column------------------------------------------------------
-allobs_sf <- allobs_research %>% 
+allobs_sf <- allobs_research %>%
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)
 
 
@@ -88,7 +88,7 @@ table(random_obs_per_year$year)
 
 
 ## ----get_distinct_species_per_year--------------------------------------------
-unique_species_per_year <- distinct(random_obs_per_year) 
+unique_species_per_year <- distinct(random_obs_per_year)
 
 
 ## ----count_species_per_year---------------------------------------------------

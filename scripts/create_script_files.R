@@ -8,6 +8,7 @@ processFile = function(filepath) {
     gsub(pattern = "^#\\| eval: false", replace = temp_text, perl = FALSE) |>
     gsub(pattern = "^#\\| include: false", replace = temp_text, perl = FALSE) |>
     gsub(pattern = "^# ", replace = '', perl = FALSE) |>
+    gsub(pattern = " +$", replace = '', perl = FALSE) |>
     gsub(pattern = "^classroom_organization.*?$", replace = temp_text, perl = FALSE) |>
     gsub(pattern = "^classroom_repos.*?$", replace = temp_text, perl = FALSE) |>
     gsub(pattern = '../scripts/data_utils.R', replace = 'data_utils.R', perl = FALSE)
@@ -16,11 +17,38 @@ processFile = function(filepath) {
   # remove blank lines with readLines https://stackoverflow.com/a/11866046
   clean_text <- clean_text[which(clean_text!=temp_text)]
 
-  writeLines(clean_text, con=filepath)
+  # delete the lines if they contain exercise code
+  exercise_code <- FALSE
+  keep_lines <- c()
+  for(line in clean_text) {
+    # detect lines that start code snippets
+    if (exercise_code & startsWith(line, '## ----')) {
+      exercise_code <- FALSE
+    }
 
+    # detect lines that start exercise code snippets
+    if (startsWith(line, '## ----exercise')) {
+      exercise_code <- TRUE
+    }
+
+    # keep lines that aren't exercise code or has exercise label
+    if(!exercise_code | startsWith(line, '## ----exercise')) {
+      len <- length(keep_lines)
+      keep_lines[len+1] <- line
+    }
+
+    # add two blanks lines after exercise label
+    if (startsWith(line, '## ----exercise')) {
+      len <- length(keep_lines)
+      keep_lines[len+1] <- ''
+      keep_lines[len+2] <- ''
+    }
+  }
+
+
+  writeLines(keep_lines, con=filepath)
 }
 
-files <- c('additional-analysis')
 
 
 files <- c(
@@ -34,6 +62,9 @@ files <- c(
            'higher-taxa',
            'normalizing-inat',
            'additional-analysis')
+
+# files <- c('creating-charts')
+
 
 # delete files https://stackoverflow.com/a/65831178
 unlink("lesson-scripts/*", recursive = TRUE, force = TRUE)

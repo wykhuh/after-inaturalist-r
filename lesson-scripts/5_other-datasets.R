@@ -48,7 +48,7 @@ la_neighborhoods <- read_sf(here('data/raw/la_times_la_county_neighborhoods.json
 
 ## ----map_la_times_neigbhorhoods-----------------------------------------------
 ggplot() +
-  geom_sf(data=la_neighborhoods) 
+  geom_sf(data=la_neighborhoods)
 
 
 ## ----get_admin_boundaries-----------------------------------------------------
@@ -172,7 +172,7 @@ dim(DINS_la)
 
 
 ## ----get_damaged_structures_2025----------------------------------------------
-recent_DINS <- DINS_la %>% 
+recent_DINS <- DINS_la %>%
   mutate(year = year(INCIDENTST)) %>%
   filter(year == 2025)
 
@@ -225,7 +225,7 @@ ejsm <- read_sf(here('data/raw/EJSM_Scores-shp/6cbc6914-690f-48ec-a54f-2649a8ddb
 
 
 ## ----select_ejsm_fields-------------------------------------------------------
-ejsm_edit <- ejsm %>% 
+ejsm_edit <- ejsm %>%
   select(CIscore, HazScore, HealthScor, SVscore, CCVscore)
 
 
@@ -250,7 +250,7 @@ inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 
 ## ----add_geometry_to_inaturalist----------------------------------------------
-inat_sf <- st_as_sf(inat_data, 
+inat_sf <- st_as_sf(inat_data,
                          coords = c("longitude", "latitude"),   crs = 4326)
 
 
@@ -286,7 +286,7 @@ inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 
 ## ----add_geometry_to_inaturalist_2--------------------------------------------
-inat_sf <- st_as_sf(inat_data, 
+inat_sf <- st_as_sf(inat_data,
                          coords = c("longitude", "latitude"),   crs = 4326)
 
 

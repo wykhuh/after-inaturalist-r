@@ -25,7 +25,7 @@ names(inat_data)
 
 
 ## ----select_columns-----------------------------------------------------------
-inat_base_sf <- inat_data %>% 
+inat_base_sf <- inat_data %>%
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)
 
 
@@ -42,8 +42,8 @@ st_crs(inat_base_sf)
 
 
 ## ----select_inat_base_sf_columns----------------------------------------------
- inat_sf <- inat_base_sf %>% 
-  select(user_login, common_name, scientific_name, observed_on,  url, quality_grade) 
+ inat_sf <- inat_base_sf %>%
+  select(user_login, common_name, scientific_name, observed_on,  url, quality_grade)
 
 
 ## ----size_of_dataframe--------------------------------------------------------
@@ -51,7 +51,7 @@ dim(inat_sf)
 
 
 ## ----get_oak_data-------------------------------------------------------------
-inat_oak_sf <- inat_sf %>% 
+inat_oak_sf <- inat_sf %>%
   filter(scientific_name == 'Quercus agrifolia')
 
 
@@ -61,7 +61,7 @@ dim(inat_oak_sf)
 
 ## ----create_static_map_for_oak------------------------------------------------
 ggplot() +
-  geom_sf(data = inat_oak_sf)   
+  geom_sf(data = inat_oak_sf)
 
 
 ## ----create_interactive_map---------------------------------------------------
@@ -69,15 +69,6 @@ mapview(inat_oak_sf)
 
 
 ## ----exercise_create_map_one_species------------------------------------------
-
-my_inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
-
-my_inat_sf <- my_inat_data %>%
-  st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)  %>%
-  select(common_name, scientific_name, user_login, observed_on) %>%
-  filter(common_name == 'House Finch')
-
-mapview(my_inat_sf)
 
 
 ## ----get_LA_County_boundaries-------------------------------------------------
@@ -110,7 +101,7 @@ st_crs(la_county_sf) == st_crs(inat_oak_sf)
 ## ----add_LA_County_to_static_map----------------------------------------------
 ggplot() +
   geom_sf(data = la_county_sf)  +
-  geom_sf(data = inat_oak_sf) 
+  geom_sf(data = inat_oak_sf)
 
 
 ## ----check_la_county_geometry-------------------------------------------------
@@ -124,20 +115,20 @@ inat_oak_sf$geometry[1]
 ## ----create_static_map_for_oak_use_color--------------------------------------
 ggplot() +
   geom_sf(data = la_county_sf, color="black", fill='beige')  +
-  geom_sf(data = inat_oak_sf, color='green')  
+  geom_sf(data = inat_oak_sf, color='green')
 
 
 ## ----create_static_map_for_oak_use_alpha--------------------------------------
 ggplot() +
   geom_sf(data = la_county_sf, color="black", fill=alpha('beige', .5))  +
-  geom_sf(data = inat_oak_sf, color=alpha('green', .3))  
+  geom_sf(data = inat_oak_sf, color=alpha('green', .3))
 
 
 ## ----create_static_map_for_oak_use_quality_grade------------------------------
 
 ggplot() +
   geom_sf(data = la_county_sf, color="black", fill='beige')  +
-  geom_sf(data = inat_oak_sf, mapping=aes(color=quality_grade))  
+  geom_sf(data = inat_oak_sf, mapping=aes(color=quality_grade))
 
 
 
@@ -209,20 +200,9 @@ mapview(la_county_sf, legend=FALSE,
 
 ## ----exercise_create_map_one_species_county_boundary--------------------------
 
-my_la_county_sf <- read_sf(here('data/raw/LA_County_Boundary/LA_County_Boundary.shp'))
-
-st_crs(my_la_county_sf) == st_crs(my_inat_sf)
-
-my_la_county_sf <- st_transform(my_la_county_sf,  crs = st_crs(my_inat_sf))
-
-st_crs(my_la_county_sf) == st_crs(my_inat_sf)
-
-mapview(my_la_county_sf) +
-  mapview(my_inat_sf)
-
 
 ## ----get_Expo_park_boundaries-------------------------------------------------
-expo_park_boundary <- read_sf(here('data/raw/boundaries_expo_park_area.geojson'))  
+expo_park_boundary <- read_sf(here('data/raw/boundaries_expo_park_area.geojson'))
 
 
 ## ----glimpse_expo_park_boundary-----------------------------------------------
@@ -235,7 +215,7 @@ st_crs(expo_park_boundary) == st_crs(inat_sf)
 
 ## ----create_static_map_expo_park----------------------------------------------
 ggplot() +
-  geom_sf(data = expo_park_boundary) 
+  geom_sf(data = expo_park_boundary)
 
 
 ## ----create_interactive_map_expo_park-----------------------------------------
@@ -263,7 +243,7 @@ inat_expo_2 <- inat_sf[lengths(st_intersects(inat_sf, expo_park_boundary)) > 0, 
 ## ----create_static_map_of_observations_in_expo_park---------------------------
 ggplot() +
   geom_sf(data = expo_park_boundary)  +
-  geom_sf(data = inat_expo) 
+  geom_sf(data = inat_expo)
 
 
 ## ----create_interactive_map_of_observations_in_expo_park----------------------
@@ -282,20 +262,6 @@ inat_expo %>%
 
 
 ## ----exercise_create_map_of_observations_inside_boundary----------------------
-
-my_all_inat_sf <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv')) %>%
-  st_as_sf(coords = c("longitude", "latitude"),   crs = 4326) %>%
-  select(common_name, scientific_name, user_login, observed_on)
-
-
-my_boundary_sf <- read_sf(here('data/raw/boundaries_usc.geojson'))
-
-st_crs(my_inat_sf) == st_crs(my_boundary_sf)
-
-my_inat_area_sf <- my_all_inat_sf[st_intersects(my_all_inat_sf, my_boundary_sf) %>% lengths > 0, ]
-
-mapview(my_boundary_sf) +
-  mapview(my_inat_area_sf)
 
 
 ## ----read_la_river_file-------------------------------------------------------
@@ -332,9 +298,9 @@ mapview(buffer_river) +
 
 ## ----get_all_observations_near_la_river---------------------------------------
 
-inat_data_2 <- inat_base_sf %>% 
+inat_data_2 <- inat_base_sf %>%
   select(user_login, common_name, scientific_name, taxon_kingdom_name)
-  
+
 inat_river <- inat_data_2[lengths(st_intersects(inat_data_2, buffer_river)) > 0, ]
 
 
@@ -358,7 +324,7 @@ inat_river %>%
 
 ## ----facet_kingdom_map--------------------------------------------------------
 ggplot() +
-  geom_sf(data = inat_river ) +                                 
+  geom_sf(data = inat_river ) +
   facet_wrap(vars(taxon_kingdom_name))
 
 

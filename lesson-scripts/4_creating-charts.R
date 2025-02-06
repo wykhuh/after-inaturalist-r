@@ -13,8 +13,8 @@ inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 
 ## ----add_year_column----------------------------------------------------------
-inat_year <- inat_data %>% 
-  mutate(year = year(observed_on)) 
+inat_year <- inat_data %>%
+  mutate(year = year(observed_on))
 
 
 ## ----pass_data_to_ggplot------------------------------------------------------
@@ -27,7 +27,7 @@ ggplot(data = inat_year, mapping = aes(x = year))
 
 ## ----set_bar_type-------------------------------------------------------------
 ggplot(data = inat_year,  mapping = aes(x = year)) +
-  geom_bar()    
+  geom_bar()
 
 
 
@@ -38,19 +38,19 @@ ggplot(data = inat_year, mapping = aes(y = year)) +
 
 ## ----create_dataframe_with_year_count-----------------------------------------
 inat_year_count <- inat_year %>%
-  count(year, name='count')  
+  count(year, name='count')
 
 inat_year_count
 
 
 ## ----create_line_chart--------------------------------------------------------
-ggplot(data = inat_year_count, 
+ggplot(data = inat_year_count,
        mapping = aes(x = year, y=count)) +
-  geom_line() 
+  geom_line()
 
 
 ## ----create_line_point_chart--------------------------------------------------
-ggplot(data = inat_year_count, 
+ggplot(data = inat_year_count,
        mapping = aes(x = year, y=count)) +
   geom_line() +
   geom_point()
@@ -58,28 +58,18 @@ ggplot(data = inat_year_count,
 
 
 ## ----create_column_chart------------------------------------------------------
-ggplot(data = inat_year_count, 
+ggplot(data = inat_year_count,
        mapping = aes(x = year, y = count)) +
   geom_col()
 
 
 ## ----create_stacked_bar_chart-------------------------------------------------
-ggplot(data = inat_year, 
+ggplot(data = inat_year,
        mapping = aes(x = year, fill = quality_grade)) +
-  geom_bar()   
+  geom_bar()
 
 
 ## ----exercise_create_bar_chart------------------------------------------------
-
-my_inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
-
-my_obs_by_year  <- my_inat_data %>% 
-  mutate(year = year(observed_on))  %>% 
-  filter(user_login == 'natureinla')
-
-  
-ggplot(data = my_obs_by_year, mapping = aes(x = year)) +
-  geom_bar()
 
 
 ## ----get_all_colors-----------------------------------------------------------
@@ -97,20 +87,20 @@ ggplot(data = inat_year,  mapping = aes(x = year)) +
 
 
 ## ----set_bar_and_point_color--------------------------------------------------
-ggplot(data = inat_year_count, 
+ggplot(data = inat_year_count,
        mapping = aes(x = year, y=count)) +
   geom_line(color='#75cd5e') +
   geom_point(color='blue')
 
 
 ## ----stacked_bar_chart_default_colors-----------------------------------------
-ggplot(data = inat_year, 
+ggplot(data = inat_year,
        mapping = aes(x = year, fill = quality_grade)) +
-  geom_bar() 
+  geom_bar()
 
 
 ## ----stacked_bar_chart_viridis------------------------------------------------
-ggplot(data = inat_year, 
+ggplot(data = inat_year,
        mapping = aes(x = year, fill = quality_grade)) +
   geom_bar() +
   scale_fill_viridis_d()
@@ -125,14 +115,14 @@ ggplot(data = inat_year,
 
 
 ## ----stacked_bar_chart_brewer-------------------------------------------------
-ggplot(data = inat_year, 
+ggplot(data = inat_year,
        mapping = aes(x = year, fill = quality_grade)) +
   geom_bar() +
   scale_fill_brewer()
 
 
 ## ----stacked_bar_chart_manual-------------------------------------------------
-ggplot(data = inat_year, 
+ggplot(data = inat_year,
        mapping = aes(x = year, fill = quality_grade)) +
   geom_bar() +
   scale_fill_manual(values=c("#DADAEB", "#9E9AC8", "#6A51A3"))
@@ -140,7 +130,7 @@ ggplot(data = inat_year,
 
 
 ## ----create_chart_with_custom_breaks------------------------------------------
-ggplot(data = inat_year,  
+ggplot(data = inat_year,
        mapping = aes(x = year)) +
   geom_bar()  +
   scale_fill_viridis_d() +
@@ -149,22 +139,22 @@ ggplot(data = inat_year,
 
 
 ## ----assign_plot_to_object----------------------------------------------------
-myplot <- ggplot(data = inat_year,  
+myplot <- ggplot(data = inat_year,
                  mapping = aes(x = year)) +
   geom_bar(fill='#75cd5e') +
-  scale_x_continuous(n.breaks = 8) 
- 
+  scale_x_continuous(n.breaks = 8)
+
 
   myplot
 
 
 ## ----set_theme, warning=FALSE-------------------------------------------------
-myplot + 
+myplot +
   theme_bw()
 
 
 ## ----rotate_axis_label--------------------------------------------------------
-myplot + 
+myplot +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 90))
 
@@ -179,7 +169,7 @@ myplot +
 ## ----remove_vertical_grid_lines, warning=FALSE--------------------------------
 myplot +
   theme_bw() +
-  theme(axis.title = element_text(size = 14), 
+  theme(axis.title = element_text(size = 14),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank())
 
@@ -193,33 +183,26 @@ myplot +
 
 
 ## ----changing_legend_title----------------------------------------------------
-ggplot(data = inat_year, 
+ggplot(data = inat_year,
        mapping = aes(x = year, fill = quality_grade)) +
   geom_bar() +
   labs(fill = "Quality Grade")
 
 
 ## ----exercise_change_chart_appearance-----------------------------------------
-my_chart <- ggplot(data = my_obs_by_year, 
-                   mapping = aes(x = year)) +
-  geom_bar(fill="tan")
-
-my_chart +
-  theme_classic() +
-  labs(title = "CNC Los Angeles",  x = "Year",  y = "Observations") 
 
 
 ## ----create_facets------------------------------------------------------------
-ggplot(data = inat_year, 
+ggplot(data = inat_year,
        mapping = aes(x = year)) +
-  geom_bar() +                                                          
+  geom_bar() +
   facet_wrap(vars(quality_grade))
 
 
 ## ----create_facets_1_column---------------------------------------------------
-ggplot(data = inat_year, 
+ggplot(data = inat_year,
        mapping = aes(x = year)) +
-  geom_bar() +                                                          
+  geom_bar() +
   facet_wrap(vars(quality_grade), ncol = 1)
 
 

@@ -12,7 +12,7 @@ inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 ## ----filter_oaks_observations-------------------------------------------------
 oaks_obs <- inat_data %>%
-  filter(common_name == 'oaks') 
+  filter(common_name == 'oaks')
 
 dim(oaks_obs)
 
@@ -72,7 +72,7 @@ unique(trees_obs$common_name)[0:30]
 laco_species <- c('Acacia aneura', 'Acacia stenophylla', 'Afrocarpus falcatus', "Agonis flexuosa", 'Angophora costata', "Arbutus 'marina'", 'Arbutus unedo'  )
 
 laco_species_obs <- inat_data %>%
-  filter(taxon_species_name %in% laco_species & 
+  filter(taxon_species_name %in% laco_species &
            taxon_kingdom_name == 'Plantae') %>%
   select(user_login, common_name, scientific_name, taxon_species_name)
 
@@ -81,7 +81,7 @@ laco_species_obs <- inat_data %>%
 laco_genera <- c('Acacia',  'Afrocarpus', "Agonis", 'Angophora', "Arbutus" )
 
 laco_genera_obs <- inat_data %>%
-  filter(taxon_genus_name %in% laco_genera & 
+  filter(taxon_genus_name %in% laco_genera &
            taxon_kingdom_name == 'Plantae') %>%
   select(user_login, common_name, scientific_name, taxon_genus_name)
 

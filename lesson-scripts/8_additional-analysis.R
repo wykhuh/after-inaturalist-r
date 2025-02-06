@@ -22,40 +22,40 @@ inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 
 ## ----add_year_column----------------------------------------------------------
-inat_year <- inat_data %>% 
-  mutate(year = year(observed_on)) 
+inat_year <- inat_data %>%
+  mutate(year = year(observed_on))
 
 
 ## ----select_columns-----------------------------------------------------------
-inat_sf <- inat_data %>% 
-  st_as_sf(coords = c("longitude", "latitude"),   crs = 4326) %>% 
+inat_sf <- inat_data %>%
+  st_as_sf(coords = c("longitude", "latitude"),   crs = 4326) %>%
   select(user_login, common_name, scientific_name, observed_on,  url, quality_grade)
 
 
 ## ----create_dodged_bar_chart--------------------------------------------------
-ggplot(data = inat_year , 
+ggplot(data = inat_year ,
        mapping = aes(x = year, fill = quality_grade))  +
-  geom_bar(position = position_dodge(preserve = 'single'))  
+  geom_bar(position = position_dodge(preserve = 'single'))
 
 
 ## ----create_dataframe_for_multi_line_chart------------------------------------
-year_quality_count <- inat_data %>% 
+year_quality_count <- inat_data %>%
   mutate(year = year(observed_on))  %>%
-  count(year, quality_grade,  name='count') 
+  count(year, quality_grade,  name='count')
 
 year_quality_count
 
 
 ## ----create_multi_line_chart--------------------------------------------------
-ggplot(data = year_quality_count, 
+ggplot(data = year_quality_count,
        mapping = aes(x = year, y = count, color = quality_grade)) +
   geom_line()
 
 
 ## ----create_dataframe_with_year_count-----------------------------------------
-inat_year_count <- inat_data %>% 
+inat_year_count <- inat_data %>%
   mutate(year = year(observed_on)) %>%
-  count(year, name='count')  
+  count(year, name='count')
 
 inat_year_count
 
@@ -65,17 +65,17 @@ ggplot(data = inat_year_count,
        mapping = aes(x = year, y = count)) +
   geom_col() +
   geom_line()
- 
+
 
 
 ## ----bar_and_line_chart-------------------------------------------------------
 ggplot() +
-  geom_bar(data = inat_year , 
+  geom_bar(data = inat_year ,
        mapping = aes(x = year, fill = quality_grade),
        position = position_dodge(preserve = 'single')) +
-  geom_line(data = inat_year_count, 
+  geom_line(data = inat_year_count,
        mapping = aes(x = year, y = count))
- 
+
 
 
 ## ----ge_neighborhoods---------------------------------------------------------
@@ -84,7 +84,7 @@ la_neighborhoods_sf <- read_sf(here('data/raw/la_times_la_county_neighborhoods.j
 
 
 ## ----get_expo_park------------------------------------------------------------
-expo_park_sf <- la_neighborhoods_sf %>% 
+expo_park_sf <- la_neighborhoods_sf %>%
   filter(name=='Exposition Park')
 
 expo_park_sf
@@ -109,7 +109,7 @@ expo_area_count_sf
 
 ggplot(expo_area_count_sf, aes(label=paste0(name,': ', observations_count))) +
   geom_sf() +
-  geom_sf_label(fill = "white" )  
+  geom_sf_label(fill = "white" )
 
 
 
@@ -121,7 +121,7 @@ expo_area_count_sf <- st_transform(expo_area_count_sf,  crs = st_crs(3857))
 ## ----create_map_with_basemap--------------------------------------------------
 
 ggplot(expo_area_count_sf) +
-  basemap_gglayer(expo_area_count_sf) + 
+  basemap_gglayer(expo_area_count_sf) +
   scale_fill_identity() +
   geom_sf( mapping=aes(fill=alpha("yellow", .05))) +
   geom_sf_label( mapping=aes(label = paste0(name, ': ',observations_count)) )  +
@@ -166,14 +166,14 @@ glimpse(centroid_sf)
 
 ## ----create_static_centroid_sf------------------------------------------------
 ggplot() +
-  geom_sf(data = centroid_sf) 
+  geom_sf(data = centroid_sf)
 
 
 
 ## ----create_static_ejsm_centroid_map------------------------------------------
 ggplot() +
   geom_sf(data=ejsm_inat_sf, aes(fill = CIscore)) +
-  geom_sf(data = centroid_sf, aes(size = observations_count)) 
+  geom_sf(data = centroid_sf, aes(size = observations_count))
 
 
 
