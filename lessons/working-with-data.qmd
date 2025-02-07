@@ -83,17 +83,13 @@ We call `read_csv()` function from **readr**, and pass in a relative path to a C
 inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 ```
 
-::: callout-tip
-Typing out paths can be error prone, so we can utilize a keyboard shortcut. Inside the parentheses of `read_csv()`, type out a pair of quotes and put your cursor between them. Then hit <kbd>Tab</kbd>. A small menu showing your folders and files should show up. You can use the <kbd>↑</kbd> and <kbd>↓</kbd> keys to move through the options, or start typing to narrow them down. You can hit <kbd>Enter</kbd> to select a file or folder, and hit <kbd>Tab</kbd> again to continue building the file path. This might take a bit of getting used to, but once you get the hang of it, it will speed up writing file paths and reduce the number of mistakes you make.
-:::
-
 We can use the `glimpse()` function from **dplyr** get a summary about the contents of `inat_data`. It shows the number of rows and columns. For each column, it shows the name, data type (dbl, chr, lgl, date), and the first few values.
 
 ```{r, call_glimpse}
 glimpse(inat_data)
 ```
 
-We can view the first few rows with the `head()` function, and the last few rows with the `tail()`function:
+We can view the first six rows with the `head()` function, and the last six rows with the `tail()` function:
 
 ```{r head}
 head(inat_data)
@@ -116,7 +112,7 @@ You can use `names()` from **R** to see the fields in the data frame.
 names(inat_data)
 ```
 
-We can use `dim()` dimension function from **R** to get the dimension of a data frame.
+We can use `dim()` dimension function from **R** to get the dimension of a data frame. It returns the number of rows and number of columns.
 
 ```{r use_dim_to_get_size}
 dim(inat_data)
@@ -181,7 +177,20 @@ filter(inat_data, common_name == 'Western Fence Lizard')
 
 ```
 
-`filter()` creates a new data frame with over 3000 rows, and 37 columns.
+`filter()` creates a new data frame with 3,339 rows, and 37 columns.
+
+#### select observations by scientific_name
+
+Let's find all the observations for 'Sceloporus occidentalis', the Latin scientific name for 'Western Fence Lizard'.
+
+```{r, filter_rows_scientific_name}
+filter(inat_data, scientific_name == 'Sceloporus occidentalis')
+
+```
+
+We get 3,339 rows, and 37 columns, the same as `common_name == 'Western Fence Lizard'`.
+
+Generally speaking, it is more precise to search for scientific name than common name since a species has one scientific name and can have zero to multiple common names. However, for people who have limited knowledge about the names of living organisms, using common names is much easier.
 
 ### The pipe: %\>%
 
@@ -194,6 +203,8 @@ You can insert `%>%` by using the keyboard shortcut <kbd>Shift+Cmd+M</kbd> (Mac)
 :::
 
 #### select observations by user_login
+
+iNaturalist has two fields for the user name: `user_login` and `user_name`. iNaturalist displays the `user_login` for each observation, and displays `user_name` on the user's profile page.
 
 Let's get all observations for iNaturalist user 'natureinla', and we only want columns `user_login`, `common_name`, `scientific_name`, `observed_on`.
 
@@ -526,10 +537,7 @@ unique(my_data$license)
 
 ```
 
-
 :::: exercise
-
-
 ## Exercise 2
 
 Get all your observations that are research grade
@@ -566,19 +574,20 @@ We have over 7000 common names.
 
 `str_subset()` from **stringr** package will find all items that match a given pattern. The first argument is the items we are searching through. The second argument `pattern` is the pattern we are looking for.
 
-Here we are searching through common names for any names that contain 'lizard'. 
+Here we are searching through common names for any names that contain 'lizard'.
 
 ```{r get_matches_for_lizard}
 str_subset(common_names, pattern = 'lizard')
 ```
-When we use `pattern = 'lizard'`, we get zero results. The reason is that `str_subset()` is case sensitive. It is looking for lowercase 'lizard'.
 
+When we use `pattern = 'lizard'`, we get zero results. The reason is that `str_subset()` is case sensitive. It is looking for lowercase 'lizard'.
 
 To have a case insensitive match, we need to pass in `(?i)` at the beginning of the pattern. This will look find matches for 'lizard' no matter the case.
 
 ```{r get_matches_for_lizard_case_insensitive}
 str_subset(common_names, pattern = '(?i)lizard')
 ```
+All the results have 'Lizard', which explains why `pattern = 'lizard'` did not work.
 
 Let's look for all common names with the word 'ants'.
 
