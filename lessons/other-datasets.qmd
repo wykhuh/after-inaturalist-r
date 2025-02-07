@@ -371,7 +371,7 @@ la_county_pna <- read_sf(here('data/cleaned/LA_County_PNA_Demographics.geojson')
 There are 96 fields in the data set. Here's a short description of the fields.
 
 | field | description |
-|------------------------------------|------------------------------------|
+|----|----|
 | STUD_AR_ID | Study Area ID |
 | STUD_AR_NM | Study Area Name |
 | STUD_AR_LBL | Label |
