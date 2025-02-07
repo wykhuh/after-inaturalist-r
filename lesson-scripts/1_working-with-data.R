@@ -60,6 +60,11 @@ filter(inat_data, common_name == 'Western Fence Lizard')
 
 
 
+## ----filter_rows_scientific_name----------------------------------------------
+filter(inat_data, scientific_name == 'Sceloporus occidentalis')
+
+
+
 ## ----pipe_filter_select-------------------------------------------------------
 inat_data %>%
   filter(user_login == 'natureinla') %>%
