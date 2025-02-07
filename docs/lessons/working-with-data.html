@@ -764,7 +764,8 @@ Tip
 <section id="select-observations-by-user_login" class="level4">
 <h4 class="anchored" data-anchor-id="select-observations-by-user_login">select observations by user_login</h4>
 <p>iNaturalist has two fields for the user name: <code>user_login</code> and <code>user_name</code>. iNaturalist displays the <code>user_login</code> for each observation, and displays <code>user_name</code> on the user’s profile page.</p>
-<p>Let’s get all observations for iNaturalist user ‘natureinla’, and we only want columns <code>user_login</code>, <code>common_name</code>, <code>scientific_name</code>, <code>observed_on</code>.</p>
+<p>Let’s get all observations for iNaturalist user ‘natureinla’, and we only want columns <code>user_login</code>, <code>common_name</code>, <code>scientific_name</code>, <code>observed_on</code>. Since we need both <code>filter()</code> and <code>select()</code>, we use pipe operator <code>%&gt;%</code>.</p>
+<p>Pipe operator take the thing on the left hand side and insert it as the first argument of the function on the right hand side.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(user_login <span class="sc">==</span> <span class="st">'natureinla'</span>) <span class="sc">%&gt;%</span></span>
@@ -786,7 +787,7 @@ Tip
 # ℹ 2,946 more rows</code></pre>
 </div>
 </div>
-<p>Pipe operator take the thing on the left hand side and insert it as the first argument of the function on the right hand side. It can be helpful to think of <code>%&gt;%</code> as meaning “and then”. <code>inat_data</code> is sent to <code>filter()</code> function. <code>filter()</code> selects rows with ‘natureinla’. Then output from <code>filter()</code> is sent into the <code>select()</code> function. <code>select()</code> selects 4 columns.</p>
+<p>It can be helpful to think of <code>%&gt;%</code> as meaning “and then”. <code>inat_data</code> is sent to <code>filter()</code> function. <code>filter()</code> selects rows with ‘natureinla’. And then the output from <code>filter()</code> is sent into the <code>select()</code> function. <code>select()</code> selects 4 columns.</p>
 </section>
 <section id="select-observations-by-coordinates_obscured" class="level4">
 <h4 class="anchored" data-anchor-id="select-observations-by-coordinates_obscured">select observations by coordinates_obscured</h4>
