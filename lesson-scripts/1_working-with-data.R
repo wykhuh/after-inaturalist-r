@@ -65,6 +65,14 @@ filter(inat_data, scientific_name == 'Sceloporus occidentalis')
 
 
 
+## -----------------------------------------------------------------------------
+oaks <- filter(inat_data, common_name == 'oaks')
+
+
+## -----------------------------------------------------------------------------
+quercus <- filter(inat_data, scientific_name == 'Quercus')
+
+
 ## ----pipe_filter_select-------------------------------------------------------
 inat_data %>%
   filter(user_login == 'natureinla') %>%

@@ -179,6 +179,8 @@ filter(inat_data, common_name == 'Western Fence Lizard')
 
 `filter()` creates a new data frame with 3,339 rows, and 37 columns.
 
+Keep in mind that species can have zero to multiple common names. If you use want to search by common name, you need to use the exact common name that iNaturalist uses.
+
 #### select observations by scientific_name
 
 Let's find all the observations for 'Sceloporus occidentalis', the Latin scientific name for 'Western Fence Lizard'.
@@ -190,13 +192,39 @@ filter(inat_data, scientific_name == 'Sceloporus occidentalis')
 
 We get 3,339 rows, and 37 columns, the same as `common_name == 'Western Fence Lizard'`.
 
-Generally speaking, it is more precise to search for scientific name than common name since a species has one scientific name and can have zero to multiple common names. However, for people who have limited knowledge about the names of living organisms, using common names is much easier.
+#### common names vs scientific name
+
+Generally speaking, it is more precise to search for scientific name rather than common name. A species has one scientific name, but zero or more common names.
+
+Let's look for 'oaks' observations. The scientific name for 'oaks' genus is 'Quercus'.
+
+We will assign the `filter()` results to objects using `<-` assignment arrow. By assigning the `filter()` results to an object, the results are saved in memory, and we can refer to the results.
+
+```{r}
+oaks <- filter(inat_data, common_name == 'oaks')
+```
+
+```{r}
+quercus <- filter(inat_data, scientific_name == 'Quercus')
+```
+
+Both 'oaks' and 'quercus' are shown in the Environment panel. We get 218 observations for 'oaks', but 246 observations for 'Quercus'.
+
+![](images/oaks_environment_panel.png)
+
+If you click on on 'quercus' in the Environment panel, that will open a spreadsheet-like viewer.
+
+As you can see, there are multiple common names for 'Quercus'.
+
+![](images/oaks_common_name.png)
+
+We will cover how to search for species more in the ["Higher taxa"](higher-taxa.qmd) lesson.
 
 ### The pipe: %\>%
 
 What happens if we want to select columns and filter rows?
 
-We use the pipe operator `%>%` to call multiple functions. 
+We use the pipe operator `%>%` to call multiple functions.
 
 ::: callout-tip
 You can insert `%>%` by using the keyboard shortcut <kbd>Shift+Cmd+M</kbd> (Mac) or <kbd>Shift+Ctrl+M</kbd> (Windows).
@@ -208,7 +236,7 @@ iNaturalist has two fields for the user name: `user_login` and `user_name`. iNat
 
 Let's get all observations for iNaturalist user 'natureinla', and we only want columns `user_login`, `common_name`, `scientific_name`, `observed_on`. Since we need both `filter()` and `select()`, we use pipe operator `%>%`.
 
-Pipe operator take the thing on the left hand side and insert it as the first argument of the function on the right hand side. 
+Pipe operator take the thing on the left hand side and insert it as the first argument of the function on the right hand side.
 
 ```{r, pipe_filter_select}
 inat_data %>%
@@ -589,6 +617,7 @@ To have a case insensitive match, we need to pass in `(?i)` at the beginning of 
 ```{r get_matches_for_lizard_case_insensitive}
 str_subset(common_names, pattern = '(?i)lizard')
 ```
+
 All the results have 'Lizard', which explains why `pattern = 'lizard'` did not work.
 
 Let's look for all common names with the word 'ants'.

@@ -156,7 +156,7 @@ expo_area_count_sf <- add_inat_count_to_boundary_sf(inat_sf, expo_area_sf, 'name
 expo_area_count_sf
 ```
 
-Create map with labels that show counts per neighborhood. 
+Create map with labels that show counts per neighborhood.
 
 ```{r map_observations_per_expo_neighborhoods}
 
@@ -175,8 +175,7 @@ expo_area_count_sf <- st_transform(expo_area_count_sf,  crs = st_crs(3857))
 
 ```
 
-Create map with labels that show counts and basemap.
-Use `basemap_gglayer()` and `scale_fill_identity()` to add a basemap. Use `aes(fill=alpha())` to make the fill for each neighborhood tranparent yellow.
+Create map with labels that show counts and basemap. Use `basemap_gglayer()` and `scale_fill_identity()` to add a basemap. Use `aes(fill=alpha())` to make the fill for each neighborhood tranparent yellow.
 
 ```{r create_map_with_basemap}
 
@@ -187,7 +186,6 @@ ggplot(expo_area_count_sf) +
   geom_sf_label( mapping=aes(label = paste0(name, ': ',observations_count)) )  +
   theme_void()
 ```
-
 
 ## Compare iNaturalist observations per region to another value
 
@@ -308,7 +306,6 @@ my_inat <- inat_data %>%
 
 table(my_inat$observed_on)
 ```
-
 
 Once we have the observations we want, call custom function `download_inaturalist_images()` to download the images for the observations. The images are saved in the results directory. A new directory will be created for each `scientific_name`. The image name will contain the scientific name, observation id, username and license.
 

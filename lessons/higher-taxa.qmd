@@ -114,7 +114,7 @@ Eisenia_obs
 iNaturalist gives each taxa name a unique id. Worm Eisenia is 128842, kelp Eisenia is 125880. When iNaturalist searches for observations for a given taxa, it uses the unique id for the search to avoid the problem of duplicate scientific names. Unfortunately the CSV download does not provide ids for each taxon rank, so we can't do a search by taxon rank id. It is possible to get the ids for all the taxon ranks, but that involves more advance coding techniques.
 :::
 
-I don't have enough expertise to know if a taxa name is unique, so to play it safe, I list the entire taxonomy hierarchy. Instead of searching the entire hierarchy, someone with more expertise might know there is only one Quercus in Plantae so they search for Plantae kingdom and genus Quercus.
+I don't have enough expertise to know if a taxa name is unique, so to play it safe, I list the entire taxonomy hierarchy. Someone with more expertise might know there is only one Quercus in Plantae so they search for Plantae kingdom and genus Quercus.
 
 ```{r get_Plantae_Quercus_observations}
 Plantae_Quercus_obs <- inat_data %>%

@@ -199,7 +199,7 @@ ggplot(data = inat_year, mapping = aes(x = year)) +
   geom_bar(fill='aquamarine', color='black')
 ```
 
-We can also use 6 digit hex color. You can use online tools to get [hex colors](https://html-color.codes).
+We can also use 6 digit hex color. You can use online tools to get [hex colors](https://www.w3schools.com/colors/colors_picker.asp).
 
 ```{r, set_bar_color_using_hex_code}
 ggplot(data = inat_year,  mapping = aes(x = year)) +
