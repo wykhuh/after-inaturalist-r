@@ -24,6 +24,7 @@ website:
       - lessons/higher-taxa.qmd
       - lessons/normalizing-inat.qmd
       - lessons/additional-analysis.qmd
+      - lessons/example-analysis.qmd
       - lessons/next-steps.qmd
       - section: "Extra"
         contents:

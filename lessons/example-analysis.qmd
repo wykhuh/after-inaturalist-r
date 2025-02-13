@@ -1,0 +1,556 @@
+# Example analysis
+
+This lesson shows how to I used some of the code samples in the previous lessons to create an analysis that has maps and charts.
+
+I want all research grade observations for Great Blue Heron. I want to compare the results in LA County to the results near the LA River.
+
+First step is load the R packages.
+
+```{r load_packages}
+#| message: false
+library(readr) # read and write tabular data
+library(dplyr) # manipulate data
+library(lubridate) # manipulate dates
+library(here) # file paths
+library(stringr) # work with string
+
+library(ggplot2) # create data visualizations
+library(sf) # handle vector geospatial data
+library(mapview) # create interactive maps
+
+source(here('scripts/data_utils.R'))
+```
+
+## Select City Nature Challenge observations
+
+There CNC 191K observations for LA County. I need to select the observations that I want.
+
+First I need to import the City Nature Challenge iNaturalist observations.
+
+```{r read_inat_file}
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+
+```
+
+I use `names()` to see the list of column names.
+
+```{r}
+names(inat_data)
+```
+
+I use the `filter()` to select which observations I want.
+
+I search iNaturalist for 'great blue heron', and go to its [taxa page](https://www.inaturalist.org/taxa/4956-Ardea-herodias) since I want to use the scientific names in my `filter()` query. The kingom is 'Animalia' and the species is 'Ardea herodias'.
+
+Now that I have the scientific names, I can write my `filter()` query. I use `dim()` to display the number rows and columns.
+
+```{r}
+heron_obs <- inat_data %>%
+  filter(taxon_kingdom_name == 'Animalia',
+         taxon_species_name == 'Ardea herodias')
+
+dim(heron_obs)
+```
+
+I also want to see how many observations are research grade. If there are a lot of "casual" or "need_id" observations, then I might also include them in my analysis.
+
+I use `table()` to get the number of observations for each `quality_grade` value.
+
+```{r}
+table(heron_obs$quality_grade)
+```
+
+Since there are a lot of 'research' grade observations, I'm fine with limiting the observations to 'research' grade.
+
+Since I want to look for observations in a certain area, I want to exclude observations that have obscured location. I use `table()` to get number of observations that have obscured locations.
+
+```{r}
+table(heron_obs$coordinates_obscured)
+```
+
+I need to update my query.
+
+```{r}
+heron_obs <- inat_data %>%
+  filter(taxon_kingdom_name == 'Animalia',
+         taxon_species_name == 'Ardea herodias') %>%
+  filter(quality_grade == 'research') %>%
+  filter(coordinates_obscured == FALSE) 
+
+
+dim(heron_obs)
+```
+
+We have 266 observations for Great Blue Heron.
+
+Save the iNaturalist observations as a csv.
+
+```{r}
+#| eval: false
+write_csv(heron_obs, here('results/heron_observations.csv'), na='')
+```
+
+## Create a map with CNC observations
+
+Now that I have the observations I want, I can plot them on a map.
+
+Since I want to create a map, I need to use `st_as_sf()` to convert the dataframe into a sf object with a `geometry` column.
+
+```{r}
+heron_obs_sf <- heron_obs %>% 
+  st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)
+```
+
+Now I can use `mapview()` to create an interactive map. Being able to zoom in and out makes it easier to explore the data.
+
+```{r}
+#| eval: false
+mapview(heron_obs_sf)
+```
+
+![](images/mapview/example-analysis/heron_obs_map.png)
+
+When I click on a blue circle on the map, the pop table shows all 37 columns, which is too much information. I can use `select()` to limit the number of columns.
+
+```{r}
+heron_obs_sf <- heron_obs_sf %>%
+  select(user_login, observed_on, common_name, taxon_species_name)
+
+```
+
+Now when I click on each blue circle, the popup shows 5 fields.
+
+```{r}
+#| eval: false
+mapview(heron_obs_sf)
+```
+
+## Add LA River to the map
+
+I want to add the LA River to the map.
+
+```{r}
+la_river <- read_sf(here('data/cleaned/los_angeles_river.geojson'))
+```
+
+Then I use `st_crs()` to check the if the CRS of the heron observations is the same as the CRS of the LA River.
+
+```{r}
+st_crs(la_river) == st_crs(heron_obs_sf)
+```
+
+Since the CRS are different, I need to change CRS for the water areas using `st_transform()`
+
+```{r}
+la_river <- st_transform(la_river,  crs = st_crs(heron_obs_sf))
+
+st_crs(la_river) == st_crs(heron_obs_sf)
+```
+
+Now I can add the water areas to the map. I change the color for the iNaturalist observations to make them easier to see.
+
+```{r}
+#| eval: false
+mapview(heron_obs_sf, col.regions='green') +
+  mapview(la_river)
+```
+
+![](images/mapview/example-analysis/heron_la_river_map.png)
+
+## Observations near LA River
+
+I want to get observations within 1/2 mile of the LA river. I need to create a buffer 1/2 mile for the LA River.
+
+### create buffer
+
+We used CRS 4326 for the iNaturalist observations. 4326 uses angle degrees to measure distance. I need to change the CRS to a CRS that uses meters. CRS 5070 uses meters.
+
+```{r}
+la_river_5070 <- st_transform(la_river, crs=5070)
+```
+
+Then I use `st_buffer()` to create a buffer. 1/2 miles is about 805 meters.
+
+```{r}
+buffer_la_river_5070 <- st_buffer(la_river_5070, 805)
+```
+
+After creating the buffer, I need to change the CRS back to 4326.
+
+```{r}
+buffer_la_river <- st_transform(buffer_la_river_5070, crs=st_crs(heron_obs_sf))
+```
+
+Then I can create a map with the buffers.
+
+```{r}
+#| eval: false
+mapview(heron_obs_sf, col.regions='green') +
+  mapview(la_river) +
+  mapview(buffer_la_river)
+```
+
+![](images/mapview/example-analysis/heron_la_river_buffer_map.png)
+
+### get obsevations within buffer
+
+We can use `lengths(st_intersects()) >0` to get the observations within the LA River buffer.
+
+```{r}
+heron_near_river_sf <- heron_obs_sf[lengths(st_intersects(heron_obs_sf, buffer_la_river)) > 0, ]
+
+dim(heron_near_river_sf)
+```
+
+I have 76 observations near the LA River.
+
+Then I can create a map with the buffers.
+
+```{r}
+#| eval: false
+final_map <- mapview(heron_near_river_sf, col.regions='green') +
+  mapview(la_river) +
+  mapview(buffer_la_river)
+
+final_map
+```
+
+![](images/mapview/example-analysis/heron_la_river_buffer_map_results.png)
+
+### save results
+
+Next I save the iNaturalist observations as a csv.
+
+```{r}
+#| eval: false
+write_csv(heron_near_river_sf, here('results/heron_near_la_river.csv'), na='')
+```
+
+And I save the map as an image
+
+```{r}
+#| eval: false
+mapshot2(final_map, file = here('results/heron_near_la_river.png'))
+```
+
+## Observations near bodies of water
+
+I decided to shift my analysis to all bodies of water in LA County, not just the LA River.
+
+First I need to load the file with the water areas.
+
+```{r}
+water_areas <- read_sf(here('data/cleaned/la_county_waterareas.geojson'))
+```
+
+Then I use `st_crs()` to check the if the CRS of the heron observations is the same as the CRS of the water areas.
+
+```{r}
+st_crs(water_areas) == st_crs(heron_obs_sf)
+```
+
+Since the CRS are different, I need to change CRS for the water areas using `st_transform()`
+
+```{r}
+water_areas <- st_transform(water_areas,  crs = st_crs(heron_obs_sf))
+
+st_crs(water_areas) == st_crs(heron_obs_sf)
+```
+
+Now I can add the water areas to the map.
+
+```{r}
+#| eval: false
+
+mapview(heron_obs_sf, col.regions='green') +
+  mapview(water_areas)
+```
+
+![](images/mapview/example-analysis/heron_water_map.png)
+
+Looking at the map, I notice that most 'Great Blue Heron' observations are near bodies of water. I also notice that some of the smaller bodies of water aren't included in 'water_areas'.
+
+### create buffer
+
+We will follow the same steps that we used for the LA River to create buffers for all water area.
+
+```{r}
+water_areas_5070 <- st_transform(water_areas, crs=5070)
+
+buffer_water_areas_5070 <- st_buffer(water_areas_5070, 805)
+
+buffer_water_areas <- st_transform(buffer_water_areas_5070, crs=st_crs(heron_obs_sf))
+
+```
+
+###  Observations near water
+
+I want to add a column to `heron_obs_sf` to know which observations are near a body of water.
+
+I can use `mutate()` and `lengths(st_intersects()) > 0` to add `near_water` column to track if the observations is near water.
+
+```{r}
+heron_near_water_sf <- heron_obs_sf %>%
+  mutate(near_water=lengths(st_intersects(heron_obs_sf, buffer_water_areas)) > 0)
+```
+
+Save the observations as a csv
+
+```{r}
+#| eval: false
+write_csv(heron_near_water_sf, here('results/heron_near_la_river.csv'), na='')
+```
+
+### create chart
+
+I want to create a bar chart that shows the heron observations near water.
+
+```{r}
+ggplot()+
+  geom_bar(data=heron_near_water_sf, mapping=aes(x=near_water))
+```
+
+I use `labs()` to add titles, subtitle, and axis labels. I use `theme_bw()` and `theme()` to change overall appearance of the map.
+
+```{r}
+final_chart <- ggplot()+
+  geom_bar(data=heron_near_water_sf, mapping=aes(x=near_water)) +
+  labs(title = 'CNC observations for Great Blue Herons in LA County',
+       subtitle='2016-2024',
+       x='Within 1/2 mile of water',
+       y='observations count')  +
+  theme_bw() +
+  theme(title = element_text(size = 14), 
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank())
+
+final_chart
+```
+
+Save the chart
+
+```{r}
+#| eval: false
+ggsave(filename = here('results/heron_observations_near_water_chart.jpg'), 
+       plot = final_chart, height = 6, width = 8)
+```
+
+### Create map
+
+I want to create a map that shows the heron observations and all the bodies of water.
+
+I load the LA county file.
+
+```{r}
+LA_county <- read_sf(here('data/cleaned/los_angeles_county/los_angeles_county.shp'))
+```
+
+ggplot offers more ways to customize the look of the map than mapview, so I use ggplot to create a map.
+
+```{r}
+ggplot() +
+  geom_sf(data=LA_county, fill='white') +
+  geom_sf(data=heron_near_water_sf, mapping=aes(color=near_water)) +
+  geom_sf(data=water_areas, fill='#007399')
+
+```
+
+I use `labs()` to add titles, subtitle, legend title. I use `theme_void()` and `theme()` to change overall appearance of the map.
+
+```{r}
+final_map <- ggplot() +
+  geom_sf(data=LA_county, fill='white') +
+  geom_sf(data=heron_near_water_sf, mapping=aes(color=near_water)) +
+  geom_sf(data=water_areas, fill='#007399') +
+    labs(title = 'CNC observations for Great Blue Herons in LA County',
+       subtitle='2016-2024',
+       color='Within 1/2 mile of water') +
+  theme_void() +
+  theme(title = element_text(size = 13))
+
+final_map
+```
+
+Save the map
+
+```{r}
+#| eval: false
+ggsave(filename = here('results/heron_observations_near_water_map.jpg'), 
+       plot = final_map, height = 6, width = 8)
+```
+
+## Complete script
+
+```{r}
+#| eval: false
+
+## =================
+## load_packages
+## =================
+
+library(readr) # read and write tabular data
+library(dplyr) # manipulate data
+library(lubridate) # manipulate dates
+library(here) # file paths
+library(stringr) # work with string
+
+library(ggplot2) # create data visualizations
+library(sf) # handle vector geospatial data
+library(mapview) # create interactive maps
+
+source(here('scripts/data_utils.R'))
+
+
+## =================
+## Select City Nature Challenge observations
+## =================
+
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+
+names(inat_data)
+
+heron_obs <- inat_data %>%
+  filter(taxon_kingdom_name == 'Animalia',
+         taxon_species_name == 'Ardea herodias')
+
+dim(heron_obs)
+
+table(heron_obs$quality_grade)
+
+table(heron_obs$coordinates_obscured)
+
+heron_obs <- inat_data %>%
+  filter(taxon_kingdom_name == 'Animalia',
+         taxon_species_name == 'Ardea herodias') %>%
+  filter(quality_grade == 'research') %>%
+  filter(coordinates_obscured == FALSE)
+
+dim(heron_obs)
+
+write_csv(heron_obs, here('results/heron_observations.csv'), na='')
+
+## =================
+## Create a map with CNC observations
+## =================
+
+heron_obs_sf <- heron_obs %>%
+  st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)
+
+mapview(heron_obs_sf)
+
+heron_obs_sf <- heron_obs_sf %>%
+  select(user_login, observed_on, common_name, taxon_species_name)
+
+mapview(heron_obs_sf)
+
+## =================
+## Add LA River to the map
+## =================
+
+la_river <- read_sf(here('data/cleaned/los_angeles_river.geojson'))
+
+st_crs(la_river) == st_crs(heron_obs_sf)
+
+la_river <- st_transform(la_river,  crs = st_crs(heron_obs_sf))
+
+st_crs(la_river) == st_crs(heron_obs_sf)
+
+mapview(heron_obs_sf, col.regions='green') +
+  mapview(la_river)
+
+## =================
+## Observations near LA River
+## =================
+
+la_river_5070 <- st_transform(la_river, crs=5070)
+
+buffer_la_river_5070 <- st_buffer(la_river_5070, 805)
+
+buffer_la_river <- st_transform(buffer_la_river_5070, crs=st_crs(heron_obs_sf))
+
+mapview(heron_obs_sf, col.regions='green') +
+  mapview(la_river) +
+  mapview(buffer_la_river)
+
+heron_near_river_sf <- heron_obs_sf[lengths(st_intersects(heron_obs_sf, buffer_la_river)) > 0, ]
+
+dim(heron_near_river_sf)
+
+final_map <- mapview(heron_near_river_sf, col.regions='green') +
+  mapview(la_river) +
+  mapview(buffer_la_river)
+
+final_map
+
+write_csv(heron_near_river_sf, here('results/heron_near_la_river.csv'), na='')
+
+mapshot2(final_map, file = here('results/heron_near_la_river.png'))
+
+
+## =================
+## Observations near bodies of water
+## =================
+
+water_areas <- read_sf(here('data/cleaned/la_county_waterareas.geojson'))
+
+st_crs(water_areas) == st_crs(heron_obs_sf)
+
+water_areas <- st_transform(water_areas,  crs = st_crs(heron_obs_sf))
+
+st_crs(water_areas) == st_crs(heron_obs_sf)
+
+mapview(heron_obs_sf, col.regions='green') +
+  mapview(water_areas)
+
+water_areas_5070 <- st_transform(water_areas, crs=5070)
+
+buffer_water_areas_5070 <- st_buffer(water_areas_5070, 805)
+
+buffer_water_areas <- st_transform(buffer_water_areas_5070, crs=st_crs(heron_obs_sf))
+
+heron_near_water_sf <- heron_obs_sf %>%
+  mutate(near_water=lengths(st_intersects(heron_obs_sf, buffer_water_areas)) > 0)
+
+write_csv(heron_near_water_sf, here('results/heron_near_la_river.csv'), na='')
+
+ggplot()+
+  geom_bar(data=heron_near_water_sf, mapping=aes(x=near_water))
+
+final_chart <- ggplot()+
+  geom_bar(data=heron_near_water_sf, mapping=aes(x=near_water)) +
+  labs(title = 'CNC observations for Great Blue Herons in LA County',
+       subtitle='2016-2024',
+       x='Within 1/2 mile of water',
+       y='observations count')  +
+  theme_bw() +
+  theme(title = element_text(size = 14),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank())
+
+final_chart
+
+ggsave(filename = here('results/heron_observations_near_water_chart.jpg'),
+       plot = final_chart, height = 6, width = 8)
+
+LA_county <- read_sf(here('data/cleaned/los_angeles_county/los_angeles_county.shp'))
+
+ggplot() +
+  geom_sf(data=LA_county, fill='white') +
+  geom_sf(data=heron_near_water_sf, mapping=aes(color=near_water)) +
+  geom_sf(data=water_areas, fill='#007399')
+
+final_map <- ggplot() +
+  geom_sf(data=LA_county, fill='white') +
+  geom_sf(data=heron_near_water_sf, mapping=aes(color=near_water)) +
+  geom_sf(data=water_areas, fill='#007399') +
+    labs(title = 'CNC observations for Great Blue Herons in LA County',
+       subtitle='2016-2024',
+       color='Within 1/2 mile of water') +
+  theme_void() +
+  theme(title = element_text(size = 13))
+
+final_map
+
+ggsave(filename = here('results/heron_observations_near_water_map.jpg'),
+       plot = final_map, height = 6, width = 8)
+```

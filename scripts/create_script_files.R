@@ -61,7 +61,8 @@ files <- c(
            'other-datasets',
            'higher-taxa',
            'normalizing-inat',
-           'additional-analysis')
+           'additional-analysis',
+           'example-analysis')
 
 # files <- c('creating-charts')
 
