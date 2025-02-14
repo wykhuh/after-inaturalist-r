@@ -62,13 +62,13 @@ mapview(heron_obs_sf)
 
 
 ## -----------------------------------------------------------------------------
-heron_obs_sf <- heron_obs_sf %>%
-  select(user_login, observed_on, common_name, taxon_species_name)
+heron_map <- heron_obs_sf %>%
+  select(user_login, observed_on, common_name, taxon_species_name, image_url)
 
 
 
 ## -----------------------------------------------------------------------------
-mapview(heron_obs_sf)
+mapview(heron_map)
 
 
 ## -----------------------------------------------------------------------------
@@ -86,7 +86,7 @@ st_crs(la_river) == st_crs(heron_obs_sf)
 
 
 ## -----------------------------------------------------------------------------
-mapview(heron_obs_sf, col.regions='green') +
+mapview(heron_map, col.regions='green') +
   mapview(la_river)
 
 
@@ -103,7 +103,7 @@ buffer_la_river <- st_transform(buffer_la_river_5070, crs=st_crs(heron_obs_sf))
 
 
 ## -----------------------------------------------------------------------------
-mapview(heron_obs_sf, col.regions='green') +
+mapview(heron_map, col.regions='green') +
   mapview(la_river) +
   mapview(buffer_la_river)
 
@@ -115,7 +115,11 @@ dim(heron_near_river_sf)
 
 
 ## -----------------------------------------------------------------------------
-final_map <- mapview(heron_near_river_sf, col.regions='green') +
+
+heron_near_river_map <-  heron_near_river_sf %>%
+  select(user_login, observed_on, common_name, taxon_species_name, image_url)
+
+final_map <- mapview(heron_near_river_map, col.regions='green') +
   mapview(la_river) +
   mapview(buffer_la_river)
 
@@ -146,7 +150,7 @@ st_crs(water_areas) == st_crs(heron_obs_sf)
 
 ## -----------------------------------------------------------------------------
 
-mapview(heron_obs_sf, col.regions='green') +
+mapview(heron_map, col.regions='green') +
   mapview(water_areas)
 
 
@@ -224,9 +228,20 @@ ggsave(filename = here('results/heron_observations_near_water_map.jpg'),
        plot = final_map, height = 6, width = 8)
 
 
+## ----download_images----------------------------------------------------------
+
+heron_images <- heron_near_water_sf %>%
+  filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC')) %>%
+  slice_sample(n=3)
+
+download_inaturalist_images(heron_images)
+
+
 ## -----------------------------------------------------------------------------
 
+## =================
 ## load_packages
+## =================
 
 library(readr) # read and write tabular data
 library(dplyr) # manipulate data
@@ -240,7 +255,9 @@ library(mapview) # create interactive maps
 
 source(here('scripts/data_utils.R'))
 
+## =================
 ## Select City Nature Challenge observations
+## =================
 
 inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
@@ -266,19 +283,23 @@ dim(heron_obs)
 
 write_csv(heron_obs, here('results/heron_observations.csv'), na='')
 
+## =================
 ## Create a map with CNC observations
+## =================
 
 heron_obs_sf <- heron_obs %>%
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)
 
 mapview(heron_obs_sf)
 
-heron_obs_sf <- heron_obs_sf %>%
-  select(user_login, observed_on, common_name, taxon_species_name)
+heron_map <- heron_obs_sf %>%
+  select(user_login, observed_on, common_name, taxon_species_name, image_url)
 
-mapview(heron_obs_sf)
+mapview(heron_map)
 
+## =================
 ## Add LA River to the map
+## =================
 
 la_river <- read_sf(here('data/cleaned/los_angeles_river.geojson'))
 
@@ -288,11 +309,12 @@ la_river <- st_transform(la_river,  crs = st_crs(heron_obs_sf))
 
 st_crs(la_river) == st_crs(heron_obs_sf)
 
-mapview(heron_obs_sf, col.regions='green') +
+mapview(heron_map, col.regions='green') +
   mapview(la_river)
 
-
+## =================
 ## Observations near LA River
+## =================
 
 la_river_5070 <- st_transform(la_river, crs=5070)
 
@@ -300,7 +322,7 @@ buffer_la_river_5070 <- st_buffer(la_river_5070, 805)
 
 buffer_la_river <- st_transform(buffer_la_river_5070, crs=st_crs(heron_obs_sf))
 
-mapview(heron_obs_sf, col.regions='green') +
+mapview(heron_map, col.regions='green') +
   mapview(la_river) +
   mapview(buffer_la_river)
 
@@ -308,7 +330,10 @@ heron_near_river_sf <- heron_obs_sf[lengths(st_intersects(heron_obs_sf, buffer_l
 
 dim(heron_near_river_sf)
 
-final_map <- mapview(heron_near_river_sf, col.regions='green') +
+heron_near_river_map <-  heron_near_river_sf %>%
+  select(user_login, observed_on, common_name, taxon_species_name, image_url)
+
+final_map <- mapview(heron_near_river_map, col.regions='green') +
   mapview(la_river) +
   mapview(buffer_la_river)
 
@@ -318,7 +343,10 @@ write_csv(heron_near_river_sf, here('results/heron_near_la_river.csv'), na='')
 
 mapshot2(final_map, file = here('results/heron_near_la_river.png'))
 
+
+## =================
 ## Observations near bodies of water
+## =================
 
 water_areas <- read_sf(here('data/cleaned/la_county_waterareas.geojson'))
 
@@ -328,7 +356,7 @@ water_areas <- st_transform(water_areas,  crs = st_crs(heron_obs_sf))
 
 st_crs(water_areas) == st_crs(heron_obs_sf)
 
-mapview(heron_obs_sf, col.regions='green') +
+mapview(heron_map, col.regions='green') +
   mapview(water_areas)
 
 water_areas_5070 <- st_transform(water_areas, crs=5070)
@@ -337,14 +365,16 @@ buffer_water_areas_5070 <- st_buffer(water_areas_5070, 805)
 
 buffer_water_areas <- st_transform(buffer_water_areas_5070, crs=st_crs(heron_obs_sf))
 
-heron_obs_sf <- heron_obs_sf %>%
+heron_near_water_sf <- heron_obs_sf %>%
   mutate(near_water=lengths(st_intersects(heron_obs_sf, buffer_water_areas)) > 0)
 
+write_csv(heron_near_water_sf, here('results/heron_near_la_river.csv'), na='')
+
 ggplot()+
-  geom_bar(data=heron_obs_sf, mapping=aes(x=near_water))
+  geom_bar(data=heron_near_water_sf, mapping=aes(x=near_water))
 
 final_chart <- ggplot()+
-  geom_bar(data=heron_obs_sf, mapping=aes(x=near_water)) +
+  geom_bar(data=heron_near_water_sf, mapping=aes(x=near_water)) +
   labs(title = 'CNC observations for Great Blue Herons in LA County',
        subtitle='2016-2024',
        x='Within 1/2 mile of water',
@@ -363,13 +393,12 @@ LA_county <- read_sf(here('data/cleaned/los_angeles_county/los_angeles_county.sh
 
 ggplot() +
   geom_sf(data=LA_county, fill='white') +
-  geom_sf(data=heron_obs_sf, mapping=aes(color=near_water)) +
+  geom_sf(data=heron_near_water_sf, mapping=aes(color=near_water)) +
   geom_sf(data=water_areas, fill='#007399')
-
 
 final_map <- ggplot() +
   geom_sf(data=LA_county, fill='white') +
-  geom_sf(data=heron_obs_sf, mapping=aes(color=near_water)) +
+  geom_sf(data=heron_near_water_sf, mapping=aes(color=near_water)) +
   geom_sf(data=water_areas, fill='#007399') +
     labs(title = 'CNC observations for Great Blue Herons in LA County',
        subtitle='2016-2024',
@@ -381,5 +410,4 @@ final_map
 
 ggsave(filename = here('results/heron_observations_near_water_map.jpg'),
        plot = final_map, height = 6, width = 8)
-
 

@@ -46,31 +46,100 @@ add_inat_count_to_boundary_sf <- function(inat_sf, boundaries_sf, boundaries_fie
 
 # Arguments
 # inat_df: dataframe with iNaturalist observations
-download_inaturalist_images <- function(inat_df) {
-  download_row_image <- function(row) {
-    url = row['image_url']
-    taxa = row['scientific_name']
-    id = row['id']
-    user = row['user_login']
-    license = row['license']
 
-    # create filename
-    filename = paste0(taxa, '_', id, '_', user, '_', license, '.jpg')
-    print(filename)
-
-    # create directories
-    dir.create(here('results/images'), showWarnings = FALSE)
-    dir.create(here('results/images', taxa), showWarnings = FALSE)
-
-    # download the image
-    tryCatch({
-      download.file(url, here('results/images', taxa, filename))
-    },
-    error = function(e){
-      message('Caught an error!')
-      print(e)
-    })
+format_image_filename <- function(row) {
+  if('scientific_name' %in% names(row)) {
+    taxa = row$scientific_name
+  } else if ('common_name' %in% names(row)) {
+    taxa = row$common_name
+  } else if ('taxon_subspecies_name' %in% names(row)) {
+    taxa = row$taxon_subspecies_name
+  } else if ('taxon_species_name' %in% names(row)) {
+    taxa = row$taxon_species_name
+  } else if ('taxon_genus_name' %in% names(row)) {
+    taxa = row$taxon_genus_name
+  } else if ('taxon_family_name' %in% names(row)) {
+    taxa = row$taxon_family_name
+  } else if ('taxon_order_name' %in% names(row)) {
+    taxa = row$taxon_order_name
+  } else if ('taxon_class_name' %in% names(row)) {
+    taxa = row$taxon_class_name
+  } else if ('taxon_phylum_name' %in% names(row)) {
+    taxa = row$taxon_phylum_name
+  } else if ('taxon_kingdom_name' %in% names(row)) {
+    taxa = row$taxon_kingdom_name
+  } else {
+    taxa = ''
   }
 
-  apply(inat_df, 1, download_row_image)
+
+  if('observed_on' %in% names(row)) {
+    date = row$observed_on
+  } else {
+    date = ''
+  }
+
+  if('id' %in% names(row)) {
+    id = row$id
+  } else {
+    id = row$row_id
+  }
+  if('user_login' %in% names(row)) {
+    user = row$user_login
+  } else {
+    user = ''
+  }
+  if('license' %in% names(row)) {
+    license = row$license
+  } else {
+    license = ''
+  }
+
+  # create filename
+  taxa = gsub('([[:punct:]])', '', taxa)
+  id = gsub('([[:punct:]])', '', id)
+  user = gsub('([[:punct:]])', '', user)
+  license = gsub('([[:punct:]])', '', license)
+
+  filename = paste0(paste(taxa, date, id, user, license, sep='_'), '.jpg')
+  filename = gsub(' ', '_', filename)
+  filename
+}
+
+download_row_image <- function(row) {
+  Sys.sleep(1)
+
+  if(!'image_url' %in% names(row)) {
+    stop('the iNaturalist data must have "image_url" column')
+  }
+  url = row$image_url
+
+  # create directories
+  dir.create(here('results/images'), showWarnings = FALSE)
+
+  # download the image
+  tryCatch({
+    filename = format_image_filename(row)
+    filepath = here('results/images', filename)
+    # print(filepath)
+    download.file(url, filepath)
+  },
+  error = function(e){
+    message('Could not download image.')
+    print(e)
+  })
+}
+
+
+download_inaturalist_images <- function(inat_df) {
+  temp_df <- inat_df
+  temp_df$row_id <- rownames(temp_df)
+
+  # turn observed_on to a string because apply screws up date objects
+  if('observed_on' %in% names(temp_df))  {
+    temp_df <- temp_df %>%
+      mutate(observed_on= format(observed_on, format="%Y-%m-%d"))
+  }
+
+  apply(temp_df, 1, download_row_image)
 }
