@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>example-analysis – After iNaturalist</title>
+<title>Example Analysis – After iNaturalist</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -114,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/example-analysis.html">Example analysis</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/example-analysis.html">Example Analysis</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -220,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lessons/example-analysis.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Example analysis</span></a>
+ <span class="menu-text">Example Analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -274,36 +274,74 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#example-analysis" id="toc-example-analysis" class="nav-link active" data-scroll-target="#example-analysis">Example analysis</a>
-  <ul class="collapse">
+  <li><a href="#restart-codespace" id="toc-restart-codespace" class="nav-link active" data-scroll-target="#restart-codespace">Restart Codespace</a></li>
+  <li><a href="#creating-script" id="toc-creating-script" class="nav-link" data-scroll-target="#creating-script">Creating script</a></li>
   <li><a href="#select-city-nature-challenge-observations" id="toc-select-city-nature-challenge-observations" class="nav-link" data-scroll-target="#select-city-nature-challenge-observations">Select City Nature Challenge observations</a></li>
   <li><a href="#create-a-map-with-cnc-observations" id="toc-create-a-map-with-cnc-observations" class="nav-link" data-scroll-target="#create-a-map-with-cnc-observations">Create a map with CNC observations</a></li>
   <li><a href="#add-bodies-of-water-to-the-map" id="toc-add-bodies-of-water-to-the-map" class="nav-link" data-scroll-target="#add-bodies-of-water-to-the-map">Add bodies of water to the map</a></li>
   <li><a href="#observations-near-bodies-of-water" id="toc-observations-near-bodies-of-water" class="nav-link" data-scroll-target="#observations-near-bodies-of-water">Observations near bodies of water</a>
   <ul class="collapse">
   <li><a href="#create-buffer" id="toc-create-buffer" class="nav-link" data-scroll-target="#create-buffer">create buffer</a></li>
-  <li><a href="#observations-near-water" id="toc-observations-near-water" class="nav-link" data-scroll-target="#observations-near-water">observations near water</a></li>
-  <li><a href="#save-results" id="toc-save-results" class="nav-link" data-scroll-target="#save-results">save results</a></li>
+  <li><a href="#observations-near-water-version-1" id="toc-observations-near-water-version-1" class="nav-link" data-scroll-target="#observations-near-water-version-1">observations near water, version 1</a></li>
+  <li><a href="#observations-near-water-version-2" id="toc-observations-near-water-version-2" class="nav-link" data-scroll-target="#observations-near-water-version-2">observations near water, version 2</a></li>
   </ul></li>
   <li><a href="#create-chart" id="toc-create-chart" class="nav-link" data-scroll-target="#create-chart">Create chart</a></li>
   <li><a href="#create-map" id="toc-create-map" class="nav-link" data-scroll-target="#create-map">Create map</a></li>
   <li><a href="#download-inaturalist-images" id="toc-download-inaturalist-images" class="nav-link" data-scroll-target="#download-inaturalist-images">Download iNaturalist images</a></li>
   <li><a href="#download-files-from-codespace" id="toc-download-files-from-codespace" class="nav-link" data-scroll-target="#download-files-from-codespace">Download files from Codespace</a></li>
+  <li><a href="#stop-codespace" id="toc-stop-codespace" class="nav-link" data-scroll-target="#stop-codespace">Stop Codespace</a></li>
   <li><a href="#complete-script" id="toc-complete-script" class="nav-link" data-scroll-target="#complete-script">Complete script</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Example Analysis</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="example-analysis" class="level1">
-<h1>Example analysis</h1>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
 <p>This lesson shows how to I used some of the code samples in the previous lessons to create an analysis that has maps and charts.</p>
-<p>Goal: I want all research grade observations for Great Blue Heron. I want to observations near bodies of water and observations not near bodies of water.</p>
+<p>Goal: I want all research grade observations for Great Blue Heron. I want compare observations near bodies of water and observations not near bodies of water.</p>
+<section id="restart-codespace" class="level2">
+<h2 class="anchored" data-anchor-id="restart-codespace">Restart Codespace</h2>
+<p>First step is to start Codespace.</p>
+<ol type="1">
+<li><p>Go to <a href="https://github.com/orgs/data-explorers-feb-2025/repositories">data-explorers-feb-2025</a> Github page, and you should see your repository. Click on your repository.</p></li>
+<li><p>Scroll to the bottom of the page, and click the “Open in GitHub Codespaces” button. This will restart the Codespace created in the “Setup Github Classroom and Codespaces” section.</p>
+<p><img src="images/setup/repo-open-codespace.png" class="img-fluid"></p></li>
+<li><p>This is Visual Studio Code, the default code editor for GitHub Codespaces. We want to use RStudio as our code editor.</p>
+<p><img src="images/setup/building-codespace.png" class="img-fluid"></p></li>
+<li><p>Once the Codespace has started, it will run a script for timer, and start RStudio. In the lower right, there should be a “bash”, “Codespaces: timer”, and “Codespaces: rstudio-start”.</p>
+<p>Click on the “PORTS” tab at the bottom.</p>
+<p><img src="images/setup/finish-building.png" class="img-fluid"></p></li>
+<li><p>In the PORTS tab, hover over the item named RStudio or 8787. Click on the middle globe icon to start RStudio in a new browser tab.</p></li>
+</ol>
+<p><img src="images/setup/rstudio-port.png" class="img-fluid"></p>
+<ol start="6" type="1">
+<li><p>Now you are ready to write and run R code using RStudio.</p>
+<p>Even though we won’t use Visual Studio Code to write R code, keep the tab for Visual Studio Code open.</p>
+<p><img src="images/setup/rstudio.png" class="img-fluid"></p></li>
+</ol>
+</section>
+<section id="creating-script" class="level2">
+<h2 class="anchored" data-anchor-id="creating-script">Creating script</h2>
+<p>I create a file called ‘heron-analysis.R’, and save it in the ‘scripts’ folder.</p>
 <p>First step is load the R packages.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) <span class="co"># read and write tabular data</span></span>
@@ -318,6 +356,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">'scripts/data_utils.R'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 <section id="select-city-nature-challenge-observations" class="level2">
 <h2 class="anchored" data-anchor-id="select-city-nature-challenge-observations">Select City Nature Challenge observations</h2>
 <p>There CNC 191K observations for LA County. I need to select the observations that I want.</p>
@@ -375,6 +414,7 @@ date  (1): observed_on
 <pre><code>[1] 274  37</code></pre>
 </div>
 </div>
+<p>There are 274 Great Blue Heron observations.</p>
 <p>I also want to see how many observations are research grade. If there are a lot of “casual” or “need_id” observations, then I might also include them in my analysis.</p>
 <p>I use <code>table()</code> to get the number of observations for each <code>quality_grade</code> value.</p>
 <div class="cell">
@@ -456,10 +496,11 @@ FALSE  TRUE
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(heron_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><img src="images/mapview/example-analysis/heron_obs_map.png" class="img-fluid"></p>
 </section>
 <section id="add-bodies-of-water-to-the-map" class="level2">
 <h2 class="anchored" data-anchor-id="add-bodies-of-water-to-the-map">Add bodies of water to the map</h2>
-<p>I want to look at heron obsevations near water. First I need to load the file with the water areas.</p>
+<p>I want to study heron observations near water. First I need to load the file with the water areas.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>water_areas <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/la_county_waterareas.geojson'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -505,121 +546,100 @@ FALSE  TRUE
 </div>
 <p>Then I can create a map with the buffers.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>heron_map <span class="ot">&lt;-</span> <span class="fu">mapview</span>(heron_map, <span class="at">col.regions=</span><span class="st">'green'</span>) <span class="sc">+</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(water_areas) <span class="sc">+</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(buffer_water_areas)</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>heron_map</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(heron_obs_sf, <span class="at">col.regions=</span><span class="st">'green'</span>) <span class="sc">+</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(buffer_water_areas)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/mapview/example-analysis/heron_water_buffer_map.png" class="img-fluid"></p>
 <p>Looking at the map, I notice that most ‘Great Blue Heron’ observations are near bodies of water. I also notice that some of the smaller bodies of water aren’t included in ‘water_areas’.</p>
 </section>
-<section id="observations-near-water" class="level3">
-<h3 class="anchored" data-anchor-id="observations-near-water">observations near water</h3>
-<p>I want to add a column to&nbsp;<code>heron_obs_sf</code>&nbsp;to know which observations are near a body of water.</p>
-<p>I can use <code>lengths(st_intersects()) &gt;0</code> to get the observations within the water buffer. That will produce a vector with TRUE/FALSE values. I can use <code>mutate()</code> to add a <code>near_water</code> column that stores the TRUE/FALSE values.</p>
+<section id="observations-near-water-version-1" class="level3">
+<h3 class="anchored" data-anchor-id="observations-near-water-version-1">observations near water, version 1</h3>
+<p>I can use <code>lengths(st_intersects()) &gt;0</code> to select the observations within a geographic area.</p>
+<p>The following code returns TRUE if an observation is within the water buffer, and returns FALSE if it outside the buffer.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>heron_near_water_sf <span class="ot">&lt;-</span> heron_obs_sf <span class="sc">%&gt;%</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">near_water=</span><span class="fu">lengths</span>(<span class="fu">st_intersects</span>(heron_obs_sf, buffer_water_areas)) <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lengths</span>(<span class="fu">st_intersects</span>(heron_obs_sf, buffer_water_areas)) <span class="sc">&gt;</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE
+ [13]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+ [25]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+ [37]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+ [49]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE  TRUE
+ [61]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+ [73]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
+ [85] FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+ [97] FALSE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE
+[109]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[121]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[133]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE
+[145]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[157]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
+[169]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE
+[181]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[193]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[205]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE
+[217]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[229]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[241]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[253]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE
+[265]  TRUE  TRUE</code></pre>
+</div>
+</div>
+<p>Then I use the TRUE/FALSE vector to select observations in a dataframe using <code>dataframe[lengths(st_intersects()) &gt;0, ]</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>heron_near_water_sf <span class="ot">&lt;-</span> heron_obs_sf[<span class="fu">lengths</span>(<span class="fu">st_intersects</span>(heron_obs_sf, buffer_water_areas)) <span class="sc">&gt;</span> <span class="dv">0</span>, ]</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(heron_near_water_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 240  36</code></pre>
+</div>
+</div>
+<p>I have 240 observations near water.</p>
+<p>Then I can create a map with the buffers.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(heron_near_water_sf, <span class="at">col.regions=</span><span class="st">'green'</span>) <span class="sc">+</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(buffer_water_areas)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/mapview/example-analysis/heron_near_water_buffer_map.png" class="img-fluid"></p>
+<p>I can save the map as an image. First I assign the assign code for map to an object called <code>heron_map</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>heron_map <span class="ot">&lt;-</span> <span class="fu">mapview</span>(heron_near_water_sf, <span class="at">col.regions=</span><span class="st">'green'</span>) <span class="sc">+</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(buffer_water_areas)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then I use <code>mapshot2()</code> to save <code>heron_map</code> in the results folder as .png image</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapshot2</span>(heron_map, <span class="at">file =</span> <span class="fu">here</span>(<span class="st">'results/heron_near_water_draft.png'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="observations-near-water-version-2" class="level3">
+<h3 class="anchored" data-anchor-id="observations-near-water-version-2">observations near water, version 2</h3>
+<p>While the previous code let me get the observations that were near water, I wasn’t able to capture the observations not near water. I can adjust the code to add a column with TRUE/FALSE values to <code>heron_obs_sf</code> so I can keep track of which observations are near a body of water.</p>
+<p><code>lengths(st_intersects()) &gt;0</code> produce a vector with TRUE/FALSE values. I can use <code>mutate()</code> to add a <code>near_water</code> column that stores the TRUE/FALSE values.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>heron_near_water_sf <span class="ot">&lt;-</span> heron_obs_sf <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">near_water =</span> <span class="fu">lengths</span>(<span class="fu">st_intersects</span>(heron_obs_sf, buffer_water_areas)) <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>I can use <code>table()</code> to get a count of the observations near water.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(heron_near_water_sf<span class="sc">$</span>near_water)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(heron_near_water_sf<span class="sc">$</span>near_water)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 FALSE  TRUE 
    26   240 </code></pre>
 </div>
 </div>
-</section>
-<section id="save-results" class="level3">
-<h3 class="anchored" data-anchor-id="save-results">save results</h3>
+<p>240 observations are near water, 26 are not near water.</p>
 <p>Next I save the iNaturalist observations as a csv.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(heron_near_water_sf, <span class="fu">here</span>(<span class="st">'results/heron_near_water.csv'</span>), <span class="at">na=</span><span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>And I save the map as an image. I use <code>mapshot2()</code> to save mapview interactive maps. We can save the image as .png or .jpg</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapshot2</span>(heron_map, <span class="at">file =</span> <span class="fu">here</span>(<span class="st">'results/heron_near_water_draft.png'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(heron_near_water_sf, <span class="fu">here</span>(<span class="st">'results/heron_near_water.csv'</span>), <span class="at">na=</span><span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="create-chart" class="level2">
 <h2 class="anchored" data-anchor-id="create-chart">Create chart</h2>
-<p>I want to create a bar chart that shows the heron observations near water.</p>
+<p>I want to create a bar chart that shows the heron observations near water. I use the column <code>near_water</code> for the x axis.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>heron_near_water_sf, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>near_water))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="example-analysis_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Next I want to update the appearance of the chart. I use <code>labs()</code> to add titles, subtitle, and axis labels. I use <code>theme_bw()</code> and <code>theme()</code> to change overall appearance of the chart.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>final_chart <span class="ot">&lt;-</span> <span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>heron_near_water_sf, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>near_water)) <span class="sc">+</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'CNC observations for Great Blue Herons in LA County'</span>,</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span><span class="st">'2016-2024'</span>,</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">'Within 1/2 mile of water'</span>,</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">'observations count'</span>)  <span class="sc">+</span></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>), </span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>final_chart</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="example-analysis_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>I save the chart using <code>ggsave()</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">here</span>(<span class="st">'results/heron_observations_near_water_chart.jpg'</span>), </span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">plot =</span> final_chart, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">width =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="create-map" class="level2">
-<h2 class="anchored" data-anchor-id="create-map">Create map</h2>
-<p>I to create a nice looking map for my presentation. I want to add more information and titles. ggplot offers more ways to customize the look of the map than mapview, so I use ggplot to create a map.</p>
-<p>One thing I want to add to the map is LA County boundary. I load the LA County file.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>LA_county <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/los_angeles_county/los_angeles_county.shp'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>I create a map with LA County boundaries, water areas, and heron observations. I color code the observations based on if they are near water.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_county, <span class="at">fill=</span><span class="st">'white'</span>) <span class="sc">+</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>heron_near_water_sf, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">color=</span>near_water)) <span class="sc">+</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>water_areas, <span class="at">fill=</span><span class="st">'#007399'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="example-analysis_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>I use <code>labs()</code> to add titles, subtitle, legend title. I use <code>theme_void()</code> and <code>theme()</code> to change overall appearance of the map.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>final_map <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_county, <span class="at">fill=</span><span class="st">'white'</span>) <span class="sc">+</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>heron_near_water_sf, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">color=</span>near_water)) <span class="sc">+</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>water_areas, <span class="at">fill=</span><span class="st">'#007399'</span>) <span class="sc">+</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'CNC observations for Great Blue Herons in LA County'</span>,</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span><span class="st">'2016-2024'</span>,</span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">color=</span><span class="st">'Within 1/2 mile of water'</span>) <span class="sc">+</span></span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>))</span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>final_map</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>heron_near_water_sf, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>near_water))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -628,10 +648,82 @@ FALSE  TRUE
 </div>
 </div>
 </div>
+<p>Next I want to update the appearance of the chart. I use <code>labs()</code> to add titles, subtitle, and axis labels. I use <code>theme_bw()</code> and <code>theme()</code> to change overall appearance of the chart.</p>
+<p>I assign the code for the chart to <code>heron_chart</code> object.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>heron_chart <span class="ot">&lt;-</span> <span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>heron_near_water_sf, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>near_water)) <span class="sc">+</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'CNC observations for Great Blue Herons in LA County'</span>,</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span><span class="st">'2016-2024'</span>,</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">'Within 1/2 mile of water'</span>,</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">'observations count'</span>)  <span class="sc">+</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>), </span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>heron_chart</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="example-analysis_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>I save <code>heron_chart</code> as a jpg in the rsults folder using <code>ggsave()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">here</span>(<span class="st">'results/heron_observations_near_water_chart.jpg'</span>), </span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">plot =</span> heron_chart, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">width =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="create-map" class="level2">
+<h2 class="anchored" data-anchor-id="create-map">Create map</h2>
+<p>I want to create a nice looking map for my presentation. I want to add LA County and titles to the map. ggplot offers more ways to customize the look of the map than mapview, so I use ggplot to create a map.</p>
+<p>One thing I want to add to the map is LA County boundary. I load the LA County file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>LA_county <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/los_angeles_county/los_angeles_county.shp'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I create a map with LA County boundaries, water areas, and heron observations. I color code the observations based on if they are near water using <code>mapping=aes(color=near_water)</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_county, <span class="at">fill=</span><span class="st">'white'</span>) <span class="sc">+</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>heron_near_water_sf, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">color=</span>near_water)) <span class="sc">+</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>water_areas, <span class="at">fill=</span><span class="st">'#007399'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="example-analysis_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>I use <code>labs()</code> to add titles, subtitle, legend title. I use <code>theme_void()</code> and <code>theme()</code> to change overall appearance of the map.</p>
+<p>I assign the code for the chart to <code>heron_map</code> object.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>heron_map <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_county, <span class="at">fill=</span><span class="st">'white'</span>) <span class="sc">+</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>heron_near_water_sf, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">color=</span>near_water)) <span class="sc">+</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>water_areas, <span class="at">fill=</span><span class="st">'#007399'</span>) <span class="sc">+</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'CNC observations for Great Blue Herons in LA County'</span>,</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span><span class="st">'2016-2024'</span>,</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">color=</span><span class="st">'Within 1/2 mile of water'</span>) <span class="sc">+</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>))</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>heron_map</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="example-analysis_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>I use <code>ggsave()</code> to save maps created with ggplot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">here</span>(<span class="st">'results/heron_observations_near_water_map.jpg'</span>), </span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">plot =</span> final_map, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">width =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">here</span>(<span class="st">'results/heron_observations_near_water_map.jpg'</span>), </span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">plot =</span> heron_map, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">width =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="download-inaturalist-images" class="level2">
@@ -639,11 +731,11 @@ FALSE  TRUE
 <p>I want include some images of heron in my presentation. I want to download three images for the selected observations.</p>
 <p>I use <code>filter()</code> to select observations that have ‘CC0’, ‘CC-BY’, or ‘CC-BY-NC’ license. I use <code>slice_sample()</code> to get 3 random observations. Then I use <code>download_inaturalist_images()</code> to download images.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>heron_images <span class="ot">&lt;-</span> heron_near_water_sf <span class="sc">%&gt;%</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(license <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'CC0'</span>, <span class="st">'CC-BY'</span>, <span class="st">'CC-BY-NC'</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n=</span><span class="dv">3</span>)</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="fu">download_inaturalist_images</span>(heron_images)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>heron_images <span class="ot">&lt;-</span> heron_near_water_sf <span class="sc">%&gt;%</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(license <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'CC0'</span>, <span class="st">'CC-BY'</span>, <span class="st">'CC-BY-NC'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n=</span><span class="dv">3</span>)</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="fu">download_inaturalist_images</span>(heron_images)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="download-files-from-codespace" class="level2">
@@ -656,178 +748,208 @@ FALSE  TRUE
 <p>Click “Download” button on the popup window. The files will be saved to folder that your browser uses for the downloads.</p>
 <p><img src="images/export-files/export-3.png" class="img-fluid"></p>
 </section>
+<section id="stop-codespace" class="level2">
+<h2 class="anchored" data-anchor-id="stop-codespace">Stop Codespace</h2>
+<p>After I finish my work for the day, I need to stop R, push my code changes to my repository and, stop Codespace.</p>
+<p>To stop R, click the orange circle in the upper right of RStudio.</p>
+<p><img src="images/setup/stop_R.png" class="img-fluid"></p>
+<p>I will see a message “R Session Ended”. Close the browser tab for RStudio.</p>
+<p><img src="images/setup/r_session_ended.png" class="img-fluid"></p>
+<p>Go to the Visual Studio Code browser tab. Click “bash”. Click “TERMINAL”.</p>
+<p><img src="images/setup/bash.png" class="img-fluid"></p>
+<p>To save the changed files to my repository, type “bash scripts/save_files.sh” after the $, and hit return/enter.</p>
+<p><img src="images/setup/bash_save_files.png" class="img-fluid"></p>
+<p>To stop Codespace, click the blue area in the lower left corner of Visual Studio Code.</p>
+<p><img src="images/setup/stop_codespace_button.png" class="img-fluid"></p>
+<p>A popup window will appear. Click “Stop Current Codespace”.</p>
+<p><img src="images/setup/stop_codespace.png" class="img-fluid"></p>
+<p>After a little while, I will see a “Codespace is stopped” message. I can now close the browser tab.</p>
+<p><img src="images/codespace-stop/Codespace-stopped.png" class="img-fluid" width="425"></p>
+</section>
 <section id="complete-script" class="level2">
 <h2 class="anchored" data-anchor-id="complete-script">Complete script</h2>
+<p>Here is all the code for the analysis. Some of the code is for checking results, such as <code>name()</code>, <code>dim()</code>, and <code>table()</code>. Some of the code such as ‘observations near water, version 1’ are things that I tried but end up not using because I tried something else.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="do">## load_packages</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) <span class="co"># read and write tabular data</span></span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># manipulate data</span></span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># manipulate dates</span></span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here) <span class="co"># file paths</span></span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr) <span class="co"># work with string</span></span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># create data visualizations</span></span>
-<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="co"># handle vector geospatial data</span></span>
-<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapview) <span class="co"># create interactive maps</span></span>
-<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">'scripts/data_utils.R'</span>))</span>
-<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
-<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Select City Nature Challenge observations</span></span>
-<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
-<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>inat_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/cnc-los-angeles-observations.csv'</span>))</span>
-<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(inat_data)</span>
-<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-25"><a href="#cb50-25" aria-hidden="true" tabindex="-1"></a>heron_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb50-26"><a href="#cb50-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_kingdom_name <span class="sc">==</span> <span class="st">'Animalia'</span> <span class="sc">&amp;</span></span>
-<span id="cb50-27"><a href="#cb50-27" aria-hidden="true" tabindex="-1"></a>         taxon_species_name <span class="sc">==</span> <span class="st">'Ardea herodias'</span>)</span>
-<span id="cb50-28"><a href="#cb50-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-29"><a href="#cb50-29" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(heron_obs)</span>
-<span id="cb50-30"><a href="#cb50-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-31"><a href="#cb50-31" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(heron_obs<span class="sc">$</span>quality_grade)</span>
-<span id="cb50-32"><a href="#cb50-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-33"><a href="#cb50-33" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(heron_obs<span class="sc">$</span>coordinates_obscured)</span>
-<span id="cb50-34"><a href="#cb50-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-35"><a href="#cb50-35" aria-hidden="true" tabindex="-1"></a>heron_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
-<span id="cb50-36"><a href="#cb50-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_kingdom_name <span class="sc">==</span> <span class="st">'Animalia'</span>,</span>
-<span id="cb50-37"><a href="#cb50-37" aria-hidden="true" tabindex="-1"></a>         taxon_species_name <span class="sc">==</span> <span class="st">'Ardea herodias'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb50-38"><a href="#cb50-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(quality_grade <span class="sc">==</span> <span class="st">'research'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb50-39"><a href="#cb50-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(coordinates_obscured <span class="sc">==</span> <span class="cn">FALSE</span>)</span>
-<span id="cb50-40"><a href="#cb50-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-41"><a href="#cb50-41" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(heron_obs)</span>
-<span id="cb50-42"><a href="#cb50-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-43"><a href="#cb50-43" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(heron_obs<span class="sc">$</span>taxon_kingdom_name)</span>
-<span id="cb50-44"><a href="#cb50-44" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(heron_obs<span class="sc">$</span>taxon_species_name)</span>
-<span id="cb50-45"><a href="#cb50-45" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(heron_obs<span class="sc">$</span>quality_grade)</span>
-<span id="cb50-46"><a href="#cb50-46" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(heron_obs<span class="sc">$</span>coordinates_obscured)</span>
-<span id="cb50-47"><a href="#cb50-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-48"><a href="#cb50-48" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(heron_obs, <span class="fu">here</span>(<span class="st">'results/heron_observations.csv'</span>), <span class="at">na=</span><span class="st">''</span>)</span>
-<span id="cb50-49"><a href="#cb50-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-50"><a href="#cb50-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-51"><a href="#cb50-51" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
-<span id="cb50-52"><a href="#cb50-52" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a map with CNC observations</span></span>
-<span id="cb50-53"><a href="#cb50-53" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
-<span id="cb50-54"><a href="#cb50-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-55"><a href="#cb50-55" aria-hidden="true" tabindex="-1"></a>heron_obs_sf <span class="ot">&lt;-</span> heron_obs <span class="sc">%&gt;%</span></span>
-<span id="cb50-56"><a href="#cb50-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>),   <span class="at">crs =</span> <span class="dv">4326</span>)</span>
-<span id="cb50-57"><a href="#cb50-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-58"><a href="#cb50-58" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(heron_obs_sf)</span>
-<span id="cb50-59"><a href="#cb50-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-60"><a href="#cb50-60" aria-hidden="true" tabindex="-1"></a>heron_map <span class="ot">&lt;-</span> heron_obs_sf <span class="sc">%&gt;%</span></span>
-<span id="cb50-61"><a href="#cb50-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name, taxon_species_name, image_url)</span>
-<span id="cb50-62"><a href="#cb50-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-63"><a href="#cb50-63" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(heron_map)</span>
-<span id="cb50-64"><a href="#cb50-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-65"><a href="#cb50-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-66"><a href="#cb50-66" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
-<span id="cb50-67"><a href="#cb50-67" aria-hidden="true" tabindex="-1"></a><span class="do">## Add bodies of water to the map</span></span>
-<span id="cb50-68"><a href="#cb50-68" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
-<span id="cb50-69"><a href="#cb50-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-70"><a href="#cb50-70" aria-hidden="true" tabindex="-1"></a>water_areas <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/la_county_waterareas.geojson'</span>))</span>
-<span id="cb50-71"><a href="#cb50-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-72"><a href="#cb50-72" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(water_areas) <span class="sc">==</span> <span class="fu">st_crs</span>(heron_obs_sf)</span>
-<span id="cb50-73"><a href="#cb50-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-74"><a href="#cb50-74" aria-hidden="true" tabindex="-1"></a>water_areas <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(water_areas,  <span class="at">crs =</span> <span class="fu">st_crs</span>(heron_obs_sf))</span>
-<span id="cb50-75"><a href="#cb50-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-76"><a href="#cb50-76" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(water_areas) <span class="sc">==</span> <span class="fu">st_crs</span>(heron_obs_sf)</span>
-<span id="cb50-77"><a href="#cb50-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-78"><a href="#cb50-78" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(heron_map, <span class="at">col.regions=</span><span class="st">'green'</span>) <span class="sc">+</span></span>
-<span id="cb50-79"><a href="#cb50-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(water_areas)</span>
-<span id="cb50-80"><a href="#cb50-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-81"><a href="#cb50-81" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
-<span id="cb50-82"><a href="#cb50-82" aria-hidden="true" tabindex="-1"></a><span class="do">## Observations near bodies of water</span></span>
-<span id="cb50-83"><a href="#cb50-83" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
-<span id="cb50-84"><a href="#cb50-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-85"><a href="#cb50-85" aria-hidden="true" tabindex="-1"></a>water_areas_5070 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(water_areas, <span class="at">crs=</span><span class="dv">5070</span>)</span>
-<span id="cb50-86"><a href="#cb50-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-87"><a href="#cb50-87" aria-hidden="true" tabindex="-1"></a>buffer_water_areas_5070 <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(water_areas_5070, <span class="dv">805</span>)</span>
-<span id="cb50-88"><a href="#cb50-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-89"><a href="#cb50-89" aria-hidden="true" tabindex="-1"></a>buffer_water_areas <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(buffer_water_areas_5070, <span class="at">crs=</span><span class="fu">st_crs</span>(heron_obs_sf))</span>
-<span id="cb50-90"><a href="#cb50-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-91"><a href="#cb50-91" aria-hidden="true" tabindex="-1"></a>heron_map <span class="ot">&lt;-</span> <span class="fu">mapview</span>(heron_map, <span class="at">col.regions=</span><span class="st">'green'</span>) <span class="sc">+</span></span>
-<span id="cb50-92"><a href="#cb50-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(water_areas) <span class="sc">+</span></span>
-<span id="cb50-93"><a href="#cb50-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(buffer_water_areas)</span>
-<span id="cb50-94"><a href="#cb50-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-95"><a href="#cb50-95" aria-hidden="true" tabindex="-1"></a>heron_map</span>
-<span id="cb50-96"><a href="#cb50-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-97"><a href="#cb50-97" aria-hidden="true" tabindex="-1"></a>heron_near_water_sf <span class="ot">&lt;-</span> heron_obs_sf <span class="sc">%&gt;%</span></span>
-<span id="cb50-98"><a href="#cb50-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">near_water=</span><span class="fu">lengths</span>(<span class="fu">st_intersects</span>(heron_obs_sf, buffer_water_areas)) <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb50-99"><a href="#cb50-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-100"><a href="#cb50-100" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(heron_near_water_sf<span class="sc">$</span>near_water)</span>
-<span id="cb50-101"><a href="#cb50-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-102"><a href="#cb50-102" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(heron_near_water_sf, <span class="fu">here</span>(<span class="st">'results/heron_near_water.csv'</span>), <span class="at">na=</span><span class="st">''</span>)</span>
-<span id="cb50-103"><a href="#cb50-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-104"><a href="#cb50-104" aria-hidden="true" tabindex="-1"></a><span class="fu">mapshot2</span>(heron_map, <span class="at">file =</span> <span class="fu">here</span>(<span class="st">'results/heron_near_water_draft.png'</span>))</span>
-<span id="cb50-105"><a href="#cb50-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-106"><a href="#cb50-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-107"><a href="#cb50-107" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
-<span id="cb50-108"><a href="#cb50-108" aria-hidden="true" tabindex="-1"></a><span class="do">## Create chart</span></span>
-<span id="cb50-109"><a href="#cb50-109" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
-<span id="cb50-110"><a href="#cb50-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-111"><a href="#cb50-111" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb50-112"><a href="#cb50-112" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>heron_near_water_sf, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>near_water))</span>
-<span id="cb50-113"><a href="#cb50-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-114"><a href="#cb50-114" aria-hidden="true" tabindex="-1"></a>final_chart <span class="ot">&lt;-</span> <span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb50-115"><a href="#cb50-115" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>heron_near_water_sf, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>near_water)) <span class="sc">+</span></span>
-<span id="cb50-116"><a href="#cb50-116" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'CNC observations for Great Blue Herons in LA County'</span>,</span>
-<span id="cb50-117"><a href="#cb50-117" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span><span class="st">'2016-2024'</span>,</span>
-<span id="cb50-118"><a href="#cb50-118" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">'Within 1/2 mile of water'</span>,</span>
-<span id="cb50-119"><a href="#cb50-119" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">'observations count'</span>)  <span class="sc">+</span></span>
-<span id="cb50-120"><a href="#cb50-120" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb50-121"><a href="#cb50-121" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb50-122"><a href="#cb50-122" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb50-123"><a href="#cb50-123" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb50-124"><a href="#cb50-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-125"><a href="#cb50-125" aria-hidden="true" tabindex="-1"></a>final_chart</span>
-<span id="cb50-126"><a href="#cb50-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-127"><a href="#cb50-127" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">here</span>(<span class="st">'results/heron_observations_near_water_chart.jpg'</span>),</span>
-<span id="cb50-128"><a href="#cb50-128" aria-hidden="true" tabindex="-1"></a>       <span class="at">plot =</span> final_chart, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">width =</span> <span class="dv">8</span>)</span>
-<span id="cb50-129"><a href="#cb50-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-130"><a href="#cb50-130" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
-<span id="cb50-131"><a href="#cb50-131" aria-hidden="true" tabindex="-1"></a><span class="do">## Create map</span></span>
-<span id="cb50-132"><a href="#cb50-132" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
-<span id="cb50-133"><a href="#cb50-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-134"><a href="#cb50-134" aria-hidden="true" tabindex="-1"></a>LA_county <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/los_angeles_county/los_angeles_county.shp'</span>))</span>
-<span id="cb50-135"><a href="#cb50-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-136"><a href="#cb50-136" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb50-137"><a href="#cb50-137" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_county, <span class="at">fill=</span><span class="st">'white'</span>) <span class="sc">+</span></span>
-<span id="cb50-138"><a href="#cb50-138" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>heron_near_water_sf, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">color=</span>near_water)) <span class="sc">+</span></span>
-<span id="cb50-139"><a href="#cb50-139" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>water_areas, <span class="at">fill=</span><span class="st">'#007399'</span>)</span>
-<span id="cb50-140"><a href="#cb50-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-141"><a href="#cb50-141" aria-hidden="true" tabindex="-1"></a>final_map <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb50-142"><a href="#cb50-142" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_county, <span class="at">fill=</span><span class="st">'white'</span>) <span class="sc">+</span></span>
-<span id="cb50-143"><a href="#cb50-143" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>heron_near_water_sf, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">color=</span>near_water)) <span class="sc">+</span></span>
-<span id="cb50-144"><a href="#cb50-144" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>water_areas, <span class="at">fill=</span><span class="st">'#007399'</span>) <span class="sc">+</span></span>
-<span id="cb50-145"><a href="#cb50-145" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'CNC observations for Great Blue Herons in LA County'</span>,</span>
-<span id="cb50-146"><a href="#cb50-146" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span><span class="st">'2016-2024'</span>,</span>
-<span id="cb50-147"><a href="#cb50-147" aria-hidden="true" tabindex="-1"></a>       <span class="at">color=</span><span class="st">'Within 1/2 mile of water'</span>) <span class="sc">+</span></span>
-<span id="cb50-148"><a href="#cb50-148" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
-<span id="cb50-149"><a href="#cb50-149" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>))</span>
-<span id="cb50-150"><a href="#cb50-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-151"><a href="#cb50-151" aria-hidden="true" tabindex="-1"></a>final_map</span>
-<span id="cb50-152"><a href="#cb50-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-153"><a href="#cb50-153" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">here</span>(<span class="st">'results/heron_observations_near_water_map.jpg'</span>),</span>
-<span id="cb50-154"><a href="#cb50-154" aria-hidden="true" tabindex="-1"></a>       <span class="at">plot =</span> final_map, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">width =</span> <span class="dv">8</span>)</span>
-<span id="cb50-155"><a href="#cb50-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-156"><a href="#cb50-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-157"><a href="#cb50-157" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
-<span id="cb50-158"><a href="#cb50-158" aria-hidden="true" tabindex="-1"></a><span class="do">## Download iNaturalist images</span></span>
-<span id="cb50-159"><a href="#cb50-159" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
-<span id="cb50-160"><a href="#cb50-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-161"><a href="#cb50-161" aria-hidden="true" tabindex="-1"></a>heron_images <span class="ot">&lt;-</span> heron_near_water_sf <span class="sc">%&gt;%</span></span>
-<span id="cb50-162"><a href="#cb50-162" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(license <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'CC0'</span>, <span class="st">'CC-BY'</span>, <span class="st">'CC-BY-NC'</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb50-163"><a href="#cb50-163" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n=</span><span class="dv">3</span>)</span>
-<span id="cb50-164"><a href="#cb50-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-165"><a href="#cb50-165" aria-hidden="true" tabindex="-1"></a><span class="fu">download_inaturalist_images</span>(heron_images)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="do">## load_packages</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) <span class="co"># read and write tabular data</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># manipulate data</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># manipulate dates</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here) <span class="co"># file paths</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr) <span class="co"># work with string</span></span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># create data visualizations</span></span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="co"># handle vector geospatial data</span></span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapview) <span class="co"># create interactive maps</span></span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">'scripts/data_utils.R'</span>))</span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Select City Nature Challenge observations</span></span>
+<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
+<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-21"><a href="#cb56-21" aria-hidden="true" tabindex="-1"></a>inat_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/cnc-los-angeles-observations.csv'</span>))</span>
+<span id="cb56-22"><a href="#cb56-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-23"><a href="#cb56-23" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(inat_data)</span>
+<span id="cb56-24"><a href="#cb56-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-25"><a href="#cb56-25" aria-hidden="true" tabindex="-1"></a>heron_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb56-26"><a href="#cb56-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_kingdom_name <span class="sc">==</span> <span class="st">'Animalia'</span> <span class="sc">&amp;</span></span>
+<span id="cb56-27"><a href="#cb56-27" aria-hidden="true" tabindex="-1"></a>         taxon_species_name <span class="sc">==</span> <span class="st">'Ardea herodias'</span>)</span>
+<span id="cb56-28"><a href="#cb56-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-29"><a href="#cb56-29" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(heron_obs)</span>
+<span id="cb56-30"><a href="#cb56-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-31"><a href="#cb56-31" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(heron_obs<span class="sc">$</span>quality_grade)</span>
+<span id="cb56-32"><a href="#cb56-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-33"><a href="#cb56-33" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(heron_obs<span class="sc">$</span>coordinates_obscured)</span>
+<span id="cb56-34"><a href="#cb56-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-35"><a href="#cb56-35" aria-hidden="true" tabindex="-1"></a>heron_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb56-36"><a href="#cb56-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_kingdom_name <span class="sc">==</span> <span class="st">'Animalia'</span>,</span>
+<span id="cb56-37"><a href="#cb56-37" aria-hidden="true" tabindex="-1"></a>         taxon_species_name <span class="sc">==</span> <span class="st">'Ardea herodias'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb56-38"><a href="#cb56-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(quality_grade <span class="sc">==</span> <span class="st">'research'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb56-39"><a href="#cb56-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(coordinates_obscured <span class="sc">==</span> <span class="cn">FALSE</span>)</span>
+<span id="cb56-40"><a href="#cb56-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-41"><a href="#cb56-41" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(heron_obs)</span>
+<span id="cb56-42"><a href="#cb56-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-43"><a href="#cb56-43" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(heron_obs<span class="sc">$</span>taxon_kingdom_name)</span>
+<span id="cb56-44"><a href="#cb56-44" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(heron_obs<span class="sc">$</span>taxon_species_name)</span>
+<span id="cb56-45"><a href="#cb56-45" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(heron_obs<span class="sc">$</span>quality_grade)</span>
+<span id="cb56-46"><a href="#cb56-46" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(heron_obs<span class="sc">$</span>coordinates_obscured)</span>
+<span id="cb56-47"><a href="#cb56-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-48"><a href="#cb56-48" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(heron_obs, <span class="fu">here</span>(<span class="st">'results/heron_observations.csv'</span>), <span class="at">na=</span><span class="st">''</span>)</span>
+<span id="cb56-49"><a href="#cb56-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-50"><a href="#cb56-50" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
+<span id="cb56-51"><a href="#cb56-51" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a map with CNC observations</span></span>
+<span id="cb56-52"><a href="#cb56-52" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
+<span id="cb56-53"><a href="#cb56-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-54"><a href="#cb56-54" aria-hidden="true" tabindex="-1"></a>heron_obs_sf <span class="ot">&lt;-</span> heron_obs <span class="sc">%&gt;%</span></span>
+<span id="cb56-55"><a href="#cb56-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>),   <span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb56-56"><a href="#cb56-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-57"><a href="#cb56-57" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(heron_obs_sf)</span>
+<span id="cb56-58"><a href="#cb56-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-59"><a href="#cb56-59" aria-hidden="true" tabindex="-1"></a>heron_map <span class="ot">&lt;-</span> heron_obs_sf <span class="sc">%&gt;%</span></span>
+<span id="cb56-60"><a href="#cb56-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name, taxon_species_name, image_url)</span>
+<span id="cb56-61"><a href="#cb56-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-62"><a href="#cb56-62" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(heron_map)</span>
+<span id="cb56-63"><a href="#cb56-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-64"><a href="#cb56-64" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
+<span id="cb56-65"><a href="#cb56-65" aria-hidden="true" tabindex="-1"></a><span class="do">## Add bodies of water to the map</span></span>
+<span id="cb56-66"><a href="#cb56-66" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
+<span id="cb56-67"><a href="#cb56-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-68"><a href="#cb56-68" aria-hidden="true" tabindex="-1"></a>water_areas <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/la_county_waterareas.geojson'</span>))</span>
+<span id="cb56-69"><a href="#cb56-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-70"><a href="#cb56-70" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(water_areas) <span class="sc">==</span> <span class="fu">st_crs</span>(heron_obs_sf)</span>
+<span id="cb56-71"><a href="#cb56-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-72"><a href="#cb56-72" aria-hidden="true" tabindex="-1"></a>water_areas <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(water_areas,  <span class="at">crs =</span> <span class="fu">st_crs</span>(heron_obs_sf))</span>
+<span id="cb56-73"><a href="#cb56-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-74"><a href="#cb56-74" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(water_areas) <span class="sc">==</span> <span class="fu">st_crs</span>(heron_obs_sf)</span>
+<span id="cb56-75"><a href="#cb56-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-76"><a href="#cb56-76" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(heron_map, <span class="at">col.regions=</span><span class="st">'green'</span>) <span class="sc">+</span></span>
+<span id="cb56-77"><a href="#cb56-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(water_areas)</span>
+<span id="cb56-78"><a href="#cb56-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-79"><a href="#cb56-79" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
+<span id="cb56-80"><a href="#cb56-80" aria-hidden="true" tabindex="-1"></a><span class="do">## Observations near bodies of water</span></span>
+<span id="cb56-81"><a href="#cb56-81" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
+<span id="cb56-82"><a href="#cb56-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-83"><a href="#cb56-83" aria-hidden="true" tabindex="-1"></a><span class="do">## create buffer</span></span>
+<span id="cb56-84"><a href="#cb56-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-85"><a href="#cb56-85" aria-hidden="true" tabindex="-1"></a>water_areas_5070 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(water_areas, <span class="at">crs=</span><span class="dv">5070</span>)</span>
+<span id="cb56-86"><a href="#cb56-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-87"><a href="#cb56-87" aria-hidden="true" tabindex="-1"></a>buffer_water_areas_5070 <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(water_areas_5070, <span class="dv">805</span>)</span>
+<span id="cb56-88"><a href="#cb56-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-89"><a href="#cb56-89" aria-hidden="true" tabindex="-1"></a>buffer_water_areas <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(buffer_water_areas_5070, <span class="at">crs=</span><span class="fu">st_crs</span>(heron_obs_sf))</span>
+<span id="cb56-90"><a href="#cb56-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-91"><a href="#cb56-91" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(heron_obs_sf, <span class="at">col.regions=</span><span class="st">'green'</span>) <span class="sc">+</span></span>
+<span id="cb56-92"><a href="#cb56-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(buffer_water_areas)</span>
+<span id="cb56-93"><a href="#cb56-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-94"><a href="#cb56-94" aria-hidden="true" tabindex="-1"></a><span class="do">## observations near water, version 1</span></span>
+<span id="cb56-95"><a href="#cb56-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-96"><a href="#cb56-96" aria-hidden="true" tabindex="-1"></a><span class="fu">lengths</span>(<span class="fu">st_intersects</span>(heron_obs_sf, buffer_water_areas)) <span class="sc">&gt;</span> <span class="dv">0</span></span>
+<span id="cb56-97"><a href="#cb56-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-98"><a href="#cb56-98" aria-hidden="true" tabindex="-1"></a>heron_near_water_sf <span class="ot">&lt;-</span> heron_obs_sf[<span class="fu">lengths</span>(<span class="fu">st_intersects</span>(heron_obs_sf, buffer_water_areas)) <span class="sc">&gt;</span> <span class="dv">0</span>, ]</span>
+<span id="cb56-99"><a href="#cb56-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-100"><a href="#cb56-100" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(heron_near_water_sf)</span>
+<span id="cb56-101"><a href="#cb56-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-102"><a href="#cb56-102" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(heron_near_water_sf, <span class="at">col.regions=</span><span class="st">'green'</span>) <span class="sc">+</span></span>
+<span id="cb56-103"><a href="#cb56-103" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(buffer_water_areas)</span>
+<span id="cb56-104"><a href="#cb56-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-105"><a href="#cb56-105" aria-hidden="true" tabindex="-1"></a>heron_map <span class="ot">&lt;-</span> <span class="fu">mapview</span>(heron_near_water_sf, <span class="at">col.regions=</span><span class="st">'green'</span>) <span class="sc">+</span></span>
+<span id="cb56-106"><a href="#cb56-106" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(buffer_water_areas)</span>
+<span id="cb56-107"><a href="#cb56-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-108"><a href="#cb56-108" aria-hidden="true" tabindex="-1"></a><span class="fu">mapshot2</span>(heron_map, <span class="at">file =</span> <span class="fu">here</span>(<span class="st">'results/heron_near_water_draft.png'</span>))</span>
+<span id="cb56-109"><a href="#cb56-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-110"><a href="#cb56-110" aria-hidden="true" tabindex="-1"></a><span class="do">## observations near water, version 2</span></span>
+<span id="cb56-111"><a href="#cb56-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-112"><a href="#cb56-112" aria-hidden="true" tabindex="-1"></a>heron_near_water_sf <span class="ot">&lt;-</span> heron_obs_sf <span class="sc">%&gt;%</span></span>
+<span id="cb56-113"><a href="#cb56-113" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">near_water =</span> <span class="fu">lengths</span>(<span class="fu">st_intersects</span>(heron_obs_sf, buffer_water_areas)) <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb56-114"><a href="#cb56-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-115"><a href="#cb56-115" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(heron_near_water_sf<span class="sc">$</span>near_water)</span>
+<span id="cb56-116"><a href="#cb56-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-117"><a href="#cb56-117" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(heron_near_water_sf, <span class="fu">here</span>(<span class="st">'results/heron_near_water.csv'</span>), <span class="at">na=</span><span class="st">''</span>)</span>
+<span id="cb56-118"><a href="#cb56-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-119"><a href="#cb56-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-120"><a href="#cb56-120" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
+<span id="cb56-121"><a href="#cb56-121" aria-hidden="true" tabindex="-1"></a><span class="do">## Create chart</span></span>
+<span id="cb56-122"><a href="#cb56-122" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
+<span id="cb56-123"><a href="#cb56-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-124"><a href="#cb56-124" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb56-125"><a href="#cb56-125" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>heron_near_water_sf, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>near_water))</span>
+<span id="cb56-126"><a href="#cb56-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-127"><a href="#cb56-127" aria-hidden="true" tabindex="-1"></a>heron_chart <span class="ot">&lt;-</span> <span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb56-128"><a href="#cb56-128" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>heron_near_water_sf, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>near_water)) <span class="sc">+</span></span>
+<span id="cb56-129"><a href="#cb56-129" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'CNC observations for Great Blue Herons in LA County'</span>,</span>
+<span id="cb56-130"><a href="#cb56-130" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span><span class="st">'2016-2024'</span>,</span>
+<span id="cb56-131"><a href="#cb56-131" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">'Within 1/2 mile of water'</span>,</span>
+<span id="cb56-132"><a href="#cb56-132" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">'observations count'</span>)  <span class="sc">+</span></span>
+<span id="cb56-133"><a href="#cb56-133" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb56-134"><a href="#cb56-134" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb56-135"><a href="#cb56-135" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb56-136"><a href="#cb56-136" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb56-137"><a href="#cb56-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-138"><a href="#cb56-138" aria-hidden="true" tabindex="-1"></a>heron_chart</span>
+<span id="cb56-139"><a href="#cb56-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-140"><a href="#cb56-140" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">here</span>(<span class="st">'results/heron_observations_near_water_chart.jpg'</span>),</span>
+<span id="cb56-141"><a href="#cb56-141" aria-hidden="true" tabindex="-1"></a>       <span class="at">plot =</span> heron_chart, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">width =</span> <span class="dv">8</span>)</span>
+<span id="cb56-142"><a href="#cb56-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-143"><a href="#cb56-143" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
+<span id="cb56-144"><a href="#cb56-144" aria-hidden="true" tabindex="-1"></a><span class="do">## Create map</span></span>
+<span id="cb56-145"><a href="#cb56-145" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
+<span id="cb56-146"><a href="#cb56-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-147"><a href="#cb56-147" aria-hidden="true" tabindex="-1"></a>LA_county <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/los_angeles_county/los_angeles_county.shp'</span>))</span>
+<span id="cb56-148"><a href="#cb56-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-149"><a href="#cb56-149" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb56-150"><a href="#cb56-150" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_county, <span class="at">fill=</span><span class="st">'white'</span>) <span class="sc">+</span></span>
+<span id="cb56-151"><a href="#cb56-151" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>heron_near_water_sf, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">color=</span>near_water)) <span class="sc">+</span></span>
+<span id="cb56-152"><a href="#cb56-152" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>water_areas, <span class="at">fill=</span><span class="st">'#007399'</span>)</span>
+<span id="cb56-153"><a href="#cb56-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-154"><a href="#cb56-154" aria-hidden="true" tabindex="-1"></a>heron_map <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb56-155"><a href="#cb56-155" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_county, <span class="at">fill=</span><span class="st">'white'</span>) <span class="sc">+</span></span>
+<span id="cb56-156"><a href="#cb56-156" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>heron_near_water_sf, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">color=</span>near_water)) <span class="sc">+</span></span>
+<span id="cb56-157"><a href="#cb56-157" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>water_areas, <span class="at">fill=</span><span class="st">'#007399'</span>) <span class="sc">+</span></span>
+<span id="cb56-158"><a href="#cb56-158" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'CNC observations for Great Blue Herons in LA County'</span>,</span>
+<span id="cb56-159"><a href="#cb56-159" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span><span class="st">'2016-2024'</span>,</span>
+<span id="cb56-160"><a href="#cb56-160" aria-hidden="true" tabindex="-1"></a>       <span class="at">color=</span><span class="st">'Within 1/2 mile of water'</span>) <span class="sc">+</span></span>
+<span id="cb56-161"><a href="#cb56-161" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb56-162"><a href="#cb56-162" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>))</span>
+<span id="cb56-163"><a href="#cb56-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-164"><a href="#cb56-164" aria-hidden="true" tabindex="-1"></a>heron_map</span>
+<span id="cb56-165"><a href="#cb56-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-166"><a href="#cb56-166" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">here</span>(<span class="st">'results/heron_observations_near_water_map.jpg'</span>),</span>
+<span id="cb56-167"><a href="#cb56-167" aria-hidden="true" tabindex="-1"></a>       <span class="at">plot =</span> heron_map, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">width =</span> <span class="dv">8</span>)</span>
+<span id="cb56-168"><a href="#cb56-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-169"><a href="#cb56-169" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
+<span id="cb56-170"><a href="#cb56-170" aria-hidden="true" tabindex="-1"></a><span class="do">## Download iNaturalist images</span></span>
+<span id="cb56-171"><a href="#cb56-171" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
+<span id="cb56-172"><a href="#cb56-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-173"><a href="#cb56-173" aria-hidden="true" tabindex="-1"></a>heron_images <span class="ot">&lt;-</span> heron_near_water_sf <span class="sc">%&gt;%</span></span>
+<span id="cb56-174"><a href="#cb56-174" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(license <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'CC0'</span>, <span class="st">'CC-BY'</span>, <span class="st">'CC-BY-NC'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-175"><a href="#cb56-175" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n=</span><span class="dv">3</span>)</span>
+<span id="cb56-176"><a href="#cb56-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-177"><a href="#cb56-177" aria-hidden="true" tabindex="-1"></a><span class="fu">download_inaturalist_images</span>(heron_images)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
