@@ -46,7 +46,7 @@ Now that I have the scientific names, I can write my `filter()` query. I use `di
 
 ```{r}
 heron_obs <- inat_data %>%
-  filter(taxon_kingdom_name == 'Animalia',
+  filter(taxon_kingdom_name == 'Animalia' &
          taxon_species_name == 'Ardea herodias')
 
 dim(heron_obs)
@@ -82,6 +82,15 @@ dim(heron_obs)
 ```
 
 We have 266 observations for Great Blue Heron.
+
+We can use unique to double check the `filter()` queries give us the results we expect.
+
+```{r}
+unique(heron_obs$taxon_kingdom_name)
+unique(heron_obs$taxon_species_name)
+unique(heron_obs$quality_grade)
+unique(heron_obs$coordinates_obscured)
+```
 
 Save the iNaturalist observations as a csv.
 
@@ -192,7 +201,7 @@ mapview(heron_map, col.regions='green') +
 
 ![](images/mapview/example-analysis/heron_la_river_buffer_map.png)
 
-### get obsevations within buffer
+### get observations within buffer
 
 We can use `lengths(st_intersects()) >0` to get the observations within the LA River buffer.
 
@@ -399,6 +408,22 @@ heron_images <- heron_near_water_sf %>%
 download_inaturalist_images(heron_images)
 ```
 
+## Download files from Codespace
+
+I saved CSVs and images to Codespace. I then need to download the files to my computer.
+
+Use the RStudio "Files" tab in the lower right corner. Click on the folders and green up arrow to navigate through the directories. Click the checkbox to select the files you want.
+
+![](images/export-files/export-1.png)
+
+Click "More" and a popup window will appear. Click "Export..."
+
+![](images/export-files/export-2.png)
+
+Click "Download" button on the popup window. The files will be saved to folder that your browser uses for the downloads.
+
+![](images/export-files/export-3.png)
+
 ## Complete script
 
 ```{r}
@@ -445,6 +470,11 @@ heron_obs <- inat_data %>%
   filter(coordinates_obscured == FALSE)
 
 dim(heron_obs)
+
+unique(heron_obs$taxon_kingdom_name)
+unique(heron_obs$taxon_species_name)
+unique(heron_obs$quality_grade)
+unique(heron_obs$coordinates_obscured)
 
 write_csv(heron_obs, here('results/heron_observations.csv'), na='')
 
