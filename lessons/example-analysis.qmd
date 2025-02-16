@@ -1,8 +1,51 @@
-# Example analysis
+---
+title: "Example Analysis"
+format: html
+---
+
+```{r}
+#| include: false
+classroom_organization <- 'data-explorers-feb-2025'
+classroom_repos <- paste0('https://github.com/orgs/', classroom_organization, '/repositories')
+```
 
 This lesson shows how to I used some of the code samples in the previous lessons to create an analysis that has maps and charts.
 
-Goal: I want all research grade observations for Great Blue Heron. I want to observations near bodies of water and observations not near bodies of water.
+Goal: I want all research grade observations for Great Blue Heron. I want compare observations near bodies of water and observations not near bodies of water.
+
+## Restart Codespace
+
+First step is to start Codespace.
+
+1.  Go to [`{r} classroom_organization`](`{r} classroom_repos`) Github page, and you should see your repository. Click on your repository.
+
+2.  Scroll to the bottom of the page, and click the "Open in GitHub Codespaces" button. This will restart the Codespace created in the "Setup Github Classroom and Codespaces" section.
+
+    ![](images/setup/repo-open-codespace.png)
+
+3.  This is Visual Studio Code, the default code editor for GitHub Codespaces. We want to use RStudio as our code editor.
+
+    ![](images/setup/building-codespace.png)
+
+4.  Once the Codespace has started, it will run a script for timer, and start RStudio. In the lower right, there should be a "bash", "Codespaces: timer", and "Codespaces: rstudio-start".
+
+    Click on the "PORTS" tab at the bottom.
+
+    ![](images/setup/finish-building.png)
+
+5.  In the PORTS tab, hover over the item named RStudio or 8787. Click on the middle globe icon to start RStudio in a new browser tab.
+
+![](images/setup/rstudio-port.png)
+
+6.  Now you are ready to write and run R code using RStudio.
+
+    Even though we won't use Visual Studio Code to write R code, keep the tab for Visual Studio Code open.
+
+    ![](images/setup/rstudio.png)
+
+## Creating script
+
+I create a file called 'heron-analysis.R', and save it in the 'scripts' folder.
 
 First step is load the R packages.
 
@@ -51,6 +94,8 @@ heron_obs <- inat_data %>%
 
 dim(heron_obs)
 ```
+
+There are 274 Great Blue Heron observations.
 
 I also want to see how many observations are research grade. If there are a lot of "casual" or "need_id" observations, then I might also include them in my analysis.
 
@@ -134,9 +179,11 @@ Now when I click on each blue circle, the popup shows 6 fields.
 mapview(heron_map)
 ```
 
+![](images/mapview/example-analysis/heron_obs_map.png)
+
 ## Add bodies of water to the map
 
-I want to look at heron obsevations near water. First I need to load the file with the water areas.
+I want to study heron observations near water. First I need to load the file with the water areas.
 
 ```{r}
 water_areas <- read_sf(here('data/cleaned/la_county_waterareas.geojson'))
@@ -194,26 +241,69 @@ Then I can create a map with the buffers.
 
 ```{r}
 #| eval: false
-heron_map <- mapview(heron_map, col.regions='green') +
-  mapview(water_areas) +
+mapview(heron_obs_sf, col.regions='green') +
   mapview(buffer_water_areas)
-
-heron_map
 ```
 
 ![](images/mapview/example-analysis/heron_water_buffer_map.png)
 
 Looking at the map, I notice that most ‘Great Blue Heron’ observations are near bodies of water. I also notice that some of the smaller bodies of water aren’t included in ‘water_areas’.
 
-### observations near water
+### observations near water, version 1
 
-I want to add a column to `heron_obs_sf` to know which observations are near a body of water.
+I can use `lengths(st_intersects()) >0` to select the observations within a geographic area.
 
-I can use `lengths(st_intersects()) >0` to get the observations within the water buffer. That will produce a vector with TRUE/FALSE values. I can use `mutate()` to add a `near_water` column that stores the TRUE/FALSE values.
+The following code returns TRUE if an observation is within the water buffer, and returns FALSE if it outside the buffer.
+
+```{r}
+lengths(st_intersects(heron_obs_sf, buffer_water_areas)) > 0
+```
+
+Then I use the TRUE/FALSE vector to select observations in a dataframe using `dataframe[lengths(st_intersects()) >0, ]`.
+
+```{r}
+heron_near_water_sf <- heron_obs_sf[lengths(st_intersects(heron_obs_sf, buffer_water_areas)) > 0, ]
+
+dim(heron_near_water_sf)
+```
+
+I have 240 observations near water.
+
+Then I can create a map with the buffers.
+
+```{r}
+#| eval: false
+mapview(heron_near_water_sf, col.regions='green') +
+  mapview(buffer_water_areas)
+
+```
+
+![](images/mapview/example-analysis/heron_near_water_buffer_map.png)
+
+I can save the map as an image. First I assign the assign code for map to an object called `heron_map`.
+
+```{r}
+#| eval: false
+heron_map <- mapview(heron_near_water_sf, col.regions='green') +
+  mapview(buffer_water_areas)
+```
+
+Then I use `mapshot2()` to save `heron_map` in the results folder as .png image
+
+```{r}
+#| eval: false
+mapshot2(heron_map, file = here('results/heron_near_water_draft.png'))
+```
+
+### observations near water, version 2
+
+While the previous code let me get the observations that were near water, I wasn't able to capture the observations not near water. I can adjust the code to add a column with TRUE/FALSE values to `heron_obs_sf` so I can keep track of which observations are near a body of water.
+
+`lengths(st_intersects()) >0` produce a vector with TRUE/FALSE values. I can use `mutate()` to add a `near_water` column that stores the TRUE/FALSE values.
 
 ```{r}
 heron_near_water_sf <- heron_obs_sf %>%
-  mutate(near_water=lengths(st_intersects(heron_obs_sf, buffer_water_areas)) > 0)
+  mutate(near_water = lengths(st_intersects(heron_obs_sf, buffer_water_areas)) > 0)
 ```
 
 I can use `table()` to get a count of the observations near water.
@@ -222,24 +312,18 @@ I can use `table()` to get a count of the observations near water.
 table(heron_near_water_sf$near_water)
 ```
 
-### save results
+240 observations are near water, 26 are not near water.
 
 Next I save the iNaturalist observations as a csv.
 
 ```{r}
-write_csv(heron_near_water_sf, here('results/heron_near_water.csv'), na='')
-```
-
-And I save the map as an image. I use `mapshot2()` to save mapview interactive maps. We can save the image as .png or .jpg
-
-```{r}
 #| eval: false
-mapshot2(heron_map, file = here('results/heron_near_water_draft.png'))
+write_csv(heron_near_water_sf, here('results/heron_near_water.csv'), na='')
 ```
 
 ## Create chart
 
-I want to create a bar chart that shows the heron observations near water.
+I want to create a bar chart that shows the heron observations near water. I use the column `near_water` for the x axis.
 
 ```{r}
 ggplot()+
@@ -248,8 +332,10 @@ ggplot()+
 
 Next I want to update the appearance of the chart. I use `labs()` to add titles, subtitle, and axis labels. I use `theme_bw()` and `theme()` to change overall appearance of the chart.
 
+I assign the code for the chart to `heron_chart` object.
+
 ```{r}
-final_chart <- ggplot()+
+heron_chart <- ggplot()+
   geom_bar(data=heron_near_water_sf, mapping=aes(x=near_water)) +
   labs(title = 'CNC observations for Great Blue Herons in LA County',
        subtitle='2016-2024',
@@ -260,20 +346,20 @@ final_chart <- ggplot()+
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank())
 
-final_chart
+heron_chart
 ```
 
-I save the chart using `ggsave()`.
+I save `heron_chart` as a jpg in the rsults folder using `ggsave()`.
 
 ```{r}
 #| eval: false
 ggsave(filename = here('results/heron_observations_near_water_chart.jpg'), 
-       plot = final_chart, height = 6, width = 8)
+       plot = heron_chart, height = 6, width = 8)
 ```
 
 ## Create map
 
-I to create a nice looking map for my presentation. I want to add more information and titles. ggplot offers more ways to customize the look of the map than mapview, so I use ggplot to create a map.
+I want to create a nice looking map for my presentation. I want to add LA County and titles to the map. ggplot offers more ways to customize the look of the map than mapview, so I use ggplot to create a map.
 
 One thing I want to add to the map is LA County boundary. I load the LA County file.
 
@@ -282,7 +368,7 @@ LA_county <- read_sf(here('data/cleaned/los_angeles_county/los_angeles_county.sh
 
 ```
 
-I create a map with LA County boundaries, water areas, and heron observations. I color code the observations based on if they are near water.
+I create a map with LA County boundaries, water areas, and heron observations. I color code the observations based on if they are near water using `mapping=aes(color=near_water)`.
 
 ```{r}
 ggplot() +
@@ -294,8 +380,10 @@ ggplot() +
 
 I use `labs()` to add titles, subtitle, legend title. I use `theme_void()` and `theme()` to change overall appearance of the map.
 
+I assign the code for the chart to `heron_map` object.
+
 ```{r}
-final_map <- ggplot() +
+heron_map <- ggplot() +
   geom_sf(data=LA_county, fill='white') +
   geom_sf(data=heron_near_water_sf, mapping=aes(color=near_water)) +
   geom_sf(data=water_areas, fill='#007399') +
@@ -305,7 +393,7 @@ final_map <- ggplot() +
   theme_void() +
   theme(title = element_text(size = 13))
 
-final_map
+heron_map
 ```
 
 I use `ggsave()` to save maps created with ggplot.
@@ -313,7 +401,7 @@ I use `ggsave()` to save maps created with ggplot.
 ```{r}
 #| eval: false
 ggsave(filename = here('results/heron_observations_near_water_map.jpg'), 
-       plot = final_map, height = 6, width = 8)
+       plot = heron_map, height = 6, width = 8)
 ```
 
 ## Download iNaturalist images
@@ -348,7 +436,41 @@ Click "Download" button on the popup window. The files will be saved to folder t
 
 ![](images/export-files/export-3.png)
 
+## Stop Codespace
+
+After I finish my work for the day, I need to stop R, push my code changes to my repository and, stop Codespace.
+
+To stop R, click the orange circle in the upper right of RStudio.
+
+![](images/setup/stop_R.png)
+
+I will see a message "R Session Ended". Close the browser tab for RStudio.
+
+![](images/setup/r_session_ended.png)
+
+Go to the Visual Studio Code browser tab. Click "bash". Click "TERMINAL".
+
+![](images/setup/bash.png)
+
+To save the changed files to my repository, type "bash scripts/save_files.sh" after the \$, and hit return/enter.
+
+![](images/setup/bash_save_files.png)
+
+To stop Codespace, click the blue area in the lower left corner of Visual Studio Code.
+
+![](images/setup/stop_codespace_button.png)
+
+A popup window will appear. Click "Stop Current Codespace".
+
+![](images/setup/stop_codespace.png)
+
+After a little while, I will see a "Codespace is stopped" message. I can now close the browser tab.
+
+![](images/codespace-stop/Codespace-stopped.png){width="425"}
+
 ## Complete script
+
+Here is all the code for the analysis. Some of the code is for checking results, such as `name()`, `dim()`, and `table()`. Some of the code such as 'observations near water, version 1' are things that I tried but end up not using because I tried something else.
 
 ```{r}
 #| eval: false
@@ -402,7 +524,6 @@ unique(heron_obs$coordinates_obscured)
 
 write_csv(heron_obs, here('results/heron_observations.csv'), na='')
 
-
 ## =================
 ## Create a map with CNC observations
 ## =================
@@ -416,7 +537,6 @@ heron_map <- heron_obs_sf %>%
   select(user_login, observed_on, common_name, taxon_species_name, image_url)
 
 mapview(heron_map)
-
 
 ## =================
 ## Add bodies of water to the map
@@ -437,26 +557,41 @@ mapview(heron_map, col.regions='green') +
 ## Observations near bodies of water
 ## =================
 
+## create buffer
+
 water_areas_5070 <- st_transform(water_areas, crs=5070)
 
 buffer_water_areas_5070 <- st_buffer(water_areas_5070, 805)
 
 buffer_water_areas <- st_transform(buffer_water_areas_5070, crs=st_crs(heron_obs_sf))
 
-heron_map <- mapview(heron_map, col.regions='green') +
-  mapview(water_areas) +
+mapview(heron_obs_sf, col.regions='green') +
   mapview(buffer_water_areas)
 
-heron_map
+## observations near water, version 1
+
+lengths(st_intersects(heron_obs_sf, buffer_water_areas)) > 0
+
+heron_near_water_sf <- heron_obs_sf[lengths(st_intersects(heron_obs_sf, buffer_water_areas)) > 0, ]
+
+dim(heron_near_water_sf)
+
+mapview(heron_near_water_sf, col.regions='green') +
+  mapview(buffer_water_areas)
+
+heron_map <- mapview(heron_near_water_sf, col.regions='green') +
+  mapview(buffer_water_areas)
+
+mapshot2(heron_map, file = here('results/heron_near_water_draft.png'))
+
+## observations near water, version 2
 
 heron_near_water_sf <- heron_obs_sf %>%
-  mutate(near_water=lengths(st_intersects(heron_obs_sf, buffer_water_areas)) > 0)
+  mutate(near_water = lengths(st_intersects(heron_obs_sf, buffer_water_areas)) > 0)
 
 table(heron_near_water_sf$near_water)
 
 write_csv(heron_near_water_sf, here('results/heron_near_water.csv'), na='')
-
-mapshot2(heron_map, file = here('results/heron_near_water_draft.png'))
 
 
 ## =================
@@ -466,7 +601,7 @@ mapshot2(heron_map, file = here('results/heron_near_water_draft.png'))
 ggplot()+
   geom_bar(data=heron_near_water_sf, mapping=aes(x=near_water))
 
-final_chart <- ggplot()+
+heron_chart <- ggplot()+
   geom_bar(data=heron_near_water_sf, mapping=aes(x=near_water)) +
   labs(title = 'CNC observations for Great Blue Herons in LA County',
        subtitle='2016-2024',
@@ -477,10 +612,10 @@ final_chart <- ggplot()+
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank())
 
-final_chart
+heron_chart
 
 ggsave(filename = here('results/heron_observations_near_water_chart.jpg'),
-       plot = final_chart, height = 6, width = 8)
+       plot = heron_chart, height = 6, width = 8)
 
 ## =================
 ## Create map
@@ -493,7 +628,7 @@ ggplot() +
   geom_sf(data=heron_near_water_sf, mapping=aes(color=near_water)) +
   geom_sf(data=water_areas, fill='#007399')
 
-final_map <- ggplot() +
+heron_map <- ggplot() +
   geom_sf(data=LA_county, fill='white') +
   geom_sf(data=heron_near_water_sf, mapping=aes(color=near_water)) +
   geom_sf(data=water_areas, fill='#007399') +
@@ -503,11 +638,10 @@ final_map <- ggplot() +
   theme_void() +
   theme(title = element_text(size = 13))
 
-final_map
+heron_map
 
 ggsave(filename = here('results/heron_observations_near_water_map.jpg'),
-       plot = final_map, height = 6, width = 8)
-
+       plot = heron_map, height = 6, width = 8)
 
 ## =================
 ## Download iNaturalist images
