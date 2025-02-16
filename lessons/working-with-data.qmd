@@ -192,32 +192,6 @@ filter(inat_data, scientific_name == 'Sceloporus occidentalis')
 
 We get 3,339 rows, and 37 columns, the same as `common_name == 'Western Fence Lizard'`.
 
-#### common names vs scientific name
-
-Generally speaking, it is more precise to search for scientific name rather than common name. A species has one scientific name, but zero or more common names.
-
-Let's look for 'oaks' observations. The scientific name for 'oaks' genus is 'Quercus'.
-
-We will assign the `filter()` results to objects using `<-` assignment arrow. By assigning the `filter()` results to an object, the results are saved in memory, and we can refer to the results.
-
-```{r}
-oaks <- filter(inat_data, common_name == 'oaks')
-```
-
-```{r}
-quercus <- filter(inat_data, scientific_name == 'Quercus')
-```
-
-Both 'oaks' and 'quercus' are shown in the Environment panel. We get 218 observations for 'oaks', but 246 observations for 'Quercus'.
-
-![](images/oaks_environment_panel.png)
-
-If you click on on 'quercus' in the Environment panel, that will open a spreadsheet-like viewer.
-
-As you can see, there are multiple common names for 'Quercus'.
-
-![](images/oaks_common_name.png)
-
 We will cover how to search for species more in the ["Higher taxa"](higher-taxa.qmd) lesson.
 
 ### The pipe: %\>%

@@ -35,6 +35,8 @@ Get iNaturalist data.
 inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 ```
 
+## Search for 'oaks'
+
 Let's look for observations for all oak trees. We can use filter where the `common_name` is 'oaks'.
 
 ```{r, filter_oaks_observations}
@@ -125,6 +127,8 @@ Plantae_Quercus_obs <- inat_data %>%
 dim(Plantae_Quercus_obs)
 ```
 
+## Search for 'trees'
+
 Another example, let's search for 'trees'. When we search iNaturalist for 'trees', the first result is [Phylum Tracheophyta](https://www.inaturalist.org/taxa/211194-Tracheophyta). Let's look at our data using `taxon_phylum_name` and 'Tracheophyta'
 
 ```{r get_Tracheophyta_observations}
@@ -179,6 +183,62 @@ laco_genera_obs <- inat_data %>%
   select(user_login, common_name, scientific_name, taxon_genus_name)
 ```
 
-When searching for species, it's generally better to search by scientific names rather than common names. A species should only have one scientific name. A species can have zero to many common names in many languages, and different sources can use different common names. For example iNaturalist uses strawberry tree and LA County tree list uses strawberry madrone for *Arbutus unedo*. The downside of searching by scientific names is trying to spell and say all these Latin words.
+When looking for higher taxanomy, it might take some additional research, and trial and error to get the results you want.
 
-When looking for a group of related organisms using higher taxonomy, it might take some additional research, and trial and error to get the results you want.
+## Common names vs scientific names
+
+When searching for species, it's generally better to search by scientific names rather than common names. A species usually only has one scientific name. A species can have zero to many common names in many languages, and different sources can use different common names. For example iNaturalist uses 'strawberry tree' and LA County tree list uses 'strawberry madrone' for *Arbutus unedo*.
+
+16 observations for *Arbutus unedo.*
+
+```{r}
+inat_data %>%
+  filter(scientific_name == 'Arbutus unedo') %>%
+  select(scientific_name, common_name)
+```
+
+16 observations for 'strawberry tree'
+
+```{r}
+inat_data %>%
+  filter(common_name == 'strawberry tree') %>%
+  select(scientific_name, common_name)
+```
+
+0 observations for 'strawberry madrone'. Even though 'strawberry madrone' is a valid common name for *Arbutus unedo*, we get zero results because it isn't the common name that iNaturalist uses.
+
+```{r}
+inat_data %>%
+  filter(common_name == 'strawberry madrone') %>%
+  select(scientific_name, common_name)
+```
+
+The downside of searching by scientific names is trying to spell and say all these Latin words.
+
+## scientific_name vs taxon_xxx_name
+
+When searching by scientific name, it is generally better to search using `taxon_xxx_name` instead of `scientific_name` because `taxon_xxx_name` returns the lower taxa.
+
+'Sceloporus occidentalis' is the scientific name for 'Western Fence Lizard'.
+
+```{r}
+lizard1 <- inat_data %>%
+  filter(scientific_name == 'Sceloporus occidentalis')
+
+dim(lizard1)
+```
+
+```{r}
+lizard2 <- inat_data %>%
+  filter(taxon_species_name == 'Sceloporus occidentalis') 
+
+dim(lizard2)
+```
+
+We get 3339 records for `scientific_name`, and 3595 records for `taxon_species_name.` The reason why `taxon_species_name` returns more results is because `taxon_species_name` returns results for subspecies. We can look at the `scientific_name` for `taxon_species_name == 'Sceloporus occidentalis'`
+
+```{r}
+table(lizard2$scientific_name)
+```
+
+We get both species 'Sceloporus occidentalis' and subspecies 'Sceloporus occidentalis longipes'.
