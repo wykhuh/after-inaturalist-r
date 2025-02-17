@@ -269,8 +269,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#search-for-oaks" id="toc-search-for-oaks" class="nav-link active" data-scroll-target="#search-for-oaks">Search for ‘oaks’</a></li>
+  <li><a href="#search-for-trees" id="toc-search-for-trees" class="nav-link" data-scroll-target="#search-for-trees">Search for ‘trees’</a></li>
+  <li><a href="#common-names-vs-scientific-names" id="toc-common-names-vs-scientific-names" class="nav-link" data-scroll-target="#common-names-vs-scientific-names">Common names vs scientific names</a></li>
+  <li><a href="#scientific_name-vs-taxon_xxx_name" id="toc-scientific_name-vs-taxon_xxx_name" class="nav-link" data-scroll-target="#scientific_name-vs-taxon_xxx_name">scientific_name vs taxon_xxx_name</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -320,6 +329,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/cnc-los-angeles-observations.csv'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="search-for-oaks" class="level2">
+<h2 class="anchored" data-anchor-id="search-for-oaks">Search for ‘oaks’</h2>
 <p>Let’s look for observations for all oak trees. We can use filter where the <code>common_name</code> is ‘oaks’.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>oaks_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
@@ -463,6 +474,9 @@ Note
 <pre><code>[1] 1367    2</code></pre>
 </div>
 </div>
+</section>
+<section id="search-for-trees" class="level2">
+<h2 class="anchored" data-anchor-id="search-for-trees">Search for ‘trees’</h2>
 <p>Another example, let’s search for ‘trees’. When we search iNaturalist for ‘trees’, the first result is <a href="https://www.inaturalist.org/taxa/211194-Tracheophyta">Phylum Tracheophyta</a>. Let’s look at our data using <code>taxon_phylum_name</code> and ‘Tracheophyta’</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>trees_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
@@ -527,10 +541,112 @@ Note
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>           taxon_kingdom_name <span class="sc">==</span> <span class="st">'Plantae'</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, common_name, scientific_name, taxon_genus_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>When searching for species, it’s generally better to search by scientific names rather than common names. A species should only have one scientific name. A species can have zero to many common names in many languages, and different sources can use different common names. For example iNaturalist uses strawberry tree and LA County tree list uses strawberry madrone for <em>Arbutus unedo</em>. The downside of searching by scientific names is trying to spell and say all these Latin words.</p>
-<p>When looking for a group of related organisms using higher taxonomy, it might take some additional research, and trial and error to get the results you want.</p>
+<p>When looking for higher taxanomy, it might take some additional research, and trial and error to get the results you want.</p>
+</section>
+<section id="common-names-vs-scientific-names" class="level2">
+<h2 class="anchored" data-anchor-id="common-names-vs-scientific-names">Common names vs scientific names</h2>
+<p>When searching for species, it’s generally better to search by scientific names rather than common names. A species usually only has one scientific name. A species can have zero to many common names in many languages, and different sources can use different common names. For example iNaturalist uses ‘strawberry tree’ and LA County tree list uses ‘strawberry madrone’ for <em>Arbutus unedo</em>.</p>
+<p>16 observations for <em>Arbutus unedo.</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientific_name <span class="sc">==</span> <span class="st">'Arbutus unedo'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientific_name, common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 2
+   scientific_name common_name    
+   &lt;chr&gt;           &lt;chr&gt;          
+ 1 Arbutus unedo   strawberry tree
+ 2 Arbutus unedo   strawberry tree
+ 3 Arbutus unedo   strawberry tree
+ 4 Arbutus unedo   strawberry tree
+ 5 Arbutus unedo   strawberry tree
+ 6 Arbutus unedo   strawberry tree
+ 7 Arbutus unedo   strawberry tree
+ 8 Arbutus unedo   strawberry tree
+ 9 Arbutus unedo   strawberry tree
+10 Arbutus unedo   strawberry tree
+11 Arbutus unedo   strawberry tree
+12 Arbutus unedo   strawberry tree
+13 Arbutus unedo   strawberry tree
+14 Arbutus unedo   strawberry tree
+15 Arbutus unedo   strawberry tree
+16 Arbutus unedo   strawberry tree</code></pre>
+</div>
+</div>
+<p>16 observations for ‘strawberry tree’</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'strawberry tree'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientific_name, common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 2
+   scientific_name common_name    
+   &lt;chr&gt;           &lt;chr&gt;          
+ 1 Arbutus unedo   strawberry tree
+ 2 Arbutus unedo   strawberry tree
+ 3 Arbutus unedo   strawberry tree
+ 4 Arbutus unedo   strawberry tree
+ 5 Arbutus unedo   strawberry tree
+ 6 Arbutus unedo   strawberry tree
+ 7 Arbutus unedo   strawberry tree
+ 8 Arbutus unedo   strawberry tree
+ 9 Arbutus unedo   strawberry tree
+10 Arbutus unedo   strawberry tree
+11 Arbutus unedo   strawberry tree
+12 Arbutus unedo   strawberry tree
+13 Arbutus unedo   strawberry tree
+14 Arbutus unedo   strawberry tree
+15 Arbutus unedo   strawberry tree
+16 Arbutus unedo   strawberry tree</code></pre>
+</div>
+</div>
+<p>0 observations for ‘strawberry madrone’. Even though ‘strawberry madrone’ is a valid common name for <em>Arbutus unedo</em>, we get zero results because it isn’t the common name that iNaturalist uses.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(common_name <span class="sc">==</span> <span class="st">'strawberry madrone'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientific_name, common_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 2
+# ℹ 2 variables: scientific_name &lt;chr&gt;, common_name &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>The downside of searching by scientific names is trying to spell and say all these Latin words.</p>
+</section>
+<section id="scientific_name-vs-taxon_xxx_name" class="level2">
+<h2 class="anchored" data-anchor-id="scientific_name-vs-taxon_xxx_name">scientific_name vs taxon_xxx_name</h2>
+<p>When searching by scientific name, it is generally better to search using <code>taxon_xxx_name</code> instead of <code>scientific_name</code> because <code>taxon_xxx_name</code> returns the lower taxa.</p>
+<p>‘Sceloporus occidentalis’ is the scientific name for ‘Western Fence Lizard’.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>lizard1 <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientific_name <span class="sc">==</span> <span class="st">'Sceloporus occidentalis'</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(lizard1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3339   37</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>lizard2 <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_species_name <span class="sc">==</span> <span class="st">'Sceloporus occidentalis'</span>) </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(lizard2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3595   37</code></pre>
+</div>
+</div>
+<p>We get 3339 records for <code>scientific_name</code>, and 3595 records for <code>taxon_species_name.</code> The reason why <code>taxon_species_name</code> returns more results is because <code>taxon_species_name</code> returns results for subspecies. We can look at the <code>scientific_name</code> for <code>taxon_species_name == 'Sceloporus occidentalis'</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(lizard2<span class="sc">$</span>scientific_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+         Sceloporus occidentalis Sceloporus occidentalis longipes 
+                            3339                              256 </code></pre>
+</div>
+</div>
+<p>We get both species ‘Sceloporus occidentalis’ and subspecies ‘Sceloporus occidentalis longipes’.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
