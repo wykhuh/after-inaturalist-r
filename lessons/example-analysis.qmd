@@ -47,45 +47,49 @@ First step is to start Codespace.
 
 I create a file called 'heron-analysis.R', and save it in the 'scripts' folder.
 
-First step is load the R packages.
+First step is load the R packages. These packages provide functions that we need to analyze the City Nature Challenge data.
 
 ```{r load_packages}
 #| message: false
 library(readr) # read and write tabular data
-library(dplyr) # manipulate data
+library(dplyr) # manipulate tabular data
 library(lubridate) # manipulate dates
 library(here) # file paths
-library(stringr) # work with string
+library(stringr) # manipulate strings
 
-library(ggplot2) # create data visualizations
+library(ggplot2) # create data visualizations like charts and maps
 library(sf) # handle vector geospatial data
 library(mapview) # create interactive maps
 
-source(here('scripts/data_utils.R'))
+source(here('scripts/data_utils.R')) # custom functions for workshop
 ```
 
 ## Select City Nature Challenge observations
 
-There CNC 191K observations for LA County. I need to select the observations that I want.
+There are 191K City Nature Challenge observations for LA County. I need to select the observations that I want.
 
-First I need to import the City Nature Challenge iNaturalist observations.
+First I need to import the City Nature Challenge iNaturalist CSV. `read_csv()` reads the csv. `here()` helps deal with file paths. I use assignment arrow `<-` to asssign the content from `read_csv()`  to an object called `inat_data`.
 
 ```{r read_inat_file}
 inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 ```
 
-I use `names()` to see the list of column names.
+`read_csv()` returns a dataframe. dataframe is how R represents tabular data with rows and columns. Double click on `inat_data` in Environment panel to see the data.
+
+I use `names()` to see the column names in the dataframe.
 
 ```{r}
 names(inat_data)
 ```
 
-I use the `filter()` to select which observations I want.
+I use `filter()` to select which rows I want. I pass in the column names and column values to `filter()`.
 
-I search iNaturalist for 'great blue heron', and go to its [taxa page](https://www.inaturalist.org/taxa/4956-Ardea-herodias) since I want to use the scientific names in my `filter()` query. The kingom is 'Animalia' and the species is 'Ardea herodias'.
+I want observations for 'Great Blue Heron'. I search iNaturalist for 'great blue heron', and go to its [taxa page](https://www.inaturalist.org/taxa/4956-Ardea-herodias) since I want to use the Latin scientific names in my `filter()` query. The kingdom is 'Animalia' and the species is 'Ardea herodias'.
 
-Now that I have the scientific names, I can write my `filter()` query. I use `dim()` to display the number rows and columns.
+Now that I have the scientific names, I can write my `filter()` query. I use `taxon_kingdom_name` and `taxon_species_name` instead of `scientific_name` because `taxon_kingdom_name` and `taxon_species_name` will find subspecies, while `scientific_name` will not.
+
+I use `dim()` to display the number rows and columns.
 
 ```{r}
 heron_obs <- inat_data %>%
@@ -113,14 +117,14 @@ Since I want to look for observations in a certain area, I want to exclude obser
 table(heron_obs$coordinates_obscured)
 ```
 
-I need to update my query.
+I add `filter()` for research grade and unobscured locations.
 
 ```{r}
 heron_obs <- inat_data %>%
-  filter(taxon_kingdom_name == 'Animalia',
+  filter(taxon_kingdom_name == 'Animalia' &
          taxon_species_name == 'Ardea herodias') %>%
   filter(quality_grade == 'research') %>%
-  filter(coordinates_obscured == FALSE) 
+  filter(coordinates_obscured == FALSE)
 
 
 dim(heron_obs)
@@ -128,7 +132,8 @@ dim(heron_obs)
 
 We have 266 research observations for Great Blue Heron with unobscured locations.
 
-We can use unique to double check the `filter()` queries give us the results we expect.
+
+We can use `unique()` to double check the all the `filter()` queries give us the results we expect.
 
 ```{r}
 unique(heron_obs$taxon_kingdom_name)
@@ -137,7 +142,7 @@ unique(heron_obs$quality_grade)
 unique(heron_obs$coordinates_obscured)
 ```
 
-Save the iNaturalist observations as a csv.
+I save the iNaturalist observations as a CSV to the results folder using `write_csv()` and `here()`. By default, `NA` values will be saved as 'NA'. I don't want 'NA' in the CSV, so I set `na=''`.
 
 ```{r}
 #| eval: false
@@ -148,7 +153,7 @@ write_csv(heron_obs, here('results/heron_observations.csv'), na='')
 
 Now that I have the observations I want, I can plot them on a map.
 
-Since I want to create a map, I need to use `st_as_sf()` to convert the dataframe into a sf object with a `geometry` column.
+Since I want to create a map, I need to use `st_as_sf()` to convert the dataframe into a sf object with a `geometry` column. I pass in "longitude" and "latitude" to `coords` so that `st_as_sf()` know which columns are the longitude and latitude columns. I set the CRS as 4326.
 
 ```{r}
 heron_obs_sf <- heron_obs %>% 
@@ -183,11 +188,13 @@ mapview(heron_map)
 
 ## Add bodies of water to the map
 
-I want to study heron observations near water. First I need to load the file with the water areas.
+I want to study heron observations near water. First I need to load the file with the water areas. I use `read_sf()` to read geospatial files such as GeoJSON and Shapefiles. `read_sf()` returns a sf object with a `geometry` column.
 
 ```{r}
 water_areas <- read_sf(here('data/cleaned/la_county_waterareas.geojson'))
 ```
+
+I can double click `water_areas` in the Enviroment to look at content. Each body of water has a separate row. Some records have names in `FULLNAME`, some do not. 
 
 Then I use `st_crs()` to check the if the CRS of the heron observations is the same as the CRS of the water areas.
 
@@ -195,7 +202,9 @@ Then I use `st_crs()` to check the if the CRS of the heron observations is the s
 st_crs(water_areas) == st_crs(heron_obs_sf)
 ```
 
-Since the CRS are different, I need to change CRS for the water areas using `st_transform()`
+Since the CRS are different, I need to use `st_transform()` to change CRS for the water areas so it is the same as heron observations. I pass in the `water_areas` sf object and use `st_crs()` to get the CRS for `heron_obs_sf`. 
+
+Then I check if the CRS are equal.
 
 ```{r}
 water_areas <- st_transform(water_areas,  crs = st_crs(heron_obs_sf))
@@ -203,7 +212,7 @@ water_areas <- st_transform(water_areas,  crs = st_crs(heron_obs_sf))
 st_crs(water_areas) == st_crs(heron_obs_sf)
 ```
 
-Now I can add the water areas to the map. I set the color for the iNaturalist observations to green to make them easier to see.
+Now that the CRS are the same, I can add the water areas and heron observations to the map. I set the color for the iNaturalist observations to green to make them easier to see.
 
 ```{r}
 #| eval: false
@@ -215,17 +224,17 @@ mapview(heron_map, col.regions='green') +
 
 ## Observations near bodies of water
 
-I want to get observations within 1/2 mile of a body of water. This means I need to create a buffer 1/2 mile for all bodies of water.
+I want to get observations within 1/2 mile of a body of water. This means I need to create a buffer 1/2 mile for all bodies of water and find observations inside the buffers.
 
 ### create buffer
 
-We used CRS 4326 for the iNaturalist observations. 4326 uses angle degrees to measure distance. To create a buffer for a certain distance, I need to change the CRS to a CRS that uses meters. CRS 5070 uses meters.
+We used CRS 4326 for the iNaturalist observations. CRS 4326 uses angle degrees. To create a buffer for a certain distance, I need to change the CRS to a CRS that uses meters. CRS 5070 uses meters.
 
 ```{r}
 water_areas_5070 <- st_transform(water_areas, crs=5070)
 ```
 
-Then I use `st_buffer()` to create a buffer. 1/2 miles is about 805 meters.
+Then I use `st_buffer()` to create a buffer. 1/2 miles is about 805 meters. I pass in `water_areas_5070` and the size of the buffer.
 
 ```{r}
 buffer_water_areas_5070 <- st_buffer(water_areas_5070, 805)
@@ -251,15 +260,11 @@ Looking at the map, I notice that most ‘Great Blue Heron’ observations are n
 
 ### observations near water, version 1
 
-I can use `lengths(st_intersects()) >0` to select the observations within a geographic area.
+Now that I have the buffers, I need to get observations inside the buffer.
 
-The following code returns TRUE if an observation is within the water buffer, and returns FALSE if it outside the buffer.
+`st_intersects()` tells you if one geographic object is within or touching another geographic object. `lengths(st_intersects()) >0` returns TRUE if an object is within or touching another object, otherwise returns FALSE. Then I use the TRUE/FALSE vector to select observations in a dataframe using `dataframe[lengths(st_intersects()) >0, ]`.
 
-```{r}
-lengths(st_intersects(heron_obs_sf, buffer_water_areas)) > 0
-```
-
-Then I use the TRUE/FALSE vector to select observations in a dataframe using `dataframe[lengths(st_intersects()) >0, ]`.
+The following code returns all heron observations that that is within or touching the water area buffers.
 
 ```{r}
 heron_near_water_sf <- heron_obs_sf[lengths(st_intersects(heron_obs_sf, buffer_water_areas)) > 0, ]
@@ -269,7 +274,7 @@ dim(heron_near_water_sf)
 
 I have 240 observations near water.
 
-Then I can create a map with the buffers.
+Then I can create a map with the observations and buffers.
 
 ```{r}
 #| eval: false
@@ -280,19 +285,19 @@ mapview(heron_near_water_sf, col.regions='green') +
 
 ![](images/mapview/example-analysis/heron_near_water_buffer_map.png)
 
-I can save the map as an image. First I assign the assign code for map to an object called `heron_map`.
+I can save the map as an image. First I assign the assign code for map to an object called `heron_near_water_map`.
 
 ```{r}
 #| eval: false
-heron_map <- mapview(heron_near_water_sf, col.regions='green') +
+heron_near_water_map <- mapview(heron_near_water_sf, col.regions='green') +
   mapview(buffer_water_areas)
 ```
 
-Then I use `mapshot2()` to save `heron_map` in the results folder as .png image
+Then I use `mapshot2()` to save `heron_near_water_map` in the results folder as .png image. 
 
 ```{r}
 #| eval: false
-mapshot2(heron_map, file = here('results/heron_near_water_draft.png'))
+mapshot2(heron_near_water_map, file = here('results/heron_near_water_draft.png'))
 ```
 
 ### observations near water, version 2
@@ -321,6 +326,58 @@ Next I save the iNaturalist observations as a csv.
 write_csv(heron_near_water_sf, here('results/heron_near_water.csv'), na='')
 ```
 
+### observations near lakes in Whittier Narrows Recreation Area
+
+While looking at the interactive maps, I noticed a cluster of heron observation for the three lakes in Whittier Narrows Recreation Area. I want to examine that area. I need to create `filter()` query to select the three lakes.
+
+```{r}
+#| eval: false
+mapview(water_areas) +
+  mapview(heron_obs_sf, col.region = 'green')
+```
+
+When you click on each body of water, a popup appears that show info about each body of water. Only one of the lakes have a `FULLNAME`, so I can't use `FULLNAME` to select the lakes. `HYDROID` is a unique ID for each body of water, so I can get the `HYDROID` from the popup, and create a `filter()` query to select the three lakes. 
+
+I create a vector with the `HYDROID`, and use `filter()` and `%in%` to find records that match the ids.
+
+```{r}
+ids <- c(1101584241267, 1101584241127, 1101584238995)
+
+WNRA <- water_areas %>%
+  filter(HYDROID %in% ids)
+```
+
+When I click on `WNRA` in the Enviroment panel, I see the three records.
+
+I can create a buffer around the three lakes, and get the heron observations near the lakes.
+
+```{r}
+WNRA_5070 <- st_transform(WNRA, crs=5070)
+buffer_WNRA_5070 <- st_buffer(WNRA_5070, 805)
+buffer_WNRA <- st_transform(buffer_WNRA_5070, crs=st_crs(heron_obs_sf))
+
+```
+
+I use `dataframe[lengths(st_intersects()) >0, ]` to get the observations within the buffer.
+
+```{r}
+heron_WNRA_sf <- heron_obs_sf[lengths(st_intersects(heron_obs_sf, buffer_WNRA)) > 0, ]
+
+dim(heron_WNRA_sf)
+```
+
+There are 15 observations in that area.
+
+I then create a map for heron observations near the lakes in Whittier Narrows Recreation Area.
+
+```{r}
+#| eval: false
+mapview(heron_WNRA_sf, col.region='green') +
+  mapview(WNRA)
+  
+```
+
+
 ## Create chart
 
 I want to create a bar chart that shows the heron observations near water. I use the column `near_water` for the x axis.
@@ -330,13 +387,13 @@ ggplot()+
   geom_bar(data=heron_near_water_sf, mapping=aes(x=near_water))
 ```
 
-Next I want to update the appearance of the chart. I use `labs()` to add titles, subtitle, and axis labels. I use `theme_bw()` and `theme()` to change overall appearance of the chart.
+Next I want to update the appearance of the chart. I use `labs()` to add titles, subtitle, and axis labels. I use `fill='#77b100'` to set the fill color of the bars to iNaturlist green color. I use `theme_bw()` and `theme()` to change overall appearance of the chart.
 
 I assign the code for the chart to `heron_chart` object.
 
 ```{r}
 heron_chart <- ggplot()+
-  geom_bar(data=heron_near_water_sf, mapping=aes(x=near_water)) +
+  geom_bar(data=heron_near_water_sf, mapping=aes(x=near_water), fill='#77b100') +
   labs(title = 'CNC observations for Great Blue Herons in LA County',
        subtitle='2016-2024',
        x='Within 1/2 mile of water',
@@ -359,7 +416,7 @@ ggsave(filename = here('results/heron_observations_near_water_chart.jpg'),
 
 ## Create map
 
-I want to create a nice looking map for my presentation. I want to add LA County and titles to the map. ggplot offers more ways to customize the look of the map than mapview, so I use ggplot to create a map.
+I want to create a nice looking map for my presentation. ggplot offers more ways to customize the look of the map than mapview, so I use ggplot to create a map.
 
 One thing I want to add to the map is LA County boundary. I load the LA County file.
 
@@ -380,10 +437,10 @@ ggplot() +
 
 I use `labs()` to add titles, subtitle, legend title. I use `theme_void()` and `theme()` to change overall appearance of the map.
 
-I assign the code for the chart to `heron_map` object.
+I assign the code for the chart to `heron_final_map` object.
 
 ```{r}
-heron_map <- ggplot() +
+heron_final_map <- ggplot() +
   geom_sf(data=LA_county, fill='white') +
   geom_sf(data=heron_near_water_sf, mapping=aes(color=near_water)) +
   geom_sf(data=water_areas, fill='#007399') +
@@ -393,15 +450,15 @@ heron_map <- ggplot() +
   theme_void() +
   theme(title = element_text(size = 13))
 
-heron_map
+heron_final_map
 ```
 
-I use `ggsave()` to save maps created with ggplot.
+I use `ggsave()` to save maps created with ggplot. I pass in the file path and `heron_final_map`. I save the image in the results folder. The file path ends with .jpg because I want a jpg image. I also set the height and width for the image.
 
 ```{r}
 #| eval: false
 ggsave(filename = here('results/heron_observations_near_water_map.jpg'), 
-       plot = heron_map, height = 6, width = 8)
+       plot = heron_final_map, height = 8, width = 8)
 ```
 
 ## Download iNaturalist images
@@ -510,7 +567,7 @@ table(heron_obs$quality_grade)
 table(heron_obs$coordinates_obscured)
 
 heron_obs <- inat_data %>%
-  filter(taxon_kingdom_name == 'Animalia',
+  filter(taxon_kingdom_name == 'Animalia' &
          taxon_species_name == 'Ardea herodias') %>%
   filter(quality_grade == 'research') %>%
   filter(coordinates_obscured == FALSE)
@@ -579,10 +636,10 @@ dim(heron_near_water_sf)
 mapview(heron_near_water_sf, col.regions='green') +
   mapview(buffer_water_areas)
 
-heron_map <- mapview(heron_near_water_sf, col.regions='green') +
+heron_near_water_map <- mapview(heron_near_water_sf, col.regions='green') +
   mapview(buffer_water_areas)
 
-mapshot2(heron_map, file = here('results/heron_near_water_draft.png'))
+mapshot2(heron_near_water_map, file = here('results/heron_near_water_draft.png'))
 
 ## observations near water, version 2
 
@@ -593,6 +650,26 @@ table(heron_near_water_sf$near_water)
 
 write_csv(heron_near_water_sf, here('results/heron_near_water.csv'), na='')
 
+### observations near lakes in Whittier Narrows Recreation Area
+
+mapview(water_areas) +
+  mapview(heron_obs_sf, col.region = 'green')
+
+ids <- c(1101584241267, 1101584241127, 1101584238995)
+
+WNRA <- water_areas %>%
+  filter(HYDROID %in% ids)
+
+WNRA_5070 <- st_transform(WNRA, crs=5070)
+buffer_WNRA_5070 <- st_buffer(WNRA_5070, 805)
+buffer_WNRA <- st_transform(buffer_WNRA_5070, crs=st_crs(heron_obs_sf))
+
+heron_WNRA_sf <- heron_obs_sf[lengths(st_intersects(heron_obs_sf, buffer_WNRA)) > 0, ]
+
+dim(heron_WNRA_sf)
+
+mapview(heron_WNRA_sf, col.region='green') +
+  mapview(WNRA)
 
 ## =================
 ## Create chart
@@ -602,7 +679,7 @@ ggplot()+
   geom_bar(data=heron_near_water_sf, mapping=aes(x=near_water))
 
 heron_chart <- ggplot()+
-  geom_bar(data=heron_near_water_sf, mapping=aes(x=near_water)) +
+    geom_bar(data=heron_near_water_sf, mapping=aes(x=near_water), fill='#77b100') +
   labs(title = 'CNC observations for Great Blue Herons in LA County',
        subtitle='2016-2024',
        x='Within 1/2 mile of water',
@@ -615,7 +692,7 @@ heron_chart <- ggplot()+
 heron_chart
 
 ggsave(filename = here('results/heron_observations_near_water_chart.jpg'),
-       plot = heron_chart, height = 6, width = 8)
+       plot = heron_chart, height = 8, width = 8)
 
 ## =================
 ## Create map
@@ -628,7 +705,7 @@ ggplot() +
   geom_sf(data=heron_near_water_sf, mapping=aes(color=near_water)) +
   geom_sf(data=water_areas, fill='#007399')
 
-heron_map <- ggplot() +
+heron_final_map <- ggplot() +
   geom_sf(data=LA_county, fill='white') +
   geom_sf(data=heron_near_water_sf, mapping=aes(color=near_water)) +
   geom_sf(data=water_areas, fill='#007399') +
@@ -638,10 +715,10 @@ heron_map <- ggplot() +
   theme_void() +
   theme(title = element_text(size = 13))
 
-heron_map
+heron_final_map
 
 ggsave(filename = here('results/heron_observations_near_water_map.jpg'),
-       plot = heron_map, height = 6, width = 8)
+       plot = heron_final_map, height = 6, width = 8)
 
 ## =================
 ## Download iNaturalist images
