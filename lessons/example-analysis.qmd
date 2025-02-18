@@ -11,7 +11,7 @@ classroom_repos <- paste0('https://github.com/orgs/', classroom_organization, '/
 
 This lesson shows how to I used some of the code samples in the previous lessons to create an analysis that has maps and charts.
 
-Goal: I want all research grade observations for Great Blue Heron. I want compare observations near bodies of water and observations not near bodies of water.
+My question: I want to get all research grade observations for Great Blue Heron in LA County, and compare observations near bodies of water and observations not near bodies of water.
 
 ## Restart Codespace
 
@@ -45,9 +45,9 @@ First step is to start Codespace.
 
 ## Creating script
 
-I create a file called 'heron-analysis.R', and save it in the 'scripts' folder.
+To start the analysis, I create a file called 'heron-analysis.R', and save it in the 'scripts' folder.
 
-First step is load the R packages. These packages provide functions that we need to analyze the City Nature Challenge data.
+First step is load the R packages. These R packages provide functions that we need to analyze the City Nature Challenge data.
 
 ```{r load_packages}
 #| message: false
@@ -68,7 +68,7 @@ source(here('scripts/data_utils.R')) # custom functions for workshop
 
 There are 191K City Nature Challenge observations for LA County. I need to select the observations that I want.
 
-First I need to import the City Nature Challenge iNaturalist CSV. `read_csv()` reads the csv. `here()` helps deal with file paths. I use assignment arrow `<-` to asssign the content from `read_csv()` to an object called `inat_data`.
+First I need to import the City Nature Challenge iNaturalist CSV into R. `read_csv()` reads the csv. `here()` helps deal with file paths. I pass in the file path of the CSV to `read_csv()`. I use assignment arrow `<-` to asssign the content from `read_csv()` to an object called `inat_data`.
 
 ```{r read_inat_file}
 inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
@@ -77,15 +77,15 @@ inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 `read_csv()` returns a dataframe. dataframe is how R represents tabular data with rows and columns. Double click on `inat_data` in Environment panel to see the data.
 
-I use `names()` to see the column names in the dataframe.
+I use `names()` to see the column names in the dataframe. I will use the column names throughout the analysis.
 
 ```{r}
 names(inat_data)
 ```
 
-I use `filter()` to select which rows I want. I pass in the column names and column values to `filter()`.
+I use `filter()` to select which rows I want. `filter()` will return rows that match one or more criteria. Each criteria usually consists of column names and values we want to match.
 
-I want observations for 'Great Blue Heron'. I search iNaturalist for 'great blue heron', and go to its [taxa page](https://www.inaturalist.org/taxa/4956-Ardea-herodias) since I want to use the Latin scientific names in my `filter()` query. The kingdom is 'Animalia' and the species is 'Ardea herodias'.
+I want observations for 'Great Blue Heron'. Since I want to use the Latin scientific names in my `filter()` query, I search iNaturalist for 'great blue heron', and go to its [taxa page](https://www.inaturalist.org/taxa/4956-Ardea-herodias) to get the scientific names. The kingdom is 'Animalia' and the species is 'Ardea herodias'.
 
 Now that I have the scientific names, I can write my `filter()` query. I use `taxon_kingdom_name` and `taxon_species_name` instead of `scientific_name` because `taxon_kingdom_name` and `taxon_species_name` will find subspecies, while `scientific_name` will not.
 
@@ -109,6 +109,8 @@ I use `table()` to get the number of observations for each `quality_grade` value
 table(heron_obs$quality_grade)
 ```
 
+266 research, 7 casual, and 1 needs id.
+
 Since there are a lot of 'research' grade observations, I'm fine with limiting the observations to 'research' grade.
 
 Since I want to look for observations in a certain area, I want to exclude observations that have obscured location. I use `table()` to get number of observations that have obscured locations.
@@ -117,7 +119,9 @@ Since I want to look for observations in a certain area, I want to exclude obser
 table(heron_obs$coordinates_obscured)
 ```
 
-I add `filter()` for research grade and unobscured locations.
+273 false and 1 true.
+
+I add additional `filter()` commands for research grade and unobscured coordinates.
 
 ```{r}
 heron_obs <- inat_data %>%
@@ -141,7 +145,7 @@ unique(heron_obs$quality_grade)
 unique(heron_obs$coordinates_obscured)
 ```
 
-I save the iNaturalist observations as a CSV to the results folder using `write_csv()` and `here()`. By default, `NA` values will be saved as 'NA'. I don't want 'NA' in the CSV, so I set `na=''`.
+I save the heron observations as a CSV to the results folder using `write_csv()` and `here()`. I pass in the heron dataframe and the path to `write_csv()`. By default, `NA` values will be saved as 'NA'. I don't want 'NA' in the CSV, so I set `na=''`.
 
 ```{r}
 #| eval: false
@@ -159,7 +163,7 @@ heron_obs_sf <- heron_obs %>%
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)
 ```
 
-Now I can use `mapview()` to create an interactive map. Being able to zoom in and out makes it easier to explore the data.
+Now I can use `mapview()` to create an interactive map using the sf object `heron_obs_sf`. I use `mapview()` during the analysis because being able to zoom in and out makes it easier to explore the data.
 
 ```{r}
 #| eval: false
@@ -168,15 +172,18 @@ mapview(heron_obs_sf)
 
 ![](images/mapview/example-analysis/heron_obs_map.png)
 
-When I click on a blue circle on the map, the pop table shows all 37 columns, which is too much information. I can use `select()` to limit the number of columns.
+When I click on a blue circle on the map, a popup shows all 37 columns, which is too much information. I can use `select()` to limit the number of columns shown.
 
 ```{r}
 heron_map <- heron_obs_sf %>%
   select(user_login, observed_on, common_name, taxon_species_name, image_url)
 
+dim(heron_map)
 ```
 
-Now when I click on each blue circle, the popup shows 6 fields.
+Then I create another map.
+
+Now when I click on each blue circle, the popup shows 6 fields. The geometry column is shown in the popup even though I didn't put in `select()` because it is always included with sf objects.
 
 ```{r}
 #| eval: false
@@ -193,15 +200,15 @@ I want to study heron observations near water. First I need to load the file wit
 water_areas <- read_sf(here('data/cleaned/la_county_waterareas.geojson'))
 ```
 
-I can double click `water_areas` in the Enviroment to look at content. Each body of water has a separate row. Some records have names in `FULLNAME`, some do not.
+I can double click `water_areas` in the Enviroment panel to look at content. Each row in the table represents a body of water. Some records have names in `FULLNAME`, some do not.
 
-Then I use `st_crs()` to check the if the CRS of the heron observations is the same as the CRS of the water areas.
+When working with different geospatial datasets, we need the CRS to be the same so that everything lines up correctly. I use `st_crs()` to check the if the CRS of the heron observations is the same as the CRS of the water areas.
 
 ```{r}
 st_crs(water_areas) == st_crs(heron_obs_sf)
 ```
 
-Since the CRS are different, I need to use `st_transform()` to change CRS for the water areas so it is the same as heron observations. I pass in the `water_areas` sf object and use `st_crs()` to get the CRS for `heron_obs_sf`.
+Since the CRS are different, I need to use `st_transform()` to change CRS for the water areas so it is the same as heron observations. I pass in the `water_areas` sf object, and set the new CRS by passing the CRS of the heron observations to the `crs` argument.
 
 Then I check if the CRS are equal.
 
@@ -211,7 +218,7 @@ water_areas <- st_transform(water_areas,  crs = st_crs(heron_obs_sf))
 st_crs(water_areas) == st_crs(heron_obs_sf)
 ```
 
-Now that the CRS are the same, I can add the water areas and heron observations to the map. I set the color for the iNaturalist observations to green to make them easier to see.
+Now that the CRS are the same, I can add the water areas and heron observations to the map. I set the color for the iNaturalist observations to green with `col.regions` to make them easier to see.
 
 ```{r}
 #| eval: false
@@ -289,7 +296,7 @@ mapview(heron_near_water_sf, col.regions='green') +
 
 ### observations near water, version 2
 
-While the previous code let me get the observations that were near water, I wasn't able to capture the observations not near water. I can adjust the code to add a column with TRUE/FALSE values to `heron_obs_sf` so I can keep track of which observations are near a body of water.
+While the previous code let me get the observations that were near water, I wasn't able to capture the observations not near water. I can adjust the code to add a column with TRUE/FALSE values to `heron_obs_sf` so I can keep track of which observations are near and not near a body of water.
 
 `lengths(st_intersects()) >0` produce a vector with TRUE/FALSE values. I can use `mutate()` to add a `near_water` column that stores the TRUE/FALSE values.
 
@@ -360,6 +367,10 @@ mapview(heron_WNRA_sf, col.region='green') +
 
 ![](images/mapview/example-analysis/heron_whittier.png)
 
+::: callout-note
+Anytime you have a file with lots of boundaries but you only want a few of the boundaries, use the `filter(column == value)` or \`filter(column %in% c(values)) to get the boundaries for the regions you want. You can get the column names and values by looking at the spreadsheet-like viewer from RStudio or by looking at the popup table from mapview maps.
+:::
+
 ## Create chart
 
 I want to create a bar chart that shows the heron observations near water. I use `ggplot() + geom_bar()` to create a bar chart. I use the column `near_water` for the x axis, and `geom_bar()` will count the number of records and use the count for the y axis.
@@ -369,7 +380,11 @@ ggplot()+
   geom_bar(data=heron_near_water_sf, mapping=aes(x=near_water))
 ```
 
-Next I want to update the appearance of the chart. I use `labs()` to add titles, subtitle, and axis labels. I use `fill='#77b100'` to set the fill color of the bars to iNaturlist green color. I use `theme_bw()` and `theme()` to change overall appearance of the chart.
+::: callout-note
+To create line charts, I would use `geom_line().` You need to pass in a column for x axis and column for y axis when using `geom_line()` .
+:::
+
+Next I want to update the appearance of the chart. I use label function `labs()` to add titles, subtitle, and axis labels. I use `fill='#77b100'` to set the fill color of the bars to iNaturalist green color. I use `theme_bw()` and `theme()` to change overall appearance of the chart.
 
 I assign the code for the chart to `heron_chart` object.
 
@@ -388,7 +403,11 @@ heron_chart <- ggplot()+
 heron_chart
 ```
 
-I use `ggsave()` to save charts created with ggplot. I pass in the file path and `heron_chart`. I save the image in the results folder. The file path ends with .jpg because I want a jpg image. I also set the height and width for the image.
+::: callout-note
+If you find that large chunk of code is too confusing, that's ok. You can just do a black and white chart.
+:::
+
+I use `ggsave()` to save charts created with ggplot. I pass in the file path and `heron_chart`. I save the image in the results folder. The file path ends with .jpg because I want a jpeg image. I also set the height and width for the image.
 
 ```{r}
 #| eval: false
@@ -396,18 +415,22 @@ ggsave(filename = here('results/heron_observations_near_water_chart.jpg'),
        plot = heron_chart, height = 6, width = 8)
 ```
 
+::: callout-note
+You can also save the charts as PDF (.pdf), TIFF (.tiff), and PNG (.png)
+:::
+
 ## Create map
 
-I want to create a nice looking map for my presentation. ggplot offers more ways to customize the look of the map than mapview, so I use ggplot to create a map.
+I want to create a nice looking map for my presentation. ggplot offers more ways to customize the look of the map than mapview, so I use ggplot to create my final map.
 
-One thing I want to add to the map is LA County boundary. I load the LA County file.
+One thing I want to add to the map is LA County boundary. I load the LA County file using `read_sf()`
 
 ```{r}
 LA_county <- read_sf(here('data/cleaned/los_angeles_county/los_angeles_county.shp'))
 
 ```
 
-I create a map with LA County boundaries, water areas, and heron observations. I color code the observations based on if they are near water using `mapping=aes(color=near_water)`.
+I create a map with LA County boundaries, water areas, and heron observations using `ggplot() + geom_sf()`. I add a separate `geom_sf()` for each sf object. I color code the observations based on if they are near water using `mapping=aes(color=near_water)`.
 
 ```{r}
 ggplot() +
@@ -435,7 +458,11 @@ heron_final_map <- ggplot() +
 heron_final_map
 ```
 
-I use `ggsave()` to save maps created with ggplot.
+::: callout-note
+If you find that large chunk of code, too confusing, that's ok. You can do a more simple map like the first example.
+:::
+
+I use `ggsave()` to save maps created with ggplot. The file path ends with .jpg because I want a jpeg image.
 
 ```{r}
 #| eval: false
@@ -443,11 +470,19 @@ ggsave(filename = here('results/heron_observations_near_water_map.jpg'),
        plot = heron_final_map, height = 8, width = 8)
 ```
 
+::: callout-note
+You can also save the maps as PDF (.pdf), TIFF (.tiff), and PNG (.png)
+:::
+
 ## Download iNaturalist images
 
-I want include some images of heron in my presentation. I want to download three images for the selected observations.
+I also want include some images of heron in my presentation.
 
 I wrote some custom functions to download images from iNaturalist.
+
+::: callout-note
+I don't expect anyone in the workshop to understand this code. I just put the code here because I didn't have time update the code in everyone's repo.
+:::
 
 ```{r}
 #| eval: false
@@ -551,7 +586,7 @@ download_inaturalist_images <- function(inat_df) {
 
 ```
 
-I use `filter()` to select observations that have 'CC0', 'CC-BY', or 'CC-BY-NC' license. I use `!is.na(image_url)` to only get records where `image_url` is not NA, meaning the observation has an image. I use `slice_sample()` to get 3 random observations. Then I use `download_inaturalist_images()` to download images. The images are saved in 'results/images'.
+I use `filter()` to select observations that have 'CC0', 'CC-BY', or 'CC-BY-NC' license. Some iNaturalist observations do not have images. In order to select observations that have images, I use `!is.na(image_url)` . `!` means not; `is.na` checks if the value equals `NA`; `!is.na(image_url)` will select records where `image_url` is not NA. I use `slice_sample(n=3)` to get 3 random observations. Then I use `download_inaturalist_images()` to download images. The images are saved in 'results/images' folder.
 
 ```{r download_images}
 #| eval: false
