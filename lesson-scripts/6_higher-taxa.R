@@ -85,3 +85,39 @@ laco_genera_obs <- inat_data %>%
            taxon_kingdom_name == 'Plantae') %>%
   select(user_login, common_name, scientific_name, taxon_genus_name)
 
+
+## -----------------------------------------------------------------------------
+inat_data %>%
+  filter(scientific_name == 'Arbutus unedo') %>%
+  select(scientific_name, common_name)
+
+
+## -----------------------------------------------------------------------------
+inat_data %>%
+  filter(common_name == 'strawberry tree') %>%
+  select(scientific_name, common_name)
+
+
+## -----------------------------------------------------------------------------
+inat_data %>%
+  filter(common_name == 'strawberry madrone') %>%
+  select(scientific_name, common_name)
+
+
+## -----------------------------------------------------------------------------
+lizard1 <- inat_data %>%
+  filter(scientific_name == 'Sceloporus occidentalis')
+
+dim(lizard1)
+
+
+## -----------------------------------------------------------------------------
+lizard2 <- inat_data %>%
+  filter(taxon_species_name == 'Sceloporus occidentalis')
+
+dim(lizard2)
+
+
+## -----------------------------------------------------------------------------
+table(lizard2$scientific_name)
+
