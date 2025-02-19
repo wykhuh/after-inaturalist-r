@@ -336,11 +336,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#observations-near-a-specific-region" id="toc-observations-near-a-specific-region" class="nav-link" data-scroll-target="#observations-near-a-specific-region">Observations near a specific region</a></li>
   <li><a href="#faceting" id="toc-faceting" class="nav-link" data-scroll-target="#faceting">Faceting</a></li>
   <li><a href="#compare-observations-by-regions" id="toc-compare-observations-by-regions" class="nav-link" data-scroll-target="#compare-observations-by-regions">Compare observations by regions</a></li>
-  <li><a href="#exporting-maps" id="toc-exporting-maps" class="nav-link" data-scroll-target="#exporting-maps">Exporting maps</a>
-  <ul class="collapse">
-  <li><a href="#static-maps-1" id="toc-static-maps-1" class="nav-link" data-scroll-target="#static-maps-1">static maps</a></li>
-  <li><a href="#interactive-map-1" id="toc-interactive-map-1" class="nav-link" data-scroll-target="#interactive-map-1">interactive map</a></li>
-  </ul></li>
+  <li><a href="#exporting-maps" id="toc-exporting-maps" class="nav-link" data-scroll-target="#exporting-maps">Exporting maps</a></li>
   </ul>
 </nav>
     </div>
@@ -1290,10 +1286,8 @@ Geodetic CRS:  WGS 84
 </section>
 <section id="exporting-maps" class="level2">
 <h2 class="anchored" data-anchor-id="exporting-maps">Exporting maps</h2>
-<p>We can export the maps created with <strong>ggplot</strong> and <strong>mapview</strong> as image files.</p>
-<section id="static-maps-1" class="level3">
-<h3 class="anchored" data-anchor-id="static-maps-1">static maps</h3>
-<p>Assign the map created by ggplot to an object. Then run `ggsave() to save our map. The first argument is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.</p>
+<p>We can export the maps created with <strong>ggplot</strong> as image files.</p>
+<p>Assign the map created by ggplot to an object. Then run <code>ggsave()</code> to save our map. The first argument is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create map</span></span>
 <span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>my_map <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -1303,26 +1297,8 @@ Geodetic CRS:  WGS 84
 <span id="cb108-6"><a href="#cb108-6" aria-hidden="true" tabindex="-1"></a><span class="co"># save map</span></span>
 <span id="cb108-7"><a href="#cb108-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">here</span>(<span class="st">'results/expo_park_observations.jpg'</span>), <span class="at">plot =</span> my_map,  <span class="at">height =</span> <span class="dv">6</span>, <span class="at">width =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="interactive-map-1" class="level3">
-<h3 class="anchored" data-anchor-id="interactive-map-1">interactive map</h3>
-<p>Assign the map created by mapview to an object. Then run <code>mapshot2()</code> to save our map. The first argument is map you want to to save. The second argument <code>file</code> is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, or png.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create map</span></span>
-<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>my_map_2 <span class="ot">&lt;-</span> <span class="fu">mapview</span>(expo_park_boundary) <span class="sc">+</span> </span>
-<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(inat_expo)</span>
-<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a><span class="co"># save map</span></span>
-<span id="cb109-6"><a href="#cb109-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mapshot2</span>(my_map_2, <span class="at">file =</span> <span class="fu">here</span>(<span class="st">'results/expo_park_observations_2.jpg'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>You can also save the map as an interactive HTML &amp; JS webpage. The second argument <code>url</code> is the path to the file we want to save. Save the file as html.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># save map</span></span>
-<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mapshot2</span>(my_map_2, <span class="at">url =</span> <span class="fu">here</span>(<span class="st">'results/expo_park_observations_2.html'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

@@ -533,12 +533,25 @@ FALSE  TRUE
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
-<p>Now that the CRS are the same, I can add the water areas and heron observations to the map. I set the color for the iNaturalist observations to green with <code>col.regions</code> to make them easier to see.</p>
+<p>Now that the CRS are the same, I can add the water areas and heron observations to the map. I have two sets of data: iNaturalist heron observations and water areas boundaries. I use a separate <code>mapview()</code> function for each data set. I set the color for the iNaturalist observations to green with <code>col.regions</code> to make them easier to see.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(heron_map, <span class="at">col.regions=</span><span class="st">'green'</span>) <span class="sc">+</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapview</span>(water_areas)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/mapview/example-analysis/heron_water_map.png" class="img-fluid"></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can use <code>color()</code> to see a all the colors that R has available. You can use online tools to get&nbsp;<a href="https://www.w3schools.com/colors/colors_picker.asp">hex colors</a>.</p>
+</div>
+</div>
 </section>
 <section id="observations-near-bodies-of-water" class="level2">
 <h2 class="anchored" data-anchor-id="observations-near-bodies-of-water">Observations near bodies of water</h2>
@@ -656,7 +669,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Anytime you have a file with lots of boundaries but you only want a few of the boundaries, use the <code>filter(column == value)</code> or `filter(column %in% c(values)) to get the boundaries for the regions you want. You can get the column names and values by looking at the spreadsheet-like viewer from RStudio or by looking at the popup table from mapview maps.</p>
+<p>Anytime you have a file with lots of boundaries but you only want a few of the boundaries, use the <code>filter(column == value)</code> or <code>filter(column %in% c(values))</code> to get the boundaries for the regions you want. You can get the column names and values by looking at the spreadsheet-like viewer from RStudio or by looking at the popup table from mapview maps.</p>
 </div>
 </div>
 </section>
@@ -685,10 +698,10 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>To create line charts, I would use <code>geom_line().</code> You need to pass in a column for x axis and column for y axis when using <code>geom_line()</code> .</p>
+<p>To create line charts, you would use <code>geom_line().</code> You need to pass in a column for x axis and column for y axis when using <code>geom_line()</code> .</p>
 </div>
 </div>
-<p>Next I want to update the appearance of the chart. I use label function <code>labs()</code> to add titles, subtitle, and axis labels. I use <code>fill='#77b100'</code> to set the fill color of the bars to iNaturalist green color. I use <code>theme_bw()</code> and <code>theme()</code> to change overall appearance of the chart.</p>
+<p>Next I want to update the appearance of the chart. I use label function <code>labs()</code> to add titles, subtitle, and axis labels. I use <code>fill='#77b100'</code> to set the fill color to iNaturalist’s green color. I use <code>theme_bw()</code> and <code>theme()</code> to change overall appearance of the chart.</p>
 <p>I assign the code for the chart to <code>heron_chart</code> object.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>heron_chart <span class="ot">&lt;-</span> <span class="fu">ggplot</span>()<span class="sc">+</span></span>
@@ -750,7 +763,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>LA_county <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/los_angeles_county/los_angeles_county.shp'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>I create a map with LA County boundaries, water areas, and heron observations using <code>ggplot() + geom_sf()</code>. I add a separate <code>geom_sf()</code> for each sf object. I color code the observations based on if they are near water using <code>mapping=aes(color=near_water)</code>.</p>
+<p>I create a map with LA County boundaries, water areas, and heron observations using <code>ggplot() + geom_sf()</code>. Since there are three different sets of data, I add a separate <code>geom_sf()</code> for each sf object. I use <code>fill=</code> to color the LA County and water areas one color. I use <code>mapping=aes(color=near_water)</code> to color code the observations based on if they are near water.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>LA_county, <span class="at">fill=</span><span class="st">'white'</span>) <span class="sc">+</span></span>
