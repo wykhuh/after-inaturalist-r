@@ -382,19 +382,3 @@ my_map <- ggplot() +
 # save map
 ggsave(filename = here('results/expo_park_observations.jpg'), plot = my_map,  height = 6, width = 8)
 
-
-## ----save_interactive_map-----------------------------------------------------
-
-# create map
-my_map_2 <- mapview(expo_park_boundary) +
-  mapview(inat_expo)
-
-# save map
-mapshot2(my_map_2, file = here('results/expo_park_observations_2.jpg'))
-
-
-## ----save_interactive_map_html------------------------------------------------
-
-# save map
-mapshot2(my_map_2, url = here('results/expo_park_observations_2.html'))
-

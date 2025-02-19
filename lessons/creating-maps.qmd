@@ -754,11 +754,9 @@ mapview(count_sf,
 
 ## Exporting maps
 
-We can export the maps created with **ggplot** and **mapview** as image files.
+We can export the maps created with **ggplot** as image files.
 
-### static maps
-
-Assign the map created by ggplot to an object. Then run \`ggsave() to save our map. The first argument is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.
+Assign the map created by ggplot to an object. Then run `ggsave()` to save our map. The first argument is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, tiff, png. Next, we tell it the name of the plot object we want to save. We can also specify things like the width and height of the plot in inches.
 
 ```{r, save_static_map}
 #| eval: false
@@ -770,28 +768,4 @@ my_map <- ggplot() +
 
 # save map
 ggsave(filename = here('results/expo_park_observations.jpg'), plot = my_map,  height = 6, width = 8)
-```
-
-### interactive map
-
-Assign the map created by mapview to an object. Then run `mapshot2()` to save our map. The first argument is map you want to to save. The second argument `file` is the path to the file we want to save, including the correct file extension. You can save as jpg, pdf, or png.
-
-```{r, save_interactive_map}
-#| eval: false
-
-# create map
-my_map_2 <- mapview(expo_park_boundary) + 
-  mapview(inat_expo)
-
-# save map
-mapshot2(my_map_2, file = here('results/expo_park_observations_2.jpg'))
-```
-
-You can also save the map as an interactive HTML & JS webpage. The second argument `url` is the path to the file we want to save. Save the file as html.
-
-```{r, save_interactive_map_html}
-#| eval: false
-
-# save map
-mapshot2(my_map_2, url = here('results/expo_park_observations_2.html'))
 ```
