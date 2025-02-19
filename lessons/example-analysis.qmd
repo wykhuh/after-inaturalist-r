@@ -218,7 +218,7 @@ water_areas <- st_transform(water_areas,  crs = st_crs(heron_obs_sf))
 st_crs(water_areas) == st_crs(heron_obs_sf)
 ```
 
-Now that the CRS are the same, I can add the water areas and heron observations to the map. I set the color for the iNaturalist observations to green with `col.regions` to make them easier to see.
+Now that the CRS are the same, I can add the water areas and heron observations to the map. I have two sets of data: iNaturalist heron observations and water areas boundaries. I use a separate `mapview()` function for each data set. I set the color for the iNaturalist observations to green with `col.regions` to make them easier to see.
 
 ```{r}
 #| eval: false
@@ -227,6 +227,10 @@ mapview(heron_map, col.regions='green') +
 ```
 
 ![](images/mapview/example-analysis/heron_water_map.png)
+
+::: callout-note
+You can use `color()` to see a all the colors that R has available. You can use online tools to get [hex colors](https://www.w3schools.com/colors/colors_picker.asp).
+:::
 
 ## Observations near bodies of water
 
@@ -368,7 +372,7 @@ mapview(heron_WNRA_sf, col.region='green') +
 ![](images/mapview/example-analysis/heron_whittier.png)
 
 ::: callout-note
-Anytime you have a file with lots of boundaries but you only want a few of the boundaries, use the `filter(column == value)` or \`filter(column %in% c(values)) to get the boundaries for the regions you want. You can get the column names and values by looking at the spreadsheet-like viewer from RStudio or by looking at the popup table from mapview maps.
+Anytime you have a file with lots of boundaries but you only want a few of the boundaries, use the `filter(column == value)` or `filter(column %in% c(values))` to get the boundaries for the regions you want. You can get the column names and values by looking at the spreadsheet-like viewer from RStudio or by looking at the popup table from mapview maps.
 :::
 
 ## Create chart
@@ -381,10 +385,10 @@ ggplot()+
 ```
 
 ::: callout-note
-To create line charts, I would use `geom_line().` You need to pass in a column for x axis and column for y axis when using `geom_line()` .
+To create line charts, you would use `geom_line().` You need to pass in a column for x axis and column for y axis when using `geom_line()` .
 :::
 
-Next I want to update the appearance of the chart. I use label function `labs()` to add titles, subtitle, and axis labels. I use `fill='#77b100'` to set the fill color of the bars to iNaturalist green color. I use `theme_bw()` and `theme()` to change overall appearance of the chart.
+Next I want to update the appearance of the chart. I use label function `labs()` to add titles, subtitle, and axis labels. I use `fill='#77b100'` to set the fill color to iNaturalist's green color. I use `theme_bw()` and `theme()` to change overall appearance of the chart.
 
 I assign the code for the chart to `heron_chart` object.
 
@@ -430,7 +434,7 @@ LA_county <- read_sf(here('data/cleaned/los_angeles_county/los_angeles_county.sh
 
 ```
 
-I create a map with LA County boundaries, water areas, and heron observations using `ggplot() + geom_sf()`. I add a separate `geom_sf()` for each sf object. I color code the observations based on if they are near water using `mapping=aes(color=near_water)`.
+I create a map with LA County boundaries, water areas, and heron observations using `ggplot() + geom_sf()`. Since there are three different sets of data, I add a separate `geom_sf()` for each sf object. I use `fill=` to color the LA County and water areas one color. I use `mapping=aes(color=near_water)` to color code the observations based on if they are near water.
 
 ```{r}
 ggplot() +
