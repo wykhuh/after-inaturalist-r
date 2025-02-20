@@ -109,8 +109,6 @@ I use `table()` to get the number of observations for each `quality_grade` value
 table(heron_obs$quality_grade)
 ```
 
-266 research, 7 casual, and 1 needs id.
-
 Since there are a lot of 'research' grade observations, I'm fine with limiting the observations to 'research' grade.
 
 Since I want to look for observations in a certain area, I want to exclude observations that have obscured location. I use `table()` to get number of observations that have obscured locations.
@@ -118,8 +116,6 @@ Since I want to look for observations in a certain area, I want to exclude obser
 ```{r}
 table(heron_obs$coordinates_obscured)
 ```
-
-273 false and 1 true.
 
 I add additional `filter()` commands for research grade and unobscured coordinates.
 
@@ -134,7 +130,11 @@ heron_obs <- inat_data %>%
 dim(heron_obs)
 ```
 
-We have 266 research observations for Great Blue Heron with unobscured locations.
+I have 266 research observations for Great Blue Heron with unobscured locations.
+
+::: callout-note
+There are lots of different ways that to filter the iNaturalist data. You need to decide what criteria you want to use to filter the iNaturalist data.
+:::
 
 We can use `unique()` to double check the all the `filter()` queries give us the results we expect.
 
@@ -156,7 +156,7 @@ write_csv(heron_obs, here('results/heron_observations.csv'), na='')
 
 Now that I have the observations I want, I can plot them on a map.
 
-Since I want to create a map, I need to use `st_as_sf()` to convert the dataframe into a sf object with a `geometry` column. I pass in "longitude" and "latitude" to `coords` so that `st_as_sf()` know which columns are the longitude and latitude columns. I set the CRS as 4326.
+Since I want to create a map, I need to use `st_as_sf()` to convert the dataframe into a sf object. sf objects have a `geometry` column and other features that let us process geospatial data. I pass in "longitude" and "latitude" to `coords` so that `st_as_sf()` know which columns are the longitude and latitude columns. I set the CRS as 4326.
 
 ```{r}
 heron_obs_sf <- heron_obs %>% 
@@ -200,9 +200,9 @@ I want to study heron observations near water. First I need to load the file wit
 water_areas <- read_sf(here('data/cleaned/la_county_waterareas.geojson'))
 ```
 
-I can double click `water_areas` in the Enviroment panel to look at content. Each row in the table represents a body of water. Some records have names in `FULLNAME`, some do not.
+I can double click `water_areas` in the Environment panel to look at content. Each row in the table represents a body of water. Some records have names in `FULLNAME`, some do not.
 
-When working with different geospatial datasets, we need the CRS to be the same so that everything lines up correctly. I use `st_crs()` to check the if the CRS of the heron observations is the same as the CRS of the water areas.
+When working with different geospatial data sets, we need the CRS to be the same so that everything lines up correctly. I use `st_crs()` to check the if the CRS of the heron observations is the same as the CRS of the water areas.
 
 ```{r}
 st_crs(water_areas) == st_crs(heron_obs_sf)
@@ -234,7 +234,11 @@ You can use `color()` to see a all the colors that R has available. You can use 
 
 ## Observations near bodies of water
 
-I want to get observations within 1/2 mile of a body of water. This means I need to create a buffer 1/2 mile for all bodies of water and find observations inside the buffers.
+Bodies of water like rivers are kinda narrow and birds hangout in areas around water, so selecting observations that are inside river boundaries doesn't make sense. Instead, I want to get observations within 1/2 mile of a body of water. This means I need to create a buffer 1/2 mile for all bodies of water and find observations inside the buffers.
+
+::: callout-note
+Creating buffers is an optional step. If your analysis involves looking at the observations inside a region such as a park, neighborhood, county, etc, then you can skip the creating buffer.
+:::
 
 ### create buffer
 
@@ -485,7 +489,7 @@ I also want include some images of heron in my presentation.
 I wrote some custom functions to download images from iNaturalist.
 
 ::: callout-note
-I don't expect anyone in the workshop to understand this code. I just put the code here because I didn't have time update the code in everyone's repo.
+I don't expect anyone in the workshop to understand this code. I just put the code here because I didn't have time update the code in everyone's repo. All you need to do is copy all this code into your script, and run the `download_inaturalist_images()` function.
 :::
 
 ```{r}
