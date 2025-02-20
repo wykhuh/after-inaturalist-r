@@ -428,7 +428,6 @@ date  (1): observed_on
        7        1      266 </code></pre>
 </div>
 </div>
-<p>266 research, 7 casual, and 1 needs id.</p>
 <p>Since there are a lot of ‘research’ grade observations, I’m fine with limiting the observations to ‘research’ grade.</p>
 <p>Since I want to look for observations in a certain area, I want to exclude observations that have obscured location. I use <code>table()</code> to get number of observations that have obscured locations.</p>
 <div class="cell">
@@ -439,7 +438,6 @@ FALSE  TRUE
   273     1 </code></pre>
 </div>
 </div>
-<p>273 false and 1 true.</p>
 <p>I add additional <code>filter()</code> commands for research grade and unobscured coordinates.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>heron_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
@@ -454,7 +452,20 @@ FALSE  TRUE
 <pre><code>[1] 266  37</code></pre>
 </div>
 </div>
-<p>We have 266 research observations for Great Blue Heron with unobscured locations.</p>
+<p>I have 266 research observations for Great Blue Heron with unobscured locations.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There are lots of different ways that to filter the iNaturalist data. You need to decide what criteria you want to use to filter the iNaturalist data.</p>
+</div>
+</div>
 <p>We can use <code>unique()</code> to double check the all the <code>filter()</code> queries give us the results we expect.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(heron_obs<span class="sc">$</span>taxon_kingdom_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -482,7 +493,7 @@ FALSE  TRUE
 <section id="create-a-map-with-cnc-observations" class="level2">
 <h2 class="anchored" data-anchor-id="create-a-map-with-cnc-observations">Create a map with CNC observations</h2>
 <p>Now that I have the observations I want, I can plot them on a map.</p>
-<p>Since I want to create a map, I need to use <code>st_as_sf()</code> to convert the dataframe into a sf object with a <code>geometry</code> column. I pass in “longitude” and “latitude” to <code>coords</code> so that <code>st_as_sf()</code> know which columns are the longitude and latitude columns. I set the CRS as 4326.</p>
+<p>Since I want to create a map, I need to use <code>st_as_sf()</code> to convert the dataframe into a sf object. sf objects have a <code>geometry</code> column and other features that let us process geospatial data. I pass in “longitude” and “latitude” to <code>coords</code> so that <code>st_as_sf()</code> know which columns are the longitude and latitude columns. I set the CRS as 4326.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>heron_obs_sf <span class="ot">&lt;-</span> heron_obs <span class="sc">%&gt;%</span> </span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>),   <span class="at">crs =</span> <span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -515,8 +526,8 @@ FALSE  TRUE
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>water_areas <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/la_county_waterareas.geojson'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>I can double click <code>water_areas</code> in the Enviroment panel to look at content. Each row in the table represents a body of water. Some records have names in <code>FULLNAME</code>, some do not.</p>
-<p>When working with different geospatial datasets, we need the CRS to be the same so that everything lines up correctly. I use <code>st_crs()</code> to check the if the CRS of the heron observations is the same as the CRS of the water areas.</p>
+<p>I can double click <code>water_areas</code> in the Environment panel to look at content. Each row in the table represents a body of water. Some records have names in <code>FULLNAME</code>, some do not.</p>
+<p>When working with different geospatial data sets, we need the CRS to be the same so that everything lines up correctly. I use <code>st_crs()</code> to check the if the CRS of the heron observations is the same as the CRS of the water areas.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(water_areas) <span class="sc">==</span> <span class="fu">st_crs</span>(heron_obs_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -555,7 +566,20 @@ Note
 </section>
 <section id="observations-near-bodies-of-water" class="level2">
 <h2 class="anchored" data-anchor-id="observations-near-bodies-of-water">Observations near bodies of water</h2>
-<p>I want to get observations within 1/2 mile of a body of water. This means I need to create a buffer 1/2 mile for all bodies of water and find observations inside the buffers.</p>
+<p>Bodies of water like rivers are kinda narrow and birds hangout in areas around water, so selecting observations that are inside river boundaries doesn’t make sense. Instead, I want to get observations within 1/2 mile of a body of water. This means I need to create a buffer 1/2 mile for all bodies of water and find observations inside the buffers.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Creating buffers is an optional step. If your analysis involves looking at the observations inside a region such as a park, neighborhood, county, etc, then you can skip the creating buffer.</p>
+</div>
+</div>
 <section id="create-buffer" class="level3">
 <h3 class="anchored" data-anchor-id="create-buffer">create buffer</h3>
 <p>We used CRS 4326 for the iNaturalist observations. CRS 4326 uses angle degrees. To create a buffer for a certain distance, I need to change the CRS to a CRS that uses meters. CRS 5070 uses meters.</p>
@@ -845,7 +869,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>I don’t expect anyone in the workshop to understand this code. I just put the code here because I didn’t have time update the code in everyone’s repo.</p>
+<p>I don’t expect anyone in the workshop to understand this code. I just put the code here because I didn’t have time update the code in everyone’s repo. All you need to do is copy all this code into your script, and run the <code>download_inaturalist_images()</code> function.</p>
 </div>
 </div>
 <div class="cell">
