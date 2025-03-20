@@ -114,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/normalizing-inat.html">Normalizing iNaturalist data</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/normalizing-inat.html">Extra</a></li><li class="breadcrumb-item"><a href="../lessons/normalizing-inat.html">Normalizing iNaturalist data</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -195,26 +195,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/other-datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Using to other datasets</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../lessons/higher-taxa.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Higher taxa</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lessons/normalizing-inat.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Normalizing iNaturalist data</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lessons/additional-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Additional Analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -225,8 +207,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../lessons/other-datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using to other datasets</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../lessons/next-steps.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Next steps</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/coding-after-workshop.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Coding after the workshop</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -238,6 +232,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/normalizing-inat.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Normalizing iNaturalist data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/additional-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Additional Analysis</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lessons/editing-geo-files.html" class="sidebar-item-text sidebar-link">
@@ -254,12 +260,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../lessons/setup-local.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setup - local computer</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lessons/coding-after-workshop.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Coding after the workshop</span></a>
   </div>
 </li>
       </ul>
@@ -284,7 +284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/normalizing-inat.html">Extra</a></li><li class="breadcrumb-item"><a href="../lessons/normalizing-inat.html">Normalizing iNaturalist data</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Normalizing iNaturalist data</h1>
 </div>
@@ -431,14 +431,14 @@ are planar</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
 # Groups:   year [1]
-   year scientific_name         
-  &lt;dbl&gt; &lt;chr&gt;                   
-1  2016 Encelia californica     
-2  2016 Zenaida macroura        
-3  2016 Melanerpes formicivorus 
-4  2016 Libellula croceipennis  
-5  2016 Otospermophilus beecheyi
-6  2016 Malacothrix saxatilis   </code></pre>
+   year scientific_name          
+  &lt;dbl&gt; &lt;chr&gt;                    
+1  2016 Selasphorus sasin        
+2  2016 Hirschfeldia incana      
+3  2016 Encelia californica      
+4  2016 Coccinella septempunctata
+5  2016 Crassula ovata           
+6  2016 Washingtonia robusta     </code></pre>
 </div>
 </div>
 <p>We can use table to confirm we get <code>lowest_year</code> number of observations per year.</p>
@@ -465,15 +465,15 @@ are planar</code></pre>
 # Groups:   year [9]
    year richness
   &lt;dbl&gt;    &lt;int&gt;
-1  2016      136
+1  2016      138
 2  2017      127
-3  2018      118
+3  2018      119
 4  2019      120
-5  2020      129
-6  2021      116
-7  2022      141
-8  2023      129
-9  2024      121</code></pre>
+5  2020      122
+6  2021      134
+7  2022      134
+8  2023      124
+9  2024      118</code></pre>
 </div>
 </div>
 <p>Next, we can create a chart and visualize the results. Here, we use commands for how the plot looks similar to other plots we’ve created previously.</p>
