@@ -1,6 +1,6 @@
 # After iNaturalist - Learn How To Explore City Nature Challenge Data through R Coding
 
-Lesson for Natural History Museum of Los Angeles County, After iNaturalist workshop.
+Lesson for Natural History Museum of Los Angeles County, After iNaturalist workshop, February 2025.
 
 Put your nature eyes on in a whole new way in this introductory workshop to R coding! Learn how to explore nature in L.A. using biodiversity data collected during nine years of the City Nature Challenge.
 
