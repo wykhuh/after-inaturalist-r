@@ -123,7 +123,7 @@ Go to [`{r} classroom_organization`](`{r} classroom_repos`) account page, and yo
 
 ![](images/coding-after-workshop/code-button.png)
 
-When you click on "Code", there will be a "Local" tab \> "Download ZIP" option. Click on "Download ZIP". A zip file for your repository will be saved to your computer.
+When you click on "Code", click the "Local" tab.  Click on "Download ZIP". A zip file for your repository will be saved to your computer.
 
 ![](images/coding-after-workshop/download-zip.png)
 
@@ -131,7 +131,7 @@ Unzip the file. Click on `workshop.Rproj` file to start RStudio on your machine.
 
 ## 3. Create new project
 
-You can create new R projects on Github or on your computer.
+If you want to start a new project, you can create a new R project on Github or on your computer.
 
 ### Create new projects on Github
 
@@ -139,4 +139,4 @@ I created a template you can use to create new projects that runs R and Rstudio 
 
 ### Create new projects on your computer
 
-With R, RStudio, and R packages installed on your computer, you can also create new projects. Follow the instructions on [Setup - local page \> "](setup-local.qmd#k)[Organizing your project folder](setup-local.qmd#organizing-your-project-folder)["](setup-local.qmd#k) to set up new projects.
+Once you have  R and RStudio installed on your computer, you can also create new projects. Follow the instructions on [Setup - local page \> Organizing your project folder](setup-local.qmd#organizing-your-project-folder) to set up new projects. Follow the instructions on [Setup - local page \> "Install R packages"](setup-local.qmd#install-packages) to install R packages.
