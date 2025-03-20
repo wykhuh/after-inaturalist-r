@@ -119,7 +119,7 @@ If you want to run R code on your computer, you need to install RStudio, R, and 
 2.  Complete steps for [Setup - local page \> "Install R packages"](setup-local.qmd#install-packages)
 3.  Download your repository to your computer.
 
-Go to [`{r} classroom_organization`](`{r} classroom_repo`) account page, and you should see your repository. Click on your repository. The repository page will have a green "Code" button.
+Go to [`{r} classroom_organization`](`{r} classroom_repos`) account page, and you should see your repository. Click on your repository. The repository page will have a green "Code" button.
 
 ![](images/coding-after-workshop/code-button.png)
 
