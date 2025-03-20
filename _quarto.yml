@@ -1,9 +1,6 @@
 project:
   type: website
-
   output-dir: docs
-  preview:
-    port: 4200
 
 website:
   title: "After iNaturalist"
@@ -20,18 +17,18 @@ website:
       - lessons/understanding-data.qmd
       - lessons/creating-maps.qmd
       - lessons/creating-charts.qmd
-      - lessons/other-datasets.qmd
       - lessons/higher-taxa.qmd
-      - lessons/normalizing-inat.qmd
-      - lessons/additional-analysis.qmd
       - lessons/example-analysis.qmd
+      - lessons/other-datasets.qmd
       - lessons/next-steps.qmd
+      - lessons/coding-after-workshop.qmd
       - section: "Extra"
         contents:
+          - lessons/normalizing-inat.qmd
+          - lessons/additional-analysis.qmd
           - lessons/editing-geo-files.qmd
           - lessons/cleaning-data.qmd
           - lessons/setup-local.qmd
-          - lessons/coding-after-workshop.qmd
 
 
 format:

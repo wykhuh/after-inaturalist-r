@@ -10,44 +10,38 @@ classroom_organization <- 'data-explorers-feb-2025'
 classroom_repos <- paste0('https://github.com/orgs/', classroom_organization, '/repositories')
 ```
 
+For those who want to continue coding after the workshop, here are the steps you need to take. There are three things to take care.
 
-For those who are interested in continue coding in R after the workshop, here are instructions to do so.
+1.  Save your scripts to your repo.
+2.  Run your scripts.
+3.  Create new projects.
 
-## Accessing your files after the workshop
+## 1. Save your scripts to your repository
 
-You will have access to the Codespaces during the workshop so that you can write and run your code. About 2 weeks after the workshop, Codespaces will be turned off. You will still have access to the files in your repository, but you won't be able use the workshop's Codespaces to run the code.
+You need to save the files you created during the workshop to your Github repository. Codespaces are temporary. Github will delete unused Codespace after some time. Github repositories are long lasting. The files in your repo will remain on Github until you delete your repo or delete your account.
 
-In order to continuing working on your code after the workshop, you need to set up a development environment that can run R code.
+Start Codespace. In Visual Studio Code, click "bash". Click "TERMINAL".
 
-### Running your code on your local machine
+![](images/setup/bash.png)
 
-If you want to run R code on your computer, you need to install RStudio, R, and R packages on your computer.
+To save the changed files to you repository, type "bash scripts/save_files.sh" after the \$, and hit return/enter.
 
-1.  Complete the steps for [Setup - local page \> "Install R and RStudio"](setup-local.qmd#install-r-and-rstudio)
-2.  Complete steps for [Setup - local page \> "Install R packages"](setup-local.qmd#install-packages)
-3.  Download workshop repository to your computer.
+![](images/setup/bash_save_files.png)
 
-Go to [`{r} classroom_organization`](`{r} classroom_repos`) account page, and you should see your repository. Click on your repository. The repository page will have a green "Code" button.
+## 2. Run your scripts
 
-![](images/coding-after-workshop/code-button.png)
+There are several ways to run your scripts.
 
-When you click on "Code", there will be a "Local" tab \> "Download ZIP" option. Click on "Download ZIP". A zip file for your repository will be saved to your computer.
+1.  Run R code using Github Codespace. You can run your code for free for 60 hours a month.
+2.  Run R code on your computer. You need to install R, RStudio, and R packages on your computer. You can run your code for free for unlimted number of hours.
 
-![](images/coding-after-workshop/download-zip.png)
+### Run R code using Github Codespace
 
-Unzip the file. Click on `workshop.Rproj` file to start RStudio on your machine. Now you can continue editing and running your project code.
-
-With R, RStudio, and R packages installed on your computer, you can also create new projects. Follow the instructions on [Setup - local page \> "](setup-local.qmd#k)[Organizing your project folder](setup-local.qmd#organizing-your-project-folder)["](setup-local.qmd#k) to set up new projects.
-
-### Running your code on Github
-
-Currently, every free Github account has access to 120 core hours per month to run Codespaces. When you start a Codespace, by default it uses 2 cores. This means you can run a Codespace for 60 hours per month (120 core hours / 2 cores = 60 hours). If you choose 4 cores, you can run a Codespace for 30 hours per month (120 / 4 = 30). For more information, visit [Codespaces Billing](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-github-codespaces/about-billing-for-github-codespaces).
-
-You can either continue to use your repository in [`{r} classroom_organization`](`{r} classroom_repos`) or you can copy to your repository to your Github account.
+Currently, every free Github account has access to 120 core hours per month to run Codespaces. When you start a Codespace, by default it uses 2 cores. This means you can run a Codespace for 60 hours per month (120 core hours / 2 cores = 60 hours). For more information, visit [Codespaces Billing](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-github-codespaces/about-billing-for-github-codespaces).
 
 #### Copy repository to your Github account
 
-To copy your repository into your Github account, go repository page. There is a "Fork" button. Creating a fork of a repository is one way to copy a repository in Github. Click the "Fork" button.
+First step is to copy your repository from the workshop into your Github account. Go to your repository page on Github. There is a "Fork" button near the top. Creating a fork will copy the repo, and create a new repo in your Github account. Click the "Fork" button.
 
 ![](images/coding-after-workshop/fork-button.png)
 
@@ -57,21 +51,23 @@ Click "Create a new fork" in the popup.
 
 On the "Create a new fork" page, fill in the repository name, optionally add a description, and click "Create fork" button.
 
-### ![](images/coding-after-workshop/create-fork.png)
+![](images/coding-after-workshop/create-fork.png)
 
 A copy of the repo will be added to your Github account.
 
+![](images/coding-after-workshop/my-fork-repo.png)
+
 #### Start a Codespace
 
-Whether you use the repo in in [`{r} classroom_organization`](`{r} classroom_repos`) or the repo in your Github account, the steps to start a Codespace is the same.
+Next step is to run Codespace on your repo in your Github account.
 
-1.  Click the green "Code" button.
+1.  Click the green "Code" button near the top of the page.
 
 ![](images/coding-after-workshop/code-button.png)
 
 2.  Click "Codespaces" tab.
 
-3.  a\. If there are no Codespaces for the repo, click the green "Create codespace on main" button. The browser window loads the codespace.
+3.  a\. If there are no Codespaces for the repo, click the green "Create codespace on main" button. The browser window loads the Codespace.
 
     ![](images/coding-after-workshop/create-codespace-main.png)
 
@@ -82,3 +78,65 @@ Whether you use the repo in in [`{r} classroom_organization`](`{r} classroom_rep
 Click "Open in Browser" in the popup window. This will restart an existing Codespace in a browser tab.
 
 ![](images/coding-after-workshop/open-existing-codespace.png)
+
+#### Stop RStudio and Codespace
+
+After you finish your work for the day, you need to stop RStudio, push your code changes to your repository and, stop Codespace. If you don't stop Codespace, it will continue to run and use up your free 60 hours a month.
+
+To stop R, click the orange circle in the upper right of RStudio.
+
+![](images/setup/stop_R.png)
+
+You'll see a message "R Session Ended". Close the browser tab for RStudio.
+
+![](images/setup/r_session_ended.png)
+
+Go to the Visual Studio Code browser tab. Click "bash". Click "TERMINAL".
+
+![](images/setup/bash.png)
+
+To save the changed files to your repository, type "bash scripts/save_files.sh" after the \$, and hit return/enter.
+
+![](images/setup/bash_save_files.png)
+
+To stop Codespace, click the blue area in the lower left corner of Visual Studio Code.
+
+![](images/setup/stop_codespace_button.png)
+
+A popup window will appear. Click "Stop Current Codespace".
+
+![](images/setup/stop_codespace.png)
+
+After a little while, you will see a "Codespace is stopped" message. You can now close the browser tab.
+
+![](images/codespace-stop/Codespace-stopped.png){width="425"}
+
+### Run R code on your computer
+
+If you want to run R code on your computer, you need to install RStudio, R, and R packages on your computer.
+
+1.  Complete the steps for [Setup - local page \> "Install R and RStudio"](setup-local.qmd#install-r-and-rstudio)
+2.  Complete steps for [Setup - local page \> "Install R packages"](setup-local.qmd#install-packages)
+3.  Download your repository to your computer.
+
+Go to [`{r} classroom_organization`](`{r} classroom_repo`) account page, and you should see your repository. Click on your repository. The repository page will have a green "Code" button.
+
+![](images/coding-after-workshop/code-button.png)
+
+When you click on "Code", there will be a "Local" tab \> "Download ZIP" option. Click on "Download ZIP". A zip file for your repository will be saved to your computer.
+
+![](images/coding-after-workshop/download-zip.png)
+
+Unzip the file. Click on `workshop.Rproj` file to start RStudio on your machine. Now you can continue editing and running your project code.
+
+## 3. Create new project
+
+You can create new R projects on Github or on your computer.
+
+### Create new projects on Github
+
+I created a template you can use to create new projects that runs R and Rstudio on Github Codespace. [R, RStudio, Codespace template](https://github.com/wykhuh/r-rstudio-codespace).
+
+### Create new projects on your computer
+
+With R, RStudio, and R packages installed on your computer, you can also create new projects. Follow the instructions on [Setup - local page \> "](setup-local.qmd#k)[Organizing your project folder](setup-local.qmd#organizing-your-project-folder)["](setup-local.qmd#k) to set up new projects.
