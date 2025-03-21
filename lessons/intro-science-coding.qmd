@@ -1,7 +1,5 @@
 ---
 title: "Science and Coding concepts"
-format: html
-editor: visual
 time: 5 minutes
 ---
 

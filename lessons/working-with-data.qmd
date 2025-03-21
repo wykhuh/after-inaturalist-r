@@ -1,8 +1,6 @@
 ---
 title: "Working with data"
-format: html
 include-in-header: "components/add-answer-button.html"
-editor: visual
 time: 25 min to Ex 1. 10 min Ex 1. 15 min to ex 2. 10 min ex 2. 5 min to ex 3. 10 min ex 3. 10 min to ex 4. 10 min for ex 4. 15 min to ex 5. 10 min ex 5. 2 hours.
 ---
 

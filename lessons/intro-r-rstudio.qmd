@@ -1,8 +1,6 @@
 ---
 title: "Introduction to R and RStudio"
-format: html
 include-in-header: "components/add-answer-button.html"
-editor: visual
 time: 20 minutes
 ---
 

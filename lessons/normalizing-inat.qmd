@@ -1,7 +1,5 @@
 ---
 title: "Normalizing iNaturalist data"
-format: html
-editor: visual
 time: 10 min
 ---
 

@@ -1,7 +1,5 @@
 ---
 title: "Additional Analysis"
-format: html
-editor: visual
 time: 10 min
 ---
 

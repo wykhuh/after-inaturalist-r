@@ -1,7 +1,5 @@
 ---
 title: "Editing geospatial files"
-format: html
-editor: visual
 ---
 
 Sometimes we find a geospatial file that has more than we need. For instance, I downloaded a file that has all the state parks in California, but I only want the state parks in LA County. In this section we'll cover how to extract data from existing files.

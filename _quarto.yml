@@ -18,9 +18,9 @@ website:
       - lessons/creating-maps.qmd
       - lessons/creating-charts.qmd
       - lessons/higher-taxa.qmd
-      - lessons/example-analysis.qmd
       - lessons/other-datasets.qmd
-      - lessons/next-steps.qmd
+      - lessons/example-analysis.qmd
+      - lessons/your-analysis.qmd
       - lessons/coding-after-workshop.qmd
       - section: "Extra"
         contents:

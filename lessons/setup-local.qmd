@@ -1,7 +1,5 @@
 ---
 title: "Setup - local computer"
-format: html
-editor: visual
 ---
 
 The workshop used Github Codespaces to host the code, data, and software. If you want to install stuff on your on own computer, follow these steps.

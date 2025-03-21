@@ -1,8 +1,6 @@
 ---
 title: "Creating maps"
-format: html
 include-in-header: "components/add-answer-button.html"
-editor: visual
 time: 5 min to ex 1. 10 min ex 1. 15 min to ex 2. 10 min ex 2. 5 min to ex 3. 10 mim ex 3. 5 min lesson. 30 min lesson, 30 min exercise.
 ---
 

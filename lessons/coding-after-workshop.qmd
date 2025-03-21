@@ -1,7 +1,5 @@
 ---
 title: "Coding after the workshop"
-format: html
-editor: visual
 ---
 
 ```{r}

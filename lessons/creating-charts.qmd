@@ -1,8 +1,6 @@
 ---
 title: "Creating charts"
-format: html
 include-in-header: "components/add-answer-button.html"
-editor: visual
 time: 10 min to ex 1. 10 min ex 1. 10 min to ex 2. 10 min ex 2. 5 min lesson. 25 min leeson. 20 exercise.
 ---
 

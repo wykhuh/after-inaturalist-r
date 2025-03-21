@@ -1,7 +1,5 @@
 ---
-title: "Next steps"
-format: html
-editor: visual
+title: "Your Analysis"
 time: 5 minutes
 ---
 

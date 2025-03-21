@@ -1,6 +1,5 @@
 ---
 title: "Example Analysis"
-format: html
 ---
 
 ```{r}

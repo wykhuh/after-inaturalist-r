@@ -1,8 +1,6 @@
 ---
 title: "Understanding data"
-format: html
 include-in-header: "components/add-answer-button.html"
-editor: visual
 time: 5 minutes
 ---
 
@@ -184,4 +182,3 @@ min(numbers,  na.rm = TRUE)
 ```
 
 ## 
-
