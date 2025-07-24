@@ -1,4 +1,4 @@
-## ----loading_packages---------------------------------------------------------
+## ----loading_packages-----------------------------------------------------------
 
 library(readr) # read and write tabular data
 library(dplyr) # manipulate data
@@ -6,22 +6,22 @@ library(lubridate) # manipulate dates
 library(here) # file paths
 
 
-## ----assign_read_csv_to_object------------------------------------------------
+## ----assign_read_csv_to_object--------------------------------------------------
 inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 
-## ----filter_oaks_observations-------------------------------------------------
+## ----filter_oaks_observations---------------------------------------------------
 oaks_obs <- inat_data %>%
   filter(common_name == 'oaks')
 
 dim(oaks_obs)
 
 
-## ----use_names_to_get_fields_2------------------------------------------------
+## ----use_names_to_get_fields_2--------------------------------------------------
 names(inat_data)
 
 
-## ----get_quercus_observations-------------------------------------------------
+## ----get_quercus_observations---------------------------------------------------
 oaks_obs_fixed <- inat_data %>%
   filter(
     taxon_kingdom_name == 'Plantae' &
@@ -35,11 +35,11 @@ oaks_obs_fixed <- inat_data %>%
 dim(oaks_obs_fixed)
 
 
-## ----unique_oak_common_names--------------------------------------------------
+## ----unique_oak_common_names----------------------------------------------------
 unique(oaks_obs_fixed$common_name)
 
 
-## ----get_Eisenia_observations-------------------------------------------------
+## ----get_Eisenia_observations---------------------------------------------------
 Eisenia_obs <- inat_data %>%
   filter(taxon_genus_name == 'Eisenia') %>%
   select(common_name, taxon_kingdom_name)
@@ -47,7 +47,7 @@ Eisenia_obs <- inat_data %>%
 Eisenia_obs
 
 
-## ----get_Plantae_Quercus_observations-----------------------------------------
+## ----get_Plantae_Quercus_observations-------------------------------------------
 Plantae_Quercus_obs <- inat_data %>%
   filter(taxon_kingdom_name == 'Plantae' &
            taxon_genus_name == 'Quercus') %>%
@@ -56,7 +56,7 @@ Plantae_Quercus_obs <- inat_data %>%
 dim(Plantae_Quercus_obs)
 
 
-## ----get_Tracheophyta_observations--------------------------------------------
+## ----get_Tracheophyta_observations----------------------------------------------
 trees_obs <- inat_data %>%
   filter(taxon_kingdom_name == 'Plantae' &
            taxon_phylum_name == 'Tracheophyta')
@@ -64,11 +64,11 @@ trees_obs <- inat_data %>%
 dim(trees_obs)
 
 
-## ----unique_trees_common_name-------------------------------------------------
+## ----unique_trees_common_name---------------------------------------------------
 unique(trees_obs$common_name)[0:30]
 
 
-## ----get_laco_species_observations--------------------------------------------
+## ----get_laco_species_observations----------------------------------------------
 laco_species <- c('Acacia aneura', 'Acacia stenophylla', 'Afrocarpus falcatus', "Agonis flexuosa", 'Angophora costata', "Arbutus 'marina'", 'Arbutus unedo'  )
 
 laco_species_obs <- inat_data %>%
@@ -77,7 +77,7 @@ laco_species_obs <- inat_data %>%
   select(user_login, common_name, scientific_name, taxon_species_name)
 
 
-## ----get_laco_genera_observations---------------------------------------------
+## ----get_laco_genera_observations-----------------------------------------------
 laco_genera <- c('Acacia',  'Afrocarpus', "Agonis", 'Angophora', "Arbutus" )
 
 laco_genera_obs <- inat_data %>%
@@ -86,38 +86,38 @@ laco_genera_obs <- inat_data %>%
   select(user_login, common_name, scientific_name, taxon_genus_name)
 
 
-## -----------------------------------------------------------------------------
+## -------------------------------------------------------------------------------
 inat_data %>%
   filter(scientific_name == 'Arbutus unedo') %>%
   select(scientific_name, common_name)
 
 
-## -----------------------------------------------------------------------------
+## -------------------------------------------------------------------------------
 inat_data %>%
   filter(common_name == 'strawberry tree') %>%
   select(scientific_name, common_name)
 
 
-## -----------------------------------------------------------------------------
+## -------------------------------------------------------------------------------
 inat_data %>%
   filter(common_name == 'strawberry madrone') %>%
   select(scientific_name, common_name)
 
 
-## -----------------------------------------------------------------------------
+## -------------------------------------------------------------------------------
 lizard1 <- inat_data %>%
   filter(scientific_name == 'Sceloporus occidentalis')
 
 dim(lizard1)
 
 
-## -----------------------------------------------------------------------------
+## -------------------------------------------------------------------------------
 lizard2 <- inat_data %>%
   filter(taxon_species_name == 'Sceloporus occidentalis')
 
 dim(lizard2)
 
 
-## -----------------------------------------------------------------------------
+## -------------------------------------------------------------------------------
 table(lizard2$scientific_name)
 

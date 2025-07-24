@@ -1,4 +1,4 @@
-## ----load_packages------------------------------------------------------------
+## ----load_packages--------------------------------------------------------------
 
 library(readr) # read and write tabular data
 library(dplyr) # manipulate data
@@ -7,49 +7,49 @@ library(lubridate) # manipulate dates
 library(here) # file paths
 
 
-## ----load_inaturalist_data----------------------------------------------------
+## ----load_inaturalist_data------------------------------------------------------
 inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 
 
-## ----add_year_column----------------------------------------------------------
+## ----add_year_column------------------------------------------------------------
 inat_year <- inat_data %>%
   mutate(year = year(observed_on))
 
 
-## ----pass_data_to_ggplot------------------------------------------------------
+## ----pass_data_to_ggplot--------------------------------------------------------
 ggplot(data = inat_year)
 
 
-## ----pass_aes_to_ggplot-------------------------------------------------------
+## ----pass_aes_to_ggplot---------------------------------------------------------
 ggplot(data = inat_year, mapping = aes(x = year))
 
 
-## ----set_bar_type-------------------------------------------------------------
+## ----set_bar_type---------------------------------------------------------------
 ggplot(data = inat_year,  mapping = aes(x = year)) +
   geom_bar()
 
 
 
-## ----horizontal_bar_chart-----------------------------------------------------
+## ----horizontal_bar_chart-------------------------------------------------------
 ggplot(data = inat_year, mapping = aes(y = year)) +
   geom_bar()
 
 
-## ----create_dataframe_with_year_count-----------------------------------------
+## ----create_dataframe_with_year_count-------------------------------------------
 inat_year_count <- inat_year %>%
   count(year, name='count')
 
 inat_year_count
 
 
-## ----create_line_chart--------------------------------------------------------
+## ----create_line_chart----------------------------------------------------------
 ggplot(data = inat_year_count,
        mapping = aes(x = year, y=count)) +
   geom_line()
 
 
-## ----create_line_point_chart--------------------------------------------------
+## ----create_line_point_chart----------------------------------------------------
 ggplot(data = inat_year_count,
        mapping = aes(x = year, y=count)) +
   geom_line() +
@@ -57,56 +57,56 @@ ggplot(data = inat_year_count,
 
 
 
-## ----create_column_chart------------------------------------------------------
+## ----create_column_chart--------------------------------------------------------
 ggplot(data = inat_year_count,
        mapping = aes(x = year, y = count)) +
   geom_col()
 
 
-## ----create_stacked_bar_chart-------------------------------------------------
+## ----create_stacked_bar_chart---------------------------------------------------
 ggplot(data = inat_year,
        mapping = aes(x = year, fill = quality_grade)) +
   geom_bar()
 
 
-## ----exercise_create_bar_chart------------------------------------------------
+## ----exercise_create_bar_chart--------------------------------------------------
 
 
-## ----get_all_colors-----------------------------------------------------------
+## ----get_all_colors-------------------------------------------------------------
 colors()
 
 
-## ----set_bar_color------------------------------------------------------------
+## ----set_bar_color--------------------------------------------------------------
 ggplot(data = inat_year, mapping = aes(x = year)) +
   geom_bar(fill='aquamarine', color='black')
 
 
-## ----set_bar_color_using_hex_code---------------------------------------------
+## ----set_bar_color_using_hex_code-----------------------------------------------
 ggplot(data = inat_year,  mapping = aes(x = year)) +
   geom_bar(fill='#75cd5e')
 
 
-## ----set_bar_and_point_color--------------------------------------------------
+## ----set_bar_and_point_color----------------------------------------------------
 ggplot(data = inat_year_count,
        mapping = aes(x = year, y=count)) +
   geom_line(color='#75cd5e') +
   geom_point(color='blue')
 
 
-## ----stacked_bar_chart_default_colors-----------------------------------------
+## ----stacked_bar_chart_default_colors-------------------------------------------
 ggplot(data = inat_year,
        mapping = aes(x = year, fill = quality_grade)) +
   geom_bar()
 
 
-## ----stacked_bar_chart_viridis------------------------------------------------
+## ----stacked_bar_chart_viridis--------------------------------------------------
 ggplot(data = inat_year,
        mapping = aes(x = year, fill = quality_grade)) +
   geom_bar() +
   scale_fill_viridis_d()
 
 
-## ----stacked_bar_chart_viridis_error------------------------------------------
+## ----stacked_bar_chart_viridis_error--------------------------------------------
 
 ggplot(data = inat_year,
        mapping = aes(x = year, fill = quality_grade)) +
@@ -114,14 +114,14 @@ ggplot(data = inat_year,
   scale_fill_viridis_c()
 
 
-## ----stacked_bar_chart_brewer-------------------------------------------------
+## ----stacked_bar_chart_brewer---------------------------------------------------
 ggplot(data = inat_year,
        mapping = aes(x = year, fill = quality_grade)) +
   geom_bar() +
   scale_fill_brewer()
 
 
-## ----stacked_bar_chart_manual-------------------------------------------------
+## ----stacked_bar_chart_manual---------------------------------------------------
 ggplot(data = inat_year,
        mapping = aes(x = year, fill = quality_grade)) +
   geom_bar() +
@@ -129,7 +129,7 @@ ggplot(data = inat_year,
 
 
 
-## ----create_chart_with_custom_breaks------------------------------------------
+## ----create_chart_with_custom_breaks--------------------------------------------
 ggplot(data = inat_year,
        mapping = aes(x = year)) +
   geom_bar()  +
@@ -138,7 +138,7 @@ ggplot(data = inat_year,
   scale_y_continuous(n.breaks=7)
 
 
-## ----assign_plot_to_object----------------------------------------------------
+## ----assign_plot_to_object------------------------------------------------------
 myplot <- ggplot(data = inat_year,
                  mapping = aes(x = year)) +
   geom_bar(fill='#75cd5e') +
@@ -148,25 +148,25 @@ myplot <- ggplot(data = inat_year,
   myplot
 
 
-## ----set_theme, warning=FALSE-------------------------------------------------
+## ----set_theme, warning=FALSE---------------------------------------------------
 myplot +
   theme_bw()
 
 
-## ----rotate_axis_label--------------------------------------------------------
+## ----rotate_axis_label----------------------------------------------------------
 myplot +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 90))
 
 
 
-## ----set_text_size, warning=FALSE---------------------------------------------
+## ----set_text_size, warning=FALSE-----------------------------------------------
 myplot +
   theme_bw() +
   theme(axis.title = element_text(size = 14))
 
 
-## ----remove_vertical_grid_lines, warning=FALSE--------------------------------
+## ----remove_vertical_grid_lines, warning=FALSE----------------------------------
 myplot +
   theme_bw() +
   theme(axis.title = element_text(size = 14),
@@ -174,7 +174,7 @@ myplot +
         panel.grid.minor.x = element_blank())
 
 
-## ----changing_labels----------------------------------------------------------
+## ----changing_labels------------------------------------------------------------
 myplot +
   labs(title = "CNC Los Angeles",
        subtitle="Observations per year",
@@ -182,31 +182,31 @@ myplot +
        y = "Observations")
 
 
-## ----changing_legend_title----------------------------------------------------
+## ----changing_legend_title------------------------------------------------------
 ggplot(data = inat_year,
        mapping = aes(x = year, fill = quality_grade)) +
   geom_bar() +
   labs(fill = "Quality Grade")
 
 
-## ----exercise_change_chart_appearance-----------------------------------------
+## ----exercise_change_chart_appearance-------------------------------------------
 
 
-## ----create_facets------------------------------------------------------------
+## ----create_facets--------------------------------------------------------------
 ggplot(data = inat_year,
        mapping = aes(x = year)) +
   geom_bar() +
   facet_wrap(vars(quality_grade))
 
 
-## ----create_facets_1_column---------------------------------------------------
+## ----create_facets_1_column-----------------------------------------------------
 ggplot(data = inat_year,
        mapping = aes(x = year)) +
   geom_bar() +
   facet_wrap(vars(quality_grade), ncol = 1)
 
 
-## ----save_plot----------------------------------------------------------------
+## ----save_plot------------------------------------------------------------------
 
 # create plot
 finalplot <- myplot +
