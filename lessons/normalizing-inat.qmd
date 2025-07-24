@@ -77,8 +77,7 @@ st_crs(hollywood_boundary) == st_crs(allobs_sf)
 Let’s now filter the observations to those that are only within the Hollywood boundary.
 
 ```{r get_observations_inside_hollywood}
-neighborhood_obs <- allobs_sf[lengths(st_intersects(allobs_sf, hollywood_boundary)) > 0, ]
-
+neighborhood_obs <- st_filter(allobs_sf, hollywood_boundary)
 ```
 
 We can now visualize the observations within a map:

@@ -138,7 +138,7 @@ expo_park_sf
 Get neighborhoods surrounding Exposition Park
 
 ```{r get_neighborhoods_around_expo_park}
-expo_area_sf <- la_neighborhoods_sf[lengths(st_intersects(la_neighborhoods_sf, expo_park_sf)) > 0, ]
+expo_area_sf <- st_filter(la_neighborhoods_sf, expo_park_sf)
 
 expo_area_sf <-  expo_area_sf %>%
   select(name)

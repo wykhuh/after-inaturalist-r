@@ -470,38 +470,10 @@ mapview(expo_park_boundary)
 The following code will get the observations that are inside Exposition Park. We will save the observations to `inat_expo`.
 
 ```{r, get_all_observations_within_expo_park}
-inat_expo <- inat_sf[lengths(st_intersects(inat_sf, expo_park_boundary)) > 0, ]
-
+inat_expo <- st_filter(inat_sf, expo_park_boundary)
+  
 dim(inat_expo)
 ```
-
-::: callout-note
-For those who want to understand that chunk of code, here's a explanation.
-
-`st_intersects()` from **sf** tells the number of items in the first spatial object that touches, crosses, or is within in a second spatial object. If there are no items, it returns empty.
-
-The following code returns the number of items in each row of `inat_sf` that intersects `expo_park_boundary`. Since each row only contains one location, we will either get 1 or empty.
-
-```{r, st_intersects}
-st_intersects(inat_sf, expo_park_boundary)
-```
-
-Instead of 1 or empty, want a vector with TRUE or FALSE values, also known as logical vector. If a row has 1 item inside `expo_park_boundary`, return TRUE. Otherwise return FALSE. We use `lengths(st_intersects(inat_sf, expo_park_boundary)) > 0` to check if a row has items within Exposition Park.
-
-use `[1:50]` to get the first 50 rows
-
-```{r, get_true_false}
-(lengths(st_intersects(inat_sf, expo_park_boundary)) > 0)[1:50]
-```
-
-We can use a logical vectors to filter rows in data frame by using `dataframe[logical_vector, ]`. If the logical vector is TRUE, return the row. Otherwise ignore the row.
-
-This code selects all rows in `inat_sf` where there is one or more items in the row intersects `expo_park_boundary`
-
-```{r, all_observations_within_expo_park}
-inat_expo_2 <- inat_sf[lengths(st_intersects(inat_sf, expo_park_boundary)) > 0, ]
-```
-:::
 
 Let's create map of all observations in Expo Park.
 
@@ -561,7 +533,7 @@ my_boundary_sf <- read_sf(here('data/raw/boundaries_usc.geojson'))
 
 st_crs(my_inat_sf) == st_crs(my_boundary_sf)
 
-my_inat_area_sf <- my_all_inat_sf[st_intersects(my_all_inat_sf, my_boundary_sf) %>% lengths > 0, ]
+my_inat_area_sf <- st_filter(my_all_inat_sf, my_boundary_sf)
 
 mapview(my_boundary_sf) + 
   mapview(my_inat_area_sf)
@@ -639,7 +611,7 @@ Get iNaturalist observations inside the buffer. We included `taxon_kingdom_name`
 inat_data_2 <- inat_base_sf %>% 
   select(user_login, common_name, scientific_name, taxon_kingdom_name)
   
-inat_river <- inat_data_2[lengths(st_intersects(inat_data_2, buffer_river)) > 0, ]
+inat_river <- st_filter(inat_data_2, buffer_river)
 
 ```
 

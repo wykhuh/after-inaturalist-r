@@ -198,7 +198,7 @@ Use `st_intersects()` to find the state parks within LA county. This is similar 
 
 ```{r, get_parks_inside_la_county}
 
-LA_parks <- state_parks[st_intersects(state_parks, LA_county ) %>% lengths > 0,]
+LA_parks <- st_filter(state_parks, LA_county)
 ```
 
 Create a map showing LA County and state parks within LA County.
@@ -250,7 +250,7 @@ get national parks within LA county
 
 ```{r map_nps_in_la}
 
-ca_nps_parks <- parks_nps[st_intersects(parks_nps, la_county ) %>% lengths > 0,]
+ca_nps_parks <- st_filter(parks_nps, la_county)
 
 ggplot() +
   geom_sf(data=la_county) + 
@@ -340,7 +340,7 @@ WFIGS_2025 <- st_transform(WFIGS_2025, crs = st_crs(la_county))
 get fires within LA county
 
 ```{r map_la_fires}
-la_fires_all <- ca_fires_all[st_intersects(ca_fires_all, la_county ) %>% lengths > 0,]
+la_fires_all <- st_filter(ca_fires_all, la_county)
 
 ggplot() +
   geom_sf(data=la_county) + 
@@ -350,7 +350,7 @@ ggplot() +
 
 ```{r map_nifc_firis}
 
-NIFC_FIRIS_la <- NIFC_FIRIS[st_intersects(NIFC_FIRIS, la_county ) %>% lengths > 0,]
+NIFC_FIRIS_la <- st_filter(NIFC_FIRIS, la_county)
 
 ggplot() +
   geom_sf(data=la_county) + 
@@ -359,16 +359,16 @@ ggplot() +
 ```
 
 ```{r map_dins}
-DINS_la <- DINS[st_intersects(DINS, la_county ) %>% lengths > 0,]
-
+DINS_la <- st_filter(DINS, la_county)
+  
 ggplot() +
   geom_sf(data=la_county) + 
   geom_sf(data=DINS_la) 
 ```
 
 ```{r map_wfigs}
-WFIGS_2025_la <- WFIGS_2025[st_intersects(WFIGS_2025, la_county ) %>% lengths > 0,]
-
+WFIGS_2025_la <- st_filter(WFIGS_2025, la_county)
+  
 ggplot() +
   geom_sf(data=la_county) + 
   geom_sf(data=WFIGS_2025_la) 

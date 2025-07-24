@@ -283,7 +283,7 @@ Find the fires that intersect with the location.
 
 ```{r find_fires_for_location}
 
-fires_for_location <- fires_all_la[lengths(st_intersects(fires_all_la, location)) > 0,]
+fires_for_location <- st_filter(fires_all_la, location)
 
 fires_for_location
 ```
