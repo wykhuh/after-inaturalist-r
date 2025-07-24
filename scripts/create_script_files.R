@@ -68,12 +68,12 @@ files <- c(
 
 
 # delete files https://stackoverflow.com/a/65831178
-unlink("lesson-scripts/*", recursive = TRUE, force = TRUE)
+unlink("lessons-export-r/*", recursive = TRUE, force = TRUE)
 
 count <- 1
 for (file in files) {
   input_file <- paste0('lessons/',file,'.qmd')
-  output_file <- paste0('lesson-scripts/', count, '_', file,'.R')
+  output_file <- paste0('lessons-export-r/', count, '_', file,'.R')
 
   knitr::purl(input = input_file, output = output_file, documentation = 1)
   processFile(output_file)
@@ -87,7 +87,7 @@ exercise_files <- c( 'working-with-data',
 count <- 1
 for (file in exercise_files) {
   input_file <- paste0('lessons/',file,'.qmd')
-  output_file <- paste0('lesson-scripts/', count, '_', file,'-full.R')
+  output_file <- paste0('lessons-export-r/', count, '_', file,'-full.R')
 
   # knitr::purl(input = input_file, output = output_file, documentation = 2)
   count <- count + 1
