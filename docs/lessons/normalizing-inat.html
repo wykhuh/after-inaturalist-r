@@ -201,20 +201,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/example-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Example Analysis</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../lessons/other-datasets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using to other datasets</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/next-steps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Next steps</span></a>
+  <a href="../lessons/example-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Example Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/your-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Your Analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lessons/setup-local.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Setup - local computer</span></a>
+ <span class="menu-text">Setup local computer</span></a>
   </div>
 </li>
       </ul>
@@ -375,7 +375,7 @@ date  (1): observed_on
 </div>
 <p>Let’s now filter the observations to those that are only within the Hollywood boundary.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>neighborhood_obs <span class="ot">&lt;-</span> allobs_sf[<span class="fu">lengths</span>(<span class="fu">st_intersects</span>(allobs_sf, hollywood_boundary)) <span class="sc">&gt;</span> <span class="dv">0</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>neighborhood_obs <span class="ot">&lt;-</span> <span class="fu">st_filter</span>(allobs_sf, hollywood_boundary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>although coordinates are longitude/latitude, st_intersects assumes that they
 are planar
@@ -431,14 +431,14 @@ are planar</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
 # Groups:   year [1]
-   year scientific_name           
-  &lt;dbl&gt; &lt;chr&gt;                     
-1  2016 Apis mellifera            
-2  2016 Brickellia californica    
-3  2016 Eucrypta chrysanthemifolia
-4  2016 Glycaspis brimblecombei   
-5  2016 Hypochaeris glabra        
-6  2016 Corvus corax              </code></pre>
+   year scientific_name    
+  &lt;dbl&gt; &lt;chr&gt;              
+1  2016 Hirschfeldia incana
+2  2016 Euphorbia peplus   
+3  2016 Quercus agrifolia  
+4  2016 Foeniculum vulgare 
+5  2016 Prunus ilicifolia  
+6  2016 Libellula saturata </code></pre>
 </div>
 </div>
 <p>We can use table to confirm we get <code>lowest_year</code> number of observations per year.</p>
@@ -465,15 +465,15 @@ are planar</code></pre>
 # Groups:   year [9]
    year richness
   &lt;dbl&gt;    &lt;int&gt;
-1  2016      124
+1  2016      129
 2  2017      127
-3  2018      118
-4  2019      110
-5  2020      127
-6  2021      134
-7  2022      126
+3  2018      121
+4  2019      126
+5  2020      125
+6  2021      125
+7  2022      135
 8  2023      134
-9  2024      118</code></pre>
+9  2024      114</code></pre>
 </div>
 </div>
 <p>Next, we can create a chart and visualize the results. Here, we use commands for how the plot looks similar to other plots we’ve created previously.</p>

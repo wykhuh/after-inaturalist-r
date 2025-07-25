@@ -59,7 +59,7 @@ For workshop attendees, we will use Github Classroom to share files and setup Co
 
 2.  You will see a "Accept the assignment" page. Click "Accept this assignment" button.
 
-This will create a repository in GitHub with code and data for the workshop. The repository will be created in [`{r} classroom_organization`](`{r} classroom_repos`) Github account. You will save your work to this repository. Only you and the workshop organizers can access your repository.
+This will create a repository in GitHub with code and data for the workshop. The repository will be created in [`{r} classroom_organization`](%60%7Br%7D%20classroom_repos%60) Github account. You will save your work to this repository. Only you and the workshop organizers can access your repository.
 
 ![](images/setup/accept-assignment.png)
 
@@ -71,8 +71,6 @@ This will create a repository in GitHub with code and data for the workshop. The
 
     ![](images/setup/open-codespace.png)
 
-
-
 4.  This is Visual Studio Code, the default code editor for GitHub Codespaces. We want to use RStudio as our code editor.
 
     You will see page with "Setting up remote connection: Building codespace..." message in the corner. The software for the workshop is being downloaded and installed. This will take about 5 minutes.
@@ -82,21 +80,16 @@ This will create a repository in GitHub with code and data for the workshop. The
 5.  Once the Codespace has started, there should be a "bash", "Codespaces: timer", and "Codespaces: rstudio-start" on the lower right. Click on the "PORTS" tab at the bottom.
 
     ![](images/setup/finish-building.png)
-    
-
 
 6.  In the PORTS tab, hover over the item named RStudio or 8787. Click on the middle globe icon to start RStudio in a new browser tab.
 
     ![](images/setup/rstudio-port.png)
-    
-  
+
 7.  Now you are ready to write and run R code using RStudio.
 
     Even though we won't use Visual Studio Code to write R code, keep the tab for Visual Studio Code open.
 
     ![](images/setup/rstudio.png)
-
-
 
 ## Stop Codespace
 

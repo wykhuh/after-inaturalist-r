@@ -248,20 +248,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/example-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Example Analysis</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../lessons/other-datasets.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Using to other datasets</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/next-steps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Next steps</span></a>
+  <a href="../lessons/example-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Example Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/your-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Your Analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -306,7 +306,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lessons/setup-local.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Setup - local computer</span></a>
+ <span class="menu-text">Setup local computer</span></a>
   </div>
 </li>
       </ul>
@@ -646,7 +646,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 <p>Find the fires that intersect with the location.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>fires_for_location <span class="ot">&lt;-</span> fires_all_la[<span class="fu">lengths</span>(<span class="fu">st_intersects</span>(fires_all_la, location)) <span class="sc">&gt;</span> <span class="dv">0</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>fires_for_location <span class="ot">&lt;-</span> <span class="fu">st_filter</span>(fires_all_la, location)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>although coordinates are longitude/latitude, st_intersects assumes that they
 are planar</code></pre>
@@ -660,7 +660,7 @@ Bounding box:  xmin: -118.9975 ymin: 34.00705 xmax: -118.6479 ymax: 34.24306
 Geodetic CRS:  WGS 84
 # A tibble: 2 × 22
   OBJECTID YEAR_ STATE AGENCY UNIT_ID FIRE_NAME  INC_NUM  ALARM_DATE CONT_DATE 
-     &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;    &lt;date&gt;     &lt;date&gt;    
+*    &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;    &lt;date&gt;     &lt;date&gt;    
 1     2214  2018 CA    CCO    LAC     WOOLSEY    00338981 2018-11-08 2018-11-20
 2    12425  1978 CA    CCO    LAC     KANAN FIRE 00312036 1978-10-23 NA        
 # ℹ 13 more variables: CAUSE &lt;int&gt;, C_METHOD &lt;int&gt;, OBJECTIVE &lt;int&gt;,

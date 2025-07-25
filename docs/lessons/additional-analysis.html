@@ -201,20 +201,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/example-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Example Analysis</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../lessons/other-datasets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using to other datasets</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/next-steps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Next steps</span></a>
+  <a href="../lessons/example-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Example Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/your-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Your Analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lessons/setup-local.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Setup - local computer</span></a>
+ <span class="menu-text">Setup local computer</span></a>
   </div>
 </li>
       </ul>
@@ -478,7 +478,7 @@ Geodetic CRS:  WGS 84
 </div>
 <p>Get neighborhoods surrounding Exposition Park</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>expo_area_sf <span class="ot">&lt;-</span> la_neighborhoods_sf[<span class="fu">lengths</span>(<span class="fu">st_intersects</span>(la_neighborhoods_sf, expo_park_sf)) <span class="sc">&gt;</span> <span class="dv">0</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>expo_area_sf <span class="ot">&lt;-</span> <span class="fu">st_filter</span>(la_neighborhoods_sf, expo_park_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>although coordinates are longitude/latitude, st_intersects assumes that they
 are planar</code></pre>
@@ -754,7 +754,7 @@ $ geometry           &lt;POINT [°]&gt; POINT (-118.5365 34.38503), POINT (-118.
 <span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(my_inat<span class="sc">$</span>observed_on)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-2016-04-19 2018-04-29 2022-05-02 2023-04-30 2024-04-27 
+2017-04-18 2019-04-26 2019-04-27 2020-04-26 2024-04-28 
          1          1          1          1          1 </code></pre>
 </div>
 </div>
