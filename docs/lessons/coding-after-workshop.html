@@ -240,17 +240,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#save-your-scripts-to-your-repository" id="toc-save-your-scripts-to-your-repository" class="nav-link active" data-scroll-target="#save-your-scripts-to-your-repository">1. Save your scripts to your repository</a></li>
-  <li><a href="#run-your-scripts" id="toc-run-your-scripts" class="nav-link" data-scroll-target="#run-your-scripts">2. Run your scripts</a>
-  <ul class="collapse">
-  <li><a href="#run-r-code-using-github-codespace" id="toc-run-r-code-using-github-codespace" class="nav-link" data-scroll-target="#run-r-code-using-github-codespace">Run R code using Github Codespace</a></li>
-  <li><a href="#run-r-code-on-your-computer" id="toc-run-r-code-on-your-computer" class="nav-link" data-scroll-target="#run-r-code-on-your-computer">Run R code on your computer</a></li>
-  </ul></li>
-  <li><a href="#create-new-project" id="toc-create-new-project" class="nav-link" data-scroll-target="#create-new-project">3. Create new project</a>
-  <ul class="collapse">
-  <li><a href="#create-new-projects-on-github" id="toc-create-new-projects-on-github" class="nav-link" data-scroll-target="#create-new-projects-on-github">Create new projects on Github</a></li>
-  <li><a href="#create-new-projects-on-your-computer" id="toc-create-new-projects-on-your-computer" class="nav-link" data-scroll-target="#create-new-projects-on-your-computer">Create new projects on your computer</a></li>
-  </ul></li>
+  <li><a href="#continue-workshop-projects" id="toc-continue-workshop-projects" class="nav-link active" data-scroll-target="#continue-workshop-projects">1. Continue workshop projects</a></li>
+  <li><a href="#create-new-projects-on-github" id="toc-create-new-projects-on-github" class="nav-link" data-scroll-target="#create-new-projects-on-github">2. Create new projects on Github</a></li>
+  <li><a href="#create-new-projects-on-your-computer" id="toc-create-new-projects-on-your-computer" class="nav-link" data-scroll-target="#create-new-projects-on-your-computer">3. Create new projects on your computer</a></li>
   </ul>
 </nav>
     </div>
@@ -276,36 +268,20 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>For those who want to continue coding after the workshop, here are the steps you need to take. There are three things to take care.</p>
+<p>For those who want to continue coding after the workshop, here some options</p>
 <ol type="1">
-<li>Save your scripts to your repo.</li>
-<li>Run your scripts.</li>
-<li>Create new projects.</li>
+<li>Continue workshop projects.</li>
+<li>Create new projects on Github.</li>
+<li>Create new projects on your computer.</li>
 </ol>
-<section id="save-your-scripts-to-your-repository" class="level2">
-<h2 class="anchored" data-anchor-id="save-your-scripts-to-your-repository">1. Save your scripts to your repository</h2>
-<p>You need to save the files you created during the workshop to your Github repository. Codespaces are temporary. Github will delete unused Codespace after some time. Github repositories are long lasting. The files in your repo will remain on Github until you delete your repo or delete your account.</p>
-<p>Start Codespace. In Visual Studio Code, click “bash”. Click “TERMINAL”.</p>
-<p><img src="images/setup/bash.png" class="img-fluid"></p>
-<p>To save the changed files to you repository, type “bash scripts/save_files.sh” after the $, and hit return/enter.</p>
-<p><img src="images/setup/bash_save_files.png" class="img-fluid"></p>
-</section>
-<section id="run-your-scripts" class="level2">
-<h2 class="anchored" data-anchor-id="run-your-scripts">2. Run your scripts</h2>
-<p>There are several ways to run your scripts.</p>
-<ol type="1">
-<li>Run R code using Github Codespace. You can run your code for free for 60 hours a month.</li>
-<li>Run R code on your computer. You need to install R, RStudio, and R packages on your computer. You can run your code for free for unlimted number of hours.</li>
-</ol>
-<section id="run-r-code-using-github-codespace" class="level3">
-<h3 class="anchored" data-anchor-id="run-r-code-using-github-codespace">Run R code using Github Codespace</h3>
-<p>Currently, every free Github account has access to 120 core hours per month to run Codespaces. When you start a Codespace, by default it uses 2 cores. This means you can run a Codespace for 60 hours per month (120 core hours / 2 cores = 60 hours). For more information, visit <a href="https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-github-codespaces/about-billing-for-github-codespaces">Codespaces Billing</a>.</p>
+<section id="continue-workshop-projects" class="level2">
+<h2 class="anchored" data-anchor-id="continue-workshop-projects">1. Continue workshop projects</h2>
 <section id="copy-repository-to-your-github-account" class="level4">
 <h4 class="anchored" data-anchor-id="copy-repository-to-your-github-account">Copy repository to your Github account</h4>
 <p>First step is to copy your repository from the workshop into your Github account. Go to your repository page on Github. There is a “Fork” button near the top. Creating a fork will copy the repo, and create a new repo in your Github account. Click the “Fork” button.</p>
 <p><img src="images/coding-after-workshop/fork-button.png" class="img-fluid"></p>
 <p>Click “Create a new fork” in the popup.</p>
-<p><img src="images/coding-after-workshop/click-fork-bitton.png" class="img-fluid"></p>
+<p><img src="images/coding-after-workshop/click-fork-bitton.png" class="img-fluid" width="500"></p>
 <p>On the “Create a new fork” page, fill in the repository name, optionally add a description, and click “Create fork” button.</p>
 <p><img src="images/coding-after-workshop/create-fork.png" class="img-fluid"></p>
 <p>A copy of the repo will be added to your Github account.</p>
@@ -314,6 +290,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="start-a-codespace" class="level4">
 <h4 class="anchored" data-anchor-id="start-a-codespace">Start a Codespace</h4>
 <p>Next step is to run Codespace on your repo in your Github account.</p>
+<p>Currently, every free Github account has access to 120 core hours per month to run Codespaces. When you start a Codespace, by default it uses 2 cores. This means you can run a Codespace for 60 hours per month (120 core hours / 2 cores = 60 hours). For more information, visit <a href="https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-github-codespaces/about-billing-for-github-codespaces">Codespaces Billing</a>.</p>
 <ol type="1">
 <li>Click the green “Code” button near the top of the page.</li>
 </ol>
@@ -321,60 +298,26 @@ ul.task-list li input[type="checkbox"] {
 <ol start="2" type="1">
 <li><p>Click “Codespaces” tab.</p></li>
 <li><p>a. If there are no Codespaces for the repo, click the green “Create codespace on main” button. The browser window loads the Codespace.</p>
-<p><img src="images/coding-after-workshop/create-codespace-main.png" class="img-fluid"></p>
-<p>b. If a Codespace exists for the repo, click the three dots in the “On current branch” section.</p></li>
+<p><img src="images/coding-after-workshop/create-codespace-main.png" class="img-fluid" width="500"></p>
+<p>b. If a Codespace exists for the repo, you should see the randomly-assigned name for your previously-created Codespace. Click on the Codespace.</p>
+<p><img src="images/setup/restart-codespace.png" class="img-fluid" width="500"></p></li>
 </ol>
-<p><img src="images/coding-after-workshop/existing-codespace.png" class="img-fluid"></p>
-<p>Click “Open in Browser” in the popup window. This will restart an existing Codespace in a browser tab.</p>
-<p><img src="images/coding-after-workshop/open-existing-codespace.png" class="img-fluid"></p>
-</section>
-<section id="stop-rstudio-and-codespace" class="level4">
-<h4 class="anchored" data-anchor-id="stop-rstudio-and-codespace">Stop RStudio and Codespace</h4>
-<p>After you finish your work for the day, you need to stop RStudio, push your code changes to your repository and, stop Codespace. If you don’t stop Codespace, it will continue to run and use up your free 60 hours a month.</p>
-<p>To stop R, click the orange circle in the upper right of RStudio.</p>
-<p><img src="images/setup/stop_R.png" class="img-fluid"></p>
-<p>You’ll see a message “R Session Ended”. Close the browser tab for RStudio.</p>
-<p><img src="images/setup/r_session_ended.png" class="img-fluid"></p>
-<p>Go to the Visual Studio Code browser tab. Click “bash”. Click “TERMINAL”.</p>
-<p><img src="images/setup/bash.png" class="img-fluid"></p>
-<p>To save the changed files to your repository, type “bash scripts/save_files.sh” after the $, and hit return/enter.</p>
-<p><img src="images/setup/bash_save_files.png" class="img-fluid"></p>
-<p>To stop Codespace, click the blue area in the lower left corner of Visual Studio Code.</p>
-<p><img src="images/setup/stop_codespace_button.png" class="img-fluid"></p>
-<p>A popup window will appear. Click “Stop Current Codespace”.</p>
-<p><img src="images/setup/stop_codespace.png" class="img-fluid"></p>
-<p>After a little while, you will see a “Codespace is stopped” message. You can now close the browser tab.</p>
-<p><img src="images/codespace-stop/Codespace-stopped.png" class="img-fluid" width="425"></p>
 </section>
 </section>
-<section id="run-r-code-on-your-computer" class="level3">
-<h3 class="anchored" data-anchor-id="run-r-code-on-your-computer">Run R code on your computer</h3>
+<section id="create-new-projects-on-github" class="level2">
+<h2 class="anchored" data-anchor-id="create-new-projects-on-github">2. Create new projects on Github</h2>
+<p>I created a template you can use to create new projects that runs R and Rstudio on Github Codespace. <a href="https://github.com/wykhuh/r-rstudio-codespace">R, RStudio, Codespace template</a>. You need to add your own R scripts and data.</p>
+</section>
+<section id="create-new-projects-on-your-computer" class="level2">
+<h2 class="anchored" data-anchor-id="create-new-projects-on-your-computer">3. Create new projects on your computer</h2>
 <p>If you want to run R code on your computer, you need to install RStudio, R, and R packages on your computer.</p>
 <ol type="1">
 <li>Complete the steps for <a href="../lessons/setup-local.html#install-r-and-rstudio">Setup - local page &gt; “Install R and RStudio”</a></li>
 <li>Complete steps for <a href="../lessons/setup-local.html#install-packages">Setup - local page &gt; “Install R packages”</a></li>
-<li>Download your repository to your computer.</li>
+<li>Follow the instructions on <a href="../lessons/setup-local.html#organizing-your-project-folder">Setup - local page &gt; Organizing your project folder</a> to set up new projects.</li>
 </ol>
-<p>Go to <a href="https://github.com/orgs/data-explorers-feb-2025/repositories">data-explorers-feb-2025</a> account page, and you should see your repository. Click on your repository. The repository page will have a green “Code” button.</p>
-<p><img src="images/coding-after-workshop/code-button.png" class="img-fluid"></p>
-<p>When you click on “Code”, click the “Local” tab. Click on “Download ZIP”. A zip file for your repository will be saved to your computer.</p>
-<p><img src="images/coding-after-workshop/download-zip.png" class="img-fluid"></p>
-<p>Unzip the file. Click on <code>workshop.Rproj</code> file to start RStudio on your machine. Now you can continue editing and running your project code.</p>
-</section>
-</section>
-<section id="create-new-project" class="level2">
-<h2 class="anchored" data-anchor-id="create-new-project">3. Create new project</h2>
-<p>If you want to start a new project, you can create a new R project on Github or on your computer.</p>
-<section id="create-new-projects-on-github" class="level3">
-<h3 class="anchored" data-anchor-id="create-new-projects-on-github">Create new projects on Github</h3>
-<p>I created a template you can use to create new projects that runs R and Rstudio on Github Codespace. <a href="https://github.com/wykhuh/r-rstudio-codespace">R, RStudio, Codespace template</a>.</p>
-</section>
-<section id="create-new-projects-on-your-computer" class="level3">
-<h3 class="anchored" data-anchor-id="create-new-projects-on-your-computer">Create new projects on your computer</h3>
-<p>Once you have R and RStudio installed on your computer, you can also create new projects. Follow the instructions on <a href="../lessons/setup-local.html#organizing-your-project-folder">Setup - local page &gt; Organizing your project folder</a> to set up new projects. Follow the instructions on <a href="../lessons/setup-local.html#install-packages">Setup - local page &gt; “Install R packages”</a> to install R packages.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
