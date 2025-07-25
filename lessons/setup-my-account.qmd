@@ -45,11 +45,11 @@ If you don't have a Github account, create an account.
 
     ![](images/setup/rstudio.png)
 
-8.  The code for the workshop is in the "scripts" \> "lesson-scripts" folder.
+8.  The code for the workshop is in the "scripts" \> "lesson-scripts" folder. These are R scripts. Select a line of code, and run the code using <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows).
 
     ![](images/setup-my-account/scripts-folder.png)
 
-9.  You should read the lessons in the order from "Introduction to Data Analysis" to "Example Analysis". Skim the other lessons to see if they have examples relevant to your project. The R lesson script files starts with the [Working with data](working-with-data.qmd) lesson. Select a line of code, and run the code using <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows).
+9.  You should read the lessons in the order from "Introduction to Data Analysis" to "Example Analysis". Skim the other lessons to see if they have examples relevant to your project. The R lesson script files starts with the [Working with data](working-with-data.qmd) lesson.
 
 ## Stop Codespace
 
