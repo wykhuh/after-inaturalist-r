@@ -59,7 +59,7 @@ For workshop attendees, we will use Github Classroom to share files and setup Co
 
 2.  You will see a "Accept the assignment" page. Click "Accept this assignment" button.
 
-This will create a repository in GitHub with code and data for the workshop. The repository will be created in [`{r} classroom_organization`](%60%7Br%7D%20classroom_repos%60) Github account. You will save your work to this repository. Only you and the workshop organizers can access your repository.
+This will create a repository in GitHub with code and data for the workshop. The repository will be created in [`{r} classroom_organization`](`{r} classroom_repos`) Github account. You will save your work to this repository. Only you and the workshop organizers can access your repository.
 
 ![](images/setup/accept-assignment.png)
 

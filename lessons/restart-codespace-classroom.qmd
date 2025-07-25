@@ -8,7 +8,7 @@ classroom_organization <- 'data-explorers-feb-2025'
 classroom_repos <- paste0('https://github.com/orgs/', classroom_organization, '/repositories')
 ```
 
-1.  Go to [`{r} classroom_organization`](%60%7Br%7D%20classroom_repos%60) Github page, and you should see your repository. Click on your repository.
+1.  Go to [`{r} classroom_organization`](`{r} classroom_repos`) Github page, and you should see your repository. Click on your repository.
 
 2.  Scroll to the bottom of the page, and click the "Open in GitHub Codespaces" button. This will restart the Codespace created in the "Setup Github Classroom and Codespaces" section.
 

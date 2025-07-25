@@ -2,7 +2,7 @@
 title: "Setup on my Github account"
 ---
 
-You can use Github Codespace to run their code online without installing stuff on their computer.
+You can use Github Codespace to run the code online without installing stuff on your computer.
 
 ## Create Github account
 
@@ -23,9 +23,9 @@ If you don't have a Github account, create an account.
 
 2.  On the "Create a new repository" page, fill in the Repository name. Choose if you want the repo public or private. Then click "Create repository" green button.
 
-3.  You will be redirected to the new repository. Next step is to run the code on Codespace. Click the "Code" button, and click "Create codespace on main" button.
+3.  You will be redirected to the new repository. Click the "Code" green button, and click "Create codespace on main" green button.
 
-    ![](images/coding-after-workshop/create-codespace-main.png)
+    ![](images/coding-after-workshop/create-codespace-main.png){width="430"}
 
 4.  This is Visual Studio Code, the default code editor for GitHub Codespaces. We want to use RStudio as our code editor.
 
@@ -49,7 +49,7 @@ If you don't have a Github account, create an account.
 
     ![](images/setup-my-account/scripts-folder.png)
 
-9.  The code starts with the [Working with data](working-with-data.qmd) lesson. Select a line of code, and run the code using <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows).
+9.  You should read the lessons in the order they are shown in the side menu. The R lesson script files starts with the [Working with data](working-with-data.qmd) lesson. Select a line of code, and run the code using <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows).
 
 ## Stop Codespace
 
