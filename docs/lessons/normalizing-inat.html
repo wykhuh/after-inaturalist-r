@@ -195,18 +195,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/higher-taxa.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Higher taxa</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lessons/other-datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Using to other datasets</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../lessons/example-analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Example Analysis</span></a>
   </div>
@@ -215,6 +203,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../lessons/your-analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Your Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/higher-taxa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Higher taxa</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/other-datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using to other datasets</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -260,6 +260,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../lessons/setup-local.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setup local computer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/setup-my-account.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup on my Github account</span></a>
   </div>
 </li>
       </ul>
@@ -431,14 +437,14 @@ are planar</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
 # Groups:   year [1]
-   year scientific_name       
-  &lt;dbl&gt; &lt;chr&gt;                 
-1  2016 Hirschfeldia incana   
-2  2016 Nicotiana glauca      
-3  2016 Marrubium vulgare     
-4  2016 Marrubium vulgare     
-5  2016 Aphelocoma californica
-6  2016 Malva multiflora      </code></pre>
+   year scientific_name  
+  &lt;dbl&gt; &lt;chr&gt;            
+1  2016 Corvus corax     
+2  2016 Corvus corax     
+3  2016 Prunus ilicifolia
+4  2016 Platanus racemosa
+5  2016 Schinus molle    
+6  2016 Marrubium vulgare</code></pre>
 </div>
 </div>
 <p>We can use table to confirm we get <code>lowest_year</code> number of observations per year.</p>
@@ -465,15 +471,15 @@ are planar</code></pre>
 # Groups:   year [9]
    year richness
   &lt;dbl&gt;    &lt;int&gt;
-1  2016      129
+1  2016      127
 2  2017      127
-3  2018      131
-4  2019      128
-5  2020      122
-6  2021      122
-7  2022      141
-8  2023      129
-9  2024      115</code></pre>
+3  2018      120
+4  2019      122
+5  2020      124
+6  2021      124
+7  2022      135
+8  2023      126
+9  2024      119</code></pre>
 </div>
 </div>
 <p>Next, we can create a chart and visualize the results. Here, we use commands for how the plot looks similar to other plots we’ve created previously.</p>
