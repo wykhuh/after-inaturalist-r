@@ -49,6 +49,42 @@ processFile = function(filepath) {
   writeLines(keep_lines, con=filepath)
 }
 
+processExerciseFile = function(filepath) {
+  original_text  <- readLines(filepath)
+
+
+  exercise_code <- FALSE
+  keep_lines <- c()
+  for(line in original_text) {
+    # detect lines that end exercise code snippets
+    if (exercise_code & startsWith(line, "#' ::: answer")) {
+      exercise_code <- FALSE
+    }
+
+    # detect lines that start exercise code snippets
+    if (startsWith(line, "#' :::: exercise")) {
+      exercise_code <- TRUE
+    }
+
+    # keep lines that are exercise code
+    if(exercise_code & !startsWith(line, "#' :::: exercise")) {
+      len <- length(keep_lines)
+      keep_lines[len+1] <- replace(line, "#'", "#")
+    }
+
+    # add two blanks lines after exercise label
+    if (startsWith(line, "#' :::: exercise")) {
+      len <- length(keep_lines)
+      keep_lines[len+1] <- ''
+      keep_lines[len+2] <- ''
+    }
+  }
+
+print(keep_lines)
+  writeLines(keep_lines, con=filepath)
+}
+
+
 
 
 files <- c(
@@ -65,16 +101,15 @@ files <- c(
            'additional-analysis'
            )
 
-# files <- c('creating-charts')
-
 
 # delete files https://stackoverflow.com/a/65831178
-unlink("lessons-export-r/*", recursive = TRUE, force = TRUE)
+unlink("lessons-export-r/lesson-scripts/*", recursive = TRUE, force = TRUE)
+unlink("lessons-export-r/exercises/*", recursive = TRUE, force = TRUE)
 
 count <- 1
 for (file in files) {
   input_file <- paste0('lessons/',file,'.qmd')
-  output_file <- paste0('lessons-export-r/', count, '_', file,'.R')
+  output_file <- paste0('lessons-export-r/lesson-scripts/', count, '_', file,'.R')
 
   knitr::purl(input = input_file, output = output_file, documentation = 1)
   processFile(output_file)
@@ -88,9 +123,10 @@ exercise_files <- c( 'working-with-data',
 count <- 1
 for (file in exercise_files) {
   input_file <- paste0('lessons/',file,'.qmd')
-  output_file <- paste0('lessons-export-r/', count, '_', file,'-full.R')
+  output_file <- paste0('lessons-export-r/exercises/', count, '_', file,'-full.R')
 
-  # knitr::purl(input = input_file, output = output_file, documentation = 2)
+  knitr::purl(input = input_file, output = output_file, documentation = 2)
+  processExerciseFile(output_file)
   count <- count + 1
 }
 
