@@ -51,7 +51,7 @@ processFile = function(filepath) {
 
 processExerciseFile = function(filepath) {
   original_text  <- readLines(filepath)
-
+  print(original_text)
 
   exercise_code <- FALSE
   keep_lines <- c()
@@ -66,11 +66,24 @@ processExerciseFile = function(filepath) {
       exercise_code <- TRUE
     }
 
+    # keep library lines
+    if(startsWith(line, "library(")){
+      len <- length(keep_lines)
+      keep_lines[len+1] <- line
+    }
+
+    if(startsWith(line, "source(here('scripts/data_utils.R'))")){
+      len <- length(keep_lines)
+      keep_lines[len+1] <- "source(here('scripts/data_utils.R'))"
+    }
+
     # keep lines that are exercise code
     if(exercise_code & !startsWith(line, "#' :::: exercise")) {
       len <- length(keep_lines)
-      keep_lines[len+1] <- replace(line, "#'", "#")
+      keep_lines[len+1] <- gsub(line, pattern="#'", replace="#")
     }
+
+
 
     # add two blanks lines after exercise label
     if (startsWith(line, "#' :::: exercise")) {
@@ -80,7 +93,6 @@ processExerciseFile = function(filepath) {
     }
   }
 
-print(keep_lines)
   writeLines(keep_lines, con=filepath)
 }
 
@@ -94,9 +106,9 @@ files <- c(
            'understanding-data',
            'creating-maps',
            'creating-charts',
+           'example-analysis',
            'higher-taxa',
            'other-datasets',
-           'example-analysis',
            'normalizing-inat',
            'additional-analysis'
            )
@@ -120,10 +132,11 @@ exercise_files <- c( 'working-with-data',
            'creating-maps',
            'creating-charts')
 
+
 count <- 1
 for (file in exercise_files) {
   input_file <- paste0('lessons/',file,'.qmd')
-  output_file <- paste0('lessons-export-r/exercises/', count, '_', file,'-full.R')
+  output_file <- paste0('lessons-export-r/exercises/', count, '_', file,'.R')
 
   knitr::purl(input = input_file, output = output_file, documentation = 2)
   processExerciseFile(output_file)

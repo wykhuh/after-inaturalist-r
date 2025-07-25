@@ -1,3 +1,8 @@
+library(readr) # read and write tabular data
+library(dplyr) # manipulate data
+library(ggplot2) # create data visualizations
+library(lubridate) # manipulate dates
+library(here) # file paths
 
 
 # ## Exercise 1

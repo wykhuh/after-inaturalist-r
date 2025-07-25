@@ -1,3 +1,8 @@
+library(readr) # read and write tabular data
+library(dplyr) # manipulate data
+library(lubridate) # manipulate dates
+library(here) # file paths
+library(stringr) # work with string
 
 
 # ## Exercise 1

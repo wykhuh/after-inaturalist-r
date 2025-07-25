@@ -1,3 +1,10 @@
+library(readr) # read and write tabular data
+library(dplyr) # manipulate data
+library(ggplot2) # create data visualizations
+library(sf) # handle vector geospatial data
+library(mapview) # create interactive maps
+library(here) # file paths
+source(here('scripts/data_utils.R'))
 
 
 # ## Exercise 1

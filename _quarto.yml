@@ -17,10 +17,10 @@ website:
       - lessons/understanding-data.qmd
       - lessons/creating-maps.qmd
       - lessons/creating-charts.qmd
-      - lessons/higher-taxa.qmd
-      - lessons/other-datasets.qmd
       - lessons/example-analysis.qmd
       - lessons/your-analysis.qmd
+      - lessons/higher-taxa.qmd
+      - lessons/other-datasets.qmd
       - lessons/coding-after-workshop.qmd
       - section: "Extra"
         contents:
@@ -29,6 +29,7 @@ website:
           - lessons/editing-geo-files.qmd
           - lessons/cleaning-data.qmd
           - lessons/setup-local.qmd
+          - lessons/setup-my-account.qmd
 
 
 format:
