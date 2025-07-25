@@ -13,7 +13,7 @@ inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 
 ## ----add_year_column------------------------------------------------------------
-inat_year <- inat_data %>%
+inat_year <- inat_data |>
   mutate(year = year(observed_on))
 
 
@@ -37,7 +37,7 @@ ggplot(data = inat_year, mapping = aes(y = year)) +
 
 
 ## ----create_dataframe_with_year_count-------------------------------------------
-inat_year_count <- inat_year %>%
+inat_year_count <- inat_year |>
   count(year, name='count')
 
 inat_year_count

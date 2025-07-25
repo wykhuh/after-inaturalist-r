@@ -2,12 +2,6 @@
 title: "Coding after the workshop"
 ---
 
-```{r}
-#| include: false
-classroom_organization <- 'data-explorers-feb-2025'
-classroom_repos <- paste0('https://github.com/orgs/', classroom_organization, '/repositories')
-```
-
 For those who want to continue coding after the workshop, here some options
 
 1.  Continue workshop projects.

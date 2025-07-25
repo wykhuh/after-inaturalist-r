@@ -36,7 +36,7 @@ glimpse(ca_counties)
 We see the name of the county is in `COUNTY` column. Use `filter()` to select the rows for 'Los Angeles County'.
 
 ```{r select_LA_county}
-LA <- ca_counties %>%
+LA <- ca_counties |>
   filter(COUNTY == 'Los Angeles County')
 
 LA
@@ -93,7 +93,7 @@ Let's look for `FULLNAME` equals 'Los Angeles River'
 ```{r filter_la_river}
 #| eval: false
 
-la_river <- area_water %>% 
+la_river <- area_water |> 
   filter(FULLNAME == 'Los Angeles River')
 
 la_river
@@ -106,7 +106,7 @@ Let's use `str_starts()` from **stringr** package to look for items that start w
 ```{r filter_str_starts_la_river}
 #| eval: false
 
-la_river <- area_water %>% 
+la_river <- area_water |> 
   filter(str_starts(FULLNAME, 'Los Angeles'))
 
 la_river
@@ -136,7 +136,7 @@ ggplot() +
 ```{r filter_la_river_parts}
 #| eval: false
 
-fixed_river <- la_river %>% 
+fixed_river <- la_river |> 
   filter(HYDROID %in% c(1104493447410, 1104493447488))
 ```
 

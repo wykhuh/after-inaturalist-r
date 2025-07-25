@@ -104,9 +104,9 @@ inat <- read_csv(here("data/cleaned/cnc-los-angeles-observations.csv"))
 Select the data you want. For instance, get all the research grade observations for one user.
 
 ```{r}
-inat %>%
+inat |>
   filter(user_login == 'natureinla' & 
-           quality_grade == 'research') %>%
+           quality_grade == 'research') |>
   select(user_login, common_name, scientific_name, observed_on)
 ```
 
@@ -114,10 +114,10 @@ Create summaries of the data. For instance, get the 10 most commonly observed 's
 
 ```{r, top_ten_species}
 
-top_10 <- inat %>%
-  select(common_name, scientific_name) %>%
-  count(common_name, scientific_name, name='count')  %>%
-  arrange(desc(count)) %>%
+top_10 <- inat |>
+  select(common_name, scientific_name) |>
+  count(common_name, scientific_name, name='count')  |>
+  arrange(desc(count)) |>
   slice(1:10)
 
 top_10
@@ -128,9 +128,9 @@ Create maps. For example, create a map showing all the observations for Western 
 ```{r, map_of_western_fence_lizard}
 #| eval: false
 
-lizard <- inat %>%
-  st_as_sf(coords = c("longitude", "latitude"),   crs = 4326, remove=FALSE) %>%
-  select(id, user_login, common_name, scientific_name, observed_on,  url, longitude, latitude, geometry) %>%
+lizard <- inat |>
+  st_as_sf(coords = c("longitude", "latitude"),   crs = 4326, remove=FALSE) |>
+  select(id, user_login, common_name, scientific_name, observed_on,  url, longitude, latitude, geometry) |>
   filter(common_name == 'Western Fence Lizard')
 
 
@@ -143,9 +143,9 @@ Create charts. For example, create a bar chart showing the number of observation
 
 ```{r, chart_observations_per_year}
 
-inat %>%
-  mutate(year = year(observed_on))  %>%
-  group_by(year) %>%
+inat |>
+  mutate(year = year(observed_on))  |>
+  group_by(year) |>
   ggplot(aes(x = year)) +
   geom_bar()
 

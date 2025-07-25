@@ -25,7 +25,7 @@ names(inat_data)
 
 
 ## ----select_columns-------------------------------------------------------------
-inat_base_sf <- inat_data %>%
+inat_base_sf <- inat_data |>
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)
 
 
@@ -42,7 +42,7 @@ st_crs(inat_base_sf)
 
 
 ## ----select_inat_base_sf_columns------------------------------------------------
- inat_sf <- inat_base_sf %>%
+ inat_sf <- inat_base_sf |>
   select(user_login, common_name, scientific_name, observed_on,  url, quality_grade)
 
 
@@ -51,7 +51,7 @@ dim(inat_sf)
 
 
 ## ----get_oak_data---------------------------------------------------------------
-inat_oak_sf <- inat_sf %>%
+inat_oak_sf <- inat_sf |>
   filter(scientific_name == 'Quercus agrifolia')
 
 
@@ -242,10 +242,10 @@ mapview(expo_park_boundary) +
 
 ## ----top_ten_species_expo_park--------------------------------------------------
 
-inat_expo %>%
-  st_drop_geometry() %>%
-  count(common_name, scientific_name) %>%
-  arrange(desc(n)) %>%
+inat_expo |>
+  st_drop_geometry() |>
+  count(common_name, scientific_name) |>
+  arrange(desc(n)) |>
   slice(1:10)
 
 
@@ -286,7 +286,7 @@ mapview(buffer_river) +
 
 ## ----get_all_observations_near_la_river-----------------------------------------
 
-inat_data_2 <- inat_base_sf %>%
+inat_data_2 <- inat_base_sf |>
   select(user_login, common_name, scientific_name, taxon_kingdom_name)
 
 inat_river <- st_filter(inat_data_2, buffer_river)
@@ -303,10 +303,10 @@ mapview(buffer_river, legend=FALSE,
 
 ## ----top_ten_species_la_river---------------------------------------------------
 
-inat_river %>%
-  st_drop_geometry() %>%
-  count(common_name, scientific_name) %>%
-  arrange(desc(n)) %>%
+inat_river |>
+  st_drop_geometry() |>
+  count(common_name, scientific_name) |>
+  arrange(desc(n)) |>
   slice(1:10)
 
 
@@ -330,7 +330,7 @@ ggplot(la_neighborhoods_sf) +
 
 
 ## ----select_columns_in_neighborhood---------------------------------------------
-la_neighborhoods_sf <- la_neighborhoods_sf %>%
+la_neighborhoods_sf <- la_neighborhoods_sf |>
   select(name, geometry)
 
 head(la_neighborhoods_sf)

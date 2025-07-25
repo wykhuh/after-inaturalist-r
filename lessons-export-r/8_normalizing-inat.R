@@ -19,13 +19,13 @@ allobs <- read_csv(here("data/cleaned/cnc-los-angeles-observations.csv"))
 
 
 ## ----get_research_observations--------------------------------------------------
-allobs_research <- allobs %>%
+allobs_research <- allobs |>
   filter(quality_grade=="research")
 
 
 
 ## ----add_geometry_column--------------------------------------------------------
-allobs_sf <- allobs_research %>%
+allobs_sf <- allobs_research |>
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)
 
 
@@ -57,7 +57,7 @@ mapview(neighborhood_obs) +
 
 
 ## ----add_year_to_inaturalist_observations---------------------------------------
-neighborhood_obs <- neighborhood_obs %>%
+neighborhood_obs <- neighborhood_obs |>
   mutate(year = year(observed_on))
 
 
@@ -73,10 +73,10 @@ lowest_year
 
 
 ## ----get_random_observations_per_year-------------------------------------------
-random_obs_per_year <- neighborhood_obs %>%
-  st_drop_geometry() %>%
-  group_by(year) %>%
-  slice_sample(n = lowest_year, replace=FALSE) %>%
+random_obs_per_year <- neighborhood_obs |>
+  st_drop_geometry() |>
+  group_by(year) |>
+  slice_sample(n = lowest_year, replace=FALSE) |>
   select(year, scientific_name)
 
 head(random_obs_per_year)
@@ -91,7 +91,7 @@ unique_species_per_year <- distinct(random_obs_per_year)
 
 
 ## ----count_species_per_year-----------------------------------------------------
-richness_dataframe <- unique_species_per_year %>%
+richness_dataframe <- unique_species_per_year |>
   count(year, name='richness')
 
 richness_dataframe

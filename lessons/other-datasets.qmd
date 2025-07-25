@@ -69,7 +69,7 @@ ggplot() +
 If we want the boundaries for one neighborhood, we can use `filter()`. Let's get the boundaries for Arroyo Seco neighborhood council. We have to use capital letters because that's the format of the original data.
 
 ```{r get_arroyo_seco}
-arroyo_seco <- nc_boundaries %>%
+arroyo_seco <- nc_boundaries |>
   filter(NAME == 'ARROYO SECO NC')
 ```
 
@@ -233,7 +233,7 @@ Let's get wildfires in the last ten years.
 This dataset has a `YEAR` column. We can `filter()` by `YEAR`
 
 ```{r get_fires_for_10_year}
-decade_fires <- fires_all_la %>%
+decade_fires <- fires_all_la |>
   filter(YEAR_ >= 2015)
 
 dim(decade_fires)
@@ -311,8 +311,8 @@ dim(DINS_la)
 Let's get the damaged structures for 2025.
 
 ```{r get_damaged_structures_2025}
-recent_DINS <- DINS_la %>% 
-  mutate(year = year(INCIDENTST)) %>%
+recent_DINS <- DINS_la |> 
+  mutate(year = year(INCIDENTST)) |>
   filter(year == 2025)
 
 dim(recent_DINS)
@@ -478,7 +478,7 @@ There are two issues with the previous map.
 ```{r, fix_map}
 #| eval: false
 
-la_county_pna_map <- la_county_pna %>%
+la_county_pna_map <- la_county_pna |>
   select(STUD_AR_NM, householdincome_medhinc_cy)
 
 mapview(la_county_pna_map, 
@@ -499,7 +499,7 @@ ejsm <- read_sf(here('data/raw/EJSM_Scores-shp/6cbc6914-690f-48ec-a54f-2649a8ddb
 ```
 
 ```{r select_ejsm_fields}
-ejsm_edit <- ejsm %>% 
+ejsm_edit <- ejsm |> 
   select(CIscore, HazScore, HealthScor, SVscore, CCVscore)
 ```
 
@@ -583,8 +583,8 @@ indicator_scientific_names
 Find observations for indicator species by looking for `scientific_name` that are in the `indicator_scientific_names`.
 
 ```{r get_indicator_species_observations}
-indicator_sf <- inat_sf %>%
-  filter(scientific_name %in% indicator_scientific_names) %>%
+indicator_sf <- inat_sf |>
+  filter(scientific_name %in% indicator_scientific_names) |>
   select(scientific_name, common_name)
 
 dim(indicator_sf)
@@ -642,8 +642,8 @@ plants_scientific_names <- calscape_la_county$'Botanical Name'
 Find observations for native plants by looking for `scientific_name` that are in the `plants_scientific_names`.
 
 ```{r get_native_plants_observations}
-native_plants_sf <- inat_sf %>%
-  filter(scientific_name %in% plants_scientific_names) %>%
+native_plants_sf <- inat_sf |>
+  filter(scientific_name %in% plants_scientific_names) |>
   select(scientific_name, common_name, establishment_means)
 
 dim(native_plants_sf)

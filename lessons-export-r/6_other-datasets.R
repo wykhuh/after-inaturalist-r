@@ -28,7 +28,7 @@ ggplot() +
 
 
 ## ----get_arroyo_seco------------------------------------------------------------
-arroyo_seco <- nc_boundaries %>%
+arroyo_seco <- nc_boundaries |>
   filter(NAME == 'ARROYO SECO NC')
 
 
@@ -120,7 +120,7 @@ dim(fires_all_la)
 
 
 ## ----get_fires_for_10_year------------------------------------------------------
-decade_fires <- fires_all_la %>%
+decade_fires <- fires_all_la |>
   filter(YEAR_ >= 2015)
 
 dim(decade_fires)
@@ -172,8 +172,8 @@ dim(DINS_la)
 
 
 ## ----get_damaged_structures_2025------------------------------------------------
-recent_DINS <- DINS_la %>%
-  mutate(year = year(INCIDENTST)) %>%
+recent_DINS <- DINS_la |>
+  mutate(year = year(INCIDENTST)) |>
   filter(year == 2025)
 
 dim(recent_DINS)
@@ -212,7 +212,7 @@ mapview(la_county_pna,
 
 ## ----fix_map--------------------------------------------------------------------
 
-la_county_pna_map <- la_county_pna %>%
+la_county_pna_map <- la_county_pna |>
   select(STUD_AR_NM, householdincome_medhinc_cy)
 
 mapview(la_county_pna_map,
@@ -225,7 +225,7 @@ ejsm <- read_sf(here('data/raw/EJSM_Scores-shp/6cbc6914-690f-48ec-a54f-2649a8ddb
 
 
 ## ----select_ejsm_fields---------------------------------------------------------
-ejsm_edit <- ejsm %>%
+ejsm_edit <- ejsm |>
   select(CIscore, HazScore, HealthScor, SVscore, CCVscore)
 
 
@@ -269,8 +269,8 @@ indicator_scientific_names
 
 
 ## ----get_indicator_species_observations-----------------------------------------
-indicator_sf <- inat_sf %>%
-  filter(scientific_name %in% indicator_scientific_names) %>%
+indicator_sf <- inat_sf |>
+  filter(scientific_name %in% indicator_scientific_names) |>
   select(scientific_name, common_name)
 
 dim(indicator_sf)
@@ -306,8 +306,8 @@ plants_scientific_names <- calscape_la_county$'Botanical Name'
 
 
 ## ----get_native_plants_observations---------------------------------------------
-native_plants_sf <- inat_sf %>%
-  filter(scientific_name %in% plants_scientific_names) %>%
+native_plants_sf <- inat_sf |>
+  filter(scientific_name %in% plants_scientific_names) |>
   select(scientific_name, common_name, establishment_means)
 
 dim(native_plants_sf)

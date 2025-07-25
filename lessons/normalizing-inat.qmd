@@ -37,7 +37,7 @@ allobs <- read_csv(here("data/cleaned/cnc-los-angeles-observations.csv"))
 Next, we want to restrict our dataset to only research grade observations. These are observations that have been identified twice and are of the highest quality. Here, we select that we only want the `quality_grade` variable to equal “research”.\
 
 ```{r get_research_observations}
-allobs_research <- allobs %>%
+allobs_research <- allobs |>
   filter(quality_grade=="research")
 
 ```
@@ -45,7 +45,7 @@ allobs_research <- allobs %>%
 We then want to convert this data into points that we can use for geospatial analysis.
 
 ```{r add_geometry_column}
-allobs_sf <- allobs_research %>% 
+allobs_sf <- allobs_research |> 
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)
 ```
 
@@ -102,7 +102,7 @@ Additionally, because the number of observations changes over time, we need to a
 First, we need to create a column in our dataset that says the year using `mutate()` and `year()`.
 
 ```{r add_year_to_inaturalist_observations}
-neighborhood_obs <- neighborhood_obs %>%
+neighborhood_obs <- neighborhood_obs |>
   mutate(year = year(observed_on))
 
 ```
@@ -126,10 +126,10 @@ Then when calculating species richness for each year, we can use a random subset
 We use `group_by()` to group the observations by year, and `slice_sample()` to randomly pick `lowest_year` number of observations per year. It’s also crucial that we set `replace` to FALSE. This ensures that we don’t duplicate observations.
 
 ```{r get_random_observations_per_year}
-random_obs_per_year <- neighborhood_obs %>%
-  st_drop_geometry() %>%
-  group_by(year) %>%
-  slice_sample(n = lowest_year, replace=FALSE) %>%
+random_obs_per_year <- neighborhood_obs |>
+  st_drop_geometry() |>
+  group_by(year) |>
+  slice_sample(n = lowest_year, replace=FALSE) |>
   select(year, scientific_name)
 
 head(random_obs_per_year)
@@ -150,7 +150,7 @@ unique_species_per_year <- distinct(random_obs_per_year)
 We use `count()` to count the number of species per year.
 
 ```{r count_species_per_year}
-richness_dataframe <- unique_species_per_year %>%
+richness_dataframe <- unique_species_per_year |>
   count(year, name='richness')
 
 richness_dataframe

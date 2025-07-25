@@ -22,13 +22,13 @@ inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 
 ## ----add_year_column------------------------------------------------------------
-inat_year <- inat_data %>%
+inat_year <- inat_data |>
   mutate(year = year(observed_on))
 
 
 ## ----select_columns-------------------------------------------------------------
-inat_sf <- inat_data %>%
-  st_as_sf(coords = c("longitude", "latitude"),   crs = 4326) %>%
+inat_sf <- inat_data |>
+  st_as_sf(coords = c("longitude", "latitude"),   crs = 4326) |>
   select(user_login, common_name, scientific_name, observed_on,  url, quality_grade)
 
 
@@ -39,8 +39,8 @@ ggplot(data = inat_year ,
 
 
 ## ----create_dataframe_for_multi_line_chart--------------------------------------
-year_quality_count <- inat_data %>%
-  mutate(year = year(observed_on))  %>%
+year_quality_count <- inat_data |>
+  mutate(year = year(observed_on))  |>
   count(year, quality_grade,  name='count')
 
 year_quality_count
@@ -53,8 +53,8 @@ ggplot(data = year_quality_count,
 
 
 ## ----create_dataframe_with_year_count-------------------------------------------
-inat_year_count <- inat_data %>%
-  mutate(year = year(observed_on)) %>%
+inat_year_count <- inat_data |>
+  mutate(year = year(observed_on)) |>
   count(year, name='count')
 
 inat_year_count
@@ -84,7 +84,7 @@ la_neighborhoods_sf <- read_sf(here('data/raw/la_times_la_county_neighborhoods.j
 
 
 ## ----get_expo_park--------------------------------------------------------------
-expo_park_sf <- la_neighborhoods_sf %>%
+expo_park_sf <- la_neighborhoods_sf |>
   filter(name=='Exposition Park')
 
 expo_park_sf
@@ -93,7 +93,7 @@ expo_park_sf
 ## ----get_neighborhoods_around_expo_park-----------------------------------------
 expo_area_sf <- st_filter(la_neighborhoods_sf, expo_park_sf)
 
-expo_area_sf <-  expo_area_sf %>%
+expo_area_sf <-  expo_area_sf |>
   select(name)
 
 expo_area_sf
@@ -158,7 +158,7 @@ glimpse(ejsm_inat_sf)
 
 
 ## ----create_centroids-----------------------------------------------------------
-centroid_sf <- st_centroid(ejsm_inat_sf) %>%
+centroid_sf <- st_centroid(ejsm_inat_sf) |>
   select(OBJECTID, observations_count)
 
 glimpse(centroid_sf)
@@ -178,7 +178,7 @@ ggplot() +
 
 
 ## ----create_interactive_centroid_map--------------------------------------------
-ejsm_inat_basic_sf <- ejsm_inat_sf %>%
+ejsm_inat_basic_sf <- ejsm_inat_sf |>
   select(CIscore)
 
 mapview(ejsm_inat_basic_sf,
@@ -192,18 +192,18 @@ table(inat_data$license)
 
 
 ## ----select_observations_with_slice---------------------------------------------
-my_inat2 <- inat_data %>%
-  filter(common_name == 'Western Fence Lizard') %>%
-  filter(license == 'CC0') %>%
+my_inat2 <- inat_data |>
+  filter(common_name == 'Western Fence Lizard') |>
+  filter(license == 'CC0') |>
   slice(1:5)
 
 table(my_inat2$observed_on)
 
 
 ## ----select_observations_with_slice_sample--------------------------------------
-my_inat <- inat_data %>%
-  filter(common_name == 'Western Fence Lizard') %>%
-  filter(license == 'CC0') %>%
+my_inat <- inat_data |>
+  filter(common_name == 'Western Fence Lizard') |>
+  filter(license == 'CC0') |>
   slice_sample(n=5)
 
 table(my_inat$observed_on)

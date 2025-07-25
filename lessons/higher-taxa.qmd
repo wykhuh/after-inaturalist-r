@@ -38,7 +38,7 @@ inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 Let's look for observations for all oak trees. We can use filter where the `common_name` is 'oaks'.
 
 ```{r, filter_oaks_observations}
-oaks_obs <- inat_data %>%
+oaks_obs <- inat_data |>
   filter(common_name == 'oaks') 
 
 dim(oaks_obs)
@@ -77,7 +77,7 @@ The 'Taxonomy' tab on iNaturalist taxa pages show the taxonomic hierarchy with a
 We can create a filter command to represent the taxonomic hierarchy.
 
 ```{r get_quercus_observations}
-oaks_obs_fixed <- inat_data %>%
+oaks_obs_fixed <- inat_data |>
   filter(
     taxon_kingdom_name == 'Plantae' &
     taxon_phylum_name == 'Tracheophyta' &
@@ -103,8 +103,8 @@ We get a combination of oaks species and oaks genus.
 The reason why I listed the hierarchy instead of just filtering by `taxon_genus_name == 'Quercus'` is because of limitations of my taxonomy knowledge and the limitations of the information provided by the CSV. Some Latin words are used multiple times to represent different taxa. For instance Eisenia is a genus for a type of worm and a genus for a type kelp. A filter command for `taxon_genus_name == 'Eisenia'` would return observations for two very different organisms.
 
 ```{r get_Eisenia_observations}
-Eisenia_obs <- inat_data %>%
-  filter(taxon_genus_name == 'Eisenia') %>%
+Eisenia_obs <- inat_data |>
+  filter(taxon_genus_name == 'Eisenia') |>
   select(common_name, taxon_kingdom_name)
 
 Eisenia_obs
@@ -117,9 +117,9 @@ iNaturalist gives each taxa name a unique id. Worm Eisenia is 128842, kelp Eisen
 I don't have enough expertise to know if a taxa name is unique, so to play it safe, I list the entire taxonomy hierarchy. Someone with more expertise might know there is only one Quercus in Plantae so they search for Plantae kingdom and genus Quercus.
 
 ```{r get_Plantae_Quercus_observations}
-Plantae_Quercus_obs <- inat_data %>%
+Plantae_Quercus_obs <- inat_data |>
   filter(taxon_kingdom_name == 'Plantae' &
-           taxon_genus_name == 'Quercus') %>%
+           taxon_genus_name == 'Quercus') |>
   select(common_name, taxon_kingdom_name)
 
 dim(Plantae_Quercus_obs)
@@ -130,7 +130,7 @@ dim(Plantae_Quercus_obs)
 Another example, let's search for 'trees'. When we search iNaturalist for 'trees', the first result is [Phylum Tracheophyta](https://www.inaturalist.org/taxa/211194-Tracheophyta). Let's look at our data using `taxon_phylum_name` and 'Tracheophyta'
 
 ```{r get_Tracheophyta_observations}
-trees_obs <- inat_data %>%
+trees_obs <- inat_data |>
   filter(taxon_kingdom_name == 'Plantae' &
            taxon_phylum_name == 'Tracheophyta')
 
@@ -164,9 +164,9 @@ Search by species.
 ```{r get_laco_species_observations}
 laco_species <- c('Acacia aneura', 'Acacia stenophylla', 'Afrocarpus falcatus', "Agonis flexuosa", 'Angophora costata', "Arbutus 'marina'", 'Arbutus unedo'  )
 
-laco_species_obs <- inat_data %>%
+laco_species_obs <- inat_data |>
   filter(taxon_species_name %in% laco_species & 
-           taxon_kingdom_name == 'Plantae') %>%
+           taxon_kingdom_name == 'Plantae') |>
   select(user_login, common_name, scientific_name, taxon_species_name)
 ```
 
@@ -175,9 +175,9 @@ Search by genera.
 ```{r get_laco_genera_observations}
 laco_genera <- c('Acacia',  'Afrocarpus', "Agonis", 'Angophora', "Arbutus" )
 
-laco_genera_obs <- inat_data %>%
+laco_genera_obs <- inat_data |>
   filter(taxon_genus_name %in% laco_genera & 
-           taxon_kingdom_name == 'Plantae') %>%
+           taxon_kingdom_name == 'Plantae') |>
   select(user_login, common_name, scientific_name, taxon_genus_name)
 ```
 
@@ -190,24 +190,24 @@ When searching for species, it's generally better to search by scientific names 
 16 observations for *Arbutus unedo.*
 
 ```{r}
-inat_data %>%
-  filter(scientific_name == 'Arbutus unedo') %>%
+inat_data |>
+  filter(scientific_name == 'Arbutus unedo') |>
   select(scientific_name, common_name)
 ```
 
 16 observations for 'strawberry tree'
 
 ```{r}
-inat_data %>%
-  filter(common_name == 'strawberry tree') %>%
+inat_data |>
+  filter(common_name == 'strawberry tree') |>
   select(scientific_name, common_name)
 ```
 
 0 observations for 'strawberry madrone'. Even though 'strawberry madrone' is a valid common name for *Arbutus unedo*, we get zero results because it isn't the common name that iNaturalist uses.
 
 ```{r}
-inat_data %>%
-  filter(common_name == 'strawberry madrone') %>%
+inat_data |>
+  filter(common_name == 'strawberry madrone') |>
   select(scientific_name, common_name)
 ```
 
@@ -220,14 +220,14 @@ When searching by scientific name, it is generally better to search using `taxon
 'Sceloporus occidentalis' is the scientific name for 'Western Fence Lizard'.
 
 ```{r}
-lizard1 <- inat_data %>%
+lizard1 <- inat_data |>
   filter(scientific_name == 'Sceloporus occidentalis')
 
 dim(lizard1)
 ```
 
 ```{r}
-lizard2 <- inat_data %>%
+lizard2 <- inat_data |>
   filter(taxon_species_name == 'Sceloporus occidentalis') 
 
 dim(lizard2)

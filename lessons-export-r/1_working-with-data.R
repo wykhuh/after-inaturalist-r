@@ -66,8 +66,8 @@ filter(inat_data, scientific_name == 'Sceloporus occidentalis')
 
 
 ## ----pipe_filter_select---------------------------------------------------------
-inat_data %>%
-  filter(user_login == 'natureinla') %>%
+inat_data |>
+  filter(user_login == 'natureinla') |>
   select(user_login, common_name, scientific_name, observed_on)
 
 
@@ -81,15 +81,15 @@ table(inat_data$coordinates_obscured)
 
 
 ## ----observations_with_unobscured_coordinates-----------------------------------
-inat_data %>%
-  filter(coordinates_obscured == FALSE) %>%
+inat_data |>
+  filter(coordinates_obscured == FALSE) |>
   select(user_login, common_name, scientific_name, observed_on)
 
 
 ## ----select_filter_error--------------------------------------------------------
 
-inat_data %>%
-  select(user_login, common_name, scientific_name, observed_on)  %>%
+inat_data |>
+  select(user_login, common_name, scientific_name, observed_on)  |>
   filter(coordinates_obscured == FALSE)
 
 
@@ -98,28 +98,28 @@ unique(inat_data$quality_grade)
 
 
 ## ----research_grade_observations------------------------------------------------
-inat_data %>%
-  filter(quality_grade == 'research')  %>%
+inat_data |>
+  filter(quality_grade == 'research')  |>
   select(user_login, common_name, scientific_name, observed_on)
 
 
 ## ----error_typo_pipe------------------------------------------------------------
-inat_data %>
+inat_data >
   select(user_login, observed_on, common_name)
 
 
 ## ----error_misspell_field-------------------------------------------------------
-inat_data %>%
+inat_data |>
   select(user_logi, observed_on, common_name)
 
 
 ## ----error_equality-------------------------------------------------------------
-inat_data %>%
+inat_data |>
   filter(user_login = 'natureinla')
 
 
 ## ----error_parenthesis----------------------------------------------------------
-inat_data %>%
+inat_data |>
   select(user_login, observed_on, common_name))
 
 
@@ -127,9 +127,9 @@ inat_data %>%
 
 
 ## ----filter_with_common_name_and_quality_grade----------------------------------
-my_data <- inat_data %>%
+my_data <- inat_data |>
   filter(common_name == 'Western Fence Lizard' &
-           quality_grade == 'research')  %>%
+           quality_grade == 'research')  |>
   select(user_login, common_name, scientific_name, observed_on, quality_grade)
 
 
@@ -146,7 +146,7 @@ unique(my_data$quality_grade)
 
 
 ## ----get_summary_of_unobscured_observations-------------------------------------
-my_data <- inat_data %>%
+my_data <- inat_data |>
   filter(coordinates_obscured == FALSE)
 
 
@@ -154,9 +154,9 @@ summary(my_data$positional_accuracy)
 
 
 ## ----filter_with_coordinates_obscured_and_positional_accuracy-------------------
-my_data <- inat_data %>%
+my_data <- inat_data |>
   filter(coordinates_obscured == FALSE &
-           positional_accuracy <= 5) %>%
+           positional_accuracy <= 5) |>
   select(user_login, common_name, scientific_name, positional_accuracy, coordinates_obscured)
 
 dim(my_data)
@@ -171,9 +171,9 @@ unique(my_data$positional_accuracy)
 
 
 ## ----filter_with_or_2_species---------------------------------------------------
-my_data <- inat_data %>%
+my_data <- inat_data |>
   filter(common_name == 'Western Honey Bee' |
-        common_name == 'Western Fence Lizard')  %>%
+        common_name == 'Western Fence Lizard')  |>
   select(user_login, observed_on, common_name)
 
 dim(my_data)
@@ -184,7 +184,7 @@ unique(my_data$common_name)
 
 
 ## ----and_comparison-------------------------------------------------------------
-and_data <- inat_data %>%
+and_data <- inat_data |>
   filter(user_login == 'natureinla' &
            common_name == 'Western Fence Lizard')
 
@@ -200,7 +200,7 @@ unique(and_data$common_name)
 
 
 ## ----or_comparison--------------------------------------------------------------
-or_data <- inat_data %>%
+or_data <- inat_data |>
   filter(user_login == 'natureinla' |
            common_name == 'Western Fence Lizard')
 
@@ -208,11 +208,11 @@ dim(or_data)
 
 
 ## ----or_comparison_user_login---------------------------------------------------
-unique(or_data$user_login) %>% length
+unique(or_data$user_login) |> length()
 
 
 ## ----or_comparison_common_name--------------------------------------------------
-unique(or_data$common_name) %>% length
+unique(or_data$common_name) |> length()
 
 
 ## ----create_vector--------------------------------------------------------------
@@ -229,8 +229,8 @@ table(inat_data$license)
 
 
 ## ----filter_by_license----------------------------------------------------------
-my_data <- inat_data %>%
-  filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC')) %>%
+my_data <- inat_data |>
+  filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC')) |>
   select(user_login, observed_on, common_name, license)
 
 dim(my_data)
@@ -301,18 +301,18 @@ ants <- c(
 "Velvety Tree Ants"
 )
 
-ants_obs <- inat_data %>%
-  filter(common_name %in% ants) %>%
+ants_obs <- inat_data |>
+  filter(common_name %in% ants) |>
   select(user_login, observed_on, common_name)
 
 dim(ants_obs)
 
 
 ## ----complex_queries------------------------------------------------------------
-complex_query <- inat_data %>%
+complex_query <- inat_data |>
   filter(user_login == 'cdegroof' |
-           user_login == 'deedeeflower5') %>%
-  filter(common_name == 'Western Fence Lizard')  %>%
+           user_login == 'deedeeflower5') |>
+  filter(common_name == 'Western Fence Lizard')  |>
   select(user_login, common_name, scientific_name, observed_on)
 
 dim(complex_query)
@@ -327,10 +327,10 @@ unique(complex_query$user_login)
 
 
 ## ----incorrect_and_or-----------------------------------------------------------
-alt_1 <- inat_data %>%
+alt_1 <- inat_data |>
   filter(user_login == 'cdegroof' |
            user_login == 'deedeeflower5' &
-           common_name == 'Western Fence Lizard')  %>%
+           common_name == 'Western Fence Lizard')  |>
   select(user_login, common_name, scientific_name, observed_on)
 
 dim(alt_1)
@@ -341,13 +341,13 @@ unique(alt_1$user_login)
 
 
 ## ----alt_1_unique_common_name---------------------------------------------------
-unique(alt_1$common_name) %>% length
+unique(alt_1$common_name) |> length()
 
 
 ## ----parenthesis_and_or---------------------------------------------------------
-alt_2 <- inat_data %>%
+alt_2 <- inat_data |>
   filter((user_login == 'cdegroof' | user_login == 'deedeeflower5') &
-           common_name == 'Western Fence Lizard')  %>%
+           common_name == 'Western Fence Lizard')  |>
   select(user_login, common_name, scientific_name, observed_on)
 
 dim(alt_2)
@@ -388,7 +388,7 @@ year(inat_data$observed_on)[10317:10320]
 
 
 ## ----mutate_year----------------------------------------------------------------
-temp <- inat_data %>%
+temp <- inat_data |>
   mutate(year = year(observed_on))
 
 
@@ -401,8 +401,8 @@ class(temp$year)
 
 
 ## ----2020_observations----------------------------------------------------------
-temp <- inat_data %>%
-  mutate(year = year(observed_on)) %>%
+temp <- inat_data |>
+  mutate(year = year(observed_on)) |>
   filter(year == 2020)
 
 
@@ -411,8 +411,8 @@ unique(temp$year)
 
 
 ## ----2018_2020_observations-----------------------------------------------------
-temp <- inat_data %>%
-  mutate(year = year(observed_on)) %>%
+temp <- inat_data |>
+  mutate(year = year(observed_on)) |>
   filter(year >= 2018 & year <= 2020)
 
 
@@ -424,61 +424,61 @@ unique(temp$year)
 
 
 ## ----count_year-----------------------------------------------------------------
-inat_data %>%
-  mutate(year = year(observed_on)) %>%
+inat_data |>
+  mutate(year = year(observed_on)) |>
   count(year)
 
 
 ## ----rename_count_column--------------------------------------------------------
-inat_data %>%
-  mutate(year = year(observed_on)) %>%
+inat_data |>
+  mutate(year = year(observed_on)) |>
   count(year, name='obs_count')
 
 
 ## ----count_species--------------------------------------------------------------
-counts <- inat_data %>%
+counts <- inat_data |>
   count(common_name, scientific_name, name='obs_count')
 
 counts
 
 
 ## ----order_counts---------------------------------------------------------------
-counts <- inat_data %>%
-  count(common_name, scientific_name, name='obs_count')   %>%
+counts <- inat_data |>
+  count(common_name, scientific_name, name='obs_count')   |>
   arrange(obs_count)
 
 counts
 
 
 ## ----desc_count-----------------------------------------------------------------
-counts <- inat_data %>%
-  count(common_name, scientific_name, name='obs_count') %>%
+counts <- inat_data |>
+  count(common_name, scientific_name, name='obs_count') |>
   arrange(desc(obs_count))
 
 counts
 
 
 ## ----top_ten--------------------------------------------------------------------
-counts <- inat_data %>%
-  count(common_name, scientific_name, name='obs_count') %>%
-  arrange(desc(obs_count))  %>%
+counts <- inat_data |>
+  count(common_name, scientific_name, name='obs_count') |>
+  arrange(desc(obs_count))  |>
   slice(1:10)
 
 counts
 
 
 ## ----kingdoms_count-------------------------------------------------------------
-counts <- inat_data %>%
-  count(taxon_kingdom_name, name='obs_count') %>%
+counts <- inat_data |>
+  count(taxon_kingdom_name, name='obs_count') |>
   arrange(desc(obs_count))
 
 counts
 
 
 ## ----animal_phylums-------------------------------------------------------------
-counts <- inat_data %>%
-  filter(taxon_kingdom_name == 'Animalia') %>%
-  count(taxon_phylum_name, name='obs_count') %>%
+counts <- inat_data |>
+  filter(taxon_kingdom_name == 'Animalia') |>
+  count(taxon_phylum_name, name='obs_count') |>
   arrange(desc(obs_count))
 
 counts
@@ -489,7 +489,7 @@ counts
 
 ## ----3_condition_my_observation-------------------------------------------------
 
-my_obs <- inat_data %>%
+my_obs <- inat_data |>
   filter(user_login == 'natureinla' &
            quality_grade == 'research' &
            coordinates_obscured == FALSE)

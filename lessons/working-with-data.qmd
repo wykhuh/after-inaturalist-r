@@ -192,31 +192,27 @@ We get 3,339 rows, and 37 columns, the same as `common_name == 'Western Fence Li
 
 We will cover how to search for species more in the ["Higher taxa"](higher-taxa.qmd) lesson.
 
-### The pipe: %\>%
+### The pipe: \|\>
 
 What happens if we want to select columns and filter rows?
 
-We use the pipe operator `%>%` to call multiple functions.
-
-::: callout-tip
-You can insert `%>%` by using the keyboard shortcut <kbd>Shift+Cmd+M</kbd> (Mac) or <kbd>Shift+Ctrl+M</kbd> (Windows).
-:::
+We use the pipe operator `|>` to call multiple functions.
 
 #### select observations by user_login
 
 iNaturalist has two fields for the user name: `user_login` and `user_name`. iNaturalist displays the `user_login` for each observation, and displays `user_name` on the user's profile page.
 
-Let's get all observations for iNaturalist user 'natureinla', and we only want columns `user_login`, `common_name`, `scientific_name`, `observed_on`. Since we need both `filter()` and `select()`, we use pipe operator `%>%`.
+Let's get all observations for iNaturalist user 'natureinla', and we only want columns `user_login`, `common_name`, `scientific_name`, `observed_on`. Since we need both `filter()` and `select()`, we use pipe operator `|>`.
 
 Pipe operator take the thing on the left hand side and insert it as the first argument of the function on the right hand side.
 
 ```{r, pipe_filter_select}
-inat_data %>%
-  filter(user_login == 'natureinla') %>%
+inat_data |>
+  filter(user_login == 'natureinla') |>
   select(user_login, common_name, scientific_name, observed_on)
 ```
 
-It can be helpful to think of `%>%` as meaning "and then". `inat_data` is sent to `filter()` function. `filter()` selects rows with 'natureinla'. And then the output from `filter()` is sent into the `select()` function. `select()` selects 4 columns.
+It can be helpful to think of `|>` as meaning "and then". `inat_data` is sent to `filter()` function. `filter()` selects rows with 'natureinla'. And then the output from `filter()` is sent into the `select()` function. `select()` selects 4 columns.
 
 #### select observations by coordinates_obscured
 
@@ -243,8 +239,8 @@ table(inat_data$coordinates_obscured)
 If the exact location of the observation will affect your analysis, then you want unobscured coordinates. Let's get the observations where the coordinates are not obscured.
 
 ```{r, observations_with_unobscured_coordinates}
-inat_data %>%
-  filter(coordinates_obscured == FALSE) %>%
+inat_data |>
+  filter(coordinates_obscured == FALSE) |>
   select(user_login, common_name, scientific_name, observed_on)
 ```
 
@@ -254,8 +250,8 @@ When using both `filter()` and `select()`, it is a good idea to use `filter()` b
 ```{r select_filter_error}
 #| eval: false
 
-inat_data %>%
-  select(user_login, common_name, scientific_name, observed_on)  %>% 
+inat_data |>
+  select(user_login, common_name, scientific_name, observed_on)  |> 
   filter(coordinates_obscured == FALSE)
 ```
 
@@ -275,8 +271,8 @@ unique(inat_data$quality_grade)
 When researchers use iNaturalist data, they normally use research grade observations. Let's get the observations that are research grade.
 
 ```{r, research_grade_observations}
-inat_data %>%
-  filter(quality_grade == 'research')  %>%
+inat_data |>
+  filter(quality_grade == 'research')  |>
   select(user_login, common_name, scientific_name, observed_on)
 ```
 
@@ -284,11 +280,11 @@ inat_data %>%
 
 We are writing instructions for the computer. If there is a typo, misspelling, wrong function arguments, etc, the code will not work and we will see errors. R will display the errors in red. You need to fix the errors in order for the code to work. Here are some example errors.
 
-typo: we used `%>`, when it should be `%>%`
+typo: we used `>`, when it should be `|>`
 
 ```{r, error_typo_pipe}
 #| eval: false
-inat_data %>
+inat_data >
   select(user_login, observed_on, common_name)
 ```
 
@@ -296,7 +292,7 @@ Misspelled `user_logi`
 
 ```{r, error_misspell_field}
 #| eval: false
-inat_data %>%
+inat_data |>
   select(user_logi, observed_on, common_name)
 ```
 
@@ -304,7 +300,7 @@ typo: we use `=`, when it should be `==`
 
 ```{r, error_equality}
 #| eval: false
-inat_data %>%
+inat_data |>
   filter(user_login = 'natureinla')
 ```
 
@@ -312,7 +308,7 @@ typo: extra `)`
 
 ```{r, error_parenthesis}
 #| eval: false
-inat_data %>%
+inat_data |>
   select(user_login, observed_on, common_name))
 ```
 
@@ -331,8 +327,8 @@ Get all your City Nature Challenge observations.
 ```{r, exercise_your_observations}
 my_inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
-my_obs <- my_inat_data %>%
-  filter(user_login == 'natureinla') %>%
+my_obs <- my_inat_data |>
+  filter(user_login == 'natureinla') |>
   select(user_login, observed_on, common_name, scientific_name)
 ```
 :::
@@ -353,9 +349,9 @@ If there are multiple criteria, and we want to get rows that match all of the cr
 Let's get all 'Western Fence Lizard' observations that are research grade. This means we want to get rows where `common_name` is 'Western Fence Lizard' and `quality_grade` is 'research'.
 
 ```{r, filter_with_common_name_and_quality_grade}
-my_data <- inat_data %>%
+my_data <- inat_data |>
   filter(common_name == 'Western Fence Lizard' & 
-           quality_grade == 'research')  %>%
+           quality_grade == 'research')  |>
   select(user_login, common_name, scientific_name, observed_on, quality_grade)
 ```
 
@@ -381,7 +377,7 @@ Previously we looked at `coordinates_obscured`. In addition to coordinates being
 When given a column in a dataframe, `summary()` displays statistics about the values. Let's use `summary()` to look at the positional accuracy of observations where the coordinates are not obscured.
 
 ```{r get_summary_of_unobscured_observations}
-my_data <- inat_data %>%
+my_data <- inat_data |>
   filter(coordinates_obscured == FALSE)  
 
  
@@ -407,9 +403,9 @@ Even though we selected unobscured locations, 25% of the observations are 65 or 
 If location accuracy is important to your analysis, you can select a small number for position accuracy. Let's get observations with unobscured locations that have position accuracy less than 5 meters.
 
 ```{r filter_with_coordinates_obscured_and_positional_accuracy}
-my_data <- inat_data %>%
+my_data <- inat_data |>
   filter(coordinates_obscured == FALSE & 
-           positional_accuracy <= 5) %>%
+           positional_accuracy <= 5) |>
   select(user_login, common_name, scientific_name, positional_accuracy, coordinates_obscured)
 
 dim(my_data)
@@ -436,9 +432,9 @@ If there are multiple criteria, and we want to get rows that match one or more o
 Let's get observations where `common_name` is 'Western Fence Lizard' or 'Western Honey Bee'.
 
 ```{r, filter_with_or_2_species}
-my_data <- inat_data %>%
+my_data <- inat_data |>
   filter(common_name == 'Western Honey Bee' | 
-        common_name == 'Western Fence Lizard')  %>%
+        common_name == 'Western Fence Lizard')  |>
   select(user_login, observed_on, common_name)
 
 dim(my_data)
@@ -453,7 +449,7 @@ unique(my_data$common_name)
 **& (and)** return rows where all conditions are true. This code looks for observations where `user_login` is 'natureinla' and `common_name` is 'Western Fence Lizard'.
 
 ```{r, and_comparison}
-and_data <- inat_data %>%
+and_data <- inat_data |>
   filter(user_login == 'natureinla' & 
            common_name == 'Western Fence Lizard')
 
@@ -473,7 +469,7 @@ We get 79 rows with 1 `user_login` and 1 `common_name`
 **\| (or)** returns rows where any conditions are true. This code looks for observations where `user_login` is 'natureinla' plus observations where `common_name` is 'Western Fence Lizard'
 
 ```{r, or_comparison}
-or_data <- inat_data %>%
+or_data <- inat_data |>
   filter(user_login == 'natureinla' | 
            common_name == 'Western Fence Lizard')
 
@@ -481,11 +477,11 @@ dim(or_data)
 ```
 
 ```{r, or_comparison_user_login}
-unique(or_data$user_login) %>% length
+unique(or_data$user_login) |> length()
 ```
 
 ```{r, or_comparison_common_name}
-unique(or_data$common_name) %>% length
+unique(or_data$common_name) |> length()
 ```
 
 We get 6,216 rows with 1052 user_login and 1031 common_name
@@ -526,8 +522,8 @@ table(inat_data$license)
 Let's get observations with CC0, CC-BY, or CC-BY-NC license. `filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC'))` will return rows where the `license` field is in the vector ('CC0', 'CC-BY', 'CC-BY-NC')
 
 ```{r filter_by_license}
-my_data <- inat_data %>%
-  filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC')) %>%
+my_data <- inat_data |>
+  filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC')) |>
   select(user_login, observed_on, common_name, license)
 
 dim(my_data)
@@ -550,9 +546,9 @@ Get all your observations that are research grade
 
 ::: answer
 ```{r, exercise_your_research_grade}
-my_inat_data %>%
+my_inat_data |>
   filter(user_login == 'natureinla' & 
-           quality_grade == 'research') %>%
+           quality_grade == 'research') |>
   select(user_login, observed_on, common_name, scientific_name)
 ```
 :::
@@ -646,8 +642,8 @@ ants <- c(
 "Velvety Tree Ants"
 )
 
-ants_obs <- inat_data %>%
-  filter(common_name %in% ants) %>%
+ants_obs <- inat_data |>
+  filter(common_name %in% ants) |>
   select(user_login, observed_on, common_name)
 
 dim(ants_obs)
@@ -662,10 +658,10 @@ Sometimes we want to use both `&` `|` to select the rows. You can use multiple `
 Let's get observations where user is 'cdegroof' or 'deedeeflower5', and species is 'Western Fence Lizard'.
 
 ```{r, complex_queries}
-complex_query <- inat_data %>%
+complex_query <- inat_data |>
   filter(user_login == 'cdegroof' | 
-           user_login == 'deedeeflower5') %>%
-  filter(common_name == 'Western Fence Lizard')  %>%
+           user_login == 'deedeeflower5') |>
+  filter(common_name == 'Western Fence Lizard')  |>
   select(user_login, common_name, scientific_name, observed_on)
 
 dim(complex_query)
@@ -683,10 +679,10 @@ unique(complex_query$user_login)
 This query using just `|` `&` with one `filter()` does not give us what we want.
 
 ```{r incorrect_and_or}
-alt_1 <- inat_data %>%
+alt_1 <- inat_data |>
   filter(user_login == 'cdegroof' | 
            user_login == 'deedeeflower5' & 
-           common_name == 'Western Fence Lizard')  %>%
+           common_name == 'Western Fence Lizard')  |>
   select(user_login, common_name, scientific_name, observed_on)
 
 dim(alt_1)
@@ -697,7 +693,7 @@ unique(alt_1$user_login)
 ```
 
 ```{r, alt_1_unique_common_name}
-unique(alt_1$common_name) %>% length
+unique(alt_1$common_name) |> length()
 ```
 
 We get 2 users but 137 common names.
@@ -707,9 +703,9 @@ In most programming languages `and` is evaluated before `or`. Our query asked fo
 This query using `|` `&` `()` does give us what we want. We used parenthesis around the two `user_login`.
 
 ```{r parenthesis_and_or}
-alt_2 <- inat_data %>%
+alt_2 <- inat_data |>
   filter((user_login == 'cdegroof' | user_login == 'deedeeflower5') &
-           common_name == 'Western Fence Lizard')  %>%
+           common_name == 'Western Fence Lizard')  |>
   select(user_login, common_name, scientific_name, observed_on)
 
 dim(alt_2)
@@ -743,9 +739,9 @@ unique(my_obs$common_name)[0:10]
 ```
 
 ```{r, exercise_two_species}
-my_inat_data %>%
-  filter(user_login == 'natureinla') %>%
-  filter(common_name == 'Red-eared Slider' | common_name=='Monarch') %>%
+my_inat_data |>
+  filter(user_login == 'natureinla') |>
+  filter(common_name == 'Red-eared Slider' | common_name=='Monarch') |>
   select(user_login, observed_on, common_name, scientific_name)
 ```
 :::
@@ -790,7 +786,7 @@ year(inat_data$observed_on)[10317:10320]
 We can use `mutate()` from **dplyr** and `year()` from **lubridate** to add a `year` column. For `mutate()`, we pass in the name of the new column, and the value of the column.
 
 ```{r, mutate_year}
-temp <- inat_data %>%
+temp <- inat_data |>
   mutate(year = year(observed_on))
 ```
 
@@ -811,8 +807,8 @@ class(temp$year)
 Let's get all observations for 2020. Use `mutate()` and `year()` to add `year` column. Then use `filter()` to select rows where year is 2020.
 
 ```{r, 2020_observations}
-temp <- inat_data %>%
-  mutate(year = year(observed_on)) %>%
+temp <- inat_data |>
+  mutate(year = year(observed_on)) |>
   filter(year == 2020)
 ```
 
@@ -825,8 +821,8 @@ Since `year` column contains numbers, we can do greater than or less than compar
 Let's get observations between 2018 and 2020, (e.g. 2018 2019 2020).
 
 ```{r, 2018_2020_observations}
-temp <- inat_data %>%
-  mutate(year = year(observed_on)) %>%
+temp <- inat_data |>
+  mutate(year = year(observed_on)) |>
   filter(year >= 2018 & year <= 2020)
 ```
 
@@ -846,9 +842,9 @@ Get all of your observations from 2024.
 
 ::: answer
 ```{r, exercise_last_year}
-my_inat_data %>%
-   mutate(year = year(observed_on)) %>%
-  filter(user_login == 'natureinla' & year == 2024) %>%
+my_inat_data |>
+   mutate(year = year(observed_on)) |>
+  filter(user_login == 'natureinla' & year == 2024) |>
   select(user_login, observed_on, common_name, scientific_name)
 ```
 :::
@@ -863,16 +859,16 @@ We can use `count()` from **dplyr** to count the number of values for one or mor
 Let's try counting of all observations by year. Use `mutate()` to add a year column. Use `count()` to count the number of observations for each year. By default, count will add a new column called `n`.
 
 ```{r, count_year}
-inat_data %>%
-  mutate(year = year(observed_on)) %>%
+inat_data |>
+  mutate(year = year(observed_on)) |>
   count(year)
 ```
 
 We can specify the name of the count column by passing in `name` argument to `count()`.
 
 ```{r, rename_count_column}
-inat_data %>%
-  mutate(year = year(observed_on)) %>%
+inat_data |>
+  mutate(year = year(observed_on)) |>
   count(year, name='obs_count')
 ```
 
@@ -881,7 +877,7 @@ inat_data %>%
 Let's count the number of observations for each species. We will pass in both 'common_name' and 'scientific_name' to `count()` because some species don't have a common_name.
 
 ```{r, count_species}
-counts <- inat_data %>%
+counts <- inat_data |>
   count(common_name, scientific_name, name='obs_count')
 
 counts
@@ -890,8 +886,8 @@ counts
 It's often useful to take a look at the results in some order, like the lowest count to highest. We can use the `arrange()` function from **dplyr** for that. We pass in the columns we want to order by to `arrange()`. By default, `arrange()` will return values from lowest to highest.
 
 ```{r, order_counts}
-counts <- inat_data %>%
-  count(common_name, scientific_name, name='obs_count')   %>%
+counts <- inat_data |>
+  count(common_name, scientific_name, name='obs_count')   |>
   arrange(obs_count)
 
 counts
@@ -900,8 +896,8 @@ counts
 If we want to reverse the order, we can wrap the column names in `desc()` from **dplyr**. This will return values from highest to lowest.
 
 ```{r, desc_count}
-counts <- inat_data %>%
-  count(common_name, scientific_name, name='obs_count') %>%
+counts <- inat_data |>
+  count(common_name, scientific_name, name='obs_count') |>
   arrange(desc(obs_count))
 
 counts
@@ -912,9 +908,9 @@ use `slice()` from **dplyr** to return only certain number of records. `slice(st
 Let's get the top ten species with the most observations.
 
 ```{r, top_ten}
-counts <- inat_data %>%
-  count(common_name, scientific_name, name='obs_count') %>%
-  arrange(desc(obs_count))  %>%
+counts <- inat_data |>
+  count(common_name, scientific_name, name='obs_count') |>
+  arrange(desc(obs_count))  |>
   slice(1:10)
 
 counts
@@ -925,8 +921,8 @@ counts
 Let's count the observations by kingdom.
 
 ```{r, kingdoms_count}
-counts <- inat_data %>%
-  count(taxon_kingdom_name, name='obs_count') %>%
+counts <- inat_data |>
+  count(taxon_kingdom_name, name='obs_count') |>
   arrange(desc(obs_count)) 
 
 counts
@@ -935,9 +931,9 @@ counts
 Let's count observations for phylums in the Animal kingdom. Use `filter()` to select 'Animalia' kingdom. Then count the `taxon_phylum_name`.
 
 ```{r, animal_phylums}
-counts <- inat_data %>%
-  filter(taxon_kingdom_name == 'Animalia') %>%
-  count(taxon_phylum_name, name='obs_count') %>%
+counts <- inat_data |>
+  filter(taxon_kingdom_name == 'Animalia') |>
+  count(taxon_phylum_name, name='obs_count') |>
   arrange(desc(obs_count)) 
 
 counts
@@ -955,9 +951,9 @@ Get the number of observation you made per year
 
 ::: answer
 ```{r, exercise_observations_per_year}
-my_inat_data %>%
-  mutate(year = year(observed_on)) %>%
-  filter(user_login == 'natureinla') %>%
+my_inat_data |>
+  mutate(year = year(observed_on)) |>
+  filter(user_login == 'natureinla') |>
   count(year, name='obs_count')
 ```
 :::
@@ -973,7 +969,7 @@ First, assign the data frame to an object.
 
 ```{r, 3_condition_my_observation}
 
-my_obs <- inat_data %>%
+my_obs <- inat_data |>
   filter(user_login == 'natureinla' & 
            quality_grade == 'research' & 
            coordinates_obscured == FALSE) 

@@ -54,7 +54,7 @@ inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 Let's add a year column to iNaturalist data.
 
 ```{r, add_year_column}
-inat_year <- inat_data %>% 
+inat_year <- inat_data |> 
   mutate(year = year(observed_on)) 
 ```
 
@@ -102,7 +102,7 @@ For line charts, we need to specify which columns to use for the x and y axis.
 We need to create a data frame that has a year column, and a column that counts the observations per year. `inat_year` has a year column. Use `count()` to add a column that has the count per year.
 
 ```{r, create_dataframe_with_year_count}
-inat_year_count <- inat_year %>%
+inat_year_count <- inat_year |>
   count(year, name='count')  
 
 inat_year_count
@@ -171,8 +171,8 @@ Create a chart with all your observations for each year
 
 my_inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
-my_obs_by_year  <- my_inat_data %>% 
-  mutate(year = year(observed_on))  %>% 
+my_obs_by_year  <- my_inat_data |> 
+  mutate(year = year(observed_on))  |> 
   filter(user_login == 'natureinla')
 
   

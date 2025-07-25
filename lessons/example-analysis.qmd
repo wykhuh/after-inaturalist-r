@@ -59,7 +59,7 @@ Now that I have the scientific names, I can write my `filter()` query. I use `ta
 I use `dim()` to display the number rows and columns.
 
 ```{r}
-heron_obs <- inat_data %>%
+heron_obs <- inat_data |>
   filter(taxon_kingdom_name == 'Animalia' &
          taxon_species_name == 'Ardea herodias')
 
@@ -87,10 +87,10 @@ table(heron_obs$coordinates_obscured)
 I add additional `filter()` commands for research grade and unobscured coordinates.
 
 ```{r}
-heron_obs <- inat_data %>%
+heron_obs <- inat_data |>
   filter(taxon_kingdom_name == 'Animalia' &
-         taxon_species_name == 'Ardea herodias') %>%
-  filter(quality_grade == 'research') %>%
+         taxon_species_name == 'Ardea herodias') |>
+  filter(quality_grade == 'research') |>
   filter(coordinates_obscured == FALSE)
 
 
@@ -126,7 +126,7 @@ Now that I have the observations I want, I can plot them on a map.
 Since I want to create a map, I need to use `st_as_sf()` to convert the dataframe into a sf object. sf objects have a `geometry` column and other features that let us process geospatial data. I pass in "longitude" and "latitude" to `coords` so that `st_as_sf()` know which columns are the longitude and latitude columns. I set the CRS as 4326.
 
 ```{r}
-heron_obs_sf <- heron_obs %>% 
+heron_obs_sf <- heron_obs |> 
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)
 ```
 
@@ -142,7 +142,7 @@ mapview(heron_obs_sf)
 When I click on a blue circle on the map, a popup shows all 37 columns, which is too much information. I can use `select()` to limit the number of columns shown.
 
 ```{r}
-heron_map <- heron_obs_sf %>%
+heron_map <- heron_obs_sf |>
   select(user_login, observed_on, common_name, taxon_species_name, image_url)
 
 dim(heron_map)
@@ -279,7 +279,7 @@ I create a vector with the `HYDROID`, and use `filter()` and `%in%` to find reco
 ```{r}
 ids <- c(1101584241267, 1101584241127, 1101584238995)
 
-WNRA <- water_areas %>%
+WNRA <- water_areas |>
   filter(HYDROID %in% ids)
 ```
 
@@ -325,7 +325,7 @@ Anytime you have a file with lots of boundaries but you only want a few of the b
 I want to create a bar chart that shows the heron observations near water by year. I use `mutate` and `year()` to add a year column.
 
 ```{r}
-heron_year <- heron_near_water_sf %>%
+heron_year <- heron_near_water_sf |>
   mutate(year = year(observed_on))
 ```
 
@@ -442,9 +442,9 @@ I use `filter()` to select observations that have 'CC0', 'CC-BY', or 'CC-BY-NC' 
 ```{r download_images}
 #| eval: false
 
-heron_images <- heron_near_water_sf %>%
-  filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC')) %>%
-  filter(!is.na(image_url)) %>%
+heron_images <- heron_near_water_sf |>
+  filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC')) |>
+  filter(!is.na(image_url)) |>
   slice_sample(n=3)
 
 download_inaturalist_images(heron_images)
@@ -501,7 +501,7 @@ inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 names(inat_data)
 
-heron_obs <- inat_data %>%
+heron_obs <- inat_data |>
   filter(taxon_kingdom_name == 'Animalia' &
          taxon_species_name == 'Ardea herodias')
 
@@ -511,10 +511,10 @@ table(heron_obs$quality_grade)
 
 table(heron_obs$coordinates_obscured)
 
-heron_obs <- inat_data %>%
+heron_obs <- inat_data |>
   filter(taxon_kingdom_name == 'Animalia' &
-         taxon_species_name == 'Ardea herodias') %>%
-  filter(quality_grade == 'research') %>%
+         taxon_species_name == 'Ardea herodias') |>
+  filter(quality_grade == 'research') |>
   filter(coordinates_obscured == FALSE)
 
 dim(heron_obs)
@@ -530,12 +530,12 @@ write_csv(heron_obs, here('results/heron_observations.csv'), na='')
 ## Create a map with CNC observations
 ## =================
 
-heron_obs_sf <- heron_obs %>%
+heron_obs_sf <- heron_obs |>
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)
 
 mapview(heron_obs_sf)
 
-heron_map <- heron_obs_sf %>%
+heron_map <- heron_obs_sf |>
   select(user_login, observed_on, common_name, taxon_species_name, image_url)
 
 dim(heron_map)
@@ -588,7 +588,7 @@ mapview(heron_near_water_sf, col.regions='green') +
 
 ids <- c(1101584241267, 1101584241127, 1101584238995)
 
-WNRA <- water_areas %>%
+WNRA <- water_areas |>
   filter(HYDROID %in% ids)
 
 WNRA_5070 <- st_transform(WNRA, crs=5070)
@@ -606,7 +606,7 @@ mapview(heron_WNRA_sf, col.region='green') +
 ## Create chart
 ## =================
 
-heron_year <- heron_near_water_sf %>%
+heron_year <- heron_near_water_sf |>
   mutate(year = year(observed_on))
 
 ggplot()+
@@ -659,9 +659,9 @@ ggsave(filename = here('results/heron_observations_near_water_map.jpg'),
 ## Download iNaturalist images
 ## =================
 
-heron_images <- heron_near_water_sf %>%
-  filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC')) %>%
-  filter(!is.na(image_url)) %>%
+heron_images <- heron_near_water_sf |>
+  filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC')) |>
+  filter(!is.na(image_url)) |>
   slice_sample(n=3)
 
 download_inaturalist_images(heron_images)

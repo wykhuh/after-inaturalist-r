@@ -22,7 +22,7 @@ names(inat_data)
 
 
 ## -------------------------------------------------------------------------------
-heron_obs <- inat_data %>%
+heron_obs <- inat_data |>
   filter(taxon_kingdom_name == 'Animalia' &
          taxon_species_name == 'Ardea herodias')
 
@@ -38,10 +38,10 @@ table(heron_obs$coordinates_obscured)
 
 
 ## -------------------------------------------------------------------------------
-heron_obs <- inat_data %>%
+heron_obs <- inat_data |>
   filter(taxon_kingdom_name == 'Animalia' &
-         taxon_species_name == 'Ardea herodias') %>%
-  filter(quality_grade == 'research') %>%
+         taxon_species_name == 'Ardea herodias') |>
+  filter(quality_grade == 'research') |>
   filter(coordinates_obscured == FALSE)
 
 
@@ -60,7 +60,7 @@ write_csv(heron_obs, here('results/heron_observations.csv'), na='')
 
 
 ## -------------------------------------------------------------------------------
-heron_obs_sf <- heron_obs %>%
+heron_obs_sf <- heron_obs |>
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)
 
 
@@ -69,7 +69,7 @@ mapview(heron_obs_sf)
 
 
 ## -------------------------------------------------------------------------------
-heron_map <- heron_obs_sf %>%
+heron_map <- heron_obs_sf |>
   select(user_login, observed_on, common_name, taxon_species_name, image_url)
 
 dim(heron_map)
@@ -132,7 +132,7 @@ mapview(heron_near_water_sf, col.regions='green') +
 ## -------------------------------------------------------------------------------
 ids <- c(1101584241267, 1101584241127, 1101584238995)
 
-WNRA <- water_areas %>%
+WNRA <- water_areas |>
   filter(HYDROID %in% ids)
 
 
@@ -157,7 +157,7 @@ mapview(heron_WNRA_sf, col.region='green') +
 
 
 ## -------------------------------------------------------------------------------
-heron_year <- heron_near_water_sf %>%
+heron_year <- heron_near_water_sf |>
   mutate(year = year(observed_on))
 
 
@@ -221,9 +221,9 @@ ggsave(filename = here('results/heron_observations_near_water_map.jpg'),
 
 ## ----download_images------------------------------------------------------------
 
-heron_images <- heron_near_water_sf %>%
-  filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC')) %>%
-  filter(!is.na(image_url)) %>%
+heron_images <- heron_near_water_sf |>
+  filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC')) |>
+  filter(!is.na(image_url)) |>
   slice_sample(n=3)
 
 download_inaturalist_images(heron_images)
@@ -255,7 +255,7 @@ inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
 
 names(inat_data)
 
-heron_obs <- inat_data %>%
+heron_obs <- inat_data |>
   filter(taxon_kingdom_name == 'Animalia' &
          taxon_species_name == 'Ardea herodias')
 
@@ -265,10 +265,10 @@ table(heron_obs$quality_grade)
 
 table(heron_obs$coordinates_obscured)
 
-heron_obs <- inat_data %>%
+heron_obs <- inat_data |>
   filter(taxon_kingdom_name == 'Animalia' &
-         taxon_species_name == 'Ardea herodias') %>%
-  filter(quality_grade == 'research') %>%
+         taxon_species_name == 'Ardea herodias') |>
+  filter(quality_grade == 'research') |>
   filter(coordinates_obscured == FALSE)
 
 dim(heron_obs)
@@ -284,12 +284,12 @@ write_csv(heron_obs, here('results/heron_observations.csv'), na='')
 ## Create a map with CNC observations
 ## =================
 
-heron_obs_sf <- heron_obs %>%
+heron_obs_sf <- heron_obs |>
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)
 
 mapview(heron_obs_sf)
 
-heron_map <- heron_obs_sf %>%
+heron_map <- heron_obs_sf |>
   select(user_login, observed_on, common_name, taxon_species_name, image_url)
 
 dim(heron_map)
@@ -342,7 +342,7 @@ mapview(heron_near_water_sf, col.regions='green') +
 
 ids <- c(1101584241267, 1101584241127, 1101584238995)
 
-WNRA <- water_areas %>%
+WNRA <- water_areas |>
   filter(HYDROID %in% ids)
 
 WNRA_5070 <- st_transform(WNRA, crs=5070)
@@ -360,7 +360,7 @@ mapview(heron_WNRA_sf, col.region='green') +
 ## Create chart
 ## =================
 
-heron_year <- heron_near_water_sf %>%
+heron_year <- heron_near_water_sf |>
   mutate(year = year(observed_on))
 
 ggplot()+
@@ -413,9 +413,9 @@ ggsave(filename = here('results/heron_observations_near_water_map.jpg'),
 ## Download iNaturalist images
 ## =================
 
-heron_images <- heron_near_water_sf %>%
-  filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC')) %>%
-  filter(!is.na(image_url)) %>%
+heron_images <- heron_near_water_sf |>
+  filter(license %in% c('CC0', 'CC-BY', 'CC-BY-NC')) |>
+  filter(!is.na(image_url)) |>
   slice_sample(n=3)
 
 download_inaturalist_images(heron_images)
