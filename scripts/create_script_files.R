@@ -51,7 +51,6 @@ processFile = function(filepath) {
 
 processExerciseFile = function(filepath) {
   original_text  <- readLines(filepath)
-  print(original_text)
 
   exercise_code <- FALSE
   keep_lines <- c()
