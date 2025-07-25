@@ -58,11 +58,12 @@ files <- c(
            'understanding-data',
            'creating-maps',
            'creating-charts',
-           'other-datasets',
            'higher-taxa',
+           'other-datasets',
+           'example-analysis',
            'normalizing-inat',
-           'additional-analysis',
-           'example-analysis')
+           'additional-analysis'
+           )
 
 # files <- c('creating-charts')
 
