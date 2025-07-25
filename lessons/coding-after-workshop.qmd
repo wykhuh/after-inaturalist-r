@@ -10,7 +10,9 @@ For those who want to continue coding after the workshop, here some options
 
 ## 1. Continue workshop projects
 
-#### Copy repository to your Github account
+Some attendees of the in-person workshop might want to continue working on their projects.
+
+### Copy repository to your Github account
 
 First step is to copy your repository from the workshop into your Github account. Go to your repository page on Github. There is a "Fork" button near the top. Creating a fork will copy the repo, and create a new repo in your Github account. Click the "Fork" button.
 
@@ -28,25 +30,9 @@ A copy of the repo will be added to your Github account.
 
 ![](images/coding-after-workshop/my-fork-repo.png)
 
-#### Start a Codespace
+### Start Codespace
 
-Next step is to run Codespace on your repo in your Github account.
-
-Currently, every free Github account has access to 120 core hours per month to run Codespaces. When you start a Codespace, by default it uses 2 cores. This means you can run a Codespace for 60 hours per month (120 core hours / 2 cores = 60 hours). For more information, visit [Codespaces Billing](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-github-codespaces/about-billing-for-github-codespaces).
-
-1.  Click the green "Code" button near the top of the page.
-
-![](images/coding-after-workshop/code-button.png)
-
-2.  Click "Codespaces" tab.
-
-3.  a\. If there are no Codespaces for the repo, click the green "Create codespace on main" button. The browser window loads the Codespace.
-
-    ![](images/coding-after-workshop/create-codespace-main.png){width="500"}
-
-    b\. If a Codespace exists for the repo, you should see the randomly-assigned name for your previously-created Codespace. Click on the Codespace.
-
-    ![](images/setup/restart-codespace.png){width="500"}
+Next step is to run Codespace on your repo in your Github account. Read the instructions on [Start Codespace](start-codespace.qmd).
 
 ## 2. Create new projects on Github
 

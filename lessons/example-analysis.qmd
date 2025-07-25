@@ -6,9 +6,11 @@ This lesson shows how to I used some of the code samples in the previous lessons
 
 My question: I want to get all research grade observations for Great Blue Heron in LA County near bodies of water.
 
-## Restart Codespace
+## Setup coding enviroment
 
-First step is to restart Codespace. Read the instructons on [Restart Codespace page](restart-codespace-classroom.qmd)
+People who attended the in-person workshop, should follow the instructions on [Setup > Restart Codespace](setup.qmd#restart-codespace)
+
+People who are doing this course as a self-paced course should follow the instructions on [Restart Codespace](restart-codespace.qmd) or start RStudio on their computer.
 
 ## Creating script
 

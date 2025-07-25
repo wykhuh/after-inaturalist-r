@@ -1,5 +1,5 @@
 ---
-title: "Cleaning data"
+title: "Cleaning iNaturalist data"
 ---
 
 A common step during data analysis is to clean up the raw data. We fix any obvious errors, edit column names, exclude rows we do not want, and save the cleaned up data set. We do the analysis on the cleaned data set.

@@ -19,17 +19,24 @@ website:
       - lessons/creating-charts.qmd
       - lessons/example-analysis.qmd
       - lessons/your-analysis.qmd
-      - lessons/higher-taxa.qmd
-      - lessons/other-datasets.qmd
-      - lessons/coding-after-workshop.qmd
       - section: "Extra"
         contents:
+          - lessons/higher-taxa.qmd
+          - lessons/other-datasets.qmd
           - lessons/normalizing-inat.qmd
           - lessons/additional-analysis.qmd
-          - lessons/editing-geo-files.qmd
+          - lessons/coding-after-workshop.qmd
+      - section: "Data Cleaning"
+        contents:
           - lessons/cleaning-data.qmd
+          - lessons/editing-geo-files.qmd
+      - section: "Setup"
+        contents:
+          - lessons/setup-github.qmd
           - lessons/setup-local.qmd
-          - lessons/setup-my-account.qmd
+          - lessons/start-codespace.qmd
+          - lessons/restart-codespace.qmd
+          - lessons/stop-codespace.qmd
 
 
 format:

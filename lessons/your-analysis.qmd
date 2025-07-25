@@ -13,7 +13,7 @@ We have covered various ways to do basic analyze iNaturalist data. Next step is 
 
 2.  Learning a programming language is like learning spoken/written languages - it will take practice to get better. Since this is the first programming experience for many of you, it is perfectly normal to copy others while gradually forming a mental model of what is going on.
 
-3.  Review the online lessons and use Codespace to run the examples in 'scripts/lesson-scripts'.
+3.  Review the online lessons and use Codespace to run the examples in `scripts/lesson-scripts`.
 
 4.  We did one exercise in class. Optionally, do the rest of the exercises in the ["Working with data"](working-with-data.qmd), ["Creating maps"](creating-maps.qmd), and ["Creating charts"](creating-charts.qmd) sections to get more practice with coding. Click the "Show solution" button on the online lesson to see the solution.
 
@@ -25,7 +25,7 @@ We have covered various ways to do basic analyze iNaturalist data. Next step is 
 
 Once you have a rough idea about what you want to analyze, you can start writing code for your analysis.
 
-1.  Read the ["Restart Codespace"](https://wykhuh.github.io/after-inaturalist-r/lessons/setup.html#restart-codespace) section to restart Codespace. Read the ["Stop Codespace"](https://wykhuh.github.io/after-inaturalist-r/lessons/setup.html#stop-codespace) section to learn how to stop Codespace at the end of your work session.
+1.  Read the ["Restart Codespace"](https://wykhuh.github.io/after-inaturalist-r/lessons/setup.html#restart-codespace) section to restart Codespace. Read the ["Stop Codespace"](stop-codespace.qmd) section to learn how to stop Codespace at the end of your work session.
 
 2.  Create script files to save your work. Remember to end the script files with `.R`.
 

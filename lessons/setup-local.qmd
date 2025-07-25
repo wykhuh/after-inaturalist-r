@@ -94,6 +94,20 @@ library(mapview)
 
 If you do not see an error like `there is no package called ‘...’` you are good to go!
 
+## Workshop files
+
+To work through the lessons in this workshop, you will need to download the workshop code and data.
+
+1.  Go to the [after_inaturalist_attendees](https://github.com/wykhuh/after_inaturalist_attendees) Github repository.
+
+2.  Click the green "Code" button. Select "Local" tab. Click the "Download ZIP" to download the files.
+
+    ![](images/setup/download_attendees_repo.png){width="500"}
+
+3.  Unzip the file. Place the `after_inaturalist_attendees-main` folder somewhere on your computer. I have a folder on my computer for all my coding projects.
+
+4.  Read the instructions on the Github repository for information about the contents of the folder.
+
 ## **Organizing** your project folder
 
 It is a good practice to organize your projects into self-contained folders. Your project should start with a top-level folder that contains everything necessary for the project, including data, scripts, and results, all organized into subfolders.

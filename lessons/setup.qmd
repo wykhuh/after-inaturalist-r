@@ -30,7 +30,7 @@ For people who attend the in-person workshop, setup the software, data, and code
 
 For people who did not attend the in-person workshop, you can set up the code on Github or your personal computer.
 
-1.  Setup the software, data, and code on Codespaces using your Github account. You can run the software for free for 60 hours per month. Visit the [Setup on my Github account](setup-my-account.qmd) page.
+1.  Setup the software, data, and code on Codespaces using your Github account. You can run the software for free for 60 hours per month. Visit the [Setup using Github](setup-github.qmd) page.
 
 2.  Install all the software, data, and code on your computer. You can run the software for free for an unlimited number of hours. Visit the [Setup local computer](setup-local.qmd) page.
 
@@ -97,4 +97,28 @@ After you finish your work for the day, you need to stop R, push your code chang
 
 ## Restart Codespace
 
-After the initial setup of Codespace, you can restart an existing Codespace. Read the instructons on [Restart Codespace page](restart-codespace-classroom.qmd)
+1.  Go to [`{r} classroom_organization`](`{r} classroom_repos`) Github page, and you should see your repository. Click on your repository.
+
+2.  Scroll to the bottom of the page, and click the "Open in GitHub Codespaces" button. This will restart the Codespace created in the "Setup Github Classroom and Codespaces" section.
+
+    ![](images/setup/repo-open-codespace.png)
+
+3.  This is Visual Studio Code, the default code editor for GitHub Codespaces. We want to use RStudio as our code editor.
+
+    You will see page with "Setting up remote connection: Building codespace..." message in the corner. The software for the workshop is being downloaded and installed. This will take about 30 seconds
+
+    ![](images/setup/building-codespace.png)
+
+4.  Once the Codespace has started, there should be a "bash", "Codespaces: timer", and "Codespaces: rstudio-start" on the lower right. Click on the "PORTS" tab at the bottom.
+
+    ![](images/setup/finish-building.png)
+
+5.  In the PORTS tab, hover over the item named RStudio or 8787. Click on the middle globe icon to start RStudio in a new browser tab.
+
+    ![](images/setup/rstudio-port.png)
+
+6.  Now you are ready to write and run R code using RStudio.
+
+    Even though we won't use Visual Studio Code to write R code, keep the tab for Visual Studio Code open.
+
+    ![](images/setup/rstudio.png)

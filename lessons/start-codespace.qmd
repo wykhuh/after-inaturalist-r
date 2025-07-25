@@ -1,0 +1,33 @@
+---
+title: "Start Codespace"
+---
+
+Currently, every free Github account has access to 120 core hours per month to run Codespaces. When you start a Codespace, by default it uses 2 cores. This means you can run a Codespace for 60 hours per month (120 core hours / 2 cores = 60 hours). For more information, visit [Codespaces Billing](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-github-codespaces/about-billing-for-github-codespaces).
+
+1.  Go to your Github repository.
+
+2.  Click the "Code" green button. Click the "Codespaces" tab.
+
+    ![](images/coding-after-workshop/code-button.png)
+
+3.  Click "Create codespace on main" green button to create a Codespace.
+
+    ![](images/coding-after-workshop/create-codespace-main.png){width="430"}
+
+4.  You will be redirected to the new Codespace in a new browser tab. This is Visual Studio Code, the default code editor for GitHub Codespace. We want to use RStudio as our code editor.
+
+    You will see page with "Setting up remote connection: Building codespace..." message in the corner. The software for the workshop is being downloaded and installed. This will take about 5 minutes.
+
+    ![](images/setup/building-codespace.png)
+
+5.  Once the Codespace has started, there should be a "bash", "Codespaces: timer", and "Codespaces: rstudio-start" on the lower right. Click on the "PORTS" tab at the bottom.
+
+    ![](images/setup/finish-building.png)
+
+6.  In the PORTS tab, hover over the item named RStudio or 8787. Click on the middle globe icon to start RStudio in a new browser tab.
+
+    ![](images/setup/rstudio-port.png)
+
+7.  Now you are ready to write and run R code using RStudio.
+
+    ![](images/setup/rstudio.png)

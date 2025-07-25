@@ -4,12 +4,6 @@ include-in-header: "components/add-answer-button.html"
 time: 20 minutes
 ---
 
-```{r}
-#| include: false
-classroom_organization <- 'data-explorers-feb-2025'
-classroom_repos <- paste0('https://github.com/orgs/', classroom_organization, '/repositories')
-```
-
 ::: summary
 ## Questions
 
@@ -31,14 +25,11 @@ R is a programming language. R is a popular language for data analysis.
 
 ## Running R and RStudio
 
-Let's start R and RStudio in GitHub Codespaces.
+There are different ways to start RStudio.
 
-1.  Go to [`{r} classroom_organization`](`{r} classroom_repos`) on Github.
-2.  Click on your repo.
-3.  Click "Open in GitHub Codespaces" button.
-4.  Click "PORTS" after the Codespace is finished building.
-5.  Hover over "RStudio".
-6.  Click on middle globe icon to start RStudio.
+People who attended the in-person workshop, should follow the instructions on [Setup > Restart Codespace](setup.qmd#restart-codespace)
+
+People who are doing this course as a self-paced course should follow the instructions on [Restart Codespace](restart-codespace.qmd) or start RStudio on their computer.
 
 ## Navigating RStudio
 
@@ -62,9 +53,9 @@ It is a good practice to organize your projects into self-contained folders. You
 ```         
 project_folder
 │
-└── .devcontainer
+└── .devcontainer*
 │
-└── .gitignore
+└── .gitignore*
 |
 └── data
 │    └── cleaned
@@ -72,18 +63,18 @@ project_folder
 │
 └── project.Rproj
 │
-└── readme.md
+└── readme.md*
 |
 └── results
 │
 └── scripts
-    └── exercises
-    └── lesson-scripts
+    └── exercises*
+    └── lesson-scripts*
 ```
 
-We have a `data` folder containing `cleaned` and `raw` sub-folders. In general, you want to keep your `raw` data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the `cleaned` folder. We also have a `results` folder for any other documents you might produce. We also have a `scripts` folder to hold any scripts we write. We have a `lesson-scripts` subfolder that has all the code from the lesson, and a `exercises` subfolder for the lesson exercises.
+We have a `data` folder containing `cleaned` and `raw` sub-folders. In general, you want to keep your `raw` data completely untouched, so once you put data into that folder, you do not modify it. Instead, you read it into R, and if you make any modifications, you write that modified file into the `cleaned` folder. The `results` folder is for any other documents you might produce. The `scripts` folder holds any scripts we write. We have a `lesson-scripts` subfolder that has all the code from the lesson, and a `exercises` subfolder for the lesson exercises.
 
-RStudio provides a “Projects” feature that can make it easier to work on individual projects in R. RStudio projects have a `xxx.Rproj` file.
+RStudio provides a “Projects” feature that can make it easier to work on individual projects in R. RStudio projects have a `xxx.Rproj` file. Clicking on a `.Rproj` file will start RStudio.
 
 One of the benefits to using RStudio Projects is that they automatically set the **working directory** to the top-level folder for the project. The working directory is the folder where R is working, so it views the location of all files (including data and scripts) as being relative to the working directory.
 
@@ -212,9 +203,9 @@ first.name <- 'Jane'
 
 ### Save changes to your repository
 
-We are using Github and Github Codespaces to host and run our code.
+If you have R and RStudio installed on your computer, you can skip this step.
 
-When you create or edit a file, the changes are saved to Codespaces. You also need to save the changes to your repository. By saving the changes to your repository, you will have access to your files after the workshop ends.
+We are using Github and Github Codespaces to host and run our code.  When you create or edit a file, the changes are saved to Codespaces.  You also need to save the changes to your repository. By saving the changes to your repository, you will have access to your files after the workshop ends.
 
 Terminal is a program that allows you to write commands for the computer. To access the terminal, go to first the browser tab for Codespaces. Click "bash" in the bottom right, then click the "TERMINAL" tab.
 

@@ -1,0 +1,40 @@
+---
+title: "Setup using Github"
+---
+
+You can use Github Codespace to run R and RStudio online without installing stuff on your computer.
+
+## Create Github account
+
+If you don't have a Github account, create an account.
+
+1.  Sign up for a [GitHub](https://github.com) account.
+2.  After you login, update your settings.
+3.  Go to [Emails settings](https://github.com/settings/emails).
+    1.  Select 'Keep my email addresses private'. 'Block command line pushes that expose my email' should also be automatically selected.
+4.  Optional. Go to [Password and authentication settings](https://github.com/settings/security).
+    1.  If needed, setup Passkey or two-factor authentication.
+
+## Start Codespace
+
+1.  Go to [after_inaturalist_attendees](https://github.com/wykhuh/after_inaturalist_attendees) repository and click the "Use this template" green button, and select "Create an new repository". This will copy the workshop code to your Github account.
+
+    ![](images/setup-my-account/template.png)
+
+2.  On the "Create a new repository" page, fill in the Repository name. Choose if you want the repo public or private. Then click "Create repository" green button.
+
+3.  You will be redirected to the new repository. Follow the instructions on [Start Codespace](start-codespace.qmd).
+
+4.  The code for the workshop is in the "scripts" \> "lesson-scripts" folder. These are R scripts. Select a line of code, and run the code using <kbd>Cmd+Return</kbd> (Mac) or <kbd>Ctrl+Enter</kbd> (Windows).
+
+    ![](images/setup-my-account/scripts-folder.png)
+
+5.  You should read the lessons in the order from "Introduction to Data Analysis" to "Example Analysis". Skim the other lessons to see if they have examples relevant to your project. The R lesson script files starts with the [Working with data](working-with-data.qmd) lesson.
+
+## Stop Codespace
+
+After you finish your work for the day, you need to stop R, push your code changes to your repository and, stop Codespace. Read the instructions on the [Stop Codespace page](stop-codespace.qmd).
+
+## Restart Codespace
+
+Read the instructions on the [Restart Codespace page](restart-codespace.qmd).
