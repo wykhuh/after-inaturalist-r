@@ -2,45 +2,13 @@
 title: "Example Analysis"
 ---
 
-```{r}
-#| include: false
-classroom_organization <- 'data-explorers-feb-2025'
-classroom_repos <- paste0('https://github.com/orgs/', classroom_organization, '/repositories')
-```
-
 This lesson shows how to I used some of the code samples in the previous lessons to create an analysis that has maps and charts.
 
 My question: I want to get all research grade observations for Great Blue Heron in LA County near bodies of water.
 
 ## Restart Codespace
 
-First step is to start Codespace.
-
-1.  Go to [`{r} classroom_organization`](`{r} classroom_repos`) Github page, and you should see your repository. Click on your repository.
-
-2.  Scroll to the bottom of the page, and click the "Open in GitHub Codespaces" button. This will restart the Codespace created in the "Setup Github Classroom and Codespaces" section.
-
-    ![](images/setup/repo-open-codespace.png)
-
-3.  This is Visual Studio Code, the default code editor for GitHub Codespaces. We want to use RStudio as our code editor.
-
-    ![](images/setup/building-codespace.png)
-
-4.  Once the Codespace has started, it will run a script for timer, and start RStudio. In the lower right, there should be a "bash", "Codespaces: timer", and "Codespaces: rstudio-start".
-
-    Click on the "PORTS" tab at the bottom.
-
-    ![](images/setup/finish-building.png)
-
-5.  In the PORTS tab, hover over the item named RStudio or 8787. Click on the middle globe icon to start RStudio in a new browser tab.
-
-![](images/setup/rstudio-port.png)
-
-6.  Now you are ready to write and run R code using RStudio.
-
-    Even though we won't use Visual Studio Code to write R code, keep the tab for Visual Studio Code open.
-
-    ![](images/setup/rstudio.png)
+First step is to restart Codespace. Read the instructons on [Restart Codespace page](restart-codespace-classroom.qmd)
 
 ## Creating script
 
@@ -500,39 +468,11 @@ Click "Download" button on the popup window. The files will be saved to folder t
 
 ## Stop Codespace
 
-After I finish my work for the day, I need to stop R, push my code changes to my repository and, stop Codespace.
-
-To stop R, click the orange circle in the upper right of RStudio.
-
-![](images/setup/stop_R.png)
-
-I will see a message "R Session Ended". Close the browser tab for RStudio.
-
-![](images/setup/r_session_ended.png)
-
-Go to the Visual Studio Code browser tab. Click "bash". Click "TERMINAL".
-
-![](images/setup/bash.png)
-
-To save the changed files to my repository, type "bash scripts/save_files.sh" after the \$, and hit return/enter.
-
-![](images/setup/bash_save_files.png)
-
-To stop Codespace, click the blue area in the lower left corner of Visual Studio Code.
-
-![](images/setup/stop_codespace_button.png)
-
-A popup window will appear. Click "Stop Current Codespace".
-
-![](images/setup/stop_codespace.png)
-
-After a little while, I will see a "Codespace is stopped" message. I can now close the browser tab.
-
-![](images/codespace-stop/Codespace-stopped.png){width="425"}
+After you finish your work for the day, you need to stop R, push your code changes to your repository and, stop Codespace. Read the instructions on the [Stop Codespace page](stop-codespace.qmd).
 
 ## Complete script
 
-Here is all the code for the analysis. Some of the code is for checking results, such as `name()`, `dim()`, and `table()`. Some of the code such as 'observations near water, version 1' are things that I tried but end up not using because I tried something else.
+Here is all the code for the analysis.
 
 ```{r}
 #| eval: false

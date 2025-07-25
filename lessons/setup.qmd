@@ -8,6 +8,8 @@ classroom_organization <- 'data-explorers-feb-2025'
 classroom_repos <- paste0('https://github.com/orgs/', classroom_organization, '/repositories')
 ```
 
+## Workshop Software
+
 R is a programming language that will be used for this workshop.
 
 [RStudio](https://posit.co/products/open-source/rstudio/) is a software application to write and run R code.
@@ -20,13 +22,19 @@ R is a programming language that will be used for this workshop.
 
 [Visual Studio Code](https://code.visualstudio.com) is a software application to write and run code in a variety of languages.
 
+## Setup Options
+
 There are several ways to setup a computer for the material covered in this workshop.
 
-1.  For people who attend the in-person workshop, setup the software, data, and code on Codespaces using the workshop's Github Classroom. You can run the software for free, with no hard limit on the number of hours per month. Follow the Initial Setup instructions on this page.
-2.  For people who did not attend the in-person workshop, setup the software, data, and code on Codespaces using your Github account. You can run the software for free for 60 hours per month. Visit the [Setup - Codespace on my Github account](setup-my-account.qmd) page.
-3.  Install all the software, data, and code on your computer. You can run the software for free for an unlimited number of hours. Visit the [Setup - local](setup-local.qmd) page.
+For people who attend the in-person workshop, setup the software, data, and code on Codespaces using the workshop's Github Classroom. You can run the software for free, with no hard limit on the number of hours per month. Follow the "Setup for Workshop Attendees" instructions on this page.
 
-## Intitial Setup
+For people who did not attend the in-person workshop, you can set up the code on Github or your personal computer.
+
+1.  Setup the software, data, and code on Codespaces using your Github account. You can run the software for free for 60 hours per month. Visit the [Setup on my Github account](setup-my-account.qmd) page.
+
+2.  Install all the software, data, and code on your computer. You can run the software for free for an unlimited number of hours. Visit the [Setup local computer](setup-local.qmd) page.
+
+## Setup for Workshop Attendees
 
 This workshop use GitHub to host and run the code, data, software, and infrastructure needed for the workshop. Attendees will not need to install stuff on their own computer; everything is available online using GitHub.
 
@@ -63,84 +71,37 @@ This will create a repository in GitHub with code and data for the workshop. The
 
     ![](images/setup/open-codespace.png)
 
-4.  You will see page with "Setting up remote connection: Building codespace..." message in the corner. The software for the workshop is being downloaded and installed. This will take about 5 minutes.
 
-    This is Visual Studio Code, the default code editor for GitHub Codespaces. We want to use RStudio as our code editor.
 
-![](images/setup/building-codespace.png)
+4.  This is Visual Studio Code, the default code editor for GitHub Codespaces. We want to use RStudio as our code editor.
 
-5.  Once the Codespace if finished building, click on the "PORTS" tab at the bottom.
+    You will see page with "Setting up remote connection: Building codespace..." message in the corner. The software for the workshop is being downloaded and installed. This will take about 5 minutes.
+
+    ![](images/setup/building-codespace.png)
+
+5.  Once the Codespace has started, there should be a "bash", "Codespaces: timer", and "Codespaces: rstudio-start" on the lower right. Click on the "PORTS" tab at the bottom.
 
     ![](images/setup/finish-building.png)
+    
+
 
 6.  In the PORTS tab, hover over the item named RStudio or 8787. Click on the middle globe icon to start RStudio in a new browser tab.
 
     ![](images/setup/rstudio-port.png)
-
+    
+  
 7.  Now you are ready to write and run R code using RStudio.
-
-    ![](images/setup/rstudio.png)
-
-8.  Next step is to stop R and Codespace . Follow the steps listed in [Stop R and Codespace](setup.qmd#stop-r-and-codespace).
-
-You are done setting up Github. If you have problems, please email us.
-
-## Restart Codespace
-
-After the initial setup of Codespace, you can restart an existing Codespace.
-
-1.  Go to [`{r} classroom_organization`](`{r} classroom_repos`) Github page, and you should see your repository. Click on your repository.
-
-2.  Scroll to the bottom of the page, and click the "Open in GitHub Codespaces" button. This will restart the Codespace created in the "Setup Github Classroom and Codespaces" section.
-
-    ![](images/setup/repo-open-codespace.png)
-
-3.  This is Visual Studio Code, the default code editor for GitHub Codespaces. We want to use RStudio as our code editor.
-
-    ![](images/setup/building-codespace.png)
-
-4.  Once the Codespace has started, click on the "PORTS" tab at the bottom.
-
-    ![](images/setup/finish-building.png)
-
-5.  In the PORTS tab, hover over the item named RStudio or 8787. Click on the middle globe icon to start RStudio in a new browser tab.
-
-![](images/setup/rstudio-port.png)
-
-6.  Now you are ready to write and run R code using RStudio.
 
     Even though we won't use Visual Studio Code to write R code, keep the tab for Visual Studio Code open.
 
     ![](images/setup/rstudio.png)
 
+
+
 ## Stop Codespace
 
-After you finish your work for the day, you need to stop R, push your code changes to your repository and, stop Codespace.
+After you finish your work for the day, you need to stop R, push your code changes to your repository and, stop Codespace. Read the instructions on the [Stop Codespace page](stop-codespace.qmd).
 
-To stop R, click the orange circle in the upper right of RStudio.
+## Restart Codespace
 
-![](images/setup/stop_R.png)
-
-You'll see a message "R Session Ended". Close the browser tab for RStudio.
-
-![](images/setup/r_session_ended.png)
-
-Go to the Visual Studio Code browser tab. Click "bash". Click "TERMINAL".
-
-![](images/setup/bash.png)
-
-To save the changed files to your repository, type "bash scripts/save_files.sh" after the \$, and hit return/enter.
-
-![](images/setup/bash_save_files.png)
-
-To stop Codespace, click the blue area in the lower left corner of Visual Studio Code.
-
-![](images/setup/stop_codespace_button.png)
-
-A popup window will appear. Click "Stop Current Codespace".
-
-![](images/setup/stop_codespace.png)
-
-After a little while, you will see a "Codespace is stopped" message. You can now close the browser tab.
-
-![](images/codespace-stop/Codespace-stopped.png){width="425"}
+After the initial setup of Codespace, you can restart an existing Codespace. Read the instructons on [Restart Codespace page](restart-codespace-classroom.qmd)

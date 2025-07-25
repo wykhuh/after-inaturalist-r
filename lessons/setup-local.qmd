@@ -1,8 +1,8 @@
 ---
-title: "Setup - local computer"
+title: "Setup local computer"
 ---
 
-The workshop used Github Codespaces to host the code, data, and software. If you want to install stuff on your on own computer, follow these steps.
+If you want to install the code, data, and software on your on own computer, follow these steps.
 
 ## Install R and RStudio
 
@@ -69,8 +69,7 @@ To try to install these packages, open RStudio and copy and paste the following 
 
 install.packages(c('readr', 'dplyr', 'ggplot2', 'stringr',
                    'lubridate', 'here',
-                   'sf', 'mapview', 'basemaps', 'tigris',
-                   'pdftools', 'webshot2'))
+                   'sf', 'mapview'))
 ```
 
 R will display a messag in the console: "Do you want to proceed? \[Y/n\]:"
@@ -91,10 +90,6 @@ library(lubridate)
 library(here)
 library(sf)
 library(mapview)
-library(basemaps)
-library(tigris)
-library(pdftools)
-library(webshot2)
 ```
 
 If you do not see an error like `there is no package called ‘...’` you are good to go!

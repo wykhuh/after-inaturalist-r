@@ -1,0 +1,35 @@
+---
+title: "Restart Codespace"
+---
+
+```{r}
+#| include: false
+classroom_organization <- 'data-explorers-feb-2025'
+classroom_repos <- paste0('https://github.com/orgs/', classroom_organization, '/repositories')
+```
+
+1.  Go to [`{r} classroom_organization`](`{r} classroom_repos`) Github page, and you should see your repository. Click on your repository.
+
+2.  Scroll to the bottom of the page, and click the "Open in GitHub Codespaces" button. This will restart the Codespace created in the "Setup Github Classroom and Codespaces" section.
+
+    ![](images/setup/repo-open-codespace.png)
+
+3.  This is Visual Studio Code, the default code editor for GitHub Codespaces. We want to use RStudio as our code editor.
+
+    You will see page with "Setting up remote connection: Building codespace..." message in the corner. The software for the workshop is being downloaded and installed. This will take about 5 minutes.
+
+    ![](images/setup/building-codespace.png)
+
+4.  Once the Codespace has started, there should be a "bash", "Codespaces: timer", and "Codespaces: rstudio-start" on the lower right. Click on the "PORTS" tab at the bottom.
+
+    ![](images/setup/finish-building.png)
+
+5.  In the PORTS tab, hover over the item named RStudio or 8787. Click on the middle globe icon to start RStudio in a new browser tab.
+
+    ![](images/setup/rstudio-port.png)
+
+6.  Now you are ready to write and run R code using RStudio.
+
+    Even though we won't use Visual Studio Code to write R code, keep the tab for Visual Studio Code open.
+
+    ![](images/setup/rstudio.png)

@@ -1,0 +1,33 @@
+---
+title: "Stop Codespace"
+---
+
+After you finish your work for the day, you need to stop R, push your code changes to your repository and, stop Codespace.
+
+To stop R, click the orange circle in the upper right of RStudio.
+
+![](images/setup/stop_R.png)
+
+You'll see a message "R Session Ended". Close the browser tab for RStudio.
+
+![](images/setup/r_session_ended.png)
+
+Go to the Visual Studio Code browser tab. Click "bash". Click "TERMINAL".
+
+![](images/setup/bash.png)
+
+To save the changed files to your repository, type "bash scripts/save_files.sh" after the \$, and hit return/enter.
+
+![](images/setup/bash_save_files.png)
+
+To stop Codespace, click the blue area in the lower left corner of Visual Studio Code.
+
+![](images/setup/stop_codespace_button.png)
+
+A popup window will appear. Click "Stop Current Codespace".
+
+![](images/setup/stop_codespace.png)
+
+After a little while, you will see a "Codespace is stopped" message. You can now close the browser tab.
+
+![](images/codespace-stop/Codespace-stopped.png){width="425"}
