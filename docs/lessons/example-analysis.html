@@ -345,7 +345,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>There are 191K City Nature Challenge observations for LA County. I need to select the observations that I want.</p>
 <p>First I need to import the City Nature Challenge iNaturalist CSV into R. <code>read_csv()</code> reads the csv. <code>here()</code> helps deal with file paths. I pass in the file path of the CSV to <code>read_csv()</code>. I use assignment arrow <code>&lt;-</code> to assign the content from <code>read_csv()</code> to an object called <code>inat_data</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/cnc-los-angeles-observations.csv'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inat_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/cnc-los-angeles-observations.csv.zip'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 191638 Columns: 37
 ── Column specification ────────────────────────────────────────────────────────
@@ -390,7 +390,7 @@ date  (1): observed_on
 <p>Now that I have the scientific names, I can write my <code>filter()</code> query. I use <code>taxon_kingdom_name</code> and <code>taxon_species_name</code> instead of <code>scientific_name</code> because <code>taxon_kingdom_name</code> and <code>taxon_species_name</code> will find subspecies, while <code>scientific_name</code> will not.</p>
 <p>I use <code>dim()</code> to display the number rows and columns.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>heron_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>heron_obs <span class="ot">&lt;-</span> inat_data <span class="sc">|&gt;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_kingdom_name <span class="sc">==</span> <span class="st">'Animalia'</span> <span class="sc">&amp;</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>         taxon_species_name <span class="sc">==</span> <span class="st">'Ardea herodias'</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -422,10 +422,10 @@ FALSE  TRUE
 </div>
 <p>I add additional <code>filter()</code> commands for research grade and unobscured coordinates.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>heron_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>heron_obs <span class="ot">&lt;-</span> inat_data <span class="sc">|&gt;</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_kingdom_name <span class="sc">==</span> <span class="st">'Animalia'</span> <span class="sc">&amp;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>         taxon_species_name <span class="sc">==</span> <span class="st">'Ardea herodias'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(quality_grade <span class="sc">==</span> <span class="st">'research'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>         taxon_species_name <span class="sc">==</span> <span class="st">'Ardea herodias'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(quality_grade <span class="sc">==</span> <span class="st">'research'</span>) <span class="sc">|&gt;</span></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(coordinates_obscured <span class="sc">==</span> <span class="cn">FALSE</span>)</span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
@@ -477,7 +477,7 @@ Note
 <p>Now that I have the observations I want, I can plot them on a map.</p>
 <p>Since I want to create a map, I need to use <code>st_as_sf()</code> to convert the dataframe into a sf object. sf objects have a <code>geometry</code> column and other features that let us process geospatial data. I pass in “longitude” and “latitude” to <code>coords</code> so that <code>st_as_sf()</code> know which columns are the longitude and latitude columns. I set the CRS as 4326.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>heron_obs_sf <span class="ot">&lt;-</span> heron_obs <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>heron_obs_sf <span class="ot">&lt;-</span> heron_obs <span class="sc">|&gt;</span> </span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>),   <span class="at">crs =</span> <span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now I can use <code>mapview()</code> to create an interactive map using the sf object <code>heron_obs_sf</code>. I use <code>mapview()</code> during the analysis because being able to zoom in and out makes it easier to explore the data.</p>
@@ -487,7 +487,7 @@ Note
 <p><img src="images/mapview/example-analysis/heron_obs_map.png" class="img-fluid"></p>
 <p>When I click on a blue circle on the map, a popup shows all 37 columns, which is too much information. I can use <code>select()</code> to limit the number of columns shown.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>heron_map <span class="ot">&lt;-</span> heron_obs_sf <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>heron_map <span class="ot">&lt;-</span> heron_obs_sf <span class="sc">|&gt;</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name, taxon_species_name, image_url)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(heron_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -615,7 +615,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>ids <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1101584241267</span>, <span class="dv">1101584241127</span>, <span class="dv">1101584238995</span>)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>WNRA <span class="ot">&lt;-</span> water_areas <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>WNRA <span class="ot">&lt;-</span> water_areas <span class="sc">|&gt;</span></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(HYDROID <span class="sc">%in%</span> ids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>When I click on <code>WNRA</code> in the Environment panel, I see the three records.</p>
@@ -661,7 +661,7 @@ Note
 <h2 class="anchored" data-anchor-id="create-chart">Create chart</h2>
 <p>I want to create a bar chart that shows the heron observations near water by year. I use <code>mutate</code> and <code>year()</code> to add a year column.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>heron_year <span class="ot">&lt;-</span> heron_near_water_sf <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>heron_year <span class="ot">&lt;-</span> heron_near_water_sf <span class="sc">|&gt;</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>I use <code>ggplot() + geom_bar()</code> to create a bar chart. I use the column <code>year</code> for the x axis, and <code>geom_bar()</code> will count the number of records and use the count for the y axis.</p>
@@ -826,9 +826,9 @@ Note
 <p>I wrote some custom functions <code>download_inaturalist_images()</code> to download images from iNaturalist.</p>
 <p>I use <code>filter()</code> to select observations that have ‘CC0’, ‘CC-BY’, or ‘CC-BY-NC’ license. Some iNaturalist observations do not have images. In order to select observations that have images, I use <code>!is.na(image_url)</code> . <code>!</code> means not; <code>is.na</code> checks if the value equals <code>NA</code>; <code>!is.na(image_url)</code> will select records where <code>image_url</code> is not NA. I use <code>slice_sample(n=3)</code> to get 3 random observations. Then I use <code>download_inaturalist_images()</code> to download images. The images are saved in ‘results/images’ folder.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>heron_images <span class="ot">&lt;-</span> heron_near_water_sf <span class="sc">%&gt;%</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(license <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'CC0'</span>, <span class="st">'CC-BY'</span>, <span class="st">'CC-BY-NC'</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(image_url)) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>heron_images <span class="ot">&lt;-</span> heron_near_water_sf <span class="sc">|&gt;</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(license <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'CC0'</span>, <span class="st">'CC-BY'</span>, <span class="st">'CC-BY-NC'</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(image_url)) <span class="sc">|&gt;</span></span>
 <span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n=</span><span class="dv">3</span>)</span>
 <span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="fu">download_inaturalist_images</span>(heron_images)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -872,11 +872,11 @@ Note
 <span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Select City Nature Challenge observations</span></span>
 <span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
 <span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a>inat_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/cnc-los-angeles-observations.csv'</span>))</span>
+<span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a>inat_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">'data/cleaned/cnc-los-angeles-observations.csv.zip'</span>))</span>
 <span id="cb55-22"><a href="#cb55-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-23"><a href="#cb55-23" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(inat_data)</span>
 <span id="cb55-24"><a href="#cb55-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-25"><a href="#cb55-25" aria-hidden="true" tabindex="-1"></a>heron_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb55-25"><a href="#cb55-25" aria-hidden="true" tabindex="-1"></a>heron_obs <span class="ot">&lt;-</span> inat_data <span class="sc">|&gt;</span></span>
 <span id="cb55-26"><a href="#cb55-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_kingdom_name <span class="sc">==</span> <span class="st">'Animalia'</span> <span class="sc">&amp;</span></span>
 <span id="cb55-27"><a href="#cb55-27" aria-hidden="true" tabindex="-1"></a>         taxon_species_name <span class="sc">==</span> <span class="st">'Ardea herodias'</span>)</span>
 <span id="cb55-28"><a href="#cb55-28" aria-hidden="true" tabindex="-1"></a></span>
@@ -886,10 +886,10 @@ Note
 <span id="cb55-32"><a href="#cb55-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-33"><a href="#cb55-33" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(heron_obs<span class="sc">$</span>coordinates_obscured)</span>
 <span id="cb55-34"><a href="#cb55-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-35"><a href="#cb55-35" aria-hidden="true" tabindex="-1"></a>heron_obs <span class="ot">&lt;-</span> inat_data <span class="sc">%&gt;%</span></span>
+<span id="cb55-35"><a href="#cb55-35" aria-hidden="true" tabindex="-1"></a>heron_obs <span class="ot">&lt;-</span> inat_data <span class="sc">|&gt;</span></span>
 <span id="cb55-36"><a href="#cb55-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon_kingdom_name <span class="sc">==</span> <span class="st">'Animalia'</span> <span class="sc">&amp;</span></span>
-<span id="cb55-37"><a href="#cb55-37" aria-hidden="true" tabindex="-1"></a>         taxon_species_name <span class="sc">==</span> <span class="st">'Ardea herodias'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb55-38"><a href="#cb55-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(quality_grade <span class="sc">==</span> <span class="st">'research'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb55-37"><a href="#cb55-37" aria-hidden="true" tabindex="-1"></a>         taxon_species_name <span class="sc">==</span> <span class="st">'Ardea herodias'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb55-38"><a href="#cb55-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(quality_grade <span class="sc">==</span> <span class="st">'research'</span>) <span class="sc">|&gt;</span></span>
 <span id="cb55-39"><a href="#cb55-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(coordinates_obscured <span class="sc">==</span> <span class="cn">FALSE</span>)</span>
 <span id="cb55-40"><a href="#cb55-40" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-41"><a href="#cb55-41" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(heron_obs)</span>
@@ -905,12 +905,12 @@ Note
 <span id="cb55-51"><a href="#cb55-51" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a map with CNC observations</span></span>
 <span id="cb55-52"><a href="#cb55-52" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
 <span id="cb55-53"><a href="#cb55-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-54"><a href="#cb55-54" aria-hidden="true" tabindex="-1"></a>heron_obs_sf <span class="ot">&lt;-</span> heron_obs <span class="sc">%&gt;%</span></span>
+<span id="cb55-54"><a href="#cb55-54" aria-hidden="true" tabindex="-1"></a>heron_obs_sf <span class="ot">&lt;-</span> heron_obs <span class="sc">|&gt;</span></span>
 <span id="cb55-55"><a href="#cb55-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>),   <span class="at">crs =</span> <span class="dv">4326</span>)</span>
 <span id="cb55-56"><a href="#cb55-56" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-57"><a href="#cb55-57" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(heron_obs_sf)</span>
 <span id="cb55-58"><a href="#cb55-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-59"><a href="#cb55-59" aria-hidden="true" tabindex="-1"></a>heron_map <span class="ot">&lt;-</span> heron_obs_sf <span class="sc">%&gt;%</span></span>
+<span id="cb55-59"><a href="#cb55-59" aria-hidden="true" tabindex="-1"></a>heron_map <span class="ot">&lt;-</span> heron_obs_sf <span class="sc">|&gt;</span></span>
 <span id="cb55-60"><a href="#cb55-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_login, observed_on, common_name, taxon_species_name, image_url)</span>
 <span id="cb55-61"><a href="#cb55-61" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-62"><a href="#cb55-62" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(heron_map)</span>
@@ -963,7 +963,7 @@ Note
 <span id="cb55-109"><a href="#cb55-109" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-110"><a href="#cb55-110" aria-hidden="true" tabindex="-1"></a>ids <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1101584241267</span>, <span class="dv">1101584241127</span>, <span class="dv">1101584238995</span>)</span>
 <span id="cb55-111"><a href="#cb55-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-112"><a href="#cb55-112" aria-hidden="true" tabindex="-1"></a>WNRA <span class="ot">&lt;-</span> water_areas <span class="sc">%&gt;%</span></span>
+<span id="cb55-112"><a href="#cb55-112" aria-hidden="true" tabindex="-1"></a>WNRA <span class="ot">&lt;-</span> water_areas <span class="sc">|&gt;</span></span>
 <span id="cb55-113"><a href="#cb55-113" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(HYDROID <span class="sc">%in%</span> ids)</span>
 <span id="cb55-114"><a href="#cb55-114" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-115"><a href="#cb55-115" aria-hidden="true" tabindex="-1"></a>WNRA_5070 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(WNRA, <span class="at">crs=</span><span class="dv">5070</span>)</span>
@@ -981,7 +981,7 @@ Note
 <span id="cb55-127"><a href="#cb55-127" aria-hidden="true" tabindex="-1"></a><span class="do">## Create chart</span></span>
 <span id="cb55-128"><a href="#cb55-128" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
 <span id="cb55-129"><a href="#cb55-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-130"><a href="#cb55-130" aria-hidden="true" tabindex="-1"></a>heron_year <span class="ot">&lt;-</span> heron_near_water_sf <span class="sc">%&gt;%</span></span>
+<span id="cb55-130"><a href="#cb55-130" aria-hidden="true" tabindex="-1"></a>heron_year <span class="ot">&lt;-</span> heron_near_water_sf <span class="sc">|&gt;</span></span>
 <span id="cb55-131"><a href="#cb55-131" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on))</span>
 <span id="cb55-132"><a href="#cb55-132" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-133"><a href="#cb55-133" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
@@ -1034,9 +1034,9 @@ Note
 <span id="cb55-180"><a href="#cb55-180" aria-hidden="true" tabindex="-1"></a><span class="do">## Download iNaturalist images</span></span>
 <span id="cb55-181"><a href="#cb55-181" aria-hidden="true" tabindex="-1"></a><span class="do">## =================</span></span>
 <span id="cb55-182"><a href="#cb55-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-183"><a href="#cb55-183" aria-hidden="true" tabindex="-1"></a>heron_images <span class="ot">&lt;-</span> heron_near_water_sf <span class="sc">%&gt;%</span></span>
-<span id="cb55-184"><a href="#cb55-184" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(license <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'CC0'</span>, <span class="st">'CC-BY'</span>, <span class="st">'CC-BY-NC'</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb55-185"><a href="#cb55-185" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(image_url)) <span class="sc">%&gt;%</span></span>
+<span id="cb55-183"><a href="#cb55-183" aria-hidden="true" tabindex="-1"></a>heron_images <span class="ot">&lt;-</span> heron_near_water_sf <span class="sc">|&gt;</span></span>
+<span id="cb55-184"><a href="#cb55-184" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(license <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'CC0'</span>, <span class="st">'CC-BY'</span>, <span class="st">'CC-BY-NC'</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb55-185"><a href="#cb55-185" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(image_url)) <span class="sc">|&gt;</span></span>
 <span id="cb55-186"><a href="#cb55-186" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n=</span><span class="dv">3</span>)</span>
 <span id="cb55-187"><a href="#cb55-187" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-188"><a href="#cb55-188" aria-hidden="true" tabindex="-1"></a><span class="fu">download_inaturalist_images</span>(heron_images)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

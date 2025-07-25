@@ -325,7 +325,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="get-cnc-data">Get CNC data</h2>
 <p>First, let’s import City Nature Challenge observations over 9 years (2016-2024) within the County of Los Angeles.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>allobs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/cleaned/cnc-los-angeles-observations.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>allobs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/cleaned/cnc-los-angeles-observations.csv.zip"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 191638 Columns: 37
 ── Column specification ────────────────────────────────────────────────────────
@@ -342,12 +342,12 @@ date  (1): observed_on
 <p>Next, we want to restrict our dataset to only research grade observations. These are observations that have been identified twice and are of the highest quality. Here, we select that we only want the <code>quality_grade</code> variable to equal “research”.<br>
 </p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>allobs_research <span class="ot">&lt;-</span> allobs <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>allobs_research <span class="ot">&lt;-</span> allobs <span class="sc">|&gt;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(quality_grade<span class="sc">==</span><span class="st">"research"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We then want to convert this data into points that we can use for geospatial analysis.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>allobs_sf <span class="ot">&lt;-</span> allobs_research <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>allobs_sf <span class="ot">&lt;-</span> allobs_research <span class="sc">|&gt;</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>),   <span class="at">crs =</span> <span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -397,7 +397,7 @@ are planar</code></pre>
 <p>Additionally, because the number of observations changes over time, we need to account for this variation. One way to do this is to take a subset or a smaller portion of the observations for each year, so that each year has the same number of observations when calculating species richness.&nbsp;</p>
 <p>First, we need to create a column in our dataset that says the year using <code>mutate()</code> and <code>year()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>neighborhood_obs <span class="ot">&lt;-</span> neighborhood_obs <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>neighborhood_obs <span class="ot">&lt;-</span> neighborhood_obs <span class="sc">|&gt;</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(observed_on))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next, we need to determine the year that has the lowest number of observations. We can do this by calculating the number of observations for each year.</p>
@@ -421,24 +421,24 @@ are planar</code></pre>
 <p>Then when calculating species richness for each year, we can use a random subset in order to account for this bias, making it so we have <code>lowest_year</code> number of observations for each year.</p>
 <p>We use <code>group_by()</code> to group the observations by year, and <code>slice_sample()</code> to randomly pick <code>lowest_year</code> number of observations per year. It’s also crucial that we set <code>replace</code> to FALSE. This ensures that we don’t duplicate observations.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>random_obs_per_year <span class="ot">&lt;-</span> neighborhood_obs <span class="sc">%&gt;%</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> lowest_year, <span class="at">replace=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>random_obs_per_year <span class="ot">&lt;-</span> neighborhood_obs <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> lowest_year, <span class="at">replace=</span><span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, scientific_name)</span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(random_obs_per_year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
 # Groups:   year [1]
-   year scientific_name        
-  &lt;dbl&gt; &lt;chr&gt;                  
-1  2016 Heteromeles arbutifolia
-2  2016 Heteromeles arbutifolia
-3  2016 Encelia californica    
-4  2016 Solanum douglasii      
-5  2016 Trifolium repens       
-6  2016 Eleodes osculans       </code></pre>
+   year scientific_name       
+  &lt;dbl&gt; &lt;chr&gt;                 
+1  2016 Hirschfeldia incana   
+2  2016 Nicotiana glauca      
+3  2016 Marrubium vulgare     
+4  2016 Marrubium vulgare     
+5  2016 Aphelocoma californica
+6  2016 Malva multiflora      </code></pre>
 </div>
 </div>
 <p>We can use table to confirm we get <code>lowest_year</code> number of observations per year.</p>
@@ -456,7 +456,7 @@ are planar</code></pre>
 </div>
 <p>We use <code>count()</code> to count the number of species per year.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>richness_dataframe <span class="ot">&lt;-</span> unique_species_per_year <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>richness_dataframe <span class="ot">&lt;-</span> unique_species_per_year <span class="sc">|&gt;</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(year, <span class="at">name=</span><span class="st">'richness'</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>richness_dataframe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -465,15 +465,15 @@ are planar</code></pre>
 # Groups:   year [9]
    year richness
   &lt;dbl&gt;    &lt;int&gt;
-1  2016      131
+1  2016      129
 2  2017      127
-3  2018      120
-4  2019      120
-5  2020      120
-6  2021      128
-7  2022      128
-8  2023      130
-9  2024      122</code></pre>
+3  2018      131
+4  2019      128
+5  2020      122
+6  2021      122
+7  2022      141
+8  2023      129
+9  2024      115</code></pre>
 </div>
 </div>
 <p>Next, we can create a chart and visualize the results. Here, we use commands for how the plot looks similar to other plots we’ve created previously.</p>
