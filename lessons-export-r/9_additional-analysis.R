@@ -17,7 +17,7 @@ sf_use_s2(FALSE)
 
 
 ## ----read_data_from_csv---------------------------------------------------------
-inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 
 
 

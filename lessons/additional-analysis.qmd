@@ -36,7 +36,7 @@ First, we need to read data from the CNC iNaturalist observation file.
 
 ```{r, read_data_from_csv}
 #| message: false
-inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 
 ```
 

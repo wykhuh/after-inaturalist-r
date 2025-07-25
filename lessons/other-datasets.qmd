@@ -549,7 +549,7 @@ Get all iNaturalist observations
 
 ```{r get_inaturalist_data}
 #| message: false
-inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 ```
 
 Use `st_as_sf()` to add a geometry column so we can map the observations.
@@ -608,7 +608,7 @@ Get all iNaturalist observations
 
 ```{r get_inaturalist_data_2}
 #| message: false
-inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 ```
 
 Use `st_as_sf()` to add a geometry column so we can map the observations.

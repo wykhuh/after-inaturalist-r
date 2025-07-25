@@ -7,7 +7,7 @@ library(tibble) # tibbles are updated version of dataframes
 
 
 ## ----assign_read_csv_to_object--------------------------------------------------
-inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 
 
 ## ----call_glimpse---------------------------------------------------------------

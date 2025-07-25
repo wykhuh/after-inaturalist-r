@@ -47,7 +47,7 @@ First, read data from the iNaturalist observation file.
 
 ```{r, load_inaturalist_data}
 #| message: false
-inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 
 ```
 
@@ -169,7 +169,7 @@ Create a chart with all your observations for each year
 ::: answer
 ```{r, exercise_create_bar_chart}
 
-my_inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+my_inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 
 my_obs_by_year  <- my_inat_data |> 
   mutate(year = year(observed_on))  |> 

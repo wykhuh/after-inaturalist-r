@@ -13,7 +13,7 @@ source(here('scripts/data_utils.R')) # custom functions for workshop
 
 
 ## ----read_inat_file-------------------------------------------------------------
-inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 
 
 
@@ -251,7 +251,7 @@ source(here('scripts/data_utils.R')) # custom functions for workshop
 ## Select City Nature Challenge observations
 ## =================
 
-inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 
 names(inat_data)
 

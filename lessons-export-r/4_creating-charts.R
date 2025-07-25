@@ -8,7 +8,7 @@ library(here) # file paths
 
 
 ## ----load_inaturalist_data------------------------------------------------------
-inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 
 
 

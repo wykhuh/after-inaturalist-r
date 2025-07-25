@@ -246,7 +246,7 @@ mapview(ecotopes, zcol='ET_LndsZon')
 
 
 ## ----get_inaturalist_data-------------------------------------------------------
-inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 
 
 ## ----add_geometry_to_inaturalist------------------------------------------------
@@ -282,7 +282,7 @@ mapview(indicator_sf)
 
 
 ## ----get_inaturalist_data_2-----------------------------------------------------
-inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 
 
 ## ----add_geometry_to_inaturalist_2----------------------------------------------

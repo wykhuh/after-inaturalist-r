@@ -57,7 +57,7 @@ First, we need to read data from the CNC iNaturalist observation file.
 
 ```{r, read_data_from_csv}
 #| message: false
-inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 
 ```
 
@@ -167,7 +167,7 @@ Create a map for one species.
 ```{r, exercise_create_map_one_species}
 #| eval: false
 
-my_inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+my_inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 
 my_inat_sf <- my_inat_data |> 
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326)  |> 
@@ -524,7 +524,7 @@ Create a map for all observations that are inside of a specific area
 ```{r,exercise_create_map_of_observations_inside_boundary}
 #| eval: false
 
-my_all_inat_sf <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv')) |>
+my_all_inat_sf <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip')) |>
   st_as_sf(coords = c("longitude", "latitude"),   crs = 4326) |>
   select(common_name, scientific_name, user_login, observed_on)
 

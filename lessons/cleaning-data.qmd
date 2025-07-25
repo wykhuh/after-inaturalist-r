@@ -24,11 +24,11 @@ Save the file paths as objects.
 
 ```{r}
 
-observations_raw_path <- tempfile()
-zip_path <- here('data/raw/observations-513664.zip')
-unzip(zipfile = zip_path, exdir = observations_raw_path)
+observations_raw_path <- here('data/raw/observations-513664.zip')
 
 observations_cleaned_path <- here('data/cleaned/cnc-los-angeles-observations.csv')
+
+observations_cleaned_zip_path <- here('data/cleaned/cnc-los-angeles-observations.csv.zip')
 ```
 
 The CSV we downloaded from iNaturalist had several problems.
@@ -47,11 +47,7 @@ These are the steps we took to produced the cleaned up file. The raw file is at 
 #| message: false
 #| warning: false
 
-tmp <- tempfile()
-zip_path <- here('data/raw/observations-513664.zip')
-unzip(zipfile = zip_path, exdir = tmp)
-
-inat_raw <- read_csv(paste(tmp, 'observations-513664.csv', sep='/'))
+inat_raw <- read_csv(observations_raw_path)
 ```
 
 Use `colSums(is.na())` to count the number of rows that have NA values for each column.
@@ -185,6 +181,10 @@ We want to save the cleaned up data set so we can use it later. We can save data
 ```{r}
 #| eval: false
 write_csv(inat, file= observations_cleaned_path, na = "" )
+```
+
+```{r}
+zip(zipfile = observations_cleaned_zip_path, files = observations_cleaned_path)
 ```
 
 ### Adding more information

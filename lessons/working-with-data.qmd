@@ -20,7 +20,7 @@ time: 25 min to Ex 1. 10 min Ex 1. 15 min to ex 2. 10 min ex 2. 5 min to ex 3. 1
 
 ## Exploring iNaturalist data
 
-A CSV of iNaturalist observations for City Nature Challenge Los Angeles from 2015 to 2024 is located at "data/cleaned/cnc-los-angeles-observations.csv". We are going to read that CSV using R.
+A CSV of iNaturalist observations for City Nature Challenge Los Angeles from 2015 to 2024 is located at "data/cleaned/cnc-los-angeles-observations.csv.zip". We are going to read that CSV using R.
 
 ### Functions
 
@@ -78,7 +78,7 @@ We call `read_csv()` function from **readr**, and pass in a relative path to a C
 
 ```{r, assign_read_csv_to_object}
 #| message: false
-inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 ```
 
 We can use the `glimpse()` function from **dplyr** get a summary about the contents of `inat_data`. It shows the number of rows and columns. For each column, it shows the name, data type (dbl, chr, lgl, date), and the first few values.
@@ -325,7 +325,7 @@ Get all your City Nature Challenge observations.
 
 ::: answer
 ```{r, exercise_your_observations}
-my_inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+my_inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 
 my_obs <- my_inat_data |>
   filter(user_login == 'natureinla') |>

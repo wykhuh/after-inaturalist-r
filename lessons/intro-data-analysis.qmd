@@ -98,7 +98,7 @@ Load iNaturalist data from City Nature Challenge Los Angeles 2013-2024. There ar
 #| warning: false
 #| message: false
 
-inat <- read_csv(here("data/cleaned/cnc-los-angeles-observations.csv"))
+inat <- read_csv(here("data/cleaned/cnc-los-angeles-observations.csv.zip"))
 ```
 
 Select the data you want. For instance, get all the research grade observations for one user.

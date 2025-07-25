@@ -30,7 +30,7 @@ Say you want to track species diversity over time in your neighborhood. Species 
 First, let’s import City Nature Challenge observations over 9 years (2016-2024) within the County of Los Angeles.
 
 ```{r get_inaturalist_data}
-allobs <- read_csv(here("data/cleaned/cnc-los-angeles-observations.csv"))
+allobs <- read_csv(here("data/cleaned/cnc-los-angeles-observations.csv.zip"))
 
 ```
 

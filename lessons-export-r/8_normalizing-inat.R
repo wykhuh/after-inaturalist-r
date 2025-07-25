@@ -14,7 +14,7 @@ sf_use_s2(FALSE)
 
 
 ## ----get_inaturalist_data-------------------------------------------------------
-allobs <- read_csv(here("data/cleaned/cnc-los-angeles-observations.csv"))
+allobs <- read_csv(here("data/cleaned/cnc-los-angeles-observations.csv.zip"))
 
 
 

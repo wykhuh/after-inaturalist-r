@@ -38,7 +38,7 @@ There are 191K City Nature Challenge observations for LA County. I need to selec
 First I need to import the City Nature Challenge iNaturalist CSV into R. `read_csv()` reads the csv. `here()` helps deal with file paths. I pass in the file path of the CSV to `read_csv()`. I use assignment arrow `<-` to assign the content from `read_csv()` to an object called `inat_data`.
 
 ```{r read_inat_file}
-inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 
 ```
 
@@ -497,7 +497,7 @@ source(here('scripts/data_utils.R')) # custom functions for workshop
 ## Select City Nature Challenge observations
 ## =================
 
-inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv'))
+inat_data <- read_csv(here('data/cleaned/cnc-los-angeles-observations.csv.zip'))
 
 names(inat_data)
 
